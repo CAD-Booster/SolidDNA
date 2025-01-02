@@ -47,7 +47,7 @@ namespace CADBooster.SolidDna
 
         /// <summary>
         /// Called when SolidWorks tries to determine if this add-in is registered with the Partner Program.
-        /// This method is called before <see cref="SolidAddIn.ConnectToSW"/>.
+        /// This method is called before <see cref="SolidAddIn.ConnectToSW"/> and before <see cref="SolidWorksEnvironment.Application"/> is set.
         /// See <see cref="SolidWorksAddInPartnerLicenseKey"/>.
         /// </summary>
         /// <param name="classFactory"></param>
