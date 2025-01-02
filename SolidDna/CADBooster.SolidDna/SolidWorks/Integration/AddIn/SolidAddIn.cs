@@ -146,9 +146,6 @@ namespace CADBooster.SolidDna
                 // Log it
                 Logger.LogTraceSource($"Fired PreConnectToSolidWorks...");
 
-                // Get the directory path to this actual add-in dll
-                var assemblyPath = this.AssemblyPath();
-
                 // Log it
                 Logger.LogDebugSource($"{SolidWorksAddInTitle} Connected to SolidWorks...");
 
@@ -160,14 +157,14 @@ namespace CADBooster.SolidDna
                 // Initialize SolidWorks (SolidDNA class)
                 //SolidWorks = new SolidWorksApplication((SldWorks)ThisSW, Cookie);
 
-                // Tell solidworks which method to call when it receives a button click on a command manager item or flyout.
-                SetUpCallbacks(thisSw, cookie);
-
                 // Log it
                 Logger.LogDebugSource($"Storing the SOLIDWORKS instance...");
 
                 // Set up the current SolidWorks instance as a SolidDNA class.
                 AddInIntegration.ConnectToActiveSolidWorks(((SldWorks)thisSw).RevisionNumber(), cookie);
+
+                // Tell solidworks which method to call when it receives a button click on a command manager item or flyout.
+                SetUpCallbacks(thisSw, cookie);
 
                 // Log it
                 Logger.LogDebugSource($"Firing PreLoadPlugIns...");
@@ -180,6 +177,9 @@ namespace CADBooster.SolidDna
 
                     // Log it
                     Logger.LogDebugSource($"Configuring PlugIns...");
+
+                    // Get the directory path to this actual add-in dll
+                    var assemblyPath = this.AssemblyPath();
 
                     // Perform any plug-in configuration
                     PlugInIntegration.ConfigurePlugIns(assemblyPath, this);
