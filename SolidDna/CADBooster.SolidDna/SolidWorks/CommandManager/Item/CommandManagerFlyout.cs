@@ -94,6 +94,11 @@ namespace CADBooster.SolidDna
         /// </summary>
         public Action OnClick { get; set; }
 
+        /// <summary>
+        /// The action to call when the item state requested
+        /// </summary>
+        public Action<ItemStateCheckArgs> OnStateCheck { get; set; }
+
         #endregion
 
         /// <summary>
@@ -138,6 +143,9 @@ namespace CADBooster.SolidDna
             // Listen out for callbacks
             PlugInIntegration.CallbackFired += PlugInIntegration_CallbackFired;
 
+            // Listen out for UpdateCallbackFunction
+            PlugInIntegration.ItemStateCheckFired += PlugInIntegration_UpdateCallbackFunctionFired;
+
             // Add the items when the flyout is clicked for the first time. Does not work when you add items right away.
             OnClick = AddCommandItems;
 
@@ -176,7 +184,9 @@ namespace CADBooster.SolidDna
         private void AddCommandItem(CommandManagerItem item)
         {
             // Add the item and receive the actual position.
-            var position = BaseObject.AddCommandItem(item.Name, item.Hint, item.ImageIndex, $"{nameof(SolidAddIn.Callback)}({item.CallbackId})", null);
+            var position = BaseObject.AddCommandItem(item.Name, item.Hint, item.ImageIndex, 
+                                                     $"{nameof(SolidAddIn.Callback)}({item.CallbackId})", 
+                                                     $"{nameof(SolidAddIn.ItemStateCheck)}({item.CallbackId})");
 
             // If the returned position is -1, the item was not added.
             if (position == -1)
@@ -195,6 +205,19 @@ namespace CADBooster.SolidDna
 
             // Call the action
             item?.OnClick?.Invoke();
+        }
+
+        /// <summary>
+        /// Fired when a SolidWorks UpdateCallbackFunction is fired
+        /// </summary>
+        /// <param name="args">The arguments for user handling</param>
+        private void PlugInIntegration_UpdateCallbackFunctionFired(ItemStateCheckArgs args)
+        {
+            // Find the item, if any
+            var item = Items?.FirstOrDefault(f => f.CallbackId == args.CallbackId);
+
+            // Call the action
+            item?.OnStateCheck?.Invoke(args);
         }
 
         /// <summary>

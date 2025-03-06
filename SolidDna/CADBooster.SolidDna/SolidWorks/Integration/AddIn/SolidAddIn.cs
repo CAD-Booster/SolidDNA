@@ -122,9 +122,25 @@ namespace CADBooster.SolidDna
         public void Callback(string arg)
         {
             // Log it
-            Logger.LogDebugSource($"SolidWorks Callback fired {arg}");
+            Logger.LogDebugSource($"SolidWorks {nameof(Callback)} fired {arg}");
 
             PlugInIntegration.OnCallback(arg);
+        }
+
+        /// <summary>
+        /// Receives state request callbacks from command manager items and flyouts. 
+        /// We tell SolidWorks to call a method in the <see cref="SolidAddIn"/> class in <see cref="SetUpCallbacks"/>
+        /// We tell it to call this method in <see cref="CommandManagerGroup.AddCommandItem"/> and <see cref="CommandManagerFlyout.AddCommandItem"/>.
+        /// We forward this to <see cref="PlugInIntegration.OnItemStateCheck"/>, which then finds the correct command manager item or flyout and calls its OnEnableStateCheck method.
+        /// </summary>
+        /// <param name="arg"></param>
+        /// <returns>State of the item</returns>
+        public int ItemStateCheck(string arg)
+        {
+            // Log it
+            Logger.LogDebugSource($"SolidWorks {nameof(ItemStateCheck)} fired {arg}");
+
+            return PlugInIntegration.OnItemStateCheck(arg);
         }
 
         /// <summary>

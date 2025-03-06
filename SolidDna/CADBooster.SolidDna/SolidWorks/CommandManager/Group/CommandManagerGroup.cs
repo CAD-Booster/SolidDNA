@@ -105,6 +105,9 @@ namespace CADBooster.SolidDna
 
             // Listen out for callbacks
             PlugInIntegration.CallbackFired += PlugInIntegration_CallbackFired;
+
+            // Listen out for StateCheck callbacks
+            PlugInIntegration.ItemStateCheckFired += PlugInIntegration_EnableMethodFired;
         }
 
         /// <summary>
@@ -180,7 +183,9 @@ namespace CADBooster.SolidDna
             {
                 // Add the item. We pass a preferred position for each item and receive the actual position back.
                 var actualPosition = BaseObject.AddCommandItem2(item.Name, item.Position, item.Hint, item.Tooltip, item.ImageIndex,
-                                                                $"{nameof(SolidAddIn.Callback)}({item.CallbackId})", null, UserId, (int)item.ItemType);
+                                                                $"{nameof(SolidAddIn.Callback)}({item.CallbackId})", 
+                                                                $"{nameof(SolidAddIn.ItemStateCheck)}({item.CallbackId})", 
+                                                                UserId, (int)item.ItemType);
                 
                 // If the returned position is -1, the item was not added.
                 if (actualPosition == -1)
@@ -372,6 +377,15 @@ namespace CADBooster.SolidDna
 
             // Call the action
             item?.OnClick?.Invoke();
+        }
+
+        private void PlugInIntegration_EnableMethodFired(ItemStateCheckArgs args)
+        {
+            // Find the item, if any
+            var item = Items.FirstOrDefault(f => f.CallbackId == args.CallbackId);
+
+            // Call the action
+            item?.OnStateCheck?.Invoke(args);
         }
 
         /// <summary>
