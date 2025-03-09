@@ -1,4 +1,6 @@
 ﻿using CADBooster.SolidDna;
+using CADBooster.SolidDna.SolidWorks.CommandManager.Item;
+using SolidWorks.Interop.swconst;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -61,6 +63,50 @@ namespace SolidDna.CommandItems
         public override void ConnectedToSolidWorks()
         {
             var imageFormat = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "icons{0}.png");
+
+            var item = CreateCommandItems().First();
+
+            new CommandContextMenuGroup()
+            {
+                Name = "RootGroup",
+                Items = 
+                [..
+                    CreateCommandItems().AsCommandCreatable(),
+                    new CommandContextItem()
+                    {
+                        Name = "Plane item",
+                        Hint = "Plane item Hint",
+                        OnClick = item.OnClick,
+                        SelectionType = swSelectType_e.swSelDATUMPLANES
+                    },
+                    new CommandContextMenuGroup()
+                    {
+                        Name = "SubGroup",
+                        Items = [
+                            new CommandContextItem()
+                            {
+                                Name = "SubItem",
+                                Hint = "SubGroup",
+                                OnClick = item.OnClick,
+                                SelectionType = swSelectType_e.swSelCOMPONENTS
+                            },
+                            new CommandContextMenuGroup()
+                            {
+                                Name = "SubSubGroup",
+                                Items = [
+                                    new CommandContextItem()
+                                    {
+                                        Name = "SubSubItem",
+                                        Hint = "SubSubItem Hint",
+                                        OnClick = item.OnClick,
+                                        SelectionType = swSelectType_e.swSelCOMPONENTS
+                                    }
+                                ]
+                            },
+                        ]
+                    },
+                ]
+            }.Create(string.Empty);
 
             // FlyoutGroup
             var flyout = Application.CommandManager.CreateFlyoutGroup2(

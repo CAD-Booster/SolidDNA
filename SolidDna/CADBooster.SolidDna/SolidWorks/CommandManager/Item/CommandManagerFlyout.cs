@@ -200,6 +200,7 @@ namespace CADBooster.SolidDna
         /// <param name="name">The name of the callback that was fired</param>
         private void PlugInIntegration_CallbackFired(string name)
         {
+            // TODO: This is not works with FlyoutGroup itself
             // Find the item, if any
             var item = Items?.FirstOrDefault(f => f.CallbackId == name);
 
@@ -213,6 +214,7 @@ namespace CADBooster.SolidDna
         /// <param name="args">The arguments for user handling</param>
         private void PlugInIntegration_UpdateCallbackFunctionFired(ItemStateCheckArgs args)
         {
+            // TODO: This is not works with FlyoutGroup itself
             // Find the item, if any
             var item = Items?.FirstOrDefault(f => f.CallbackId == args.CallbackId);
 
