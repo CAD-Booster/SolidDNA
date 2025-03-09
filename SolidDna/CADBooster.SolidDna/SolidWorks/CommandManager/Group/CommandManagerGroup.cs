@@ -445,6 +445,7 @@ namespace CADBooster.SolidDna
         {
             // Stop listening out for callbacks
             PlugInIntegration.CallbackFired -= PlugInIntegration_CallbackFired;
+            PlugInIntegration.ItemStateCheckFired -= PlugInIntegration_EnableMethodFired;
 
             // Dispose all tabs
             foreach (var tab in mTabs.Values)

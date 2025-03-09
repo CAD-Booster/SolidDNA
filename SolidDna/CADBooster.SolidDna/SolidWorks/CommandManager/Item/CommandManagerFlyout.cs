@@ -227,6 +227,7 @@ namespace CADBooster.SolidDna
         {
             // Stop listening out for callbacks
             PlugInIntegration.CallbackFired -= PlugInIntegration_CallbackFired;
+            PlugInIntegration.ItemStateCheckFired -= PlugInIntegration_UpdateCallbackFunctionFired;
 
             base.Dispose();
         }
