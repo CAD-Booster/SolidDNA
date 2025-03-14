@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CADBooster.SolidDna.SolidWorks.CommandManager.Item
 {
@@ -11,6 +8,6 @@ namespace CADBooster.SolidDna.SolidWorks.CommandManager.Item
         int UserId { get; }
         string Name { get; }
 
-        void Create(string path = "");
+        IEnumerable<ICommandCreated> Create(string path = "");
     }
 }

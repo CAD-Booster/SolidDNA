@@ -1,4 +1,5 @@
-﻿using SolidWorks.Interop.sldworks;
+﻿using CADBooster.SolidDna.SolidWorks.CommandManager.Item;
+using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,11 @@ namespace CADBooster.SolidDna
         /// A list of all created command flyouts
         /// </summary>
         private readonly List<CommandManagerFlyout> mCommandFlyouts = new List<CommandManagerFlyout>();
+
+        /// <summary>
+        /// A list of all created command context menu items
+        /// </summary>
+        private readonly List<ICommandCreated> mCommandContextItems = new List<ICommandCreated>();
 
         /// <summary>
         /// Unique ID for flyouts (just increment every time we add one)
@@ -74,6 +80,12 @@ namespace CADBooster.SolidDna
         {
             return CreateCommandGroupAndTabs(title, id, commandManagerItems, mainIconPathFormat, iconListsPathFormat, -1, ignorePreviousVersion, false, true);
 #pragma warning restore CS0618
+        }
+
+        public void CreateContextMenuItems(IEnumerable<ICommandCreatable> commandItems)
+        {
+            foreach (var item in commandItems)
+                mCommandContextItems.AddRange(item.Create());
         }
 
         /// <summary>
@@ -316,6 +328,9 @@ namespace CADBooster.SolidDna
 
             // Remove all command flyouts
             mCommandFlyouts?.ForEach(RemoveCommandFlyout);
+
+            // Remove all command context menu items
+            mCommandContextItems?.ForEach(x => x.Dispose());
 
             base.Dispose();
         }
