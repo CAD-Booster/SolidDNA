@@ -262,7 +262,10 @@ namespace CADBooster.SolidDna
         private void RemoveCommandFlyout(CommandManagerFlyout flyout)
         {
             lock (mCommandFlyouts)
+            {
                 BaseObject.RemoveFlyoutGroup(flyout.UserId);
+                mCommandFlyouts.Remove(flyout);
+            }
         }
 
         /// <summary>
@@ -273,7 +276,10 @@ namespace CADBooster.SolidDna
         private void RemoveCommandGroup(CommandManagerGroup group, bool runtimeOnly = false)
         {
             lock (mCommandGroups)
+            {
                 BaseObject.RemoveCommandGroup2(group.UserId, runtimeOnly);
+                mCommandGroups.Remove(group);
+            }
         }
 
         /// <summary>
@@ -331,6 +337,7 @@ namespace CADBooster.SolidDna
 
             // Remove all command context menu items
             mCommandContextItems?.ForEach(x => x.Dispose());
+            mCommandContextItems.Clear();
 
             base.Dispose();
         }

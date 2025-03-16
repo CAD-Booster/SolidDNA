@@ -12,11 +12,11 @@ namespace CADBooster.SolidDna
         /// <summary>
         /// The action to call when the item is clicked
         /// </summary>
-        Action OnClick { get; set; }
+        Action OnClick { get; }
 
         /// <summary>
         /// The action to call when the item state requested
         /// </summary>
-        Action<ItemStateCheckArgs> OnStateCheck { get; set; }
+        Action<ItemStateCheckArgs> OnStateCheck { get; }
     }
 }
