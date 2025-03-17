@@ -82,6 +82,10 @@ namespace CADBooster.SolidDna
 #pragma warning restore CS0618
         }
 
+        /// <summary>
+        /// Creates context menu items from the provided collection of <see cref="ICommandCreatable"/> objects
+        /// </summary>
+        /// <param name="commandItems">The collection of command items to create</param>
         public void CreateContextMenuItems(IEnumerable<ICommandCreatable> commandItems)
         {
             foreach (var item in commandItems)
@@ -131,7 +135,7 @@ namespace CADBooster.SolidDna
 
                     // Track all flyouts for all add-ins that use SolidDNA
                     mCommandFlyouts.AddRange(commandManagerItems.OfType<CommandManagerFlyout>());
-
+                    
                     // Create the group
                     group.Create(this, title);
 
@@ -335,7 +339,7 @@ namespace CADBooster.SolidDna
             // Remove all command flyouts
             mCommandFlyouts?.ForEach(RemoveCommandFlyout);
 
-            // Remove all command context menu items
+            // Dispose all command context menu items
             mCommandContextItems?.ForEach(x => x.Dispose());
             mCommandContextItems.Clear();
 

@@ -2,10 +2,13 @@
 
 namespace CADBooster.SolidDna
 {
+    /// <summary>
+    /// Represents an interface for a command item
+    /// </summary>
     public interface ICommandItem
     {
         /// <summary>
-        /// The unique Callback ID (set by creator)
+        /// The unique Callback ID
         /// </summary>
         string CallbackId { get; }
 
@@ -15,7 +18,7 @@ namespace CADBooster.SolidDna
         Action OnClick { get; }
 
         /// <summary>
-        /// The action to call when the item state requested
+        /// The action to call when the item's state is requested
         /// </summary>
         Action<ItemStateCheckArgs> OnStateCheck { get; }
     }

@@ -228,6 +228,11 @@
         /// </summary>
         SolidWorksCommandItemPositionError = 12010,
 
+        /// <summary>
+        /// There was an error while trying to activate a Context Menu Item that was already activated
+        /// </summary>
+        SolidWorksCommandContextMenuItemReActivateError = 12011,
+
         #endregion
 
         #region Export Data (13,000)

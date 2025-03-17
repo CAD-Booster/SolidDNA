@@ -1,9 +1,6 @@
-﻿using CADBooster.SolidDna.SolidWorks.CommandManager.Item;
-using SolidWorks.Interop.sldworks;
-using SolidWorks.Interop.swconst;
+﻿using SolidWorks.Interop.swconst;
 using System;
 using System.Collections.Generic;
-using System.Windows.Shapes;
 
 namespace CADBooster.SolidDna
 {
@@ -21,22 +18,22 @@ namespace CADBooster.SolidDna
         public string Name { get; set; }
 
         /// <summary>
-        /// The help text for this item. Is only used for toolbar items and flyouts, underneath the <see cref="Tooltip"/>. Is not used for menus and flyout items.
+        /// The help text for this item.
         /// </summary>
         public string Hint { get; set; }
 
         /// <summary>
-        /// True to show this item in the command tab when an assembly is open. Only works for toolbar items and flyouts, not for menus or flyout items.
+        /// True to show this item in the context menu when an assembly is open.
         /// </summary>
         public bool VisibleForAssemblies { get; set; } = true;
 
         /// <summary>
-        /// True to show this item in the command tab when a drawing is open. Only works for toolbar items and flyouts, not for menus or flyout items.
+        /// True to show this item in the context menu when a drawing is open.
         /// </summary>
         public bool VisibleForDrawings { get; set; } = true;
 
         /// <summary>
-        /// True to show this item in the command tab when a part is open. Only works for toolbar items and flyouts, not for menus or flyout items.
+        /// True to show this item in the context menu when a part is open.
         /// </summary>
         public bool VisibleForParts { get; set; } = true;
 
@@ -50,26 +47,25 @@ namespace CADBooster.SolidDna
         /// </summary>
         public Action<ItemStateCheckArgs> OnStateCheck { get; set; }
 
-        public swSelectType_e SelectionType { get; set; } = swSelectType_e.swSelNOTHING;
+        /// <summary>
+        /// The selection type that determines where the context menu will be shown
+        /// </summary>
+        public swSelectType_e SelectionType { get; set; } = swSelectType_e.swSelEVERYTHING;
 
         #endregion
 
         /// <summary>
-        /// Create a command manager flyout (group).
+        /// Creates the command context item for the specified document types
         /// </summary>
-        public CommandContextItem()
-        {
-        }
-
-        /// <summary>
-        /// Remove, then re-add all items to the flyout.
-        /// Is called on every click of the flyout, but only does something on the first click.
-        /// SolidWorks calls this a 'dynamic flyout' in the help.
-        /// </summary>
+        /// <param name="path">The path to use for hierarchical naming. If empty, the item's name is used</param>
+        /// <returns>A list of created command context items</returns>
+        /// <exception cref="SolidDnaException">Thrown if the item has already been created</exception>
         public IEnumerable<ICommandCreated> Create(string path = "")
         {
-            //if (_isCreated)
-            //    throw new NotImplementedException(); // TODO
+            if (_isCreated)
+                throw new SolidDnaException(
+                    SolidDnaErrors.CreateError(SolidDnaErrorTypeCode.SolidWorksCommandManager,
+                    SolidDnaErrorCode.SolidWorksCommandContextMenuItemReActivateError));
 
             _isCreated = true;
 

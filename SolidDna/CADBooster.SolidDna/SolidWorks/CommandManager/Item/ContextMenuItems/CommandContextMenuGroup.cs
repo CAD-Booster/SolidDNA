@@ -1,14 +1,11 @@
 ﻿using CADBooster.SolidDna.SolidWorks.CommandManager.Item;
-using SolidWorks.Interop.swconst;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace CADBooster.SolidDna
 {
     /// <summary>
-    /// A command context menu group in SolidWorks
+    /// Represents a command context menu group in SolidWorks
     /// </summary>
     public class CommandContextMenuGroup : ICommandCreatable
     {
@@ -21,19 +18,25 @@ namespace CADBooster.SolidDna
         /// </summary>
         public string Name { get; set; }
 
+        /// <summary>
+        /// Context menu items in this group
+        /// </summary>
         public List<ICommandCreatable> Items { get; set; }
 
         #endregion
 
         /// <summary>
-        /// Remove, then re-add all items to the flyout.
-        /// Is called on every click of the flyout, but only does something on the first click.
-        /// SolidWorks calls this a 'dynamic flyout' in the help.
+        /// Creates the command context menu group and its items
         /// </summary>
+        /// <param name="path">The hierarchical path for the group</param>
+        /// <returns>A list of created command context menu items</returns>
+        /// <exception cref="SolidDnaException">Thrown if the group has already been created</exception>
         public IEnumerable<ICommandCreated> Create(string path)
         {
             if (_isCreated)
-                throw new NotImplementedException(); // TODO
+                throw new SolidDnaException(
+                    SolidDnaErrors.CreateError(SolidDnaErrorTypeCode.SolidWorksCommandManager,
+                    SolidDnaErrorCode.SolidWorksCommandContextMenuItemReActivateError));
 
             _isCreated = true;
 
