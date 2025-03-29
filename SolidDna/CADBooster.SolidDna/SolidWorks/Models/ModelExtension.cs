@@ -69,21 +69,21 @@ namespace CADBooster.SolidDna
                         : throw new InvalidOperationException(Localization.GetString("SolidWorksModelGetMassModelNotPartError"));
                 }
 
-                double[] massProps = null;
+                // Explicitly set a custom status value because SolidWorks does not always set it
                 const int statusDefault = -1;
                 var status = statusDefault;
 
-                //
-                // SolidWorks 2016 is the start of support for MassProperties2
-                //
-                // Tested on 2015 and crashes, so drop-back to lower version for support
-                //
-                if (SolidWorksEnvironment.Application.SolidWorksVersion.Version < 2016)
-                    // NOTE: 2 is best accuracy
-                    massProps = (double[])BaseObject.GetMassProperties(2, ref status);
+                const int highestAccuracy = 2;
+                var solidWorksVersion = SolidWorksEnvironment.Application.SolidWorksVersion;
+                double[] massPropertiesArray;
+
+                if (solidWorksVersion == null || solidWorksVersion.Version < 2016)
+                    massPropertiesArray = (double[])BaseObject.GetMassProperties(highestAccuracy, ref status);
                 else
-                    // NOTE: 2 is best accuracy
-                    massProps = (double[])BaseObject.GetMassProperties2(2, out status, false);
+                {
+                    // SolidWorks 2016 introduced GetMassProperties2
+                    massPropertiesArray = (double[])BaseObject.GetMassProperties2(highestAccuracy, out status, false);
+                }
 
                 // Make sure it succeeded. SOLIDWORKS does not always update the status when it returns null
                 if (status == (int)swMassPropertiesStatus_e.swMassPropertiesStatus_UnknownError || status == statusDefault)
@@ -97,7 +97,7 @@ namespace CADBooster.SolidDna
                     return new MassProperties();
 
                 // Otherwise we have the properties so return them
-                return new MassProperties(massProps);
+                return new MassProperties(massPropertiesArray);
             },
                 SolidDnaErrorTypeCode.SolidWorksModel,
                 SolidDnaErrorCode.SolidWorksModelGetMassPropertiesError);
