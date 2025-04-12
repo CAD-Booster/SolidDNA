@@ -23,6 +23,7 @@
         /// <summary>
         /// Select and disable the item. 
         /// The default behavior of SolidWorks is to select a (flyout) item if the property manager page for that item is active, like while creating a sketch or drawing a rectangle.
+        /// Also used in the Tools menu to show a selected option with a check mark.
         /// Valid for items and flyout items.
         /// </summary>
         SelectedDisabled = 2,
@@ -30,6 +31,7 @@
         /// <summary>
         /// Select and enable the item. 
         /// The default behavior of SolidWorks is to select a (flyout) item if the property manager page for that item is active, like while creating a sketch or drawing a rectangle.
+        /// Also used in the Tools menu to show a selected option with a check mark.
         /// Valid for items and flyout items.
         /// </summary>
         SelectedEnabled = 3,
