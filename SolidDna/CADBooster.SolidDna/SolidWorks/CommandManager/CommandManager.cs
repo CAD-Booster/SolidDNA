@@ -177,7 +177,8 @@ namespace CADBooster.SolidDna
             var callbackId = Guid.NewGuid().ToString("N");
 
             // Attempt to create the command flyout
-            var unsafeCommandFlyout = BaseObject.CreateFlyoutGroup2(mFlyoutIdCount, title, tooltip, hint, mainIconPaths, commandIconPaths, $"{nameof(SolidAddIn.Callback)}({callbackId})", $"{nameof(SolidAddIn.ItemStateCheck)}({callbackId})");
+            var unsafeCommandFlyout = BaseObject.CreateFlyoutGroup2(mFlyoutIdCount, title, tooltip, hint, mainIconPaths, commandIconPaths,
+                $"{nameof(SolidAddIn.Callback)}({callbackId})", $"{nameof(SolidAddIn.ItemStateCheck)}({callbackId})");
 
             // Create managed object
             var flyout = new CommandManagerFlyout(unsafeCommandFlyout, mFlyoutIdCount++, callbackId, items, title, hint, tooltip, tabView, type);
