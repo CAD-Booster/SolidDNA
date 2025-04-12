@@ -24,19 +24,14 @@ namespace CADBooster.SolidDna
         public bool AddToTab { get; set; } = true;
 
         /// <summary>
-        /// The ID used when this command flyout was created
-        /// </summary>
-        public int UserId { get; }
-
-        /// <summary>
         /// The unique Callback ID (set by creator)
         /// </summary>
         public string CallbackId { get; }
 
         /// <summary>
-        /// The title of this command group
+        /// The command ID for this flyout item
         /// </summary>
-        public string Title { get; set; }
+        public int CommandId => BaseObject.CmdID;
 
         /// <summary>
         /// The hint of this command group
@@ -44,19 +39,9 @@ namespace CADBooster.SolidDna
         public string Hint { get; set; }
 
         /// <summary>
-        /// The tooltip of this command group
-        /// </summary>
-        public string Tooltip { get; set; }
-
-        /// <summary>
         /// The command items to add to this flyout
         /// </summary>
         public List<CommandManagerItem> Items { get; set; }
-
-        /// <summary>
-        /// The command ID for this flyout item
-        /// </summary>
-        public int CommandId => BaseObject.CmdID;
 
         /// <summary>
         /// The position of the item in the list. Not used for flyouts.
@@ -69,15 +54,25 @@ namespace CADBooster.SolidDna
         public CommandManagerItemTabView TabView { get; set; }
 
         /// <summary>
+        /// The title of this command group
+        /// </summary>
+        public string Title { get; set; }
+
+        /// <summary>
+        /// The tooltip of this command group
+        /// </summary>
+        public string Tooltip { get; set; }
+
+        /// <summary>
         /// Defines the look and behavior of the flyout. By default, it shows the main icon of the flyout. When you click on it, the flyout expands and does not execute a command.
         /// Other options: always show the first item, show the last-used item.
         /// </summary>
         public CommandManagerFlyoutType Type { get; set; }
 
         /// <summary>
-        /// True to show this item in the command tab when a part is open
+        /// The ID used when this command flyout was created
         /// </summary>
-        public bool VisibleForParts { get; set; } = true;
+        public int UserId { get; }
 
         /// <summary>
         /// True to show this item in the command tab when an assembly is open
@@ -88,6 +83,11 @@ namespace CADBooster.SolidDna
         /// True to show this item in the command tab when a drawing is open
         /// </summary>
         public bool VisibleForDrawings { get; set; } = true;
+
+        /// <summary>
+        /// True to show this item in the command tab when a part is open
+        /// </summary>
+        public bool VisibleForParts { get; set; } = true;
 
         /// <summary>
         /// The action to call when the item is clicked
