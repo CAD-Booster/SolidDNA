@@ -25,9 +25,9 @@ namespace CADBooster.SolidDna
         Action OnClick { get; set; }
 
         /// <summary>
-        /// The action to call when the item state requested
+        /// The action to call when the item state is requested
         /// </summary>
-        Action<ItemStateCheckArgs> OnStateCheck { get; set; }
+        Action<CommandManagerItemStateCheckArgs> OnStateCheck { get; set; }
 
         /// <summary>
         /// The position of the item in the list. Specify 0 to add the item to the beginning of the toolbar or menu, or specify -1 to add it to the end.

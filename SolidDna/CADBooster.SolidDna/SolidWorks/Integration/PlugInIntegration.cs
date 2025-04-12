@@ -47,7 +47,7 @@ namespace CADBooster.SolidDna
         /// <summary>
         /// Called when SolidWorks requests command item state
         /// </summary>
-        public static event Action<ItemStateCheckArgs> ItemStateCheckFired = (args) => { };
+        public static event Action<CommandManagerItemStateCheckArgs> ItemStateCheckFired = (args) => { };
 
         #endregion
 
@@ -112,13 +112,13 @@ namespace CADBooster.SolidDna
         /// <summary>
         /// Called by the SolidWorks domain (<see cref="SolidAddIn"/>) when a callback is fired when a user clicks a command manager item or flyout.
         /// </summary>
-        /// <param name="name">The parameter passed into the generic callback</param>
-        public void OnCallback(string name)
+        /// <param name="callbackId">The parameter passed into the generic callback</param>
+        public void OnCallback(string callbackId)
         {
             try
             {
                 // Inform listeners
-                CallbackFired(name);
+                CallbackFired(callbackId);
             }
             catch (Exception ex)
             {
@@ -132,15 +132,24 @@ namespace CADBooster.SolidDna
         /// <summary>
         /// Called by the SolidWorks domain (<see cref="SolidAddIn"/>) before displaying a command manager item or flyout.
         /// </summary>
-        /// <param name="name">The parameter passed into the generic callback</param>
+        /// <param name="callbackId">The parameter passed into the generic callback</param>
         /// <returns>State of the item</returns>
-        public int OnItemStateCheck(string name)
+        public int OnItemStateCheck(string callbackId)
         {
             try
             {
-                var args = new ItemStateCheckArgs(name); 
+                // Create a new arguments object so we can return a value from only the relevant command manager item or flyout.
+                var args = new CommandManagerItemStateCheckArgs(callbackId); 
+
                 // Inform listeners
                 ItemStateCheckFired(args);
+
+                if (args.Result != CommandManagerItemState.DeselectedEnabled)
+                {
+
+                }
+
+                // Pass the result on to SolidWorks
                 return (int)args.Result;
             }
             catch (Exception ex)
@@ -149,7 +158,7 @@ namespace CADBooster.SolidDna
 
                 // Log it
                 Logger.LogCriticalSource($"{nameof(OnItemStateCheck)} failed. {ex.GetErrorMessage()}");
-                return (int)ItemState.DeselectedEnabled;
+                return (int)CommandManagerItemState.DeselectedEnabled;
             }
         }
 

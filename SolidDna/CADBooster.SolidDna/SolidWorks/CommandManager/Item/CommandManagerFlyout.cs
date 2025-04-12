@@ -97,7 +97,7 @@ namespace CADBooster.SolidDna
         /// <summary>
         /// The action to call when the item state requested
         /// </summary>
-        public Action<ItemStateCheckArgs> OnStateCheck { get; set; }
+        public Action<CommandManagerItemStateCheckArgs> OnStateCheck { get; set; }
 
         #endregion
 
@@ -197,11 +197,11 @@ namespace CADBooster.SolidDna
         /// <summary>
         /// Fired when a SolidWorks callback is fired
         /// </summary>
-        /// <param name="name">The name of the callback that was fired</param>
-        private void PlugInIntegration_CallbackFired(string name)
+        /// <param name="callbackId">The name of the callback that was fired</param>
+        private void PlugInIntegration_CallbackFired(string callbackId)
         {
             // Find the item, if any
-            var item = Items?.FirstOrDefault(f => f.CallbackId == name);
+            var item = Items?.FirstOrDefault(f => f.CallbackId == callbackId);
 
             // Call the action
             item?.OnClick?.Invoke();
@@ -211,7 +211,7 @@ namespace CADBooster.SolidDna
         /// Fired when a SolidWorks UpdateCallbackFunction is fired
         /// </summary>
         /// <param name="args">The arguments for user handling</param>
-        private void PlugInIntegration_UpdateCallbackFunctionFired(ItemStateCheckArgs args)
+        private void PlugInIntegration_UpdateCallbackFunctionFired(CommandManagerItemStateCheckArgs args)
         {
             // Find the item, if any
             var item = Items?.FirstOrDefault(f => f.CallbackId == args.CallbackId);

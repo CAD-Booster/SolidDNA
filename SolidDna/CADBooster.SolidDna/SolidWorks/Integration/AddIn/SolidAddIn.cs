@@ -114,33 +114,33 @@ namespace CADBooster.SolidDna
 
         /// <summary>
         /// Receives all callbacks from command manager items and flyouts. 
-        /// We tell SolidWorks to call a method in the <see cref="SolidAddIn"/> class in <see cref="SetUpCallbacks"/>
+        /// We tell SolidWorks to call a method in the <see cref="SolidAddIn"/> class in <see cref="SetUpCallbacks"/>, it will always look for a method named Callback.
         /// We tell it to call this method in <see cref="CommandManagerGroup.AddCommandItem"/> and <see cref="CommandManagerFlyout.AddCommandItem"/>.
         /// We forward this to <see cref="PlugInIntegration.OnCallback"/>, which then finds the correct command manager item or flyout and calls its OnClick method.
         /// </summary>
-        /// <param name="arg"></param>
-        public void Callback(string arg)
+        /// <param name="callbackId"></param>
+        public void Callback(string callbackId)
         {
             // Log it
-            Logger.LogDebugSource($"SolidWorks {nameof(Callback)} fired {arg}");
+            Logger.LogDebugSource($"SolidWorks {nameof(Callback)} fired {callbackId}");
 
-            PlugInIntegration.OnCallback(arg);
+            PlugInIntegration.OnCallback(callbackId);
         }
 
         /// <summary>
         /// Receives state request callbacks from command manager items and flyouts. 
-        /// We tell SolidWorks to call a method in the <see cref="SolidAddIn"/> class in <see cref="SetUpCallbacks"/>
+        /// We tell SolidWorks to call a method in the <see cref="SolidAddIn"/> class in <see cref="SetUpCallbacks"/>, it will always look for a method named ItemStateCheck.
         /// We tell it to call this method in <see cref="CommandManagerGroup.AddCommandItem"/> and <see cref="CommandManagerFlyout.AddCommandItem"/>.
         /// We forward this to <see cref="PlugInIntegration.OnItemStateCheck"/>, which then finds the correct command manager item or flyout and calls its OnEnableStateCheck method.
         /// </summary>
-        /// <param name="arg"></param>
+        /// <param name="callbackId"></param>
         /// <returns>State of the item</returns>
-        public int ItemStateCheck(string arg)
+        public int ItemStateCheck(string callbackId)
         {
             // Log it
-            Logger.LogDebugSource($"SolidWorks {nameof(ItemStateCheck)} fired {arg}");
+            Logger.LogDebugSource($"SolidWorks {nameof(ItemStateCheck)} fired {callbackId}");
 
-            return PlugInIntegration.OnItemStateCheck(arg);
+            return PlugInIntegration.OnItemStateCheck(callbackId);
         }
 
         /// <summary>
@@ -274,6 +274,8 @@ namespace CADBooster.SolidDna
         /// <summary>
         /// Tell SolidWorks that it should call the <see cref="Callback"/> method in this class whenever it receives a Command Manager item or flyout button click.
         /// We forward this to <see cref="PlugInIntegration.OnCallback"/>, which then finds the correct command manager item or flyout and calls its OnClick method.
+        /// SolidWorks also calls the <see cref="ItemStateCheck"/> method in this class whenever it asks to know the disabled/enabled state of a command manager item.
+        /// This happens after the SolidWorks window becomes active or the active model changes.
         /// </summary>
         /// <param name="thisSw"></param>
         /// <param name="cookie"></param>
