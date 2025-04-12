@@ -1,5 +1,4 @@
-﻿using CADBooster.SolidDna.SolidWorks.CommandManager.Item;
-using SolidWorks.Interop.sldworks;
+﻿using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
 using System;
 using System.Collections.Generic;

@@ -1,5 +1,4 @@
-﻿using CADBooster.SolidDna.SolidWorks.CommandManager.Item;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace CADBooster.SolidDna
