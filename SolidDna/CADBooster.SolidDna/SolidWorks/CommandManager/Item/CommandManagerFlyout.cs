@@ -95,7 +95,7 @@ namespace CADBooster.SolidDna
         public Action OnClick { get; set; }
 
         /// <summary>
-        /// The action to call when the item state requested
+        /// The action to call when the item state requested. Can be used to disable the whole flyout (group), but only when all of its items are disabled.
         /// </summary>
         public Action<CommandManagerItemStateCheckArgs> OnStateCheck { get; set; }
 
