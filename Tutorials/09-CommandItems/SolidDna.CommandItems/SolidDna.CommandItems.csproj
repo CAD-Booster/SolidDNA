@@ -23,23 +23,11 @@
 	<Reference Include="SolidWorks.Interop.SWRoutingLib" HintPath="..\..\..\References\2025\SolidWorks.Interop.SWRoutingLib.dll" EmbedInteropTypes="False" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="icons128.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="icons20.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="icons32.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="icons40.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="icons64.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="icons96.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <None Update="icons128.png" CopyToOutputDirectory="Always" />
+    <None Update="icons20.png" CopyToOutputDirectory="Always" />
+    <None Update="icons32.png" CopyToOutputDirectory="Always" />
+    <None Update="icons40.png" CopyToOutputDirectory="Always" />
+    <None Update="icons64.png" CopyToOutputDirectory="Always" />
+    <None Update="icons96.png" CopyToOutputDirectory="Always" />
   </ItemGroup>
 </Project>
