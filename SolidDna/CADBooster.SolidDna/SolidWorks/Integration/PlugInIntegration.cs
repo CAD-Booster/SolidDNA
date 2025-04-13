@@ -44,6 +44,11 @@ namespace CADBooster.SolidDna
         /// </summary>
         public static event Action<string> CallbackFired = (name) => { };
 
+        /// <summary>
+        /// Called when SolidWorks requests command item state
+        /// </summary>
+        public static event Action<CommandManagerItemStateCheckArgs> ItemStateCheckFired = (args) => { };
+
         #endregion
 
         #region Connected to SolidWorks
@@ -107,20 +112,53 @@ namespace CADBooster.SolidDna
         /// <summary>
         /// Called by the SolidWorks domain (<see cref="SolidAddIn"/>) when a callback is fired when a user clicks a command manager item or flyout.
         /// </summary>
-        /// <param name="name">The parameter passed into the generic callback</param>
-        public void OnCallback(string name)
+        /// <param name="callbackId">The parameter passed into the generic callback</param>
+        public void OnCallback(string callbackId)
         {
             try
             {
                 // Inform listeners
-                CallbackFired(name);
+                CallbackFired(callbackId);
             }
             catch (Exception ex)
             {
                 Debugger.Break();
 
                 // Log it
-                Logger.LogCriticalSource($"OnCallback failed. {ex.GetErrorMessage()}");
+                Logger.LogCriticalSource($"{nameof(OnCallback)} failed. {ex.GetErrorMessage()}");
+            }
+        }
+
+        /// <summary>
+        /// Called by the SolidWorks domain (<see cref="SolidAddIn"/>) before displaying a command manager item or flyout.
+        /// </summary>
+        /// <param name="callbackId">The parameter passed into the generic callback</param>
+        /// <returns>State of the item</returns>
+        public int OnItemStateCheck(string callbackId)
+        {
+            try
+            {
+                // Create a new arguments object so we can return a value from only the relevant command manager item or flyout.
+                var args = new CommandManagerItemStateCheckArgs(callbackId); 
+
+                // Inform listeners
+                ItemStateCheckFired(args);
+
+                if (args.Result != CommandManagerItemState.DeselectedEnabled)
+                {
+
+                }
+
+                // Pass the result on to SolidWorks
+                return (int)args.Result;
+            }
+            catch (Exception ex)
+            {
+                Debugger.Break();
+
+                // Log it
+                Logger.LogCriticalSource($"{nameof(OnItemStateCheck)} failed. {ex.GetErrorMessage()}");
+                return (int)CommandManagerItemState.DeselectedEnabled;
             }
         }
 

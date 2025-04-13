@@ -105,6 +105,9 @@ namespace CADBooster.SolidDna
 
             // Listen out for callbacks
             PlugInIntegration.CallbackFired += PlugInIntegration_CallbackFired;
+
+            // Listen out for StateCheck callbacks
+            PlugInIntegration.ItemStateCheckFired += PlugInIntegration_EnableMethodFired;
         }
 
         /// <summary>
@@ -180,7 +183,9 @@ namespace CADBooster.SolidDna
             {
                 // Add the item. We pass a preferred position for each item and receive the actual position back.
                 var actualPosition = BaseObject.AddCommandItem2(item.Name, item.Position, item.Hint, item.Tooltip, item.ImageIndex,
-                                                                $"{nameof(SolidAddIn.Callback)}({item.CallbackId})", null, UserId, (int)item.ItemType);
+                                                                $"{nameof(SolidAddIn.Callback)}({item.CallbackId})", 
+                                                                $"{nameof(SolidAddIn.ItemStateCheck)}({item.CallbackId})", 
+                                                                UserId, (int)item.ItemType);
                 
                 // If the returned position is -1, the item was not added.
                 if (actualPosition == -1)
@@ -362,16 +367,29 @@ namespace CADBooster.SolidDna
         }
 
         /// <summary>
-        /// Fired when a SolidWorks callback is fired
+        /// Fired when a SolidWorks callback is fired after a button click in the command manager.
         /// </summary>
-        /// <param name="name">The name of the callback that was fired</param>
-        private void PlugInIntegration_CallbackFired(string name)
+        /// <param name="callbackId">The <see cref="CommandManagerItem.CallbackId"/> of the callback that was fired</param>
+        private void PlugInIntegration_CallbackFired(string callbackId)
         {
             // Find the item, if any
-            var item = Items.FirstOrDefault(f => f.CallbackId == name);
+            var item = Items.FirstOrDefault(f => f.CallbackId == callbackId);
 
             // Call the action
             item?.OnClick?.Invoke();
+        }
+
+        /// <summary>
+        /// Fired when a SolidWorks enable button callback is fired to request state changes for command manager buttons.
+        /// </summary>
+        /// <param name="args"></param>
+        private void PlugInIntegration_EnableMethodFired(CommandManagerItemStateCheckArgs args)
+        {
+            // Find the item, if any
+            var item = Items.FirstOrDefault(f => f.CallbackId == args.CallbackId);
+
+            // Call the action
+            item?.OnStateCheck?.Invoke(args);
         }
 
         /// <summary>
@@ -431,6 +449,7 @@ namespace CADBooster.SolidDna
         {
             // Stop listening out for callbacks
             PlugInIntegration.CallbackFired -= PlugInIntegration_CallbackFired;
+            PlugInIntegration.ItemStateCheckFired -= PlugInIntegration_EnableMethodFired;
 
             // Dispose all tabs
             foreach (var tab in mTabs.Values)

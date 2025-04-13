@@ -24,19 +24,14 @@ namespace CADBooster.SolidDna
         public bool AddToTab { get; set; } = true;
 
         /// <summary>
-        /// The ID used when this command flyout was created
-        /// </summary>
-        public int UserId { get; }
-
-        /// <summary>
         /// The unique Callback ID (set by creator)
         /// </summary>
         public string CallbackId { get; }
 
         /// <summary>
-        /// The title of this command group
+        /// The command ID for this flyout item
         /// </summary>
-        public string Title { get; set; }
+        public int CommandId => BaseObject.CmdID;
 
         /// <summary>
         /// The hint of this command group
@@ -44,19 +39,9 @@ namespace CADBooster.SolidDna
         public string Hint { get; set; }
 
         /// <summary>
-        /// The tooltip of this command group
-        /// </summary>
-        public string Tooltip { get; set; }
-
-        /// <summary>
         /// The command items to add to this flyout
         /// </summary>
         public List<CommandManagerItem> Items { get; set; }
-
-        /// <summary>
-        /// The command ID for this flyout item
-        /// </summary>
-        public int CommandId => BaseObject.CmdID;
 
         /// <summary>
         /// The position of the item in the list. Not used for flyouts.
@@ -69,15 +54,25 @@ namespace CADBooster.SolidDna
         public CommandManagerItemTabView TabView { get; set; }
 
         /// <summary>
+        /// The title of this command group
+        /// </summary>
+        public string Title { get; set; }
+
+        /// <summary>
+        /// The tooltip of this command group
+        /// </summary>
+        public string Tooltip { get; set; }
+
+        /// <summary>
         /// Defines the look and behavior of the flyout. By default, it shows the main icon of the flyout. When you click on it, the flyout expands and does not execute a command.
         /// Other options: always show the first item, show the last-used item.
         /// </summary>
         public CommandManagerFlyoutType Type { get; set; }
 
         /// <summary>
-        /// True to show this item in the command tab when a part is open
+        /// The ID used when this command flyout was created
         /// </summary>
-        public bool VisibleForParts { get; set; } = true;
+        public int UserId { get; }
 
         /// <summary>
         /// True to show this item in the command tab when an assembly is open
@@ -90,9 +85,19 @@ namespace CADBooster.SolidDna
         public bool VisibleForDrawings { get; set; } = true;
 
         /// <summary>
+        /// True to show this item in the command tab when a part is open
+        /// </summary>
+        public bool VisibleForParts { get; set; } = true;
+
+        /// <summary>
         /// The action to call when the item is clicked
         /// </summary>
         public Action OnClick { get; set; }
+
+        /// <summary>
+        /// The action to call when the item state requested. Can be used to disable the whole flyout (group), but only when all of its items are disabled.
+        /// </summary>
+        public Action<CommandManagerItemStateCheckArgs> OnStateCheck { get; set; }
 
         #endregion
 
@@ -138,6 +143,9 @@ namespace CADBooster.SolidDna
             // Listen out for callbacks
             PlugInIntegration.CallbackFired += PlugInIntegration_CallbackFired;
 
+            // Listen out for UpdateCallbackFunction
+            PlugInIntegration.ItemStateCheckFired += PlugInIntegration_UpdateCallbackFunctionFired;
+
             // Add the items when the flyout is clicked for the first time. Does not work when you add items right away.
             OnClick = AddCommandItems;
 
@@ -176,7 +184,9 @@ namespace CADBooster.SolidDna
         private void AddCommandItem(CommandManagerItem item)
         {
             // Add the item and receive the actual position.
-            var position = BaseObject.AddCommandItem(item.Name, item.Hint, item.ImageIndex, $"{nameof(SolidAddIn.Callback)}({item.CallbackId})", null);
+            var position = BaseObject.AddCommandItem(item.Name, item.Hint, item.ImageIndex, 
+                                                     $"{nameof(SolidAddIn.Callback)}({item.CallbackId})", 
+                                                     $"{nameof(SolidAddIn.ItemStateCheck)}({item.CallbackId})");
 
             // If the returned position is -1, the item was not added.
             if (position == -1)
@@ -187,14 +197,27 @@ namespace CADBooster.SolidDna
         /// <summary>
         /// Fired when a SolidWorks callback is fired
         /// </summary>
-        /// <param name="name">The name of the callback that was fired</param>
-        private void PlugInIntegration_CallbackFired(string name)
+        /// <param name="callbackId">The name of the callback that was fired</param>
+        private void PlugInIntegration_CallbackFired(string callbackId)
         {
             // Find the item, if any
-            var item = Items?.FirstOrDefault(f => f.CallbackId == name);
+            var item = Items?.FirstOrDefault(f => f.CallbackId == callbackId);
 
             // Call the action
             item?.OnClick?.Invoke();
+        }
+
+        /// <summary>
+        /// Fired when a SolidWorks UpdateCallbackFunction is fired
+        /// </summary>
+        /// <param name="args">The arguments for user handling</param>
+        private void PlugInIntegration_UpdateCallbackFunctionFired(CommandManagerItemStateCheckArgs args)
+        {
+            // Find the item, if any
+            var item = Items?.FirstOrDefault(f => f.CallbackId == args.CallbackId);
+
+            // Call the action
+            item?.OnStateCheck?.Invoke(args);
         }
 
         /// <summary>
@@ -204,6 +227,7 @@ namespace CADBooster.SolidDna
         {
             // Stop listening out for callbacks
             PlugInIntegration.CallbackFired -= PlugInIntegration_CallbackFired;
+            PlugInIntegration.ItemStateCheckFired -= PlugInIntegration_UpdateCallbackFunctionFired;
 
             base.Dispose();
         }
