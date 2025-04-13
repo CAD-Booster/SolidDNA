@@ -112,6 +112,22 @@ namespace CADBooster.SolidDna
         }
 
         /// <summary>
+        /// Get a configuration by its persistent ID and wrap it in our own ModelConfiguration class. Throws when it fails.
+        /// </summary>
+        /// <returns></returns>
+        public ModelConfiguration GetConfiguration()
+        {
+            // Get the underlying feature object, which is the base type for a Configuration. Throws when it fails.
+            var feature = GetObject<Feature>();
+
+            // If we get here, we have an object. Convert it to a Configuration object.
+            var configuration = feature.GetSpecificFeature2() as Configuration;
+
+            // Now wrap it.
+            return new ModelConfiguration(configuration);
+        }
+
+        /// <summary>
         /// Get a display dimension by its persistent ID and wrap it in our own ModelDisplayDimension class. Throws when it fails.
         /// </summary>
         /// <returns></returns>
@@ -151,7 +167,24 @@ namespace CADBooster.SolidDna
         }
 
         /// <summary>
+        /// Get a sketch by its persistent ID and wrap it in our own FeatureSketch class. Throws when it fails.
+        /// </summary>
+        /// <returns></returns>
+        public FeatureSketch GetSketch()
+        {
+            // Get the underlying feature object, which is the base type for a Sketch. Throws when it fails.
+            var feature = GetObject<Feature>();
+
+            // If we get here, we have an object. Convert it to a Sketch object.
+            var sketch = feature.GetSpecificFeature2() as Sketch;
+
+            // Now wrap it.
+            return new FeatureSketch(sketch);
+        }
+
+        /// <summary>
         /// Find an object (sheet, view etc.) by its persistent reference. Throws when it fails.
+        /// Returns the base class of the object, so a Feature for configurations, sketches, reference planes, etc.
         /// </summary>
         /// <returns></returns>
         public T GetObject<T>() where T : class
