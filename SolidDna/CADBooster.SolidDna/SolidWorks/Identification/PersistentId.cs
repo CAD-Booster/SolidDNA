@@ -9,8 +9,9 @@ namespace CADBooster.SolidDna
     /// <summary>
     /// The ID of a selectable model object (view, sheet, edge) in a series of bytes.
     /// Is called a Persistent Reference ID by SolidWorks. Is often 20 bytes long, but this varies per object type.
-    /// Can change after rebuild, so still not a perfect way of comparing objects.
-    /// See https://help.solidworks.com/2025/english/api/sldworksapiprogguide/overview/Persistent_Reference_IDs.htm.
+    /// Is pretty constant (hence the name) but can change after rebuild, so still not a perfect way of comparing objects.
+    /// See https://help.solidworks.com/2025/english/api/sldworksapiprogguide/overview/Persistent_Reference_IDs.htm for more information.
+    /// See https://help.solidworks.com/2025/english/api/swconst/SolidWorks.interop.swconst~SolidWorks.interop.swconst.swSelectType_e.html for all selectable objects types.
     /// </summary>
     public class PersistentId
     {
@@ -98,30 +99,56 @@ namespace CADBooster.SolidDna
         #region Get an object by its persistent ID
 
         /// <summary>
-        /// Get a display dimension. Throws when it fails.
+        /// Get a component by its persistent ID and wrap it in our own Component class. Throws when it fails.
         /// </summary>
-        /// <param name="persistentId"></param>
-        /// <param name="logException"></param>
         /// <returns></returns>
-        public DisplayDimension GetDimension(PersistentId persistentId, bool logException = true) => GetObject<DisplayDimension>();
+        public Component GetComponent()
+        {
+            // Get the underlying Component2 object. Throws when it fails.
+            var component = GetObject<Component2>();
+
+            // If we get here, we have an object. Now wrap it.
+            return new Component(component);
+        }
 
         /// <summary>
-        /// Get a sheet by its persistent ID. Throws when it fails.
+        /// Get a display dimension by its persistent ID and wrap it in our own ModelDisplayDimension class. Throws when it fails.
         /// </summary>
         /// <returns></returns>
-        public ISheet GetSheet() => GetObject<ISheet>();
+        public ModelDisplayDimension GetDimension()
+        {
+            // Get the underlying display dimension object. Throws when it fails.
+            var displayDimension = GetObject<DisplayDimension>();
+
+            // If we get here, we have an object. Now wrap it.
+            return new ModelDisplayDimension(displayDimension);
+        }
 
         /// <summary>
-        /// Get a table by its persistent ID. Throws when it fails.
+        /// Get a feature by its persistent ID and wrap it in our own ModelFeature class. Throws when it fails.
         /// </summary>
         /// <returns></returns>
-        public ITableAnnotation GetTableAnnotation() => GetObject<ITableAnnotation>();
+        public ModelFeature GetFeature()
+        {
+            // Get the underlying feature object. Throws when it fails.
+            var feature = GetObject<Feature>();
+
+            // If we get here, we have an object. Now wrap it.
+            return new ModelFeature(feature);
+        }
 
         /// <summary>
-        /// Get a view by its persistent ID. Throws when it fails.
+        /// Get a note by its persistent ID and wrap it in our own Note class. Throws when it fails.
         /// </summary>
         /// <returns></returns>
-        public IView GetView() => GetObject<IView>();
+        public Note GetNote()
+        {
+            // Get the underlying note object. Throws when it fails.
+            var note = GetObject<INote>();
+
+            // If we get here, we have an object. Now wrap it.
+            return new Note(note);
+        }
 
         /// <summary>
         /// Find an object (sheet, view etc.) by its persistent reference. Throws when it fails.
