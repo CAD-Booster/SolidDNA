@@ -248,5 +248,29 @@
         SolidWorksExportDataPdfSetSheetsError = 13001,
 
         #endregion
+
+        #region Geometry identification (14,000)
+
+        /// <summary>
+        /// The length of the byte array is too short to be a persistent ID.
+        /// </summary>
+        IdentificationArrayTooShortForPersistentId = 14000,
+
+        /// <summary>
+        /// There was an error trying to get the persistent ID of an object.
+        /// </summary>
+        IdentificationCannotGetPersistentId = 14001,
+
+        /// <summary>
+        /// Could not find the persistent ID of an object. Happens for objects that are not selectable.
+        /// </summary>
+        IdentificationPersistentIdNotFound = 14002,
+
+        /// <summary>
+        /// Could not find the object with the given persistent ID. 
+        /// </summary>
+        IdentificationObjectNotFoundFromPersistentId = 14003,
+
+        #endregion
     }
 }

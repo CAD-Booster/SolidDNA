@@ -45,5 +45,9 @@
         /// </summary>
         ExportData = 14,
 
+        /// <summary>
+        /// An error occured trying to create or get a persistent ID or sketch segment ID.
+        /// </summary>
+        Identification = 15,
     }
 }
