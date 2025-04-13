@@ -1,12 +1,11 @@
-﻿using System;
-
-namespace CADBooster.SolidDna
+﻿namespace CADBooster.SolidDna
 {
     /// <summary>
-    /// Arguments used in EnableMethod
-    /// Change Result to modify command item or flyout state
+    /// Arguments for when <see cref="ICommandManagerItem.OnStateCheck"/> is called.
+    /// Change <see cref="Result"/>> to modify the state of the command item, flyout item or the whole flyout.
+    /// Disabling the flyout only works when all items in the flyout are disabled.
     /// </summary>
-    public class CommandManagerItemStateCheckArgs : EventArgs
+    public class CommandManagerItemStateCheckArgs
     {
         /// <summary>
         /// Callback id of item. Used for find an associative <see cref="ICommandManagerItem"/>
