@@ -109,7 +109,7 @@ namespace SolidDna.CommandItems
 
             Application.CommandManager.CreateContextMenuItems(
             [
-                new CommandContextItem()
+                new CommandContextItem
                 {
                     Name = "RootItem",
                     Hint = "RootItem Hint",
@@ -117,37 +117,37 @@ namespace SolidDna.CommandItems
                     OnStateCheck = args => args.Result = CommandManagerItemState.SelectedEnabled,
                     SelectionType = swSelectType_e.swSelCOMPONENTS
                 },
-                new CommandContextMenuGroup()
+                new CommandContextMenuGroup
                 {
                     Name = "RootGroup",
                     Items = 
                     [..
                         CreateCommandItems().AsCommandCreatable(x => swSelectType_e.swSelCOMPONENTS),
-                        new CommandContextItem()
+                        new CommandContextItem
                         {
                             Name = "PlaneItem",
                             Hint = "PlaneItem Hint",
                             OnClick = onContextMenuItemClick,
                             SelectionType = swSelectType_e.swSelDATUMPLANES
                         },
-                        new CommandContextMenuGroup()
+                        new CommandContextMenuGroup
                         {
                             Name = "SubGroup",
                             Items = 
                             [
-                                new CommandContextItem()
+                                new CommandContextItem
                                 {
                                     Name = "SubSubItem",
                                     Hint = "SubSubItem Hint",
                                     OnClick = onContextMenuItemClick,
                                     SelectionType = swSelectType_e.swSelCOMPONENTS
                                 },
-                                new CommandContextMenuGroup()
+                                new CommandContextMenuGroup
                                 {
                                     Name = "SubSubGroup",
                                     Items = 
                                     [
-                                        new CommandContextItem()
+                                        new CommandContextItem
                                         {
                                             Name = "SubSubSubItem",
                                             Hint = "SubSubSubItem Hint",
@@ -169,7 +169,8 @@ namespace SolidDna.CommandItems
         public List<CommandManagerItem> CreateCommandItems() =>
         [
             // We cant hide item in ToolBar by document type, but it can be disabled manually
-            new CommandManagerItem {
+            new CommandManagerItem 
+            {
                 Name = "Item for assembly",
                 Tooltip = "Item tool tip",
                 ImageIndex = 0,
@@ -184,7 +185,8 @@ namespace SolidDna.CommandItems
                         args.Result = CommandManagerItemState.DeselectedDisabled;
                 }
             },
-            new CommandManagerItem {
+            new CommandManagerItem 
+            {
                 Name = "DeselectedDisabled item",
                 Tooltip = "DeselectedDisabled item Tooltip",
                 ImageIndex = 0,
@@ -195,7 +197,8 @@ namespace SolidDna.CommandItems
                 OnClick = () => System.Windows.MessageBox.Show("CreateCommandTab DeselectedDisabled item clicked!"),
                 OnStateCheck = (args) => args.Result = CommandManagerItemState.DeselectedDisabled
             },
-            new CommandManagerItem {
+            new CommandManagerItem 
+            {
                 Name = "DeselectedEnabled item",
                 Tooltip = "DeselectedEnabled item Tooltip",
                 ImageIndex = 1,
@@ -206,7 +209,8 @@ namespace SolidDna.CommandItems
                 OnClick = () => System.Windows.MessageBox.Show("CreateCommandTab DeselectedEnabled item clicked!"),
                 OnStateCheck = (args) => args.Result = CommandManagerItemState.DeselectedEnabled
             },
-            new CommandManagerItem {
+            new CommandManagerItem 
+            {
                 Name = "SelectedDisabled item",
                 Tooltip = "SelectedDisabled item Tooltip",
                 ImageIndex = 2,
@@ -217,7 +221,8 @@ namespace SolidDna.CommandItems
                 OnClick = () => System.Windows.MessageBox.Show("CreateCommandTab SelectedDisabled item clicked!"),
                 OnStateCheck = (args) => args.Result = CommandManagerItemState.SelectedDisabled
             },
-            new CommandManagerItem {
+            new CommandManagerItem 
+            {
                 Name = "SelectedEnabled item",
                 Tooltip = "SelectedEnabled item Tooltip",
                 ImageIndex = 0,
@@ -228,7 +233,8 @@ namespace SolidDna.CommandItems
                 OnClick = () => System.Windows.MessageBox.Show("CreateCommandTab SelectedEnabled item clicked!"),
                 OnStateCheck = (args) => args.Result = CommandManagerItemState.SelectedEnabled
             },
-            new CommandManagerItem {
+            new CommandManagerItem 
+            {
                 Name = "Hidden item",
                 Tooltip = "Hidden item Tooltip",
                 ImageIndex = 1,
@@ -239,7 +245,8 @@ namespace SolidDna.CommandItems
                 OnClick = () => System.Windows.MessageBox.Show("CreateCommandTab Hidden item clicked!"),
                 OnStateCheck = (args) => args.Result = CommandManagerItemState.Hidden
             },
-            new CommandManagerItem {
+            new CommandManagerItem 
+            {
                 Name = "Toggle item",
                 Tooltip = "Toggle item Tooltip",
                 ImageIndex = 2,
@@ -249,7 +256,7 @@ namespace SolidDna.CommandItems
                 VisibleForParts = true,
                 OnClick = () => mToggle = !mToggle,
                 OnStateCheck = (args) =>
-                    args.Result = mToggle ?  CommandManagerItemState.SelectedEnabled : CommandManagerItemState.DeselectedEnabled
+                    args.Result = mToggle ? CommandManagerItemState.SelectedEnabled : CommandManagerItemState.DeselectedEnabled
             }
         ];
 
