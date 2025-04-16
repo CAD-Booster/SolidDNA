@@ -20,6 +20,6 @@ namespace CADBooster.SolidDna
         /// <summary>
         /// The action to call when the item's state is requested
         /// </summary>
-        Action<ItemStateCheckArgs> OnStateCheck { get; }
+        Action<CommandManagerItemStateCheckArgs> OnStateCheck { get; }
     }
 }

@@ -367,19 +367,23 @@ namespace CADBooster.SolidDna
         }
 
         /// <summary>
-        /// Fired when a SolidWorks callback is fired
+        /// Fired when a SolidWorks callback is fired after a button click in the command manager.
         /// </summary>
-        /// <param name="name">The name of the callback that was fired</param>
-        private void PlugInIntegration_CallbackFired(string name)
+        /// <param name="callbackId">The <see cref="CommandManagerItem.CallbackId"/> of the callback that was fired</param>
+        private void PlugInIntegration_CallbackFired(string callbackId)
         {
             // Find the item, if any
-            var item = Items.FirstOrDefault(f => f.CallbackId == name);
+            var item = Items.FirstOrDefault(f => f.CallbackId == callbackId);
 
             // Call the action
             item?.OnClick?.Invoke();
         }
 
-        private void PlugInIntegration_EnableMethodFired(ItemStateCheckArgs args)
+        /// <summary>
+        /// Fired when a SolidWorks enable button callback is fired to request state changes for command manager buttons.
+        /// </summary>
+        /// <param name="args"></param>
+        private void PlugInIntegration_EnableMethodFired(CommandManagerItemStateCheckArgs args)
         {
             // Find the item, if any
             var item = Items.FirstOrDefault(f => f.CallbackId == args.CallbackId);

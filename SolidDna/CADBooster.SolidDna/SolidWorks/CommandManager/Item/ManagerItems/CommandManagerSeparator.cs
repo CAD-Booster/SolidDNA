@@ -38,9 +38,9 @@ namespace CADBooster.SolidDna
         public Action OnClick { get; set; }
 
         /// <summary>
-        /// The action to call when the item state requested. Not used for separators.
+        /// The action to call when the item state is requested. Not used for separators.
         /// </summary>
-        public Action<ItemStateCheckArgs> OnStateCheck { get; set; }
+        public Action<CommandManagerItemStateCheckArgs> OnStateCheck { get; set; }
 
         /// <summary>
         /// The position of the item in the list. Not used for separators.

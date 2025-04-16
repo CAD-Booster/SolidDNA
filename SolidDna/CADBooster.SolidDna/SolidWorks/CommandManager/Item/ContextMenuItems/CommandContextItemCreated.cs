@@ -43,7 +43,7 @@ namespace CADBooster.SolidDna
         /// <summary>
         /// Gets the action to call when the state of this item is checked
         /// </summary>
-        public Action<ItemStateCheckArgs> OnStateCheck { get; private set; }
+        public Action<CommandManagerItemStateCheckArgs> OnStateCheck { get; private set; }
 
         /// <summary>
         /// Gets the full name of this command context item, including its hierarchical path
@@ -106,7 +106,7 @@ namespace CADBooster.SolidDna
         /// Fired when a SolidWorks UpdateCallbackFunction is fired
         /// </summary>
         /// <param name="args">The arguments for user handling</param>
-        private void PlugInIntegration_EnableMethodFired(ItemStateCheckArgs args)
+        private void PlugInIntegration_EnableMethodFired(CommandManagerItemStateCheckArgs args)
         {
             if (CallbackId != args.CallbackId)
                 return;

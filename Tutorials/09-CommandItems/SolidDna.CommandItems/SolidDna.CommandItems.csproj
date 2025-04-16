@@ -1,46 +1,34 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<TargetFramework>net48-windows</TargetFramework>
-		<OutputType>Library</OutputType>
-		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-		<LangVersion>latest</LangVersion>
-		<UseWPF>true</UseWPF>
-	</PropertyGroup>
-	<ItemGroup>
-		<ProjectReference Include="..\..\..\SolidDna\CADBooster.SolidDna\CADBooster.SolidDna.csproj" />
-	</ItemGroup>
-	<ItemGroup>
-		<Reference Include="CADBooster.SolidDna">
-			<HintPath>..\..\..\SolidDna\CADBooster.SolidDna\bin\Debug\net48\CADBooster.SolidDna.dll</HintPath>
-		</Reference>
-		<Reference Include="SolidWorks.Interop.sldworks" HintPath="..\..\..\References\2025\SolidWorks.Interop.sldworks.dll" EmbedInteropTypes="False" />
-		<Reference Include="SolidWorks.Interop.sw3dprinter" HintPath="..\..\..\References\2025\SolidWorks.Interop.sw3dprinter.dll" EmbedInteropTypes="False" />
-		<Reference Include="SolidWorks.Interop.swcommands" HintPath="..\..\..\References\2025\SolidWorks.Interop.swcommands.dll" EmbedInteropTypes="False" />
-		<Reference Include="SolidWorks.Interop.swconst" HintPath="..\..\..\References\2025\SolidWorks.Interop.swconst.dll" EmbedInteropTypes="False" />
-		<Reference Include="SolidWorks.Interop.swdimxpert" HintPath="..\..\..\References\2025\SolidWorks.Interop.swdimxpert.dll" EmbedInteropTypes="False" />
-		<Reference Include="SolidWorks.Interop.swdocumentmgr" HintPath="..\..\..\References\2025\SolidWorks.Interop.swdocumentmgr.dll" EmbedInteropTypes="False" />
-		<Reference Include="SolidWorks.Interop.swmotionstudy" HintPath="..\..\..\References\2025\SolidWorks.Interop.swmotionstudy.dll" EmbedInteropTypes="False" />
-		<Reference Include="SolidWorks.Interop.swpublished" HintPath="..\..\..\References\2025\SolidWorks.Interop.swpublished.dll" EmbedInteropTypes="False" />
-		<Reference Include="SolidWorks.Interop.SWRoutingLib" HintPath="..\..\..\References\2025\SolidWorks.Interop.SWRoutingLib.dll" EmbedInteropTypes="False" />
-	</ItemGroup>
-	<ItemGroup>
-		<None Update="icons128.png">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="icons20.png">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="icons32.png">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="icons40.png">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="icons64.png">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="icons96.png">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-	</ItemGroup>
+  <PropertyGroup>
+    <TargetFramework>net48-windows</TargetFramework>
+    <OutputType>Library</OutputType>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+	<LangVersion>latest</LangVersion>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\SolidDna\CADBooster.SolidDna\CADBooster.SolidDna.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="CADBooster.SolidDna">
+      <HintPath>..\..\..\SolidDna\CADBooster.SolidDna\bin\Debug\net48\CADBooster.SolidDna.dll</HintPath>
+    </Reference>
+    <Reference Include="SolidWorks.Interop.sldworks" HintPath="..\..\..\References\2025\SolidWorks.Interop.sldworks.dll" EmbedInteropTypes="False" />
+	<Reference Include="SolidWorks.Interop.sw3dprinter" HintPath="..\..\..\References\2025\SolidWorks.Interop.sw3dprinter.dll" EmbedInteropTypes="False" />
+	<Reference Include="SolidWorks.Interop.swcommands" HintPath="..\..\..\References\2025\SolidWorks.Interop.swcommands.dll" EmbedInteropTypes="False" />
+	<Reference Include="SolidWorks.Interop.swconst" HintPath="..\..\..\References\2025\SolidWorks.Interop.swconst.dll" EmbedInteropTypes="False" />
+	<Reference Include="SolidWorks.Interop.swdimxpert" HintPath="..\..\..\References\2025\SolidWorks.Interop.swdimxpert.dll" EmbedInteropTypes="False" />
+	<Reference Include="SolidWorks.Interop.swdocumentmgr" HintPath="..\..\..\References\2025\SolidWorks.Interop.swdocumentmgr.dll" EmbedInteropTypes="False" />
+	<Reference Include="SolidWorks.Interop.swmotionstudy" HintPath="..\..\..\References\2025\SolidWorks.Interop.swmotionstudy.dll" EmbedInteropTypes="False" />
+	<Reference Include="SolidWorks.Interop.swpublished" HintPath="..\..\..\References\2025\SolidWorks.Interop.swpublished.dll" EmbedInteropTypes="False" />
+	<Reference Include="SolidWorks.Interop.SWRoutingLib" HintPath="..\..\..\References\2025\SolidWorks.Interop.SWRoutingLib.dll" EmbedInteropTypes="False" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="icons128.png" CopyToOutputDirectory="Always" />
+    <None Update="icons20.png" CopyToOutputDirectory="Always" />
+    <None Update="icons32.png" CopyToOutputDirectory="Always" />
+    <None Update="icons40.png" CopyToOutputDirectory="Always" />
+    <None Update="icons64.png" CopyToOutputDirectory="Always" />
+    <None Update="icons96.png" CopyToOutputDirectory="Always" />
+  </ItemGroup>
 </Project>

@@ -45,7 +45,7 @@ namespace CADBooster.SolidDna
         /// <summary>
         /// The action to call when the item state requested
         /// </summary>
-        public Action<ItemStateCheckArgs> OnStateCheck { get; set; }
+        public Action<CommandManagerItemStateCheckArgs> OnStateCheck { get; set; }
 
         /// <summary>
         /// The selection type that determines where the context menu will be shown
