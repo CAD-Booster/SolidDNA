@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netframework48</TargetFramework>
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\SolidDna\CADBooster.SolidDna\CADBooster.SolidDna.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Include="SolidWorks.Interop.sldworks">
+	    <HintPath>..\..\..\References\2025\SolidWorks.Interop.sldworks.dll</HintPath>
+	  </Reference>
+	</ItemGroup>
+
+</Project>

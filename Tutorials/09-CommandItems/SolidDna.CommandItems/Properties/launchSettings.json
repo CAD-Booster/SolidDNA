@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "SolidDna.CommandItems": {
+      "commandName": "Project"
+    },
+    "SolidWorks": {
+      "commandName": "Executable",
+      "executablePath": "F:\\Programs\\SW210\\SOLIDWORKS\\SLDWORKS.exe"
+    }
+  }
+}

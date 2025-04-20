@@ -3,8 +3,10 @@ using SolidWorks.Interop.swconst;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 using static CADBooster.SolidDna.SolidWorksEnvironment;
 
 namespace SolidDna.CommandItems
@@ -109,6 +111,45 @@ namespace SolidDna.CommandItems
 
             Application.CommandManager.CreateContextMenuItems(
             [
+                new CommandContextItem
+                {
+                    Name = "TestTest",
+                    Hint = "TestTest Hint",
+                    OnClick = () =>
+                    {
+
+
+                        using CompositeDisposable disposable = new();
+
+                        var firstNote = Application.ActiveModel
+                            .EnumerateNotes(disposable)
+                            .FirstOrDefault(x => x.UnsafeObject.GetName() == "MyAwesomeName");
+
+                        var notEmptyNotes = Application.ActiveModel
+                            .EnumerateNotes(disposable)
+                            .Select(x => x.Text)
+                            .Where(x => !string.IsNullOrWhiteSpace(x))
+                            .ToArray();
+
+                        var extractedDigits = Application.ActiveModel
+                            .EnumerateNotes(disposable)
+                            .Where(x => !x.UnsafeObject.BehindSheet)
+                            .Select(x => x.Text)
+                            .Where(x => x.Length > 10)
+                            .Take(50)
+                            .Select(x => Regex.Match(x, @".*My\s+awesome\s+text\s+{(\d+)}$"))
+                            .Where(x => x.Success)
+                            .Select(x => x.Groups[1])
+                            .Select(x => x.Value)
+                            .ToArray();
+
+
+                        return; // When method ends all SolidDnaObjects will be disposed with CompositeDisposable
+
+                    },
+                    OnStateCheck = args => args.Result = CommandManagerItemState.SelectedEnabled,
+                    SelectionType = swSelectType_e.swSelEVERYTHING
+                },
                 new CommandContextItem
                 {
                     Name = "RootItem",

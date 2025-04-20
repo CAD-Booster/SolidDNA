@@ -121,7 +121,7 @@ namespace CADBooster.SolidDna
                 CallbackFired(callbackId);
             }
             catch (Exception ex)
-            {
+            {   
                 Debugger.Break();
 
                 // Log it

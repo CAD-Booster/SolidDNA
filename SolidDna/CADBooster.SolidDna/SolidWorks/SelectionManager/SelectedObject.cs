@@ -1,6 +1,7 @@
 ﻿using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace CADBooster.SolidDna
 {
@@ -18,7 +19,7 @@ namespace CADBooster.SolidDna
         /// <summary>
         /// The type of the selected object
         /// </summary>
-        public swSelectType_e ObjectType { get; set; }
+        public swSelectType_e ObjectType { get; private set; }
 
         #region Type Checks
 
@@ -61,7 +62,12 @@ namespace CADBooster.SolidDna
         /// </summary>
         public SelectedObject(object model) : base(model)
         {
-            
+
+        }
+
+        public SelectedObject(object model, swSelectType_e objectType) : base(model)
+        {
+            ObjectType = objectType;
         }
 
         #endregion
@@ -111,5 +117,21 @@ namespace CADBooster.SolidDna
         }
 
         #endregion
+    }
+
+    public static class SelectedObjectExtensions
+    {
+        public static ModelFeature AsFeature(this SelectedObject selectedObject)
+            => selectedObject.AsSpecificObject((Feature x) => new ModelFeature(x));
+
+        public static ModelDisplayDimension AsDimension(this SelectedObject selectedObject)
+            => selectedObject.AsSpecificObject((IDisplayDimension x) => new ModelDisplayDimension(x));
+
+        internal static TWrapper AsSpecificObject<TWrapper, TBase>(this SelectedObject selectedObject, Func<TBase, TWrapper> factory)
+            => SolidDnaErrors.Wrap(() =>
+                factory.Invoke((TBase)selectedObject.UnsafeObject),
+                SolidDnaErrorTypeCode.SolidWorksModel,
+                SolidDnaErrorCode.SolidWorksModelSelectedObjectCastError
+            );
     }
 }
