@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolidDna.Selection", "SolidDna.Selection.csproj", "{6279AD77-4DDD-4954-95A8-551D49A21A8F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CADBooster.SolidDna", "..\..\..\SolidDna\CADBooster.SolidDna\CADBooster.SolidDna.csproj", "{19DDBBBB-6E6D-46BA-A28E-4CE189B6E40C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6279AD77-4DDD-4954-95A8-551D49A21A8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6279AD77-4DDD-4954-95A8-551D49A21A8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6279AD77-4DDD-4954-95A8-551D49A21A8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6279AD77-4DDD-4954-95A8-551D49A21A8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19DDBBBB-6E6D-46BA-A28E-4CE189B6E40C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19DDBBBB-6E6D-46BA-A28E-4CE189B6E40C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19DDBBBB-6E6D-46BA-A28E-4CE189B6E40C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19DDBBBB-6E6D-46BA-A28E-4CE189B6E40C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

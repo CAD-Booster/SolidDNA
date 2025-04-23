@@ -66,9 +66,6 @@ namespace SolidDna.Selection
                         Name = "Remember selected items",
                         Tooltip = "Remember selected items",
                         Hint = "Remember selected items",
-                        VisibleForDrawings = true,
-                        VisibleForAssemblies = true,
-                        VisibleForParts = true,
                         OnClick = () =>
                         {
                             previous.DisposeEach();
@@ -81,12 +78,9 @@ namespace SolidDna.Selection
                         Name = "Select previous items",
                         Tooltip = "Select previous items",
                         Hint = "Select previous items",
-                        VisibleForDrawings = true,
-                        VisibleForAssemblies = true,
-                        VisibleForParts = true,
                         OnClick = () =>
                         {
-                            Application.ActiveModel.SelectionManager.SelectObjects(previous, false, true);
+                            Application.ActiveModel.SelectionManager.SelectObjects(previous);
                         }
                     },
                     new CommandManagerItem
@@ -94,9 +88,6 @@ namespace SolidDna.Selection
                         Name = "Remove previous selected items",
                         Tooltip = "Remove previous selected items",
                         Hint = "Remove previous selected items",
-                        VisibleForDrawings = true,
-                        VisibleForAssemblies = true,
-                        VisibleForParts = true,
                         OnClick = () =>
                         {
                             if(previous.Length == 0)
@@ -109,8 +100,49 @@ namespace SolidDna.Selection
 
                             return; //Then it will be rollback to previous selected list 
                         }
+                    },
+                    new CommandManagerItem
+                    {
+                        Name = "Select Point",
+                        Tooltip = "Select Point",
+                        Hint = "Select Point",
+                        OnClick = () => Application.ActiveModel.SelectionManager.SelectObject("Point", "",
+                                                                                              // Default SelectionData if need other change it
+                                                                                              new SelectionData()
+                                                                                              {
+                                                                                                  Mark = -1,
+                                                                                                  Mode = SelectionMode.Override,
+                                                                                                  Point = new(0d, 0d, 0d)
+                                                                                              })
+                    },
+                    new CommandManagerItem
+                    {
+                        Name = "Select All",
+                        Tooltip = "Select All",
+                        Hint = "Select All",
+                        OnClick = () => Application.ActiveModel.SelectionManager.SelectAll()
+                    },
+                    new CommandManagerItem
+                    {
+                        Name = "Deselect All",
+                        Tooltip = "Deselect All",
+                        Hint = "Deselect All",
+                        OnClick = () => Application.ActiveModel.SelectionManager.DeselectAll()
+                    },
+                    new CommandManagerItem
+                    {
+                        Name = "Deselect First",
+                        Tooltip = "Deselect First",
+                        Hint = "Deselect First",
+                        OnClick = () => Application.ActiveModel.SelectionManager.DeselectAt(0)
+                    },
+                    new CommandManagerItem
+                    {
+                        Name = "Deselect Second",
+                        Tooltip = "Deselect Second",
+                        Hint = "Deselect Second",
+                        OnClick = () => Application.ActiveModel.SelectionManager.DeselectAt(1)
                     }
-
                 ]);
         }
 
@@ -118,6 +150,7 @@ namespace SolidDna.Selection
         {
 
         }
+
         #endregion
     }
 }

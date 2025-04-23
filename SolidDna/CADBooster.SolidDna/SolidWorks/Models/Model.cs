@@ -399,7 +399,7 @@ namespace CADBooster.SolidDna
             ActiveConfiguration = new ModelConfiguration(BaseObject.IGetActiveConfiguration());
 
             // Get the selection manager
-            SelectionManager = new SelectionManager(BaseObject.ISelectionManager);
+            SelectionManager = new SelectionManager(BaseObject.ISelectionManager, this, Extension);
 
             // Set drawing access
             Drawing = IsDrawing ? new DrawingDocument((DrawingDoc)BaseObject) : null;

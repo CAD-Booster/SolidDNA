@@ -17,7 +17,7 @@ namespace CADBooster.SolidDna
                 .Select(x => x.ToDnaObject())
                 .DisposeEachWith(disposable);
 
-        public static void DisposeEach<T>(this IEnumerable<T> dnaObjects) where T : SolidDnaObject, IDisposable
+        public static void DisposeEach<T>(this IEnumerable<T> dnaObjects) where T : IDisposable
         {
             foreach (var obj in dnaObjects)
                 obj.Dispose();

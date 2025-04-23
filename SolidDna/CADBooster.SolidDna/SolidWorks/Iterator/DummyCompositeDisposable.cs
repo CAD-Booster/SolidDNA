@@ -6,7 +6,7 @@ namespace CADBooster.SolidDna
     {
         public bool IsDisposed => false;
 
-        public static readonly DummyCompositeDisposable Default;
+        public static readonly DummyCompositeDisposable Default = new DummyCompositeDisposable();
 
         public void Add(IDisposable disposable)
         {
