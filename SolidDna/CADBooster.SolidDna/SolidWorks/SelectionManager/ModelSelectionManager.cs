@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Windows.Media.Media3D;
 
 namespace CADBooster.SolidDna
 {
@@ -15,6 +14,9 @@ namespace CADBooster.SolidDna
     {
         #region SuspendSelectionListDisposable
 
+        /// <summary>
+        /// A disposable class that manages the resumption of the selection list
+        /// </summary>
         private class SuspendSelectionListDisposable : IDisposable
         {
             private SelectionMgr _selectionMgr;
@@ -43,6 +45,9 @@ namespace CADBooster.SolidDna
         private readonly Model _model;
         private readonly ModelExtension _modelExtension;
 
+        /// <summary>
+        /// Gets the count of currently selected objects
+        /// </summary>
         public int SelectedObjectsCount => BaseObject.GetSelectedObjectCount2(-1);
 
         #region Constructor
@@ -52,6 +57,9 @@ namespace CADBooster.SolidDna
         /// Contains several dependencies, since the selection functionality is scattered across many API objects. 
         /// It is better to concentrate all the selection functionality in one class.
         /// </summary>
+        /// <param name="manager">The SolidWorks selection manager</param>
+        /// <param name="model">The parent model</param>
+        /// <param name="modelExtension">The parent model extension</param>
         public SelectionManager(SelectionMgr manager, Model model, ModelExtension modelExtension) : base(manager)
         {
             _model = model;
@@ -85,9 +93,18 @@ namespace CADBooster.SolidDna
             }
         }
 
+        /// <summary>
+        /// Enumerates through all currently selected objects
+        /// </summary>
+        /// <returns>An enumerable of selected objects</returns>
         public IEnumerable<SelectedObject> EnumerateSelectedObjects()
             => EnumerateSelectedObjects(-1);
 
+        /// <summary>
+        /// Enumerates through selected objects with a specific mark
+        /// </summary>
+        /// <param name="mark">The selection mark to filter by</param>
+        /// <returns>An enumerable of selected objects</returns>
         public IEnumerable<SelectedObject> EnumerateSelectedObjects(int mark)
         {
             var count = BaseObject.GetSelectedObjectCount2(mark);
@@ -100,7 +117,7 @@ namespace CADBooster.SolidDna
             for (var i = 1; i <= count; i++)
             {
                 var selectedBase = BaseObject.GetSelectedObject6(i, mark);
-                 
+
                 if (selectedBase is null)
                     continue;
 
@@ -112,8 +129,17 @@ namespace CADBooster.SolidDna
             }
         }
 
+        /// <summary>
+        /// Selects all objects in the model
+        /// </summary>
         public void SelectAll() => _modelExtension.UnsafeObject.SelectAll();
 
+        /// <summary>
+        /// Selects multiple objects with specified selection data
+        /// </summary>
+        /// <param name="selectedObjects">The objects to select</param>
+        /// <param name="selectionData">The selection data including point, mark and mode</param>
+        /// <param name="updateUserInterface">Whether to update the UI after selection</param>
         public void SelectObjects(IEnumerable<SelectedObject> selectedObjects, SelectionData selectionData, bool updateUserInterface = true)
         {
             if (!selectedObjects.Any())
@@ -124,7 +150,7 @@ namespace CADBooster.SolidDna
 
             using (var selectData = BaseObject.CreateSelectData().ToDnaObject())
             {
-                selectData.UnsafeObject.X = selectionData.Point.X; 
+                selectData.UnsafeObject.X = selectionData.Point.X;
                 selectData.UnsafeObject.Y = selectionData.Point.Y;
                 selectData.UnsafeObject.Z = selectionData.Point.Z;
                 selectData.UnsafeObject.Mark = selectionData.Mark;
@@ -136,19 +162,34 @@ namespace CADBooster.SolidDna
                                                         .ToArray(),
                                                    selectData.UnsafeObject);
             }
-            
+
             if (updateUserInterface)
-            {
                 UpdateInterface();
-            }
         }
 
+        /// <summary>
+        /// Selects multiple objects with default selection data
+        /// </summary>
+        /// <param name="selectedObjects">The objects to select</param>
+        /// <param name="updateUserInterface">Whether to update the UI after selection</param>
         public void SelectObjects(IEnumerable<SelectedObject> selectedObjects, bool updateUserInterface = true)
             => SelectObjects(selectedObjects, SelectionData.Default, updateUserInterface);
 
-        public void SelectObject(SelectedObject selectedObjects, SelectionData selectionData, bool updateUserInterface = true)
-            => SelectObjects(Enumerable.Repeat(selectedObjects, 1), selectionData, updateUserInterface);
+        /// <summary>
+        /// Selects a single object with specified selection data
+        /// </summary>
+        /// <param name="selectedObject">The object to select</param>
+        /// <param name="selectionData">The selection data including point and mode</param>
+        /// <param name="updateUserInterface">Whether to update the UI after selection</param>
+        public void SelectObject(SelectedObject selectedObject, SelectionData selectionData, bool updateUserInterface = true)
+            => SelectObjects(Enumerable.Repeat(selectedObject, 1), selectionData, updateUserInterface);
 
+        /// <summary>
+        /// Selects an object by name and type with specified selection data
+        /// </summary>
+        /// <param name="name">The name of the object to select</param>
+        /// <param name="selectionType">The type of object to select</param>
+        /// <param name="selectionData">The selection data including point and mode</param>
         public void SelectObject(string name, string selectionType, SelectionData selectionData)
         {
             // TODO: Implement selectionType
@@ -164,27 +205,49 @@ namespace CADBooster.SolidDna
                                                      (int)swSelectOption_e.swSelectOptionDefault);
         }
 
+        /// <summary>
+        /// Selects an object by name and type with default selection data
+        /// </summary>
+        /// <param name="name">The name of the object to select</param>
+        /// <param name="selectionType">The type of object to select</param>
         // TODO: Implement selectionType
         public void SelectObject(string name, string selectionType) =>
             SelectObject(name, selectionType, SelectionData.Default);
 
+        /// <summary>
+        /// Temporarily selects objects and returns a disposable to resume the selection when done
+        /// </summary>
+        /// <param name="selectedObjects">The objects to temporarily select</param>
+        /// <param name="selectionData">The selection data</param>
+        /// <param name="updateUserInterface">Whether to update the UI immediately</param>
+        /// <param name="updateUserInterfaceAfterDisposing">Whether to update the UI when resume the selection</param>
+        /// <returns>A disposable that will clear the selection when disposed</returns>
         public IDisposable TemporarySelectObjects(IEnumerable<SelectedObject> selectedObjects, SelectionData selectionData, bool updateUserInterface = false, bool updateUserInterfaceAfterDisposing = true)
         {
             SelectObjects(selectedObjects, selectionData, updateUserInterface);
-            var disposable = new SuspendSelectionListDisposable(BaseObject, x => 
+            var disposable = new SuspendSelectionListDisposable(BaseObject, x =>
             {
                 _ = _disposables.Remove(x);
-                if(updateUserInterfaceAfterDisposing)
+                if (updateUserInterfaceAfterDisposing)
                     UpdateInterface();
             });
-            
+
             _disposables.Add(disposable);
             return disposable;
         }
 
+        /// <summary>
+        /// Temporarily selects objects with default selection data
+        /// </summary>
+        /// <param name="selectedObjects">The objects to temporarily select</param>
+        /// <param name="updateUserInterface">Whether to update the UI immediately</param>
+        /// <returns>A disposable that will clear the selection when disposed</returns>
         public IDisposable TemporarySelectObjects(IEnumerable<SelectedObject> selectedObjects, bool updateUserInterface = true)
             => TemporarySelectObjects(selectedObjects, SelectionData.Default, updateUserInterface);
 
+        /// <summary>
+        /// Deselects all currently selected objects
+        /// </summary>
         public void DeselectAll()
         {
             /// By some reason cant deselect all
@@ -199,22 +262,28 @@ namespace CADBooster.SolidDna
             /// Model method seams work better
             /// Not clearly understand what flag do, doc says:
             /// "False only works if the current PropertyManager page contains a selection list; otherwise, this method clears all selections."
-            _model.UnsafeObject.ClearSelection2(true); 
+            _model.UnsafeObject.ClearSelection2(true);
         }
 
         /// <summary>
-        /// Deselects element at specified index 
+        /// Deselects the object at the specified index
         /// </summary>
-        /// <param name="index">Zero based index</param>
-        /// <param name="mark"></param>
+        /// <param name="index">The zero-based index of the object to deselect</param>
+        /// <param name="mark">The selection mark</param>
         public void DeselectAt(int index, int mark = -1) => BaseObject.DeSelect2(index + 1, mark);
 
+        /// <summary>
+        /// Disposes of all resources
+        /// </summary>
         public override void Dispose()
         {
             _disposables.DisposeEach();
             base.Dispose();
         }
 
+        /// <summary>
+        /// Updates the SolidWorks interface to reflect selection changes
+        /// </summary>
         private static void UpdateInterface()
         {
             SolidWorksEnvironment.Application.ActiveModel.UnsafeObject.GraphicsRedraw();

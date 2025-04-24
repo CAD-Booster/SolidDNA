@@ -54,6 +54,7 @@ namespace SolidDna.Selection
 
         public override void ConnectedToSolidWorks()
         {
+            // Stores previously selected items between commands
             SelectedObject[] previous = [];
 
             Application.CommandManager.CreateCommandTab(
@@ -61,6 +62,7 @@ namespace SolidDna.Selection
                 id: 160_001,
                 commandManagerItems:
                 [
+                    // Command to capture current selection
                     new CommandManagerItem
                     {
                         Name = "Remember selected items",
@@ -73,6 +75,7 @@ namespace SolidDna.Selection
                             previous = Application.ActiveModel.SelectionManager.EnumerateSelectedObjects().ToArray();
                         }
                     },
+                    // Command to restore saved selection
                     new CommandManagerItem
                     {
                         Name = "Select previous items",
@@ -83,6 +86,7 @@ namespace SolidDna.Selection
                             Application.ActiveModel.SelectionManager.SelectObjects(previous);
                         }
                     },
+                    // Command to delete stored selection
                     new CommandManagerItem
                     {
                         Name = "Remove previous selected items",
@@ -101,12 +105,14 @@ namespace SolidDna.Selection
                             return; //Then it will be rollback to previous selected list 
                         }
                     },
+                    // Command to select origin point by name
+                    // For more info see "3.5. How to select sketch segments" in https://cadbooster.com/how-to-work-with-selections-in-the-solidworks-api/
                     new CommandManagerItem
                     {
-                        Name = "Select Point",
-                        Tooltip = "Select Point",
-                        Hint = "Select Point",
-                        OnClick = () => Application.ActiveModel.SelectionManager.SelectObject("Point", "",
+                        Name = "Select \"Line1@Sketch1\"",
+                        Tooltip = "Select \"Line1@Sketch1\"",
+                        Hint = "Select \"Line1@Sketch1\"",
+                        OnClick = () => Application.ActiveModel.SelectionManager.SelectObject("Line1@Sketch1", "EXTSKETCHSEGMENT",
                                                                                               // Default SelectionData if need other change it
                                                                                               new SelectionData()
                                                                                               {
@@ -115,6 +121,7 @@ namespace SolidDna.Selection
                                                                                                   Point = new(0d, 0d, 0d)
                                                                                               })
                     },
+                    // Command to select all model entities
                     new CommandManagerItem
                     {
                         Name = "Select All",
@@ -122,6 +129,7 @@ namespace SolidDna.Selection
                         Hint = "Select All",
                         OnClick = () => Application.ActiveModel.SelectionManager.SelectAll()
                     },
+                    // Command to clear selection
                     new CommandManagerItem
                     {
                         Name = "Deselect All",
@@ -129,6 +137,7 @@ namespace SolidDna.Selection
                         Hint = "Deselect All",
                         OnClick = () => Application.ActiveModel.SelectionManager.DeselectAll()
                     },
+                    // Command to deselect first item
                     new CommandManagerItem
                     {
                         Name = "Deselect First",
@@ -136,6 +145,7 @@ namespace SolidDna.Selection
                         Hint = "Deselect First",
                         OnClick = () => Application.ActiveModel.SelectionManager.DeselectAt(0)
                     },
+                    // Command to deselect second item
                     new CommandManagerItem
                     {
                         Name = "Deselect Second",

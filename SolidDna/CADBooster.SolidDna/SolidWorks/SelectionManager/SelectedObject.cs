@@ -1,7 +1,6 @@
 ﻿using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
 using System;
-using System.Runtime.CompilerServices;
 
 namespace CADBooster.SolidDna
 {
@@ -79,6 +78,7 @@ namespace CADBooster.SolidDna
         /// Check with <see cref="IsFeature"/> first to assure that it is this type
         /// </summary>
         /// <param name="action">The feature is passed into this action to be used within it</param>
+        [Obsolete("Use AsFeature extension")]
         public void AsFeature(Action<ModelFeature> action)
         {
             // Wrap any error
@@ -100,6 +100,7 @@ namespace CADBooster.SolidDna
         /// Check with <see cref="IsDimension"/> first to assure that it is this type
         /// </summary>
         /// <param name="action">The Dimension is passed into this action to be used within it</param>
+        [Obsolete("Use AsDimension extension")]
         public void AsDimension(Action<ModelDisplayDimension> action)
         {
             // Wrap any error
@@ -117,21 +118,5 @@ namespace CADBooster.SolidDna
         }
 
         #endregion
-    }
-
-    public static class SelectedObjectExtensions
-    {
-        public static ModelFeature AsFeature(this SelectedObject selectedObject)
-            => selectedObject.AsSpecificObject((Feature x) => new ModelFeature(x));
-
-        public static ModelDisplayDimension AsDimension(this SelectedObject selectedObject)
-            => selectedObject.AsSpecificObject((IDisplayDimension x) => new ModelDisplayDimension(x));
-
-        internal static TWrapper AsSpecificObject<TWrapper, TBase>(this SelectedObject selectedObject, Func<TBase, TWrapper> factory)
-            => SolidDnaErrors.Wrap(() =>
-                factory.Invoke((TBase)selectedObject.UnsafeObject),
-                SolidDnaErrorTypeCode.SolidWorksModel,
-                SolidDnaErrorCode.SolidWorksModelSelectedObjectCastError
-            );
     }
 }

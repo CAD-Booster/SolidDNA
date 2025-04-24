@@ -7,12 +7,18 @@ namespace CADBooster.SolidDna
     /// </summary>
     public class Note : SolidDnaObject<INote>
     {
+        /// <summary>
+        /// Gets or sets the note's text content
+        /// </summary>
         public string Text 
         { 
             get => BaseObject.GetText(); 
             set => BaseObject.SetText(value); 
         }
 
+        /// <summary>
+        /// Gets or sets the note's name
+        /// </summary>
         public string Name
         {
             get => BaseObject.GetName();
