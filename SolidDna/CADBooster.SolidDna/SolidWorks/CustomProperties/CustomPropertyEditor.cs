@@ -1,6 +1,8 @@
 ﻿using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace CADBooster.SolidDna
@@ -10,6 +12,7 @@ namespace CADBooster.SolidDna
     /// </summary>
     public class CustomPropertyEditor : SolidDnaObject<CustomPropertyManager>
     {
+        public bool IsTypeCheckEnabled { get; set; } = true;
         #region Constructor
 
         /// <summary>
@@ -45,10 +48,105 @@ namespace CADBooster.SolidDna
             // TODO: Add error checking and exception catching
 
             // Get custom property
-            BaseObject.Get5(name, false, out var val, out var resolvedVal, out var wasResolved);
+            _ = BaseObject.Get5(name, false, out var val, out var resolvedVal, out _);
 
             // Return desired result
             return resolve ? resolvedVal : val;
+        }
+
+        public string GetStringCustomProperty(string name, bool resolve = false)
+        {
+            // TODO: Add error checking and exception catching
+
+            if (IsTypeCheckEnabled)
+                ThrowIfExpectedTypeMismatch(name, swCustomInfoType_e.swCustomInfoText, true);
+
+            _ = BaseObject.Get5(name, false, out var val, out var resolvedVal, out _);
+
+            return resolve ? resolvedVal : val;
+        }
+
+        public DateTime GetDateCustomProperty(string name)
+        {
+            // TODO: Add error checking and exception catching
+
+            if (IsTypeCheckEnabled)
+                ThrowIfExpectedTypeMismatch(name, swCustomInfoType_e.swCustomInfoDate);
+
+
+            _ = BaseObject.Get5(name, false, out _, out var resolvedVal, out _);
+
+            return DateTime.Parse(resolvedVal);
+        }        
+        
+        public int GetIntegerCustomProperty(string name)
+        {
+            // TODO: Add error checking and exception catching
+
+            if (IsTypeCheckEnabled)
+                ThrowIfExpectedTypeMismatch(name, swCustomInfoType_e.swCustomInfoNumber);
+
+
+            _ = BaseObject.Get5(name, false, out _, out var resolvedVal, out _);
+
+            return int.Parse(resolvedVal);
+        }        
+        
+        public double GetDoubleCustomProperty(string name)
+        {
+            // TODO: Add error checking and exception catching
+
+            if (IsTypeCheckEnabled)
+                ThrowIfExpectedTypeMismatch(name, swCustomInfoType_e.swCustomInfoNumber);
+
+
+            _ = BaseObject.Get5(name, false, out _, out var resolvedVal, out _);
+
+            return double.Parse(resolvedVal, CultureInfo.InvariantCulture);
+        }
+
+        public bool GetBooleanCustomProperty(string name)
+        {
+            // TODO: Add error checking and exception catching
+
+            if (IsTypeCheckEnabled)
+                ThrowIfExpectedTypeMismatch(name, swCustomInfoType_e.swCustomInfoYesOrNo);
+
+            _ = BaseObject.Get5(name, false, out _, out var resolvedVal, out _);
+
+            switch (resolvedVal)
+            {
+                case "Yes":
+                    return true;
+                case "No":
+                    return false;
+                default:
+                    throw new InvalidOperationException();
+            }
+        }
+
+        public string GetRawEquationCustomProperty(string name)
+        {
+            // TODO: Add error checking and exception catching
+
+            if (IsTypeCheckEnabled)
+                ThrowIfExpectedTypeMismatch(name, swCustomInfoType_e.swCustomInfoEquation, true);
+
+            _ = BaseObject.Get5(name, false, out var val, out _, out _);
+
+            return val;
+        }
+
+        public double GetEvaluatedEquationCustomProperty(string name)
+        {
+            // TODO: Add error checking and exception catching
+
+            if (IsTypeCheckEnabled)
+                ThrowIfExpectedTypeMismatch(name, swCustomInfoType_e.swCustomInfoEquation);
+
+            _ = BaseObject.Get5(name, false, out _, out var resolvedVal, out _);
+
+            return double.Parse(resolvedVal, CultureInfo.InvariantCulture);
         }
 
         /// <summary>
@@ -72,8 +170,27 @@ namespace CADBooster.SolidDna
             //
 
             // Set new one
-            BaseObject.Add3(name, (int)type, value, (int)swCustomPropertyAddOption_e.swCustomPropertyReplaceValue);
+            _ = BaseObject.Add3(name, (int)type, value, (int)swCustomPropertyAddOption_e.swCustomPropertyReplaceValue);
         }
+
+        public void SetStringCustomProperty(string name, string value) 
+            => SetCustomProperty(name, value, swCustomInfoType_e.swCustomInfoText);
+
+        public void SetDateCustomProperty(string name, DateTime value) 
+            => SetCustomProperty(name, value.ToString("dd.MM.yyyy"), swCustomInfoType_e.swCustomInfoDate);
+
+        public void SetIntegerCustomProperty(string name, int value) 
+            => SetCustomProperty(name, value.ToString(), swCustomInfoType_e.swCustomInfoNumber);
+
+        public void SetDoubleCustomProperty(string name, double value)
+            => SetCustomProperty(name, value.ToString(CultureInfo.InvariantCulture), swCustomInfoType_e.swCustomInfoDouble);
+
+        public void SetBooleanCustomProperty(string name, bool value) 
+            => SetCustomProperty(name, value ? "Yes" : "No", swCustomInfoType_e.swCustomInfoYesOrNo);
+
+        public void SetEquationCustomProperty(string name, string value)
+            => SetCustomProperty(name, value, swCustomInfoType_e.swCustomInfoEquation);
+
 
         /// <summary>
         /// Deletes a custom property by name
@@ -106,6 +223,21 @@ namespace CADBooster.SolidDna
 
             // Return the list
             return list;
+        }
+
+        private void ThrowIfExpectedTypeMismatch(string name, swCustomInfoType_e expectedType, bool allowUnknown = false)
+        {
+            var type = (swCustomInfoType_e)BaseObject.GetType2(name);
+
+            if (allowUnknown && type == swCustomInfoType_e.swCustomInfoUnknown)
+                return;
+
+            if (type != expectedType)
+            {
+                throw new SolidDnaException(SolidDnaErrors.CreateError(
+                        SolidDnaErrorTypeCode.SolidWorksModel, SolidDnaErrorCode.SolidWorksModelError,
+                        $"Property has different type that expected. Received: {type}, expected: {expectedType}"));
+            }
         }
     }
 }

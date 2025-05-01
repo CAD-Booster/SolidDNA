@@ -169,6 +169,10 @@
         /// </summary>
         SolidWorksModelGetConfigurationError = 11014,
 
+        /// <summary>
+        /// </summary>
+        SolidWorksModelGetPropertyError = 11030,
+
         #endregion
 
         #region SolidWorks Command Manager (12,000)
