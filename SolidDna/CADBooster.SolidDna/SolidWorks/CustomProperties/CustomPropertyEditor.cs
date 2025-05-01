@@ -12,6 +12,11 @@ namespace CADBooster.SolidDna
     /// </summary>
     public class CustomPropertyEditor : SolidDnaObject<CustomPropertyManager>
     {
+        /// <summary>
+        /// Gets or sets whether type checking is enabled when getting property values
+        /// When enabled, methods will verify the property type matches the expected type
+        /// By default is <see langword="true"/>
+        /// </summary>
         public bool IsTypeCheckEnabled { get; set; } = true;
         #region Constructor
 
@@ -29,7 +34,7 @@ namespace CADBooster.SolidDna
         /// Checks if a custom property exists
         /// </summary>
         /// <param name="name">The name of the custom property</param>
-        /// <returns></returns>
+        /// <returns>If the property exists <see langword="true"/>, <see langword="false"/> otherwise</returns>
         public bool CustomPropertyExists(string name)
         {
             // TODO: Add error checking and exception catching
@@ -42,7 +47,7 @@ namespace CADBooster.SolidDna
         /// </summary>
         /// <param name="name">The name of the custom property</param>
         /// <param name="resolve">True to resolve the custom property value</param>
-        /// <returns></returns>
+        /// <returns>The property value as a string</returns>
         public string GetCustomProperty(string name, bool resolve = false)
         {
             // TODO: Add error checking and exception catching
@@ -54,6 +59,13 @@ namespace CADBooster.SolidDna
             return resolve ? resolvedVal : val;
         }
 
+        /// <summary>
+        /// Gets a string value from a custom property
+        /// </summary>
+        /// <param name="name">The name of the custom property</param>
+        /// <param name="resolve">Whether to resolve the value (evaluate equations/formulas)</param>
+        /// <returns>The string value of the property</returns>
+        /// <exception cref="SolidDnaException">Thrown if type checking is enabled and the property is not of text type</exception>        
         public string GetStringCustomProperty(string name, bool resolve = false)
         {
             // TODO: Add error checking and exception catching
@@ -66,6 +78,12 @@ namespace CADBooster.SolidDna
             return resolve ? resolvedVal : val;
         }
 
+        /// <summary>
+        /// Gets a DateTime value from a date-type custom property
+        /// </summary>
+        /// <param name="name">The name of the custom property</param>
+        /// <returns>The parsed DateTime value</returns>
+        /// <exception cref="SolidDnaException">Thrown if type checking is enabled and the property is not of date type</exception>
         public DateTime GetDateCustomProperty(string name)
         {
             // TODO: Add error checking and exception catching
@@ -77,8 +95,14 @@ namespace CADBooster.SolidDna
             _ = BaseObject.Get5(name, false, out _, out var resolvedVal, out _);
 
             return DateTime.Parse(resolvedVal);
-        }        
-        
+        }
+
+        /// <summary>
+        /// Gets an integer value from a number-type custom property
+        /// </summary>
+        /// <param name="name">The name of the custom property</param>
+        /// <returns>The parsed integer value</returns>
+        /// <exception cref="SolidDnaException">Thrown if type checking is enabled and the property is not of number type</exception>
         public int GetIntegerCustomProperty(string name)
         {
             // TODO: Add error checking and exception catching
@@ -90,8 +114,14 @@ namespace CADBooster.SolidDna
             _ = BaseObject.Get5(name, false, out _, out var resolvedVal, out _);
 
             return int.Parse(resolvedVal);
-        }        
-        
+        }
+
+        /// <summary>
+        /// Gets a double value from a number-type custom property
+        /// </summary>
+        /// <param name="name">The name of the custom property</param>
+        /// <returns>The parsed double value</returns>
+        /// <exception cref="SolidDnaException">Thrown if type checking is enabled and the property is not of number type</exception>
         public double GetDoubleCustomProperty(string name)
         {
             // TODO: Add error checking and exception catching
@@ -105,6 +135,12 @@ namespace CADBooster.SolidDna
             return double.Parse(resolvedVal, CultureInfo.InvariantCulture);
         }
 
+        /// <summary>
+        /// Gets a boolean value from a yes/no-type custom property
+        /// </summary>
+        /// <param name="name">The name of the custom property</param>
+        /// <returns>The boolean value (<see langword="true"/> for "Yes", <see langword="false"/> for "No")</returns>
+        /// <exception cref="SolidDnaException">Thrown if type checking is enabled and the property is not of yes/no type</exception>
         public bool GetBooleanCustomProperty(string name)
         {
             // TODO: Add error checking and exception catching
@@ -125,6 +161,12 @@ namespace CADBooster.SolidDna
             }
         }
 
+        /// <summary>
+        /// Gets the raw equation text from an equation-type custom property
+        /// </summary>
+        /// <param name="name">The name of the custom property</param>
+        /// <returns>The raw equation text</returns>
+        /// <exception cref="SolidDnaException">Thrown if type checking is enabled and the property is not of equation type</exception>
         public string GetRawEquationCustomProperty(string name)
         {
             // TODO: Add error checking and exception catching
@@ -137,6 +179,12 @@ namespace CADBooster.SolidDna
             return val;
         }
 
+        /// <summary>
+        /// Gets the evaluated result of an equation-type custom property
+        /// </summary>
+        /// <param name="name">The name of the custom property</param>
+        /// <returns>The evaluated numeric result</returns>
+        /// <exception cref="SolidDnaException">Thrown if type checking is enabled and the property is not of equation type</exception>
         public double GetEvaluatedEquationCustomProperty(string name)
         {
             // TODO: Add error checking and exception catching
@@ -173,24 +221,53 @@ namespace CADBooster.SolidDna
             _ = BaseObject.Add3(name, (int)type, value, (int)swCustomPropertyAddOption_e.swCustomPropertyReplaceValue);
         }
 
+        /// <summary>
+        /// Sets a string value to a text-type custom property
+        /// </summary>
+        /// <param name="name">The name of the custom property</param>
+        /// <param name="value">The string value to set</param>
         public void SetStringCustomProperty(string name, string value) 
             => SetCustomProperty(name, value, swCustomInfoType_e.swCustomInfoText);
 
+        /// <summary>
+        /// Sets a date value to a date-type custom property, time data is ignored
+        /// </summary>
+        /// <param name="name">The name of the custom property</param>
+        /// <param name="value">The date value to set</param>
         public void SetDateCustomProperty(string name, DateTime value) 
             => SetCustomProperty(name, value.ToString("dd.MM.yyyy"), swCustomInfoType_e.swCustomInfoDate);
 
+        /// <summary>
+        /// Sets an integer value to a number-type custom property
+        /// </summary>
+        /// <param name="name">The name of the custom property</param>
+        /// <param name="value">The integer value to set</param>
         public void SetIntegerCustomProperty(string name, int value) 
             => SetCustomProperty(name, value.ToString(), swCustomInfoType_e.swCustomInfoNumber);
 
+        /// <summary>
+        /// Sets a double value to a number-type custom property
+        /// </summary>
+        /// <param name="name">The name of the custom property</param>
+        /// <param name="value">The double value to set</param>
         public void SetDoubleCustomProperty(string name, double value)
             => SetCustomProperty(name, value.ToString(CultureInfo.InvariantCulture), swCustomInfoType_e.swCustomInfoDouble);
 
+        /// <summary>
+        /// Sets a boolean value to a yes/no-type custom property ("Yes" for <see langword="true"/>, "No" for <see langword="false"/>)
+        /// </summary>
+        /// <param name="name">The name of the custom property</param>
+        /// <param name="value">The boolean value to set</param>
         public void SetBooleanCustomProperty(string name, bool value) 
             => SetCustomProperty(name, value ? "Yes" : "No", swCustomInfoType_e.swCustomInfoYesOrNo);
 
+        /// <summary>
+        /// Sets an equation/formula to an equation-type custom property
+        /// </summary>
+        /// <param name="name">The name of the custom property</param>
+        /// <param name="value">The equation text to set</param>
         public void SetEquationCustomProperty(string name, string value)
             => SetCustomProperty(name, value, swCustomInfoType_e.swCustomInfoEquation);
-
 
         /// <summary>
         /// Deletes a custom property by name
@@ -225,6 +302,13 @@ namespace CADBooster.SolidDna
             return list;
         }
 
+        /// <summary>
+        /// Throws an exception if the actual property type doesn't match the expected type
+        /// </summary>
+        /// <param name="name">The name of the property to check</param>
+        /// <param name="expectedType">The expected property type</param>
+        /// <param name="allowUnknown">Whether to allow unknown/untyped properties</param>
+        /// <exception cref="SolidDnaException">Thrown if the property type doesn't match the expected type</exception>
         private void ThrowIfExpectedTypeMismatch(string name, swCustomInfoType_e expectedType, bool allowUnknown = false)
         {
             var type = (swCustomInfoType_e)BaseObject.GetType2(name);

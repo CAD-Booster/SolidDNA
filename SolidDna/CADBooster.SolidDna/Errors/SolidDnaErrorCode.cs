@@ -170,6 +170,7 @@
         SolidWorksModelGetConfigurationError = 11014,
 
         /// <summary>
+        /// Error occurred while trying to get a custom property value from a SolidWorks model
         /// </summary>
         SolidWorksModelGetPropertyError = 11030,
 
