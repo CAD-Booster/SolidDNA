@@ -235,7 +235,7 @@ namespace CADBooster.SolidDna
         /// <param name="name">The name of the custom property</param>
         /// <param name="value">The date value to set</param>
         public void SetDateCustomProperty(string name, DateTime value) 
-            => SetCustomProperty(name, value.ToString("dd.MM.yyyy"), swCustomInfoType_e.swCustomInfoDate);
+            => SetCustomProperty(name, value.Date.ToShortDateString(), swCustomInfoType_e.swCustomInfoDate);
 
         /// <summary>
         /// Sets an integer value to a number-type custom property
