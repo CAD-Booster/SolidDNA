@@ -1641,5 +1641,24 @@ namespace CADBooster.SolidDna
         }
 
         #endregion
+
+        #region View
+
+        public void ZoomTo(XYZ center, double size)
+        {
+            var min = center
+                .MoveAlongVector(-XYZ.BasisX, size / 2)
+                .MoveAlongVector(-XYZ.BasisY, size / 2);
+
+            var max = center
+                .MoveAlongVector(XYZ.BasisX, size / 2)
+                .MoveAlongVector(XYZ.BasisY, size / 2);
+
+            UnsafeObject.ViewZoomTo2(
+                min.X, min.Y, min.Z,
+                max.X, max.Y, max.Z);
+        }
+
+        #endregion
     }
 }

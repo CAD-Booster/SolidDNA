@@ -151,5 +151,7 @@ namespace CADBooster.SolidDna
 
         public XYZ Normalize() 
             => new(AsMathVector().Normalise());
+
+        public XYZ VectorTo(XYZ end) => (end - this).Normalize();
     }
 }
