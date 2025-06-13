@@ -1,5 +1,7 @@
 ﻿using SolidWorks.Interop.sldworks;
 using System;
+using UnitsNet;
+using UnitsNet.Units;
 
 namespace CADBooster.SolidDna
 {
@@ -153,5 +155,13 @@ namespace CADBooster.SolidDna
             => new(AsMathVector().Normalise());
 
         public XYZ VectorTo(XYZ end) => (end - this).Normalize();
+
+        public XYZ Convert(LengthUnit from, LengthUnit to)
+        {
+            return new XYZ(
+                Length.From(X, from).ToUnit(to).Value,
+                Length.From(Y, from).ToUnit(to).Value,
+                Length.From(Z, from).ToUnit(to).Value);
+        }
     }
 }

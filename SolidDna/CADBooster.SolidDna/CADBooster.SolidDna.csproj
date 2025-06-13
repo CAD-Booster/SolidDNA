@@ -49,6 +49,7 @@ Added inner exception info to SolidDnaException ToString.</PackageReleaseNotes>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="System.Net.Http" />
+    <PackageReference Include="UnitsNet" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
