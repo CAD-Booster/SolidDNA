@@ -109,6 +109,15 @@ namespace SolidDna.CommandItems
 
             Application.CommandManager.CreateContextMenuItems(
             [
+                new CommandContextIcon
+                {
+                    Hint = "Icon Hint",
+                    OnClick = () => System.Windows.MessageBox.Show("Context icon clicked"),
+                    OnStateCheck = args => args.Result = CommandManagerItemState.DeselectedEnabled,
+                    // Example only. Use indexed single icon instead.
+                    Icon = imageFormat,
+                    SelectionType = swSelectType_e.swSelCOMPONENTS
+                },
                 new CommandContextItem
                 {
                     Name = "RootItem",
