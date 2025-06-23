@@ -1660,5 +1660,10 @@ namespace CADBooster.SolidDna
         }
 
         #endregion
+
+        public void Rebuild()
+        {
+            UnsafeObject.Extension.Rebuild((int)swRebuildOptions_e.swRebuildAll);
+        }
     }
 }
