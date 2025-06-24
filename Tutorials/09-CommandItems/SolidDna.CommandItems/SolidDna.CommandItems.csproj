@@ -31,4 +31,7 @@
     <None Update="icons64.png" CopyToOutputDirectory="Always" />
     <None Update="icons96.png" CopyToOutputDirectory="Always" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
 </Project>

@@ -1,8 +1,10 @@
 ﻿using CADBooster.SolidDna;
+using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using static CADBooster.SolidDna.SolidWorksEnvironment;
@@ -116,7 +118,7 @@ namespace SolidDna.CommandItems
                     OnStateCheck = args => args.Result = CommandManagerItemState.DeselectedEnabled,
                     // Example only. Use indexed single icon instead.
                     Icon = imageFormat,
-                    SelectionType = swSelectType_e.swSelCOMPONENTS
+                    SelectionType = SelectionType.InContextFeatures
                 },
                 new CommandContextItem
                 {
@@ -124,20 +126,20 @@ namespace SolidDna.CommandItems
                     Hint = "RootItem Hint",
                     OnClick = onContextMenuItemClick,
                     OnStateCheck = args => args.Result = CommandManagerItemState.SelectedEnabled,
-                    SelectionType = swSelectType_e.swSelCOMPONENTS
+                    SelectionType = SelectionType.Component
                 },
                 new CommandContextMenuGroup
                 {
                     Name = "RootGroup",
                     Items = 
                     [..
-                        CreateCommandItems().AsCommandCreatable(x => swSelectType_e.swSelCOMPONENTS),
+                        CreateCommandItems().AsCommandCreatable(x => SelectionType.Component),
                         new CommandContextItem
                         {
                             Name = "PlaneItem",
                             Hint = "PlaneItem Hint",
                             OnClick = onContextMenuItemClick,
-                            SelectionType = swSelectType_e.swSelDATUMPLANES
+                            SelectionType = SelectionType.DatumPlane
                         },
                         new CommandContextMenuGroup
                         {
@@ -149,7 +151,7 @@ namespace SolidDna.CommandItems
                                     Name = "SubSubItem",
                                     Hint = "SubSubItem Hint",
                                     OnClick = onContextMenuItemClick,
-                                    SelectionType = swSelectType_e.swSelCOMPONENTS
+                                    SelectionType = SelectionType.Component
                                 },
                                 new CommandContextMenuGroup
                                 {
@@ -161,7 +163,7 @@ namespace SolidDna.CommandItems
                                             Name = "SubSubSubItem",
                                             Hint = "SubSubSubItem Hint",
                                             OnClick = onContextMenuItemClick,
-                                            SelectionType = swSelectType_e.swSelCOMPONENTS
+                                            SelectionType = SelectionType.Component
                                         }
                                     ]
                                 },

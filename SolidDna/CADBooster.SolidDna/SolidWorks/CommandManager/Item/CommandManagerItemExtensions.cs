@@ -17,20 +17,28 @@ namespace CADBooster.SolidDna
         /// <param name="selectTypeSelector">An optional function to determine the selection type for each item</param>
         /// <returns>A collection of <see cref="ICommandCreatable"/> objects</returns>
         public static IEnumerable<ICommandCreatable> AsCommandCreatable(this IEnumerable<CommandManagerItem> items,
-                                                                        Func<CommandManagerItem, swSelectType_e> selectTypeSelector = null)
+                                                                        Func<CommandManagerItem, SelectionType> selectTypeSelector = null)
             => items.Select(x =>
                 x.AsCommandCreatable(
                     selectTypeSelector is null
-                    ? swSelectType_e.swSelEVERYTHING
+                    ? SelectionType.Everything
                     : selectTypeSelector.Invoke(x)));
 
         /// <summary>
         /// Converts a single <see cref="CommandManagerItem"/> object to an <see cref="ICommandCreatable"/> object
         /// </summary>
         /// <param name="item">The <see cref="CommandManagerItem"/> object to convert</param>
-        /// <param name="selectType">The selection type for the item (defaults to <see cref="swSelectType_e.swSelEVERYTHING"/>)</param>
         /// <returns>An <see cref="ICommandCreatable"/> object</returns>
-        public static ICommandCreatable AsCommandCreatable(this CommandManagerItem item, swSelectType_e selectType = swSelectType_e.swSelEVERYTHING)
+        public static ICommandCreatable AsCommandCreatable(this CommandManagerItem item)
+            => item.AsCommandCreatable(SelectionType.Everything);
+
+        /// <summary>
+        /// Converts a single <see cref="CommandManagerItem"/> object to an <see cref="ICommandCreatable"/> object
+        /// </summary>
+        /// <param name="item">The <see cref="CommandManagerItem"/> object to convert</param>
+        /// <param name="selectType">The selection type for the item (defaults to <see cref="SelectionType.Everything"/>)</param>
+        /// <returns>An <see cref="ICommandCreatable"/> object</returns>
+        public static ICommandCreatable AsCommandCreatable(this CommandManagerItem item, SelectionType selectType)
             => new CommandContextItem()
             {
                 Name = item.Name,

@@ -35,12 +35,12 @@ namespace CADBooster.SolidDna
             CommandId = AddInIntegration.SolidWorks.UnsafeObject.AddMenuPopupItem3(
                 (int)DocumentType,
                 SolidWorksEnvironment.Application.SolidWorksCookie,
-                (int)SelectionType,
+                SelectionType,
                 fullName,
                 $"{nameof(SolidAddIn.Callback)}({CallbackId})",
                 $"{nameof(SolidAddIn.ItemStateCheck)}({CallbackId})",
                 Hint,
-                string.Empty
+                SelectionType.GetCustomFeaturesSelection()
             );
         }
     }

@@ -48,7 +48,7 @@ namespace CADBooster.SolidDna
         /// <summary>
         /// The selection type that determines where the context menu will be shown
         /// </summary>
-        public swSelectType_e SelectionType { get; set; } = swSelectType_e.swSelEVERYTHING;
+        public SelectionType SelectionType { get; set; } = SelectionType.Everything;
 
         #endregion
 

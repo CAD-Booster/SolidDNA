@@ -23,7 +23,7 @@ namespace CADBooster.SolidDna
         /// <summary>
         /// Gets the selection type that determines where this item is shown
         /// </summary>
-        public swSelectType_e SelectionType { get; }
+        public SelectionType SelectionType { get; }
 
         /// <summary>
         /// Gets the document type (Assembly, Part, or Drawing) for which this item is created

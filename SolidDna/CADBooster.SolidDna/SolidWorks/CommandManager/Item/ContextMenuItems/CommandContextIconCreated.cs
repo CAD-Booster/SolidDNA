@@ -29,12 +29,12 @@ namespace CADBooster.SolidDna
 
             _ = frame.AddMenuPopupIcon3(
                 (int)DocumentType,
-                (int)SelectionType,
+                SelectionType,
                 Hint,
                 SolidWorksEnvironment.Application.SolidWorksCookie,
                 $"{nameof(SolidAddIn.Callback)}({CallbackId})",
                 $"{nameof(SolidAddIn.ItemStateCheck)}({CallbackId})",
-                string.Empty,
+                SelectionType.GetCustomFeaturesSelection(),
                 icons);
 
             _ = Marshal.ReleaseComObject(frame);
