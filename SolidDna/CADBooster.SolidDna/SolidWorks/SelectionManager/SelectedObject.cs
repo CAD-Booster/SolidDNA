@@ -18,7 +18,7 @@ namespace CADBooster.SolidDna
         /// <summary>
         /// The type of the selected object
         /// </summary>
-        public swSelectType_e ObjectType { get; private set; }
+        public swSelectType_e ObjectType { get; private set; } = swSelectType_e.swSelEVERYTHING;
 
         #region Type Checks
 
@@ -59,12 +59,12 @@ namespace CADBooster.SolidDna
         /// <summary>
         /// Default constructor
         /// </summary>
-        public SelectedObject(object model) : base(model)
+        public SelectedObject(object selectedObject) : base(selectedObject)
         {
 
         }
 
-        public SelectedObject(object model, swSelectType_e objectType) : base(model)
+        public SelectedObject(object selectedObject, swSelectType_e objectType) : base(selectedObject)
         {
             ObjectType = objectType;
         }

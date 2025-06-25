@@ -1,5 +1,7 @@
 ﻿using SolidWorks.Interop.sldworks;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CADBooster.SolidDna
 {
@@ -8,6 +10,22 @@ namespace CADBooster.SolidDna
     /// </summary>
     public static class SelectedObjectExtensions
     {
+        /// <summary>
+        /// Wraps a <see cref="SolidDnaObject"/> as a <see cref="SelectedObject"/> for use in selection operations
+        /// </summary>
+        /// <param name="dnaObject">The SolidDna-wrapped SOLIDWORKS object</param>
+        /// <returns>A new SelectedObject instance</returns>
+        public static SelectedObject AsSelectedObject(this SolidDnaObject dnaObject)
+            => new SelectedObject(dnaObject.UnsafeObject);
+
+        /// <summary>
+        /// Converts a enumerable of <see cref="SolidDnaObject"/> to <see cref="SelectedObject"/> instances
+        /// </summary>
+        /// <param name="dnaObjects">The collection of SolidDna-wrapped objects</param>
+        /// <returns>An enumerable of <see cref="SelectedObject"/> instances</returns>
+        public static IEnumerable<SelectedObject> AsSelectedObjects(this IEnumerable<SolidDnaObject> dnaObjects)
+            => dnaObjects.Select(x => x.AsSelectedObject());
+
         /// <summary>
         /// Casts the selected object to a <see cref="ModelFeature"/>
         /// </summary>

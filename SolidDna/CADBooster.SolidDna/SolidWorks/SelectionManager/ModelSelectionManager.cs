@@ -140,6 +140,10 @@ namespace CADBooster.SolidDna
         /// <param name="selectedObjects">The objects to select</param>
         /// <param name="selectionData">The selection data including point, mark and mode</param>
         /// <param name="updateUserInterface">Whether to update the UI after selection</param>
+        /// <remarks>
+        /// To use <see cref="SolidDnaObject"/>s with the selection manager, wrap them using:
+        /// <see cref="SelectedObjectExtensions.AsSelectedObject(SolidDnaObject)"/>.
+        /// </remarks>
         public void SelectObjects(IEnumerable<SelectedObject> selectedObjects, SelectionData selectionData, bool updateUserInterface = true)
         {
             if (!selectedObjects.Any())
@@ -172,6 +176,10 @@ namespace CADBooster.SolidDna
         /// </summary>
         /// <param name="selectedObjects">The objects to select</param>
         /// <param name="updateUserInterface">Whether to update the UI after selection</param>
+        /// <remarks>
+        /// To use <see cref="SolidDnaObject"/>s with the selection manager, wrap them using:
+        /// <see cref="SelectedObjectExtensions.AsSelectedObject(SolidDnaObject)"/>.
+        /// </remarks>
         public void SelectObjects(IEnumerable<SelectedObject> selectedObjects, bool updateUserInterface = true)
             => SelectObjects(selectedObjects, SelectionData.Default, updateUserInterface);
 
@@ -181,6 +189,10 @@ namespace CADBooster.SolidDna
         /// <param name="selectedObject">The object to select</param>
         /// <param name="selectionData">The selection data including point and mode</param>
         /// <param name="updateUserInterface">Whether to update the UI after selection</param>
+        /// <remarks>
+        /// To use <see cref="SolidDnaObject"/>s with the selection manager, wrap them using:
+        /// <see cref="SelectedObjectExtensions.AsSelectedObject(SolidDnaObject)"/>.
+        /// </remarks>
         public void SelectObject(SelectedObject selectedObject, SelectionData selectionData, bool updateUserInterface = true)
             => SelectObjects(Enumerable.Repeat(selectedObject, 1), selectionData, updateUserInterface);
 
@@ -222,6 +234,10 @@ namespace CADBooster.SolidDna
         /// <param name="updateUserInterface">Whether to update the UI immediately</param>
         /// <param name="updateUserInterfaceAfterDisposing">Whether to update the UI when resume the selection</param>
         /// <returns>A disposable that will clear the selection when disposed</returns>
+        /// <remarks>
+        /// To use <see cref="SolidDnaObject"/>s with the selection manager, wrap them using:
+        /// <see cref="SelectedObjectExtensions.AsSelectedObject(SolidDnaObject)"/>.
+        /// </remarks>
         public IDisposable TemporarySelectObjects(IEnumerable<SelectedObject> selectedObjects, SelectionData selectionData, bool updateUserInterface = false, bool updateUserInterfaceAfterDisposing = true)
         {
             SelectObjects(selectedObjects, selectionData, updateUserInterface);
@@ -242,6 +258,10 @@ namespace CADBooster.SolidDna
         /// <param name="selectedObjects">The objects to temporarily select</param>
         /// <param name="updateUserInterface">Whether to update the UI immediately</param>
         /// <returns>A disposable that will clear the selection when disposed</returns>
+        /// <remarks>
+        /// To use <see cref="SolidDnaObject"/>s with the selection manager, wrap them using:
+        /// <see cref="SelectedObjectExtensions.AsSelectedObject(SolidDnaObject)"/>.
+        /// </remarks>
         public IDisposable TemporarySelectObjects(IEnumerable<SelectedObject> selectedObjects, bool updateUserInterface = true)
             => TemporarySelectObjects(selectedObjects, SelectionData.Default, updateUserInterface);
 
