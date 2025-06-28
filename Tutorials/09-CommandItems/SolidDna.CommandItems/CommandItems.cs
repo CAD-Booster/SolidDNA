@@ -22,7 +22,7 @@ namespace SolidDna.CommandItems
         /// </summary>
         public override void ApplicationStartup()
         {
-
+            Logger.AddMessageBoxLogger<SolidDnaAddinIntegration>(LogLevel.Critical);
         }
 
         public override void PreLoadPlugIns()

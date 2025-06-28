@@ -33,6 +33,15 @@ namespace CADBooster.SolidDna
         }
 
         /// <summary>
+        /// Add a message box logger for all SolidDna log messages.
+        /// Is cleaned up when your add-in unloads.
+        /// </summary>
+        /// <typeparam name="TAddIn"></typeparam>
+        /// <param name="logLevel"></param>
+        public static void AddMessageBoxLogger<TAddIn>(LogLevel logLevel = LogLevel.Critical) where TAddIn : SolidAddIn 
+            => AddLogger<TAddIn>(new MessageBoxLogger() { LogLevel = logLevel });
+
+        /// <summary>
         /// Add a logger for all SolidDna log messages.
         /// Is cleaned up when your add-in unloads.
         /// </summary>
