@@ -1533,27 +1533,19 @@ namespace CADBooster.SolidDna
         }
 
         /// <summary>
-        /// Gets a preview bitmap image of the model for the specified configuration
+        /// Gets a preview bitmap of the model file for the specified configuration
         /// </summary>
         /// <param name="configurationName">
         /// The configuration name to get the preview for. 
         /// If null, uses the active configuration.
         /// </param>
         /// <returns>A Bitmap containing the preview image</returns>
-        public Bitmap GetPreviewImage(string configurationName = null)
-        {
-            var dispatchPicture =
-                (IPictureDisp)SolidWorksEnvironment.Application.UnsafeObject.GetPreviewBitmap(FilePath, configurationName
-                    ?? ActiveConfiguration.Name);
-
-            var bitmap = Bitmap.FromHbitmap(
-                (IntPtr)dispatchPicture.Handle,
-                (IntPtr)dispatchPicture.hPal);
-            
-            _ = Marshal.ReleaseComObject(dispatchPicture);
-
-            return bitmap;
-        }
+        /// <remarks>
+        /// Unsaved changes will not be displayed!
+        /// </remarks>
+        public Bitmap GetPreviewBitmap(string configurationName = null)
+            => SolidWorksEnvironment.Application.GetPreviewBitmap(
+                FilePath, configurationName ?? ActiveConfiguration.Name);
 
         #endregion
 
