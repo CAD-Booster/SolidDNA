@@ -34,11 +34,4 @@ public class ModelView(IModelView comObject, Model model) : SolidDnaObject<IMode
 
         return this;
     }
-
-    public ModelView SaveWithName(string name)
-    {
-        model.UnsafeObject.NameView(name);
-
-        return this;
-    }
 }

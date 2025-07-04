@@ -1620,7 +1620,7 @@ namespace CADBooster.SolidDna
         #endregion
 
         #region Insert
-        public void InsertImage(string imagePath, XYZ origin, Size size = null)
+        public void InsertImage(string imagePath, XYZ origin, Size? size = null)
         {
             UnsafeObject.ClearSelection2(true);
 
@@ -1664,6 +1664,8 @@ namespace CADBooster.SolidDna
         public void Rebuild()
         {
             UnsafeObject.Extension.Rebuild((int)swRebuildOptions_e.swRebuildAll);
+
+            UnsafeObject.Extension.ForceRebuildAll();
         }
     }
 }
