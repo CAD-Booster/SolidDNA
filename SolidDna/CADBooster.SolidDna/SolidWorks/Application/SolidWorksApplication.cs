@@ -1,9 +1,12 @@
-﻿using SolidWorks.Interop.sldworks;
+﻿using CADBooster.SolidDna.Interop;
+using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
@@ -447,6 +450,35 @@ namespace CADBooster.SolidDna
         }
 
         #endregion
+
+        #endregion
+
+        #region Preview
+
+        /// <summary>
+        /// Gets a preview bitmap of the specified model file for the given configuration.
+        /// </summary>
+        /// <param name="modelFilePath">The full path to the model file. Model can be opened or not.</param>
+        /// <param name="configurationName">
+        /// The configuration name to get the preview for.
+        /// </param>
+        /// <returns>A Bitmap containing the preview image.</returns>
+        /// <remarks>
+        /// Unsaved changes will not be displayed in the preview!
+        /// </remarks>
+        public Bitmap GetPreviewBitmap(string modelFilePath, string configurationName)
+        {
+            var dispatchPicture =
+                (IPictureDisp)BaseObject.GetPreviewBitmap(modelFilePath, configurationName);
+
+            var bitmap = Bitmap.FromHbitmap(
+                (IntPtr)dispatchPicture.Handle,
+                (IntPtr)dispatchPicture.hPal);
+
+            _ = Marshal.ReleaseComObject(dispatchPicture);
+
+            return bitmap;
+        }
 
         #endregion
 
