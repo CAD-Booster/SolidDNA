@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace CADBooster.SolidDna
 {
@@ -724,7 +725,7 @@ namespace CADBooster.SolidDna
         /// <param name="intValue">The numeric identifier for the selection type.</param>
         /// <param name="stringValue">The string representation used in the SOLIDWORKS API.</param>
         /// <remarks>
-        /// Custom feature types should use <see cref="CreateCustomFeatureType(string)"/> instead.
+        /// Custom feature types should use <see cref="CreateCustomFeatureType(SelectionType, string)"/> instead.
         /// </remarks>
         internal SelectionType(int intValue, string stringValue)
         {
@@ -737,6 +738,7 @@ namespace CADBooster.SolidDna
         /// Internal constructor for custom feature selection types.
         /// Initializes a new <see cref="SelectionType"/> with custom feature names.
         /// </summary>
+        /// <param name="baseType"></param>
         /// <param name="customFeatureNames">An array of custom feature names.</param>
         /// <remarks>
         /// This constructor is used for user-defined selection types not covered by the standard enum.
@@ -752,6 +754,7 @@ namespace CADBooster.SolidDna
         /// <summary>
         /// Creates a new <see cref="SelectionType"/> for a single custom feature.
         /// </summary>
+        /// <param name="baseType"></param>
         /// <param name="featureName">The name of the custom feature.</param>
         /// <returns>A new <see cref="SelectionType"/> instance.</returns>
         /// <example>
@@ -766,6 +769,7 @@ namespace CADBooster.SolidDna
         /// <summary>
         /// Creates a new <see cref="SelectionType"/> for multiple custom features.
         /// </summary>
+        /// <param name="baseType"></param>
         /// <param name="featureNames">An array of custom feature names.</param>
         /// <returns>A new <see cref="SelectionType"/> instance.</returns>
         /// <example>
@@ -862,22 +866,16 @@ namespace CADBooster.SolidDna
         {
             unchecked
             {
-                if (_customFeatureNames is null)
+                if (_customFeatureNames == null)
                 {
-                    // Handless only _intValue if no custom features, _stringValue check not needed
+                    // Handles only _intValue if no custom features, _stringValue check is not necessary
                     return _intValue.GetHashCode();
                 }
-                else
-                {
-                    // Handless _intValue and custom features array if has custom features, _stringValue check not needed
-                    var hashCode = 0;
-                    for (var i = 0; i < _customFeatureNames.Length; i++)
-                    {
-                        hashCode += _customFeatureNames[i].GetHashCode() * 17;
-                    }
-                    hashCode += _intValue.GetHashCode();
-                    return hashCode;
-                }
+
+                // Handles _intValue and custom features array if we have custom features. _stringValue check is not necessary.
+                var hashCode = _customFeatureNames.Sum(featureName => featureName.GetHashCode() * 17);
+                hashCode += _intValue.GetHashCode();
+                return hashCode;
             }
         }
     }
