@@ -108,6 +108,8 @@ namespace CADBooster.SolidDna
 
         public ModelView ActiveModelView => new((IModelView)BaseObject.ActiveView, this);
 
+        public SketchManager.SketchManager SketchManager => new(BaseObject.SketchManager);
+
         #endregion
 
         #region Public Events
