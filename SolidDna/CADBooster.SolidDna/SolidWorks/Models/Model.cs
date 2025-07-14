@@ -21,14 +21,14 @@ namespace CADBooster.SolidDna
         public ModelConfiguration ActiveConfiguration { get; protected set; }
 
         /// <summary>
-        /// Get the number of configurations
+        /// Get the number of configurations. Returns zero for drawings.
         /// </summary>
         public int ConfigurationCount => BaseObject.GetConfigurationCount();
 
         /// <summary>
-        /// Gets the configuration names
+        /// Get the configuration names. Returns an empty list for drawings.
         /// </summary>
-        public List<string> ConfigurationNames => new List<string>((string[])BaseObject.GetConfigurationNames());
+        public List<string> ConfigurationNames => IsDrawing ? new List<string>() : new List<string>((string[])BaseObject.GetConfigurationNames());
 
         /// <summary>
         /// The absolute file path of this model if it has been saved
