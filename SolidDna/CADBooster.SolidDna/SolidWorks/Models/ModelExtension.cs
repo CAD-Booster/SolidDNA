@@ -116,5 +116,51 @@ namespace CADBooster.SolidDna
         }
 
         #endregion
+
+        #region Selection
+
+        public bool TrySelect(XYZ point, bool append, params string[] types)
+        {
+            foreach (var type in types)
+            {
+                var isSelected = UnsafeObject.SelectByID2("",
+                    type.ToUpper(),
+                    point.X,
+                    point.Y,
+                    point.Z,
+                    append,
+                    0,
+                    null,
+                    0);
+
+                if (isSelected)
+                    return true;
+            }
+
+            return false;
+        }
+
+        public bool TrySelectByRay(XYZ point, bool append, params swSelectType_e[] types)
+        {
+            foreach (var type in types)
+            {
+                var isSelected = UnsafeObject.SelectByRay(
+                    point.X, point.Y, -100,
+                    0, 0, -1,
+                    10E-5,
+                    (int)type,
+                    append,
+                    0,
+                    (int)swSelectOption_e.swSelectOptionDefault
+                );
+
+                if (isSelected)
+                    return true;
+            }
+
+            return false;
+        }
+
+        #endregion
     }
 }
