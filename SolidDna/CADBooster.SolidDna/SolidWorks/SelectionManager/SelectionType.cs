@@ -1,6 +1,7 @@
 ﻿using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace CADBooster.SolidDna
@@ -750,7 +751,7 @@ namespace CADBooster.SolidDna
         /// <summary>
         /// List of custom feature names for this selection type.
         /// </summary>
-        private readonly string[] _customFeatureNames;
+        private readonly List<string> _customFeatureNames;
 
         #endregion
 
@@ -782,7 +783,7 @@ namespace CADBooster.SolidDna
         /// This constructor is used for user-defined selection types not covered by the standard enum.
         /// The integer value is set to <see cref="Attribute"/> as a default for custom types.
         /// </remarks>
-        internal SelectionType(SelectionType baseType, string[] customFeatureNames)
+        internal SelectionType(SelectionType baseType, List<string> customFeatureNames)
         {
             _enumValue = baseType._enumValue;
             _stringValue = baseType;
@@ -802,7 +803,7 @@ namespace CADBooster.SolidDna
         /// <remarks>
         /// Can be used with <see cref="SelectionType.Attribute"/>
         /// </remarks>
-        public static SelectionType CreateCustomFeatureType(SelectionType baseType, string featureName) => new SelectionType(baseType, new[] { featureName });
+        public static SelectionType CreateCustomFeatureType(SelectionType baseType, string featureName) => new SelectionType(baseType, new List<string> { featureName });
 
         /// <summary>
         /// Create a new <see cref="SelectionType"/> for multiple custom features.
@@ -813,7 +814,7 @@ namespace CADBooster.SolidDna
         /// <remarks>
         /// Can be used with <see cref="SelectionType.Attribute"/>
         /// </remarks>
-        public static SelectionType CreateCustomFeatureType(SelectionType baseType, string[] featureNames) => new SelectionType(baseType, featureNames);
+        public static SelectionType CreateCustomFeatureType(SelectionType baseType, List<string> featureNames) => new SelectionType(baseType, featureNames);
 
         /// <summary>
         /// Get a semicolon-separated string of custom feature names (if applicable).
@@ -881,12 +882,12 @@ namespace CADBooster.SolidDna
             if (_customFeatureNames == null || other._customFeatureNames == null)
                 return _customFeatureNames == null && other._customFeatureNames == null;
 
-            // Compare array lengths first for quick mismatch detection
-            if (_customFeatureNames.Length != other._customFeatureNames.Length)
+            // Compare list lengths first for quick mismatch detection
+            if (_customFeatureNames.Count != other._customFeatureNames.Count)
                 return false;
 
             // Element-by-element comparison
-            for (var i = 0; i < _customFeatureNames.Length; i++)
+            for (var i = 0; i < _customFeatureNames.Count; i++)
             {
                 if (!string.Equals(_customFeatureNames[i], other._customFeatureNames[i], StringComparison.Ordinal))
                     return false;
