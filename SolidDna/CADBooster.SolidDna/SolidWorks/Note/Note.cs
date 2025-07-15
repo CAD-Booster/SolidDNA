@@ -19,22 +19,44 @@ namespace CADBooster.SolidDna
 
         #endregion
 
+        #region Public properties
+
+        /// <summary>
+        /// Get or set the note name
+        /// </summary>
+        public string Name
+        {
+            get => BaseObject.GetName();
+            set => BaseObject.SetName(value);
+        }
+
+        /// <summary>
+        /// Get or set the note text content
+        /// </summary>
+        public string Text
+        {
+            get => BaseObject.GetText();
+            set => BaseObject.SetText(value);
+        }
+
+        #endregion
+
         #region Balloon Methods
 
         /// <summary>
-        /// Gets the upper text of the selected BOM Balloon note
+        /// Get the upper text of the selected BOM Balloon note
         /// </summary>
         /// <returns></returns>
         public string GetBOMBalloonUpperText() => BaseObject.GetBomBalloonText(true);
 
         /// <summary>
-        /// Gets the upper text of the selected BOM Balloon note
+        /// Get the upper text of the selected BOM Balloon note
         /// </summary>
         /// <returns></returns>
         public string GetBOMBalloonLowerText() => BaseObject.GetBomBalloonText(false);
 
         /// <summary>
-        /// Sets the text for the selected BOM Balloon note
+        /// Set the text for the selected BOM Balloon note
         /// </summary>
         /// <param name="upperTextStyle">The upper text style</param>
         /// <param name="upperText">The upper text</param>
@@ -45,9 +67,7 @@ namespace CADBooster.SolidDna
         ///     or <see cref="NoteTextContent.ItemNumber"/>, then SOLIDWORKS ignores the 
         ///     specified upper or lower text.
         /// </remarks>
-        public void SetBOMBalloonText(
-            NoteTextContent upperTextStyle, string upperText,
-            NoteTextContent lowerTextStyle, string lowerText)
+        public void SetBOMBalloonText(NoteTextContent upperTextStyle, string upperText, NoteTextContent lowerTextStyle, string lowerText)
             => BaseObject.SetBomBalloonText((int)upperTextStyle, upperText, (int)lowerTextStyle, lowerText);
 
         #endregion
