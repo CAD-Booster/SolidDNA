@@ -59,8 +59,8 @@ namespace CADBooster.SolidDna
         /// <summary>
         /// Constructor from a selected object.
         /// </summary>
-        [Obsolete("Use the constructor with model and type instead")]
-        public SelectedObject(object model) : base(model)
+        [Obsolete("Use the constructor with selected object and type instead")]
+        public SelectedObject(object selectedObject) : base(selectedObject)
         {
             
         }
@@ -68,7 +68,7 @@ namespace CADBooster.SolidDna
         /// <summary>
         /// Constructor from a selected object and its type.
         /// </summary>
-        public SelectedObject(object model, swSelectType_e objectType) : base(model)
+        public SelectedObject(object selectedObject, swSelectType_e objectType) : base(selectedObject)
         {
             ObjectType = objectType;
         }
