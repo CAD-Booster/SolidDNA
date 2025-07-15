@@ -1,9 +1,15 @@
-﻿using SolidWorks.Interop.swconst;
+﻿using SolidWorks.Interop.sldworks;
+using SolidWorks.Interop.swconst;
 using System;
 using System.Linq;
 
 namespace CADBooster.SolidDna
 {
+    /// <summary>
+    /// An object that combines the enum and string that the SolidWorks API needs to select objects.
+    /// Cast it to an integer or string when calling a SolidWorks API.
+    /// Source: https://help.solidworks.com/2025/english/api/swconst/SolidWorks.Interop.swconst~SolidWorks.Interop.swconst.swSelectType_e.html
+    /// </summary>
     public class SelectionType
     {
         #region Static values
@@ -727,13 +733,32 @@ namespace CADBooster.SolidDna
 
         #endregion
 
+        #region Private members
+
+        /// <summary>
+        /// The underlying enum value. Private because you should not need to access it directly.
+        /// Returned by, for example, <see cref="ISelectionMgr.GetSelectedObjectType3"/>.
+        /// </summary>
         private readonly swSelectType_e _enumValue;
+
+        /// <summary>
+        /// The underlying string value. Private because you should not need to access it directly.
+        /// Used when calling <see cref="IModelDocExtension.SelectByID2"/>.
+        /// </summary>
         private readonly string _stringValue;
+
+        /// <summary>
+        /// List of custom feature names for this selection type.
+        /// </summary>
         private readonly string[] _customFeatureNames;
+
+        #endregion
+
+        #region Constructor
 
         /// <summary>
         /// Internal constructor for predefined selection types.
-        /// Initializes a new <see cref="SelectionType"/> with the specified integer and string values.
+        /// Initializes a new <see cref="SelectionType"/> with the specified integer and string value.
         /// </summary>
         /// <param name="enumValue">The numeric identifier for the selection type.</param>
         /// <param name="stringValue">The string representation used in the SOLIDWORKS API.</param>
@@ -764,55 +789,54 @@ namespace CADBooster.SolidDna
             _customFeatureNames = customFeatureNames;
         }
 
+        #endregion
+
+        #region Public methods
+
         /// <summary>
-        /// Creates a new <see cref="SelectionType"/> for a single custom feature.
+        /// Create a new <see cref="SelectionType"/> for a single custom feature.
         /// </summary>
         /// <param name="baseType"></param>
         /// <param name="featureName">The name of the custom feature.</param>
         /// <returns>A new <see cref="SelectionType"/> instance.</returns>
-        /// <example>
-        /// var weldBeadType = SelectionType.CreateCustomFeatureType("MyAwesomeFeature");
-        /// </example>
         /// <remarks>
         /// Can be used with <see cref="SelectionType.Attribute"/>
         /// </remarks>
-        public static SelectionType CreateCustomFeatureType(SelectionType baseType, string featureName)
-            => new SelectionType(baseType, new[] { featureName });
+        public static SelectionType CreateCustomFeatureType(SelectionType baseType, string featureName) => new SelectionType(baseType, new[] { featureName });
 
         /// <summary>
-        /// Creates a new <see cref="SelectionType"/> for multiple custom features.
+        /// Create a new <see cref="SelectionType"/> for multiple custom features.
         /// </summary>
         /// <param name="baseType"></param>
         /// <param name="featureNames">An array of custom feature names.</param>
         /// <returns>A new <see cref="SelectionType"/> instance.</returns>
-        /// <example>
-        /// var customTypes = SelectionType.CreateCustomFeatureType(new[] { "MyAwesomeFeature1", "MyAwesomeFeature2" });
-        /// </example>
         /// <remarks>
         /// Can be used with <see cref="SelectionType.Attribute"/>
         /// </remarks>
-        public static SelectionType CreateCustomFeatureType(SelectionType baseType, string[] featureNames)
-            => new SelectionType(baseType, featureNames);
+        public static SelectionType CreateCustomFeatureType(SelectionType baseType, string[] featureNames) => new SelectionType(baseType, featureNames);
 
         /// <summary>
-        /// Gets a semicolon-separated string of custom feature names (if applicable).
+        /// Get a semicolon-separated string of custom feature names (if applicable).
         /// </summary>
         /// <returns>
         /// A combined string of custom feature names, or <see cref="string.Empty"/> if this is not a custom type.
         /// </returns>
         /// <remarks>
-        /// Used internally for SOLIDWORKS API calls that require multiple selection identifiers.
+        /// Used internally for Command Manager API calls that require multiple selection identifiers.
         /// </remarks>
-        internal string GetCustomFeaturesSelection()
-            => _customFeatureNames is null ? string.Empty : string.Join(";", _customFeatureNames);
+        internal string GetCustomFeatureNames() => _customFeatureNames is null ? string.Empty : string.Join(";", _customFeatureNames);
+
+        #endregion
+
+        #region Operators
 
         /// <summary>
-        /// Implicitly converts a <see cref="SelectionType"/> to its integer value.
+        /// Implicitly convert a <see cref="SelectionType"/> to its integer value.
         /// </summary>
         /// <param name="selectionType">The <see cref="SelectionType"/> to convert.</param>
         /// <returns>The underlying integer value.</returns>
         /// <remarks>
-        /// Allows seamless use of <see cref="SelectionType"/> where an integer is expected (e.g., API calls).
+        /// Allows seamless use of <see cref="SelectionType"/> where an integer is expected in API calls.
         /// </remarks>
         public static implicit operator int(SelectionType selectionType)
         {
@@ -820,25 +844,25 @@ namespace CADBooster.SolidDna
         }
 
         /// <summary>
-        /// Implicitly converts a <see cref="SelectionType"/> to its string representation.
+        /// Implicitly convert a <see cref="SelectionType"/> to its string representation.
         /// </summary>
         /// <param name="selectionType">The <see cref="SelectionType"/> to convert.</param>
         /// <returns>
-        /// The underlying string value, or <see langword="null"/> for custom types.
+        /// The underlying string value, or null for custom types.
         /// </returns>
         /// <remarks>
-        /// Allows seamless use of <see cref="SelectionType"/> where a string is expected (e.g., API calls).
+        /// Allows seamless use of <see cref="SelectionType"/> where a string is expected in API calls.
         /// </remarks>
         public static implicit operator string(SelectionType selectionType)
         {
             return selectionType._stringValue;
         }
 
-        /// <summary>
-        /// Determines whether the specified object is equal to the current SelectionType.
-        /// </summary>
-        /// <param name="obj">The object to compare with the current object</param>
-        /// <returns>true if the objects are considered equal; otherwise, false</returns>
+        #endregion
+
+        #region Equality
+
+        /// <inheritdoc />
         public override bool Equals(object obj)
         {
             // Null and type check
@@ -871,10 +895,7 @@ namespace CADBooster.SolidDna
             return true;
         }
 
-        /// <summary>
-        /// Serves as the default hash function for SelectionType.
-        /// </summary>
-        /// <returns>A hash code for the current object</returns>
+        /// <inheritdoc />
         public override int GetHashCode()
         {
             unchecked
@@ -891,5 +912,7 @@ namespace CADBooster.SolidDna
                 return hashCode;
             }
         }
+
+        #endregion
     }
 }
