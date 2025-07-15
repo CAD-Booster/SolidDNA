@@ -35,10 +35,13 @@ namespace CADBooster.SolidDna
             // Create list
             var list = new List<SelectedObject>();
 
+            // Get selected objects with any mark value
+            const int anyMark = -1;
+
             try
             {
                 // Get selection count
-                var count = BaseObject.GetSelectedObjectCount2(-1);
+                var count = BaseObject.GetSelectedObjectCount2(anyMark);
 
                 // If we have none, we are done
                 if (count <= 0)
@@ -47,15 +50,11 @@ namespace CADBooster.SolidDna
                     return;
                 }
 
-                // Otherwise, get all selected objects
-                for (var i = 0; i < count; i++)
+                // Get all selected objects
+                for (var i = 1; i <= count; i++)
                 {
-                    // Get the object itself
-                    var selected = new SelectedObject(BaseObject.GetSelectedObject6(i + 1, -1))
-                    {
-                        // Get the type
-                        ObjectType = (swSelectType_e)BaseObject.GetSelectedObjectType3(i + 1, -1)
-                    };
+                    // Get the object and its type
+                    var selected = new SelectedObject(BaseObject.GetSelectedObject6(i, anyMark), (swSelectType_e)BaseObject.GetSelectedObjectType3(i, anyMark));
 
                     // Add to the list
                     list.Add(selected);
