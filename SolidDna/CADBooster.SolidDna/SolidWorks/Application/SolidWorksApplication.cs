@@ -475,8 +475,6 @@ namespace CADBooster.SolidDna
                 (IntPtr)dispatchPicture.Handle,
                 (IntPtr)dispatchPicture.hPal);
 
-            _ = Marshal.ReleaseComObject(dispatchPicture);
-
             return bitmap;
         }
 
