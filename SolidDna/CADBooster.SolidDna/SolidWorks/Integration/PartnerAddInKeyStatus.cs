@@ -48,6 +48,11 @@ namespace CADBooster.SolidDna
         /// <summary>
         /// Failed because the partner status for this add-in has changed.
         /// </summary>
-        TierMismatch = 32
+        TierMismatch = 32,
+
+        /// <summary>
+        /// There is an unknown error with the license key. Was added in SolidWorks 2025 SP1 or SP2.
+        /// </summary>
+        LicenseError = 64,
     }
 }
