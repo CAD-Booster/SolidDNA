@@ -169,6 +169,11 @@
         /// </summary>
         SolidWorksModelGetConfigurationError = 11014,
 
+        /// <summary>
+        /// Error occurred while trying to get a custom property value from a SolidWorks model
+        /// </summary>
+        SolidWorksModelGetPropertyError = 11030,
+
         #endregion
 
         #region SolidWorks Command Manager (12,000)
