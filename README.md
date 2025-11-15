@@ -96,10 +96,12 @@ We're writing a series of articles about getting started with the SOLIDWORKS API
 - [All identifiers in the SOLIDWORKS API](https://cadbooster.com/all-identifiers-and-ids-in-the-solidworks-api/)
 - [About return values](https://cadbooster.com/about-return-values-in-the-solidworks-api-part-6/)
 - [Entities and GetCorresponding](https://cadbooster.com/entities-and-getcorresponding-in-the-solidworks-api/)
-- Selections, math and custom properties (coming soon)
+- [Understanding math and MathTransform](https://cadbooster.com/understanding-math-and-mathtransform-in-the-solidworks-api/)
+- Toolbars, menus and the Command Manager (coming soon)
 - How to create task panes and Property Manager Pages (coming soon)
+- How to develop a SOLIDWORKS add-in
 - How to create your own SOLIDWORKS add-in (coming soon)
-- Creating add-ins with SolidDNA: the basics (coming soon)
+- SolidDNA: a better framework for SOLIDWORKS add-ins (coming soon)
 
 # About this fork
 This repository is a fork of [SolidDNA](https://github.com/angelsix/solidworks-api) by AngelSix. Because SolidDNA wasn't actively maintained and our proposed fixes were effectively ignored, we eventually decided to fork it, apply our improvements and publish the results. 
