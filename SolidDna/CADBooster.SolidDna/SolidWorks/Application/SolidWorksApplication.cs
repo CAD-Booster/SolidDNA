@@ -1,7 +1,9 @@
-﻿using SolidWorks.Interop.sldworks;
+﻿using CADBooster.SolidDna.Interop;
+using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -867,6 +869,54 @@ namespace CADBooster.SolidDna
         /// <param name="value">The new value of the preference</param>
         /// <returns></returns>
         public void SetUserPreferencesToggle(swUserPreferenceToggle_e preference, bool value) => BaseObject.SetUserPreferenceToggle((int)preference, value);
+
+        #endregion
+
+        #region Preview image
+
+        /// <summary>
+        /// Get a preview bitmap from the saved version of the specified model file for the given configuration. Does not include unsaved changes.
+        /// </summary>
+        /// <param name="modelFilePath">The full path to the model file. Model can be opened or not.</param>
+        /// <param name="configurationName">The configuration name to get the preview for.</param>
+        /// <returns>A Bitmap containing the preview image.</returns>
+        public Bitmap GetPreviewBitmap(string modelFilePath, string configurationName)
+        {
+            return SolidDnaErrors.Wrap(() =>
+                {
+                    // Get a pointer to the picture object from SolidWorks
+                    var dispatchPicture = (IPictureDisp)BaseObject.GetPreviewBitmap(modelFilePath, configurationName);
+
+                    // Convert the object to a bitmap
+                    return Image.FromHbitmap((IntPtr)dispatchPicture.Handle, (IntPtr)dispatchPicture.hPal);
+                },
+                SolidDnaErrorTypeCode.SolidWorksApplication,
+                SolidDnaErrorCode.SolidWorksApplicationPreviewImageError);
+        }
+
+        /// <summary>
+        /// Save a preview bitmap from the saved version of the specified model file for the given configuration. Does not include unsaved changes.
+        /// </summary>
+        /// <param name="modelFilePath">The full path to the model file. Model can be opened or not.</param>
+        /// <param name="configurationName">The configuration name to get the preview for.</param>
+        /// <param name="bitmapFilePath">The filepath to save the bitmap to</param>
+        public void SavePreviewBitmap(string modelFilePath, string configurationName, string bitmapFilePath)
+        {
+            // Duplicate code from GetPreviewBitmap to avoid wrapping SolidDna errors twice. 
+            SolidDnaErrors.Wrap(() =>
+                {
+                    // Get a pointer to the picture object from SolidWorks
+                    var dispatchPicture = (IPictureDisp)BaseObject.GetPreviewBitmap(modelFilePath, configurationName);
+
+                    // Convert the object to a bitmap
+                    var bitmap = Image.FromHbitmap((IntPtr)dispatchPicture.Handle, (IntPtr)dispatchPicture.hPal);
+
+                    // Save the bitmap to file
+                    bitmap.Save(bitmapFilePath);
+                },
+                SolidDnaErrorTypeCode.SolidWorksApplication,
+                SolidDnaErrorCode.SolidWorksApplicationPreviewImageError);
+        }
 
         #endregion
 

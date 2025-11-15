@@ -2,6 +2,7 @@
 using SolidWorks.Interop.swconst;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -512,8 +513,8 @@ namespace CADBooster.SolidDna
         protected int AddItemNotify(int entityType, string itemName)
         {
             // Inform listeners
-            ItemAdded((swNotifyEntityType_e) entityType, itemName);
-            
+            ItemAdded((swNotifyEntityType_e)entityType, itemName);
+
             // NOTE: 0 is success, anything else is an error
             return 0;
         }
@@ -541,8 +542,8 @@ namespace CADBooster.SolidDna
         private int DeleteItemPostNotify(int entityType, string itemName)
         {
             // Inform listeners
-            ItemDeleted((swNotifyEntityType_e) entityType, itemName);
-            
+            ItemDeleted((swNotifyEntityType_e)entityType, itemName);
+
             // NOTE: 0 is success, anything else is an error
             return 0;
         }
@@ -556,7 +557,7 @@ namespace CADBooster.SolidDna
         private int DeleteItemPreNotify(int entityType, string itemName)
         {
             // Inform listeners
-            ItemDeleting((swNotifyEntityType_e) entityType, itemName);
+            ItemDeleting((swNotifyEntityType_e)entityType, itemName);
 
             // NOTE: 0 is success, anything else is an error
             return 0;
@@ -570,7 +571,7 @@ namespace CADBooster.SolidDna
         {
             // Inform listeners
             DeletingSelection();
-            
+
             // NOTE: 0 is success, anything else is an error
             return 0;
         }
@@ -740,7 +741,7 @@ namespace CADBooster.SolidDna
         {
             // Inform listeners
             ModelSaving(fileName);
-            
+
             // NOTE: 0 is success, anything else is an error
             return 0;
         }
@@ -1296,7 +1297,7 @@ namespace CADBooster.SolidDna
                 // Inform callback of the feature
                 yield return (startComponent, componentDepth);
             }
-            
+
             // Loop each child when available
             if (startComponent != null)
             {
@@ -1346,7 +1347,7 @@ namespace CADBooster.SolidDna
             {
                 // Find any drawings that exist. Clone list so we can add new items to same list
                 var drawings = dependencies.Where(f => !f.ToLower().EndsWith(".slddrw") && File.Exists(Path.ChangeExtension(f, ".slddrw"))).ToList();
-                
+
                 // Add all drawings to the list of dependencies
                 dependencies.AddRange(drawings);
             }
@@ -1358,6 +1359,21 @@ namespace CADBooster.SolidDna
         #endregion
 
         #region Saving
+
+        /// <summary>
+        /// Get a preview bitmap from the saved version of the model file for the specified configuration. Does not include unsaved changes.
+        /// </summary>
+        /// <param name="configurationName">The configuration name to get the preview for. If null, uses the active configuration.</param>
+        /// <returns>A Bitmap containing the preview image</returns>
+        public Bitmap GetPreviewBitmap(string configurationName = null) => SolidWorksEnvironment.Application.GetPreviewBitmap(FilePath, configurationName ?? ActiveConfiguration.Name);
+
+        /// <summary>
+        /// Get a preview bitmap from the saved version of the model file for the specified configuration. Does not include unsaved changes.
+        /// </summary>
+        /// <param name="configurationName">The configuration name to get the preview for. If null, uses the active configuration.</param>
+        /// <returns>A Bitmap containing the preview image</returns>
+        /// <param name="bitmapFilepath">The filepath to save the bitmap to</param>
+        public void SavePreviewBitmap(string bitmapFilepath, string configurationName = null) => SolidWorksEnvironment.Application.SavePreviewBitmap(FilePath, configurationName ?? ActiveConfiguration.Name, bitmapFilepath);
 
         /// <summary>
         /// Saves the current model, with the specified options
