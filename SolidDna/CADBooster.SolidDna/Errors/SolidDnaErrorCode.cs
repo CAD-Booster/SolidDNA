@@ -71,6 +71,11 @@
         /// </summary>
         SolidWorksApplicationIdleNotificationError = 9009,
 
+        /// <summary>
+        /// There was an error while trying to get the preview image of a model.
+        /// </summary>
+        SolidWorksApplicationPreviewImageError = 9010,
+
         #endregion
 
         #region SolidWorks Taskpane (10,000)

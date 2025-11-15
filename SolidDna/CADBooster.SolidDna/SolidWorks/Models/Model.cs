@@ -1,5 +1,4 @@
-﻿using CADBooster.SolidDna.Interop;
-using SolidWorks.Interop.sldworks;
+﻿using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
 using System;
 using System.Collections.Generic;
@@ -1362,6 +1361,21 @@ namespace CADBooster.SolidDna
         #region Saving
 
         /// <summary>
+        /// Get a preview bitmap from the saved version of the model file for the specified configuration. Does not include unsaved changes.
+        /// </summary>
+        /// <param name="configurationName">The configuration name to get the preview for. If null, uses the active configuration.</param>
+        /// <returns>A Bitmap containing the preview image</returns>
+        public Bitmap GetPreviewBitmap(string configurationName = null) => SolidWorksEnvironment.Application.GetPreviewBitmap(FilePath, configurationName ?? ActiveConfiguration.Name);
+
+        /// <summary>
+        /// Get a preview bitmap from the saved version of the model file for the specified configuration. Does not include unsaved changes.
+        /// </summary>
+        /// <param name="configurationName">The configuration name to get the preview for. If null, uses the active configuration.</param>
+        /// <returns>A Bitmap containing the preview image</returns>
+        /// <param name="bitmapFilepath">The filepath to save the bitmap to</param>
+        public void SavePreviewBitmap(string bitmapFilepath, string configurationName = null) => SolidWorksEnvironment.Application.SavePreviewBitmap(FilePath, configurationName ?? ActiveConfiguration.Name, bitmapFilepath);
+
+        /// <summary>
         /// Saves the current model, with the specified options
         /// </summary>
         /// <param name="options">Any save as options</param>
@@ -1531,21 +1545,6 @@ namespace CADBooster.SolidDna
             SolidDnaErrorTypeCode.SolidWorksModel,
             SolidDnaErrorCode.SolidWorksModelSaveAsError);
         }
-
-        /// <summary>
-        /// Gets a preview bitmap of the model file for the specified configuration
-        /// </summary>
-        /// <param name="configurationName">
-        /// The configuration name to get the preview for. 
-        /// If null, uses the active configuration.
-        /// </param>
-        /// <returns>A Bitmap containing the preview image</returns>
-        /// <remarks>
-        /// Unsaved changes will not be displayed!
-        /// </remarks>
-        public Bitmap GetPreviewBitmap(string configurationName = null)
-            => SolidWorksEnvironment.Application.GetPreviewBitmap(
-                FilePath, configurationName ?? ActiveConfiguration.Name);
 
         #endregion
 
