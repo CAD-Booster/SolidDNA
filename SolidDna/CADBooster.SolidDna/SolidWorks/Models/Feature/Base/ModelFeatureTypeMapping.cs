@@ -1,4 +1,4 @@
-using SolidWorks.Interop.sldworks;
+﻿using SolidWorks.Interop.sldworks;
 
 namespace CADBooster.SolidDna
 {
@@ -232,6 +232,12 @@ namespace CADBooster.SolidDna
                 case "MacroFeature":
                     return ModelFeatureType.MacroData;
 
+                case "MeshBodyFeature":
+                    return ModelFeatureType.GraphicalBody;
+
+                case "MeshFeatureContainer":
+                    return ModelFeatureType.GraphicalBodyFeature;
+
                 case "MirrorCompFeat":
                     return ModelFeatureType.MirrorComponentData;
 
@@ -386,6 +392,7 @@ namespace CADBooster.SolidDna
                 case "SketchSliceFolder":
                     return ModelFeatureType.FeatureFolder;
 
+                case "MeshBodyFeatureFolder":
                 case "SolidBodyFolder":
                 case "SubAtomFolder":
                 case "SubWeldFolder":

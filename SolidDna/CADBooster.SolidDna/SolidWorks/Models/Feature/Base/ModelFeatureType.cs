@@ -942,6 +942,21 @@
         /// <summary>
         /// This feature does not have an interface
         /// </summary>
-        WeldTable
+        WeldTable,
+
+        /// <summary>
+        /// This feature does not have an interface.
+        /// It also does not appear in the official SolidWorks API documentation.
+        /// Represents a single graphical/mesh body under a <see cref="GraphicalBodyFeature"/>.
+        /// </summary>
+        GraphicalBody,
+
+        /// <summary>
+        /// This feature does not have an interface.
+        /// It also does not appear in the official SolidWorks API documentation.
+        /// Represents a feature that contains graphical/mesh bodies.
+        /// Is visible in the FeatureManager tree as a normal feature, so not as the official "Graphical Body" folder at the top of the tree.
+        /// </summary>
+        GraphicalBodyFeature,
     }
 }
