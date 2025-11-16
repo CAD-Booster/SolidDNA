@@ -62,18 +62,16 @@ namespace CADBooster.SolidDna
         /// <param name="action">The action to run</param>
         public static async Task RunOnUIThreadAsync(Action action)
         {
-            // If we are on the UI thread already, just run the action
+            // Check if invoker is set by creating a taskpane
             if (mInvoker == null)
                 throw new ArgumentNullException(await Localization.GetStringAsync("ThreadInvokerNullError"));
 
-            // If we are already on the UI thread, just run
+            // If we are already on the UI thread, just run the action
             if (!mInvoker.InvokeRequired)
                 action();
             else
             {
-                // We are not on the UI thread, so it is safe to
-                // await a task that will run on the UI thread
-                // as it will not deadlock this thread
+                // We are not on the UI thread, so it is safe to await a task that will run on the UI thread as it will not deadlock this thread
                 var tcs = new TaskCompletionSource<bool>();
 
                 // Invoke action
