@@ -10,8 +10,8 @@ namespace CADBooster.SolidDna
     /// The ID of a selectable model object (view, sheet, edge) in a series of bytes.
     /// Is called a Persistent Reference ID by SolidWorks. Is often 20 bytes long, but this varies per object type.
     /// Is pretty constant (hence the name) but can change after rebuild, so still not a perfect way of comparing objects.
-    /// See https://help.solidworks.com/2025/english/api/sldworksapiprogguide/overview/Persistent_Reference_IDs.htm for more information.
-    /// See https://help.solidworks.com/2025/english/api/swconst/SolidWorks.interop.swconst~SolidWorks.interop.swconst.swSelectType_e.html for all selectable objects types.
+    /// See https://help.solidworks.com/2026/english/api/sldworksapiprogguide/overview/Persistent_Reference_IDs.htm for more information.
+    /// See https://help.solidworks.com/2026/english/api/swconst/SolidWorks.interop.swconst~SolidWorks.interop.swconst.swSelectType_e.html for all selectable objects types.
     /// </summary>
     public class PersistentId
     {

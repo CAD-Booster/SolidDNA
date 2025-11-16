@@ -3,7 +3,7 @@
     /// <summary>
     /// Represents the specific feature type of <see cref="ModelFeature"/>
     /// 
-    /// NOTE: Known types are here http://help.solidworks.com/2020/english/api/sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeature~GetTypeName2.html
+    /// NOTE: Known types are here http://help.solidworks.com/2026/english/api/sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeature~GetTypeName2.html
     /// 
     /// </summary>
     public enum ModelFeatureType

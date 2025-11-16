@@ -8,7 +8,7 @@ namespace CADBooster.SolidDna
     /// <summary>
     /// The unique ID for a sketch segment. Consists of two longs, but is only unique in combination with the sketch (name) and sketch segment type.
     /// This means that the same two long values can be used in different sketches and the same sketch can have segments with the same two long values but different types.
-    /// See https://help.solidworks.com/2025/english/api/sldworksapi/solidworks.interop.sldworks~solidworks.interop.sldworks.isketchsegment~getid.html
+    /// See https://help.solidworks.com/2026/english/api/sldworksapi/solidworks.interop.sldworks~solidworks.interop.sldworks.isketchsegment~getid.html
     /// </summary>
     public class SketchSegmentId
     {
@@ -102,7 +102,7 @@ namespace CADBooster.SolidDna
 
         /// <summary>
         /// Get two longs from two integers or longs.
-        /// See https://help.solidworks.com/2025/english/api/sldworksapiprogguide/overview/Long_vs_Integer.htm
+        /// See https://help.solidworks.com/2026/english/api/sldworksapiprogguide/overview/Long_vs_Integer.htm
         /// </summary>
         /// <param name="sketchSegment"></param>
         /// <returns></returns>

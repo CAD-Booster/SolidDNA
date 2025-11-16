@@ -27,7 +27,7 @@ namespace CADBooster.SolidDna
         /// If the key is empty or not valid, the add-in appears under the group 'Other Add-ins'.
         /// If the key length is not 128 characters, SolidWorks throws an exception and your add-in will not load.
         /// So we catch that exception and set the status to <see cref="PartnerAddInKeyStatus.IncorrectPartnerLicenseKeyLength"/>.
-        /// More info: <see href="https://help.solidworks.com/2024/english/api/sldworksapiprogguide/GettingStarted/SolidWorks_Partner_Program_2.htm" />
+        /// More info: <see href="https://help.solidworks.com/2026/english/api/sldworksapiprogguide/GettingStarted/SolidWorks_Partner_Program_2.htm" />
         /// </summary>
         public string SolidWorksAddInPartnerLicenseKey { get; set; } = "";
 

@@ -1,4 +1,4 @@
-﻿using SolidWorks.Interop.sldworks;
+using SolidWorks.Interop.sldworks;
 
 namespace CADBooster.SolidDna
 {
@@ -17,7 +17,7 @@ namespace CADBooster.SolidDna
                 return ModelFeatureType.None;
 
             // Map to feature types based on this list
-            // http://help.solidworks.com/2020/english/api/sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeature~GetTypeName2.html
+            // http://help.solidworks.com/2026/english/api/sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFeature~GetTypeName2.html
 
             switch (type)
             {

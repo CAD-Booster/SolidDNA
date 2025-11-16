@@ -20,7 +20,7 @@ namespace CADBooster.SolidDna
         /// Warning: this can be null if the component is suppressed or lightweight.
         /// This also removes all assembly-related information, like appearances and the active configuration.
         /// To make sure you get features and other objects from the correct configuration, open the component in its own window and activate the configuration.
-        /// See https://help.solidworks.com/2025/english/api/sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IComponent2~GetModelDoc2.html.
+        /// See https://help.solidworks.com/2026/english/api/sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IComponent2~GetModelDoc2.html.
         /// </summary>
         public Model AsModel
         {

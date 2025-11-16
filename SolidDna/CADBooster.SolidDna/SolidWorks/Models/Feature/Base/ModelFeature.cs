@@ -11,9 +11,9 @@ namespace CADBooster.SolidDna
 
         From the feature, I then need to get the specific feature. This is where the fun begins.
  
-        I call feature. GetTypeName2 to get the type. Then from this list http://help.solidworks.com/2020/english/api/sldworksapi/SOLIDWORKS.Interop.sldworks~SOLIDWORKS.Interop.sldworks.IFeature~GetTypeName2.html I figure out what type of feature I should expect from GetSpecificFeature2.
+        I call feature. GetTypeName2 to get the type. Then from this list http://help.solidworks.com/2026/english/api/sldworksapi/SOLIDWORKS.Interop.sldworks~SOLIDWORKS.Interop.sldworks.IFeature~GetTypeName2.html I figure out what type of feature I should expect from GetSpecificFeature2.
  
-        I’ve mapped everything then I come to check out the document for GetSpecificFeature2 http://help.solidworks.com/2020/english/api/sldworksapi/SOLIDWORKS.Interop.sldworks~SOLIDWORKS.Interop.sldworks.IFeature~GetSpecificFeature2.html
+        I’ve mapped everything then I come to check out the document for GetSpecificFeature2 http://help.solidworks.com/2026/english/api/sldworksapi/SOLIDWORKS.Interop.sldworks~SOLIDWORKS.Interop.sldworks.IFeature~GetSpecificFeature2.html
  
         It states it returns IAttribute, IBodyFolder etc... Now this list doesn’t match up. 
  
