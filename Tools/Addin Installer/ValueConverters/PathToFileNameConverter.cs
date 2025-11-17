@@ -3,7 +3,7 @@ using System.Globalization;
 using System.IO;
 using System.Windows.Data;
 
-namespace AngelSix.SolidWorksApi.AddinInstaller
+namespace AngelSix.SolidWorksApi.AddinInstaller.ValueConverters
 {
     public class PathToFileNameConverter : IValueConverter
     {

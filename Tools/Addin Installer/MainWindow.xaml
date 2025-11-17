@@ -4,15 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AngelSix.SolidWorksApi.AddinInstaller"
+        xmlns:valueConverters="clr-namespace:AngelSix.SolidWorksApi.AddinInstaller.ValueConverters"
         mc:Ignorable="d"
-        Title="SolidWorks Addin Installer - angelsix.com" 
+        Title="SolidWorks Addin Installer" 
         SizeToContent="Height" WindowStartupLocation="CenterScreen"
         Width="1200" 
         MinWidth="525"
         Icon="Resources/favicon.ico">
     <Window.Resources>
-        <local:PathToFileNameConverter x:Key="PathToFileNameConverter" />
-        <local:PathToVisibilityConverter x:Key="PathToVisibilityConverter" />
+        <valueConverters:PathToFileNameConverter x:Key="PathToFileNameConverter" />
+        <valueConverters:PathToVisibilityConverter x:Key="PathToVisibilityConverter" />
         <Style TargetType="Label">
             <Setter Property="Padding" Value="0 5" />
         </Style>

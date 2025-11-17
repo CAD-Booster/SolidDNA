@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace AngelSix.SolidWorksApi.AddinInstaller
+namespace AngelSix.SolidWorksApi.AddinInstaller.ValueConverters
 {
     [ValueConversion(typeof(string), typeof(Visibility))]
     public class PathToVisibilityConverter: IValueConverter
