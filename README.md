@@ -3,7 +3,44 @@
 ## A user-friendly framework for SOLIDWORKS add-ins
 SolidDNA is a great framework to build SOLIDWORKS add-ins because it acts as a wrapper around the core SOLIDWORKS API. If a SOLIDWORKS API topic is hard to understand or otherwise annoying, we create a more user-friendly version for it. 
 
-We'd love your help to keep expanding and improving this project.
+We'd love your help to keep expanding and improving this project. Before starting a big pull request, please create an issue and ask if it's something that would fit this project.
+
+## Tips for creating a pull request
+If you want to add a feature to SolidDNA or want to request a change, a Pull Request is the way to go. Fork the repository, create a feature branch, make your changes and create a pull request in this project.
+
+A few tips:
+
+- Ask us if your feature is a good idea before starting a big PR.
+- Use the same code style as the existing code. We don't have a proper guide yet, so just look at the rest of the code.
+- Don't commit any styling changes, only code changes.
+- Don't make any changes to the C# language version or .NET version.
+
+## Getting started with the SOLIDWORKS API 
+We're writing a series of articles about getting started with the SOLIDWORKS API. We're starting with the absolute basics and are trying to include all weird API behaviors beginners may trip over. Because the API docs will not teach you those tricks.
+
+- [The SOLIDWORKS Object Model + API explained](https://cadbooster.com/the-solidworks-object-model-api-explained-part-1/)
+- [SOLIDWORKS API: the basics – SldWorks, ModelDoc2](https://cadbooster.com/solidworks-api-basics-sldworks-modeldoc2/)
+- [How to work with Features ](https://cadbooster.com/how-to-work-with-features-in-the-solidworks-api/)
+- [Persistent ID and sketch segment ID and more](https://cadbooster.com/persistent-id-sketch-segment-id-in-the-solidworks-api/)
+- [All identifiers in the SOLIDWORKS API](https://cadbooster.com/all-identifiers-and-ids-in-the-solidworks-api/)
+- [About return values](https://cadbooster.com/about-return-values-in-the-solidworks-api-part-6/)
+- [Entities and GetCorresponding](https://cadbooster.com/entities-and-getcorresponding-in-the-solidworks-api/)
+- [Understanding math and MathTransform](https://cadbooster.com/understanding-math-and-mathtransform-in-the-solidworks-api/)
+- Toolbars, menus and the Command Manager (coming soon)
+- How to create task panes and Property Manager Pages (coming soon)
+- How to develop a SOLIDWORKS add-in
+- How to create your own SOLIDWORKS add-in (coming soon)
+- SolidDNA: a better framework for SOLIDWORKS add-ins (coming soon)
+
+## About this fork
+This repository is a fork of [SolidDNA](https://github.com/angelsix/solidworks-api) by AngelSix. Because that project wasn't actively maintained, we forked it, applied our improvements and published the results. 
+
+We fixed bugs, made SolidDNA capable of running multiple add-ins at the same time and we strong-name signed the NuGet package. Signing allows multiple versions of SolidDNA to be loaded at the same time. To achieve that, we removed the dependency injection (because all add-ins run in the same thread), removed running in a separate app domain (because it exposed SOLIDWORKS bugs) and removed the reference to the Dna Framework (so we don't have to strong-name sign it).
+
+## About CAD Booster
+We build intuitive add-ins for SOLIDWORKS to automate the boring bits of engineering. Our main products are [Drew](https://cadbooster.com/solidworks-add-in/drew/) (create 2D drawings twice as fast), [Lightning](https://cadbooster.com/solidworks-add-in/lightning-fastener-filter/) (makes working with fasteners fun again) and [Fastener Models](https://cadbooster.com/fastener-models/) (a great Toolbox alternative).
+
+We use SolidDNA in all of our add-ins. 
 
 # Getting Started
 
@@ -85,34 +122,3 @@ Once you have Visual Studio open:
 ![image](https://github.com/user-attachments/assets/afa561b1-cb1a-48fe-8226-bb46cbfa754c)
 
 You now have the absolute basics in place for a SOLIDWORKS add-in! 
-
-# Getting started with the SOLIDWORKS API 
-We're writing a series of articles about getting started with the SOLIDWORKS API. We're starting with the absolute basics and are trying to include all weird API behaviors beginners may trip over. Because the API docs will not teach you those tricks.
-
-- [The SOLIDWORKS Object Model + API explained](https://cadbooster.com/the-solidworks-object-model-api-explained-part-1/)
-- [SOLIDWORKS API: the basics – SldWorks, ModelDoc2](https://cadbooster.com/solidworks-api-basics-sldworks-modeldoc2/)
-- [How to work with Features ](https://cadbooster.com/how-to-work-with-features-in-the-solidworks-api/)
-- [Persistent ID and sketch segment ID and more](https://cadbooster.com/persistent-id-sketch-segment-id-in-the-solidworks-api/)
-- [All identifiers in the SOLIDWORKS API](https://cadbooster.com/all-identifiers-and-ids-in-the-solidworks-api/)
-- [About return values](https://cadbooster.com/about-return-values-in-the-solidworks-api-part-6/)
-- [Entities and GetCorresponding](https://cadbooster.com/entities-and-getcorresponding-in-the-solidworks-api/)
-- [Understanding math and MathTransform](https://cadbooster.com/understanding-math-and-mathtransform-in-the-solidworks-api/)
-- Toolbars, menus and the Command Manager (coming soon)
-- How to create task panes and Property Manager Pages (coming soon)
-- How to develop a SOLIDWORKS add-in
-- How to create your own SOLIDWORKS add-in (coming soon)
-- SolidDNA: a better framework for SOLIDWORKS add-ins (coming soon)
-
-# About this fork
-This repository is a fork of [SolidDNA](https://github.com/angelsix/solidworks-api) by AngelSix. Because SolidDNA wasn't actively maintained and our proposed fixes were effectively ignored, we eventually decided to fork it, apply our improvements and publish the results. 
-
-Since then, we fixed a load of bugs, made SolidDNA capable of running multiple add-ins at the same time and strong-name signed the NuGet package. Signing allows multiple versions of SolidDNA to be loaded at the same time.
-
-To achieve that, we removed the dependency injection (because all add-ins run in the same thread), removed running in a separate app domain (because it exposed SOLIDWORKS bugs) and removed the reference to the Dna Framework (so we don't have to strong-name sign it).
-
-We will keep expanding SolidDNA so you and I have to use less and less of the core SOLIDWORKS API. And we'd love your help. Check out the list of issues (or create one yourself) and send us a pull request.
-
-# About CAD Booster
-We build intuitive add-ins for SOLIDWORKS to automate the boring bits of engineering. Our main products are [Drew](https://cadbooster.com/solidworks-add-in/drew/) (create 2D drawings twice as fast), [Lightning](https://cadbooster.com/solidworks-add-in/lightning-fastener-filter/) (makes working with fasteners fun again) and [Fastener Models](https://cadbooster.com/fastener-models/) (a great Toolbox alternative).
-
-We use SolidDNA in all of our add-ins. 
