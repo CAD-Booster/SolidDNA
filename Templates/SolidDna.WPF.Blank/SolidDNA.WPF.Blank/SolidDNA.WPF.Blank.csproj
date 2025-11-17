@@ -26,7 +26,6 @@
     <EmbeddedResource Include="Assets\icons40.png" CopyToOutputDirectory="PreserveNewest" />
     <EmbeddedResource Include="Assets\icons64.png" CopyToOutputDirectory="PreserveNewest" />
     <EmbeddedResource Include="Assets\icons96.png" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="Resources\SolidWorksAddinInstaller.exe" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="CADBooster.SolidDna" Version="3.3.0" />

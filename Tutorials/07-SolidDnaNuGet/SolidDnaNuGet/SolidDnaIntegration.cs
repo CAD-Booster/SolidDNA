@@ -19,8 +19,8 @@ namespace SolidDnaNuGet
     //     Registering Add-in Dll
     //
     //        To get your dll to run inside SolidWorks as an add-in you need to register it.
-    //        Inside this project template in the Resources folder is the SolidWorksAddinInstaller.exe.
-    //        Compile your project, open up the SolidWorksAddinInstaller.exe, then browse for your
+    //        In the Tools folder of SolidDNA is the file AddinInstaller.exe.
+    //        Compile your project, open up the AddinInstaller.exe, then browse for your
     //        output dll file (for example /bin/Debug/SolidDna.Addin.dll) and click Install.
     //
     //        Now when you start SolidWorks your Add-in should load and should appear in the 
@@ -63,10 +63,10 @@ namespace SolidDnaNuGet
     //  *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
     //
 
-    /// <summary>
-    /// Register as a SolidWorks Add-In
-    /// </summary>
-    [Guid("7AB5B7B6-139A-4609-B04F-D22BF0C82127"), ComVisible(true)]  // Replace the GUID with your own.
+   /// <summary>
+   /// Register as a SolidWorks Add-In
+   /// </summary>
+   [Guid("7AB5B7B6-139A-4609-B04F-D22BF0C82127"), ComVisible(true)]  // Todo: Replace the GUID with your own.
     public class MyAddinIntegration : SolidAddIn
     {
         /// <summary>

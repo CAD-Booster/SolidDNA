@@ -20,8 +20,8 @@ namespace SolidDNA.WPF.Blank
     //     Registering Add-in Dll
     //
     //        To get your dll to run inside SolidWorks as an add-in you need to register it.
-    //        Inside this project template in the Resources folder is the SolidWorksAddinInstaller.exe.
-    //        Compile your project, open up the SolidWorksAddinInstaller.exe, then browse for your
+    //        In the Tools folder of SolidDNA is the file AddinInstaller.exe.
+    //        Compile your project, open up the AddinInstaller.exe, then browse for your
     //        output dll file (for example /bin/Debug/SolidDNA.WPF.Blank.dll) and click Install.
     //
     //        Now when you start SolidWorks your Add-in should load and should appear in the 
@@ -65,7 +65,7 @@ namespace SolidDNA.WPF.Blank
     /// <summary>
     /// Register as a SolidWorks Add-In
     /// </summary>
-    [Guid("3F6838DB-A6B7-4415-BC77-47EF9A6A6160"), ComVisible(true)]  // Replace the GUID with your own.
+    [Guid("3F6838DB-A6B7-4415-BC77-47EF9A6A6160"), ComVisible(true)]  // Todo: Replace the GUID with your own.
     public class MyAddinIntegration : SolidAddIn
     {
         /// <summary>
