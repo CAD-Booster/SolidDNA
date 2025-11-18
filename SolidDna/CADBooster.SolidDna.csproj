@@ -35,14 +35,8 @@ Added inner exception info to SolidDnaException ToString.</PackageReleaseNotes>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Localization\Strings\Strings-en-US.xml" />
-    <None Include="icon.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-    <None Include="license.txt">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
+    <None Include="icon.png" Pack="True" PackagePath="" />
+    <None Include="license.txt" Pack="True" PackagePath="" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Localization\Strings\Strings-en-US.xml" />
