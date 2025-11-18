@@ -2,9 +2,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34309.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SolidDna.CommandItems", "SolidDna.CommandItems.csproj", "{73B94EE6-BC16-49B2-824D-4C4E114859AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SolidDna.CommandItems", "SolidDna.CommandItems\SolidDna.CommandItems.csproj", "{73B94EE6-BC16-49B2-824D-4C4E114859AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CADBooster.SolidDna", "..\..\..\SolidDna\CADBooster.SolidDna.csproj", "{055D1F28-DD27-4824-9740-2D0324905F74}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CADBooster.SolidDna", "..\..\SolidDna\CADBooster.SolidDna.csproj", "{055D1F28-DD27-4824-9740-2D0324905F74}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
