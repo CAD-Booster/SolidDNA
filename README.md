@@ -1,9 +1,14 @@
 # SolidDNA
 
 ## A user-friendly framework for SOLIDWORKS add-ins
-SolidDNA is a great framework to build SOLIDWORKS add-ins because it acts as a wrapper around the core SOLIDWORKS API. If a SOLIDWORKS API topic is hard to understand or otherwise annoying, we create a more user-friendly version for it. 
+SolidDNA is a great framework to build SOLIDWORKS add-ins because it acts as a wrapper around the core SOLIDWORKS API. If a SOLIDWORKS API topic is hard to understand or otherwise annoying, we create a more user-friendly version for it. If we don't have an API for it yet, you can still access the underlying SOLIDWORKS objects.
 
 We'd love your help to keep expanding and improving this project. Before starting a big pull request, please create an issue and ask if it's something that would fit this project.
+
+## About this fork
+This repository is a fork of [SolidDNA](https://github.com/angelsix/solidworks-api) by AngelSix. Because that project wasn't actively maintained, we forked it, applied our improvements and published the results. 
+
+We fixed bugs, made SolidDNA capable of running multiple add-ins and we strong-name signed the NuGet package. Signing lets us run multiple versions of SolidDNA side by side. To achieve that, we removed the dependency injection (because all add-ins run in the same thread) and removed running in a separate app domain (because it exposed SOLIDWORKS bugs).
 
 ## Tips for creating a pull request
 If you want to add a feature to SolidDNA or want to request a change, a Pull Request is the way to go. Fork the repository, create a feature branch, make your changes and create a pull request in this project.
@@ -11,7 +16,7 @@ If you want to add a feature to SolidDNA or want to request a change, a Pull Req
 A few tips:
 
 - Ask us if your feature is a good idea before starting a big PR.
-- Use the same code style as the existing code. We don't have a proper guide yet, so just look at the rest of the code.
+- Use the same code style as the existing code. We don't have a proper guide yet, so please look at the rest of the code.
 - Don't commit any styling changes, only code changes.
 - Don't make any changes to the C# language version or .NET version.
 
@@ -32,11 +37,6 @@ We're writing a series of articles about getting started with the SOLIDWORKS API
 - How to create your own SOLIDWORKS add-in (coming soon)
 - SolidDNA: a better framework for SOLIDWORKS add-ins (coming soon)
 
-## About this fork
-This repository is a fork of [SolidDNA](https://github.com/angelsix/solidworks-api) by AngelSix. Because that project wasn't actively maintained, we forked it, applied our improvements and published the results. 
-
-We fixed bugs, made SolidDNA capable of running multiple add-ins at the same time and we strong-name signed the NuGet package. Signing allows multiple versions of SolidDNA to be loaded at the same time. To achieve that, we removed the dependency injection (because all add-ins run in the same thread), removed running in a separate app domain (because it exposed SOLIDWORKS bugs) and removed the reference to the Dna Framework (so we don't have to strong-name sign it).
-
 ## About CAD Booster
 We build intuitive add-ins for SOLIDWORKS to automate the boring bits of engineering. Our main products are [Drew](https://cadbooster.com/solidworks-add-in/drew/) (create 2D drawings twice as fast), [Lightning](https://cadbooster.com/solidworks-add-in/lightning-fastener-filter/) (makes working with fasteners fun again) and [Fastener Models](https://cadbooster.com/fastener-models/) (a great Toolbox alternative).
 
@@ -45,6 +45,7 @@ We use SolidDNA in all of our add-ins.
 # Getting Started
 
 ## NuGet Package
+The easiest way to add SolidDNA to your project is to add a reference to our NuGet package:
 ![Nuget](https://img.shields.io/nuget/v/CADBooster.SolidDna)
 [CADBooster.SolidDna on NuGet](https://www.nuget.org/packages/CADBooster.SolidDna)
 
@@ -98,13 +99,12 @@ Once you have Visual Studio open:
     3. Your result files will appear in your code folder under "bin/Debug/net48". There will be a DLL file for each of your projects and a copy of the SOLIDWORKS DLL files you used will also appear here.
 8. Register your add-in:
     1. A SOLIDWORKS add-in is not an EXE file that you can run. You create a DLL file and tell SOLIDWORKS that it needs to look inside that add-in for a class that implements SolidAddIn. It uses the Windows Registry for this, so we need to add our add-in to the Registry.
-    2. Download the code for our [Add-in Installer](https://github.com/CAD-Booster/solidworks-api/tree/master/Tools/Addin%20Installer), open the solution, build it and copy the resulting EXE to a handy location like your desktop or project folder.
-    3. Run the EXE
+    2. Run the [Add-in Installer](https://github.com/CAD-Booster/solidworks-api/tree/master/Tools/). We added the exe to the project so you don't have to compile it youself. 
     4. Click the second Browse button and select your project DLL files in "bin/Debug/net48".
     5. Click Install. This runs a tool called RegAsm, which identifies the public classes inside your DLL that need to be added to the Windows Registry. It also adds a key to add your add-in to the list of SOLIDWORKS add-ins. You can read more [here](https://github.com/CAD-Booster/solidworks-api/tree/master/Tools/Addin%20Installer).
-    6. Later: click Uninstall to remove your add-in again. Always do this before making big changes like renaming your add-in or plugin or changing a GUID, or you'll mess up your registry and the add-in may not start.
+    6. Later: click Uninstall to remove your add-in again. **Always do this before making big changes** like renaming your add-in or plugin or changing a GUID, or you'll mess up your registry and the add-in may not start.
 9. Run your add-in:
-    1. If you now start SOLIDWORKS, your add-in should start as well! Pretty cool, right?
+    1. If you now start SOLIDWORKS, your add-in should start as well. Pretty cool, right?
     2. If the add-in does not start, check the list of add-ins to make sure it's enabled.
     3. If you enable the add-in, close the add-ins window and the checkbox gets unchecked again, there was some sort of error and the add-in did not start correctly.
 9. Debug your add-in:
@@ -115,7 +115,7 @@ Once you have Visual Studio open:
     5. Set a breakpoint in your add-in or plugin code by clicking left of a relevant line of code. This will highlight the line in red. If we reach that code, the debugger will pause there.
     6. Click play or press F5. This starts the debugger and SOLIDWORKS.
     7. Once you hit your breakpoint, hit F5 to continue until the next breakpoint or hit F10 to go to the next line.
-    8. Extra tip: enable [Hot Reload](https://learn.microsoft.com/en-us/visualstudio/debugger/hot-reload?view=vs-2022&pivots=programming-language-dotnetf) so you can make changes and save your code while SOLIDWORKS is running. Very often, you can make quick changes this way without having to restart SOLIDWORKS.
+    8. Extra tip: enable [Hot Reload](https://learn.microsoft.com/en-us/visualstudio/debugger/hot-reload?view=vs-2022&pivots=programming-language-dotnetf) so you can make changes and save your code while SOLIDWORKS is running. Hot Reload is awesome. Very often, you can make quick changes this way without having to restart SOLIDWORKS.
   
 ![image](https://github.com/user-attachments/assets/f8656a5a-4465-4409-a96f-d9af4984a020)
 
