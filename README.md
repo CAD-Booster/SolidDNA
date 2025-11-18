@@ -46,6 +46,7 @@ We use SolidDNA in all of our add-ins.
 
 ## NuGet Package
 The easiest way to add SolidDNA to your project is to add a reference to our NuGet package:
+
 ![Nuget](https://img.shields.io/nuget/v/CADBooster.SolidDna)
 [CADBooster.SolidDna on NuGet](https://www.nuget.org/packages/CADBooster.SolidDna)
 
