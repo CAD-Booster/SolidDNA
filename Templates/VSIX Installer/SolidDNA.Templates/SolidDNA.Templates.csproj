@@ -14,30 +14,11 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="ProjectTemplates\SolidDNA\SolidDNA Blank Add-In.zip">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="ProjectTemplates\SolidDNA\SolidDNA WPF Blank Add-In.zip">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="ProjectTemplates\SolidDNA Stand Alone Console App.zip">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <None Update="source.extension.vsixmanifest">
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="icon.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="Logo With Text Filled.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
+    <Content Include="ProjectTemplates\SolidDNA\SolidDNA Blank Add-In.zip" CopyToOutputDirectory="Always" IncludeInVSIX="true" />
+    <Content Include="ProjectTemplates\SolidDNA\SolidDNA WPF Blank Add-In.zip" CopyToOutputDirectory="Always" IncludeInVSIX="true" />
+    <Content Include="ProjectTemplates\SolidDNA Stand Alone Console App.zip" CopyToOutputDirectory="Always" IncludeInVSIX="true" />
+    <Content Include="icon.ico" CopyToOutputDirectory="Always" IncludeInVSIX="true" />
+    <Content Include="Logo With Text Filled.png" CopyToOutputDirectory="Always" IncludeInVSIX="true" />
+    <None Update="source.extension.vsixmanifest" SubType="Designer" />
   </ItemGroup>
 </Project>
