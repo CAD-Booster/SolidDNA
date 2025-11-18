@@ -6,11 +6,11 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\SolidDna\CADBooster.SolidDna\CADBooster.SolidDna.csproj" />
+    <ProjectReference Include="..\..\..\SolidDna\CADBooster.SolidDna.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="CADBooster.SolidDna">
-      <HintPath>..\..\..\SolidDna\CADBooster.SolidDna\bin\Debug\net48\CADBooster.SolidDna.dll</HintPath>
+      <HintPath>..\..\..\SolidDna\bin\Debug\net48\CADBooster.SolidDna.dll</HintPath>
     </Reference>
     <Reference Include="SolidWorks.Interop.sldworks" HintPath="..\..\..\References\2026\SolidWorks.Interop.sldworks.dll" EmbedInteropTypes="False" />
 	<Reference Include="SolidWorks.Interop.sw3dprinter" HintPath="..\..\..\References\2026\SolidWorks.Interop.sw3dprinter.dll" EmbedInteropTypes="False" />
