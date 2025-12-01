@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Version>$(ProductVersion)</Version>
     <AssemblyVersion>$(ProductVersion)</AssemblyVersion>
     <FileVersion>$(ProductVersion)</FileVersion>
@@ -29,11 +28,12 @@ Added inner exception info to SolidDnaException ToString.</PackageReleaseNotes>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
     <DocumentationFile></DocumentationFile>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
     <DocumentationFile>bin\Release\net48\CADBooster.SolidDna.xml</DocumentationFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Localization\Strings\Strings-en-US.xml" />
