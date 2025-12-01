@@ -15,7 +15,7 @@
     <PackageId>$(ProductName)</PackageId>
     <AssemblyName>$(ProductName)</AssemblyName>
     <RootNamespace>$(ProductName)</RootNamespace>
-    <PackageLicenseFile>license.txt</PackageLicenseFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReleaseNotes>Added support for SOLIDWORKS 2025.
 Split SolidAddIn object and added PartnerProductAddIn so add-ins that are not partner products are not blocked in SW Connected. 
 Added basic support for opening from and saving to 3DExperience.
@@ -38,7 +38,6 @@ Added inner exception info to SolidDnaException ToString.</PackageReleaseNotes>
   <ItemGroup>
     <None Remove="Localization\Strings\Strings-en-US.xml" />
     <None Include="icon.png" Pack="True" PackagePath="" />
-    <None Include="license.txt" Pack="True" PackagePath="" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Localization\Strings\Strings-en-US.xml" />
