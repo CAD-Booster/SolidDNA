@@ -734,43 +734,41 @@ namespace CADBooster.SolidDna
 
         #endregion
 
-        #region Private members
+        #region Public Properties
 
         /// <summary>
         /// List of custom feature names for this selection type.
         /// </summary>
-        private readonly List<string> mCustomFeatureNames;
+        public List<string> CustomFeatureNames { get; }
 
         /// <summary>
-        /// The underlying enum value. Private because you should not need to access it directly.
+        /// The underlying enum value.
         /// Returned by, for example, <see cref="ISelectionMgr.GetSelectedObjectType3"/>.
         /// </summary>
-        private readonly swSelectType_e mEnumValue;
+        public swSelectType_e EnumValue { get; }
 
         /// <summary>
-        /// The underlying string value. Private because you should not need to access it directly.
+        /// The underlying string value.
         /// Used when calling <see cref="IModelDocExtension.SelectByID2"/>.
         /// </summary>
-        private readonly string mStringValue;
+        public string StringValue { get; }
 
         #endregion
 
         #region Constructor
 
         /// <summary>
-        /// Internal constructor for predefined selection types.
+        /// Constructor for predefined selection types.
         /// Initializes a new <see cref="SelectionType"/> with the specified integer and string value.
         /// </summary>
         /// <param name="enumValue">The numeric identifier for the selection type.</param>
         /// <param name="stringValue">The string representation used in the SOLIDWORKS API.</param>
-        /// <remarks>
-        /// Custom feature types should use <see cref="CreateCustomFeatureType(SelectionType, string)"/> instead.
-        /// </remarks>
+        /// <remarks> Custom feature types should use <see cref="CreateCustomFeatureType(SelectionType, string)"/> instead.</remarks>
         internal SelectionType(swSelectType_e enumValue, string stringValue)
         {
-            mEnumValue = enumValue;
-            mStringValue = stringValue;
-            mCustomFeatureNames = null;
+            EnumValue = enumValue;
+            StringValue = stringValue;
+            CustomFeatureNames = null;
         }
 
         /// <summary>
@@ -785,9 +783,9 @@ namespace CADBooster.SolidDna
         /// </remarks>
         internal SelectionType(SelectionType baseType, List<string> customFeatureNames)
         {
-            mEnumValue = baseType.mEnumValue;
-            mStringValue = baseType;
-            mCustomFeatureNames = customFeatureNames;
+            EnumValue = baseType.EnumValue;
+            StringValue = baseType;
+            CustomFeatureNames = customFeatureNames;
         }
 
         #endregion
@@ -825,7 +823,7 @@ namespace CADBooster.SolidDna
         /// <remarks>
         /// Used internally for Command Manager API calls that require multiple selection identifiers.
         /// </remarks>
-        internal string GetCustomFeatureNames() => mCustomFeatureNames is null ? string.Empty : string.Join(";", mCustomFeatureNames);
+        internal string GetCustomFeatureNames() => CustomFeatureNames is null ? string.Empty : string.Join(";", CustomFeatureNames);
 
         #endregion
 
@@ -841,7 +839,7 @@ namespace CADBooster.SolidDna
         /// </remarks>
         public static implicit operator int(SelectionType selectionType)
         {
-            return (int)selectionType.mEnumValue;
+            return (int)selectionType.EnumValue;
         }
 
         /// <summary>
@@ -856,7 +854,7 @@ namespace CADBooster.SolidDna
         /// </remarks>
         public static implicit operator string(SelectionType selectionType)
         {
-            return selectionType.mStringValue;
+            return selectionType.StringValue;
         }
 
         #endregion
@@ -867,29 +865,41 @@ namespace CADBooster.SolidDna
         public override bool Equals(object obj)
         {
             // Null and type check
-            if (obj == null || GetType() != obj.GetType())
+            if (obj == null || obj.GetType() != typeof(SelectionType))
                 return false;
 
-            var other = (SelectionType)obj;
+            // Delegate to the strongly-typed Equals method
+            return Equals((SelectionType)obj);
+        }
+
+        /// <summary>
+        /// Determines whether the specified <see cref="SelectionType"/> is equal to the current <see cref="SelectionType"/>.
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public bool Equals(SelectionType other)
+        {
+            if (other == null)
+                return false;
 
             // Compare primitive values first for early exit
-            if (mEnumValue != other.mEnumValue)
+            if (EnumValue != other.EnumValue)
                 return false;
 
-            // String comparison for _stringValue not used it depends on _intValue
+            // String are not compared because they depend on the enum value.
 
             // Handle null cases for custom feature names
-            if (mCustomFeatureNames == null || other.mCustomFeatureNames == null)
-                return mCustomFeatureNames == null && other.mCustomFeatureNames == null;
+            if (CustomFeatureNames == null || other.CustomFeatureNames == null)
+                return CustomFeatureNames == null && other.CustomFeatureNames == null;
 
             // Compare list lengths first for quick mismatch detection
-            if (mCustomFeatureNames.Count != other.mCustomFeatureNames.Count)
+            if (CustomFeatureNames.Count != other.CustomFeatureNames.Count)
                 return false;
 
             // Element-by-element comparison
-            for (var i = 0; i < mCustomFeatureNames.Count; i++)
+            for (var i = 0; i < CustomFeatureNames.Count; i++)
             {
-                if (!string.Equals(mCustomFeatureNames[i], other.mCustomFeatureNames[i], StringComparison.Ordinal))
+                if (!string.Equals(CustomFeatureNames[i], other.CustomFeatureNames[i], StringComparison.Ordinal))
                     return false;
             }
 
@@ -901,15 +911,18 @@ namespace CADBooster.SolidDna
         {
             unchecked
             {
-                if (mCustomFeatureNames == null)
-                {
-                    // Handles only _intValue if no custom features, _stringValue check is not necessary
-                    return mEnumValue.GetHashCode();
-                }
+                // Checking the string value is not necessary.
 
-                // Handles _intValue and custom features array if we have custom features. _stringValue check is not necessary.
-                var hashCode = mCustomFeatureNames.Sum(featureName => featureName.GetHashCode() * 17);
-                hashCode += mEnumValue.GetHashCode();
+                // Handle only the enum value if there are no custom features. 
+                if (CustomFeatureNames == null) 
+                    return EnumValue.GetHashCode();
+
+                // Handle the enum value and custom features
+                var hashCode = 0;
+                foreach (var featureName in CustomFeatureNames) 
+                    hashCode += featureName.GetHashCode() * 17;
+
+                hashCode += EnumValue.GetHashCode();
                 return hashCode;
             }
         }
