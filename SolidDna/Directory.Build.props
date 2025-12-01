@@ -2,7 +2,7 @@
 	<PropertyGroup>
 		<ProductName>CADBooster.SolidDna</ProductName>
 		<ProductVersion>3.3.0.0</ProductVersion>
-		<Copyright>Copyright © 2016--$([System.DateTime]::Now.Year)</Copyright>
+		<Copyright>Copyright (c) CAD Booster B.V. and AngelSix 2016-$([System.DateTime]::Now.Year)</Copyright>
 		<SolidWorksDllVersion>2026</SolidWorksDllVersion>
 	</PropertyGroup>
 </Project>
