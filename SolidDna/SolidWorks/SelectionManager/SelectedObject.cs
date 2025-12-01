@@ -78,7 +78,7 @@ namespace CADBooster.SolidDna
         #region Type Cast
 
         /// <summary>
-        /// Casts the object to a <see cref="ModelFeature"/>.
+        /// Cast the object to a <see cref="ModelFeature"/>.
         /// Check with <see cref="IsFeature"/> first to assure that it is this type
         /// </summary>
         /// <param name="action">The feature is passed into this action to be used within it</param>
@@ -99,7 +99,7 @@ namespace CADBooster.SolidDna
         }
 
         /// <summary>
-        /// Casts the object to a <see cref="ModelDisplayDimension"/>.
+        /// Cast the object to a <see cref="ModelDisplayDimension"/>.
         /// Check with <see cref="IsDimension"/> first to assure that it is this type
         /// </summary>
         /// <param name="action">The Dimension is passed into this action to be used within it</param>
