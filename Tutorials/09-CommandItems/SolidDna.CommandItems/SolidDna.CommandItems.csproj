@@ -6,7 +6,7 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\SolidDna\CADBooster.SolidDna\CADBooster.SolidDna.csproj" />
+    <ProjectReference Include="..\..\..\SolidDna\CADBooster.SolidDna.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="CADBooster.SolidDna">
