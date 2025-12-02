@@ -4,6 +4,7 @@
     <OutputType>Library</OutputType>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="SolidWorks.Interop.sldworks" HintPath="..\..\..\References\2026\SolidWorks.Interop.sldworks.dll" EmbedInteropTypes="False" />
@@ -28,6 +29,6 @@
     <EmbeddedResource Include="Assets\icons96.png" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CADBooster.SolidDna" Version="3.3.0" />
+    <PackageReference Include="CADBooster.SolidDna" Version="3.4.0" />
   </ItemGroup>
 </Project>
