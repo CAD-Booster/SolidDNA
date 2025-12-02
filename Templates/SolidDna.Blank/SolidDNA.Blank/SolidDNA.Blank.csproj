@@ -13,7 +13,7 @@
     <None Update="appsettings.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CADBooster.SolidDna" Version="3.4.0" />
+    <PackageReference Include="CADBooster.SolidDna" Version="3.4.1" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
