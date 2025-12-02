@@ -16,11 +16,19 @@
     <AssemblyName>$(ProductName)</AssemblyName>
     <RootNamespace>$(ProductName)</RootNamespace>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageReleaseNotes>Added support for SOLIDWORKS 2025.
-Split SolidAddIn object and added PartnerProductAddIn so add-ins that are not partner products are not blocked in SW Connected. 
-Added basic support for opening from and saving to 3DExperience.
-Added getting a feature by its name from a Component.
-Added inner exception info to SolidDnaException ToString.</PackageReleaseNotes>
+    <PackageReleaseNotes>Added support for SOLIDWORKS 2026.
+Added methods for selecting, deselecting and getting selected objects to SelectionManager.
+Added callbacks to command manager buttons.
+Added PersistentID and SketchSegmentId object.
+Added getting started to the readme.
+Added getting and setting a note's text.
+Added getting preview images.
+Added dispatch wrapper.
+Added Directory.Build.Props for variables like solidworks and product version.
+Changed Component.AsModel to return null if the underlying object is null.
+Cleaned up folder structure, projects, tools and license.
+Fixed returning an emtpy list of configurations for drawings.
+Fixed missing feature type names.</PackageReleaseNotes>
     <SignAssembly>true</SignAssembly>
     <PackageIcon>icon.png</PackageIcon>
     <PackageIconUrl />
