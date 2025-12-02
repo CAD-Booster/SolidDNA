@@ -1,4 +1,4 @@
-﻿using SolidWorks.Interop.sldworks;
+using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
 using System;
 using System.Collections.Generic;
@@ -67,6 +67,22 @@ namespace CADBooster.SolidDna
         {
             // Deselect the object
             var result = BaseObject.DeSelect2(index, (int)selectionMark);
+
+            // Return whether it was successful: 1 means successful, 0 means not successful.
+            return result == 1;
+        }
+
+        /// <summary>
+        /// Deselect multiple objects at given indexes with an optional selection mark.
+        /// </summary>
+        /// <param name="indexes">The indexes of the selected objects. Are 1-based.</param>
+        /// <param name="selectionMark">The mark that the items were originally selected with.
+        /// Use <see cref="SelectionMark.Any"/> to ignore the mark and <see cref="SelectionMark.None"/> to deselect objects that were selected without a mark.</param>
+        /// <returns>True if the objects were deselected, false if not.</returns>
+        public bool DeselectAtIndexes(List<int> indexes, SelectionMark selectionMark = SelectionMark.Any)
+        {
+            // Deselect the objects
+            var result = BaseObject.DeSelect2(indexes.ToArray(), (int)selectionMark);
 
             // Return whether it was successful: 1 means successful, 0 means not successful.
             return result == 1;
