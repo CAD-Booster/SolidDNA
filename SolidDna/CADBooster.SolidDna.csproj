@@ -8,8 +8,8 @@
     <Company>CAD Booster B.V.</Company>
     <Description>The new SolidDNA SDK, making the SolidWorks API easier, well behaved and modern</Description>
     <Copyright>$(Copyright)</Copyright>
-    <PackageProjectUrl>https://github.com/CAD-Booster/solidworks-api</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/CAD-Booster/solidworks-api</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/CAD-Booster/SolidDNA/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/CAD-Booster/SolidDNA/</RepositoryUrl>
     <PackageTags>soliddna solidworks cadbooster angelsix api</PackageTags>
     <Product>$(ProductName)</Product>
     <PackageId>$(ProductName)</PackageId>
