@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net48-windows</TargetFramework>
+    <OutputType>Library</OutputType>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWindowsForms>true</UseWindowsForms>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <RegisterForComInterop>false</RegisterForComInterop>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Update="MyTaskpaneUI.cs" SubType="UserControl" />
+    <EmbeddedResource Include="Assets\icons128.png" CopyToOutputDirectory="PreserveNewest" />
+    <EmbeddedResource Include="Assets\icons20.png" CopyToOutputDirectory="PreserveNewest" />
+    <EmbeddedResource Include="Assets\icons32.png" CopyToOutputDirectory="PreserveNewest" />
+    <EmbeddedResource Include="Assets\icons40.png" CopyToOutputDirectory="PreserveNewest" />
+    <EmbeddedResource Include="Assets\icons64.png" CopyToOutputDirectory="PreserveNewest" />
+    <EmbeddedResource Include="Assets\icons96.png" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="ScriptWrapperFormat.cs" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="ScriptDirectExample.cs" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="CADBooster.SolidDna" Version="3.4.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="2.10.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="ScriptDirectExample.cs" />
+    <Compile Remove="ScriptWrapperFormat.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="SolidWorks.Interop.sldworks" HintPath="..\..\References\2026\SolidWorks.Interop.sldworks.dll" EmbedInteropTypes="False" />
+    <Reference Include="SolidWorks.Interop.sw3dprinter" HintPath="..\..\References\2026\SolidWorks.Interop.sw3dprinter.dll" EmbedInteropTypes="False" />
+    <Reference Include="SolidWorks.Interop.swcommands" HintPath="..\..\References\2026\SolidWorks.Interop.swcommands.dll" EmbedInteropTypes="False" />
+    <Reference Include="SolidWorks.Interop.swconst" HintPath="..\..\References\2026\SolidWorks.Interop.swconst.dll" EmbedInteropTypes="False" />
+    <Reference Include="SolidWorks.Interop.swdimxpert" HintPath="..\..\References\2026\SolidWorks.Interop.swdimxpert.dll" EmbedInteropTypes="False" />
+    <Reference Include="SolidWorks.Interop.swdocumentmgr" HintPath="..\..\References\2026\SolidWorks.Interop.swdocumentmgr.dll" EmbedInteropTypes="False" />
+    <Reference Include="SolidWorks.Interop.swmotionstudy" HintPath="..\..\References\2026\SolidWorks.Interop.swmotionstudy.dll" EmbedInteropTypes="False" />
+    <Reference Include="SolidWorks.Interop.swpublished" HintPath="..\..\References\2026\SolidWorks.Interop.swpublished.dll" EmbedInteropTypes="False" />
+    <Reference Include="SolidWorks.Interop.SWRoutingLib" HintPath="..\..\References\2026\SolidWorks.Interop.SWRoutingLib.dll" EmbedInteropTypes="False" />
+  </ItemGroup>
+</Project>
