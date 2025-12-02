@@ -73,9 +73,7 @@ namespace CADBooster.SolidDna
 
         #region Dispose
 
-        /// <summary>
-        /// Disposal
-        /// </summary>
+        /// <inheritdoc />
         public virtual void Dispose()
         {
             if (BaseObject == null)

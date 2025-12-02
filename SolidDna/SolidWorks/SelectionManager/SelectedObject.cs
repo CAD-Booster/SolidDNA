@@ -18,7 +18,7 @@ namespace CADBooster.SolidDna
         /// <summary>
         /// The type of the selected object
         /// </summary>
-        public swSelectType_e ObjectType { get; set; }
+        public swSelectType_e ObjectType { get; }
 
         #region Type Checks
 
@@ -57,11 +57,20 @@ namespace CADBooster.SolidDna
         #region Constructor
 
         /// <summary>
-        /// Default constructor
+        /// Constructor from a selected object.
         /// </summary>
-        public SelectedObject(object model) : base(model)
+        [Obsolete("Use the constructor with selected object and type instead")]
+        public SelectedObject(object selectedObject) : base(selectedObject)
         {
             
+        }
+
+        /// <summary>
+        /// Constructor from a selected object and its type.
+        /// </summary>
+        public SelectedObject(object selectedObject, swSelectType_e objectType) : base(selectedObject)
+        {
+            ObjectType = objectType;
         }
 
         #endregion
@@ -69,7 +78,7 @@ namespace CADBooster.SolidDna
         #region Type Cast
 
         /// <summary>
-        /// Casts the object to a <see cref="ModelFeature"/>.
+        /// Cast the object to a <see cref="ModelFeature"/>.
         /// Check with <see cref="IsFeature"/> first to assure that it is this type
         /// </summary>
         /// <param name="action">The feature is passed into this action to be used within it</param>
@@ -90,7 +99,7 @@ namespace CADBooster.SolidDna
         }
 
         /// <summary>
-        /// Casts the object to a <see cref="ModelDisplayDimension"/>.
+        /// Cast the object to a <see cref="ModelDisplayDimension"/>.
         /// Check with <see cref="IsDimension"/> first to assure that it is this type
         /// </summary>
         /// <param name="action">The Dimension is passed into this action to be used within it</param>
