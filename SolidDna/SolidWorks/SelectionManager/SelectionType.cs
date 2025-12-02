@@ -141,9 +141,9 @@ namespace CADBooster.SolidDna
         public static readonly SelectionType Mate = new SelectionType(swSelectType_e.swSelMATES, "MATE");
 
         /// <summary>
-        /// Body feature selection.
+        /// (Body) feature selection.
         /// </summary>
-        public static readonly SelectionType BodyFeature = new SelectionType(swSelectType_e.swSelBODYFEATURES, "BODYFEATURE");
+        public static readonly SelectionType Feature = new SelectionType(swSelectType_e.swSelBODYFEATURES, "BODYFEATURE");
 
         /// <summary>
         /// Reference curve selection.
