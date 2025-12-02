@@ -49,6 +49,31 @@ namespace CADBooster.SolidDna
 
         #endregion
 
+        #region Deselect
+
+        /// <summary>
+        /// Deselect all selected objects.
+        /// </summary>
+        public void DeselectAll() => mModel.UnsafeObject.ClearSelection2(true);
+
+        /// <summary>
+        /// Deselect the object at a given index with an optional selection mark.
+        /// </summary>
+        /// <param name="index">The index of the selected object. Is 1-based.</param>
+        /// <param name="selectionMark">The mark that the item was originally selected with.
+        /// Use <see cref="SelectionMark.Any"/> to ignore the mark and <see cref="SelectionMark.None"/> to deselect an object that was selected without a mark.</param>
+        /// <returns>True if the object was deselected, false if not.</returns>
+        public bool DeselectAtIndex(int index, SelectionMark selectionMark = SelectionMark.Any)
+        {
+            // Deselect the object
+            var result = BaseObject.DeSelect2(index, (int)selectionMark);
+
+            // Return whether it was successful: 1 means successful, 0 means not successful.
+            return result == 1;
+        }
+
+        #endregion
+
         #region Get selected entities
 
         /// <summary>
@@ -165,23 +190,6 @@ namespace CADBooster.SolidDna
                 list.ForEach(f => f.Dispose());
             }
         }
-
-        #endregion
-
-        #region Deselect
-
-        /// <summary>
-        /// Deselect all selected objects.
-        /// </summary>
-        public void DeselectAll() => mModel.UnsafeObject.ClearSelection2(true);
-
-        /// <summary>
-        /// Deselect the object at a given index with an optional selection mark.
-        /// </summary>
-        /// <param name="index">The index of the selected object. Is 1-based.</param>
-        /// <param name="selectionMark">The mark that the item was originally selected with.
-        /// Use <see cref="SelectionMark.Any"/> to ignore the mark and <see cref="SelectionMark.None"/> to deselect an object that was selected without a mark.</param>
-        public void DeselectAtIndex(int index, SelectionMark selectionMark = SelectionMark.Any) => BaseObject.DeSelect2(index, (int)selectionMark);
 
         #endregion
     }
