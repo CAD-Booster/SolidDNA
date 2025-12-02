@@ -1,11 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net48-windows</TargetFramework>
+    <TargetFramework>net48</TargetFramework>
     <OutputType>Library</OutputType>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CADBooster.SolidDna" Version="3.4.0" />
+    <PackageReference Include="CADBooster.SolidDna" Version="3.4.1" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

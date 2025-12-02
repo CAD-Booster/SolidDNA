@@ -16,7 +16,8 @@
     <AssemblyName>$(ProductName)</AssemblyName>
     <RootNamespace>$(ProductName)</RootNamespace>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageReleaseNotes>Added support for SOLIDWORKS 2026.
+    <PackageReleaseNotes>(For v3.4.1.0: Fixed Windows Forms and WPF references.)
+Added support for SOLIDWORKS 2026.
 Added methods for selecting, deselecting and getting selected objects to SelectionManager.
 Added callbacks to command manager buttons.
 Added PersistentID and SketchSegmentId object.
