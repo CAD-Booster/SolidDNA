@@ -399,7 +399,7 @@ namespace CADBooster.SolidDna
             ActiveConfiguration = new ModelConfiguration(BaseObject.IGetActiveConfiguration());
 
             // Get the selection manager
-            SelectionManager = new SelectionManager(BaseObject.ISelectionManager);
+            SelectionManager = new SelectionManager(BaseObject.ISelectionManager, this, Extension);
 
             // Set drawing access
             Drawing = IsDrawing ? new DrawingDocument((DrawingDoc)BaseObject) : null;
@@ -1579,6 +1579,10 @@ namespace CADBooster.SolidDna
         /// </summary>
         protected void DisposeAllReferences()
         {
+            // Selection manager first because it holds references to the model and extension
+            SelectionManager?.Dispose();
+            SelectionManager = null;
+
             // Tidy up embedded SolidDNA objects
             Extension?.Dispose();
             Extension = null;
@@ -1586,10 +1590,6 @@ namespace CADBooster.SolidDna
             // Release the active configuration
             ActiveConfiguration?.Dispose();
             ActiveConfiguration = null;
-
-            // Selection manager
-            SelectionManager?.Dispose();
-            SelectionManager = null;
 
             // Unhook all events
             ClearModelEventHandlers();

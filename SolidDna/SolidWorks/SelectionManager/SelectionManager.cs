@@ -6,23 +6,50 @@ using System.Collections.Generic;
 namespace CADBooster.SolidDna
 {
     /// <summary>
-    /// Represents a SolidWorks selection manager
+    /// Represents a SolidWorks selection manager. Used for selecting, deselecting and getting selected objects.
     /// </summary>
     public class SelectionManager : SolidDnaObject<SelectionMgr>
     {
+        #region Private members
+
+        /// <summary>
+        /// The model this selection manager belongs to.
+        /// </summary>
+        private readonly Model mModel;
+
+        /// <summary>
+        /// The model extension this selection manager belongs to.
+        /// </summary>
+        private readonly ModelExtension mModelExtension;
+
+        #endregion
+
         #region Constructor
 
         /// <summary>
-        /// Default constructor
+        /// Old constructor
         /// </summary>
-        public SelectionManager(SelectionMgr model) : base(model)
+        [Obsolete("Use the full constructor that takes a model and model extension. This enables selecting and deselecting methods.")]
+        public SelectionManager(SelectionMgr selectionMgr) : base(selectionMgr)
         {
 
         }
 
+        /// <summary>
+        /// Create a selection manager tied to a model and model extension.
+        /// </summary>
+        /// <param name="manager"></param>
+        /// <param name="model"></param>
+        /// <param name="modelExtension"></param>
+        public SelectionManager(SelectionMgr manager, Model model, ModelExtension modelExtension) : base(manager)
+        {
+            mModel = model;
+            mModelExtension = modelExtension;
+        }
+
         #endregion
 
-        #region Selected Entities
+        #region Get selected entities
 
         /// <summary>
         /// Enumerate through all selected objects in the current model with a certain selection mark.
@@ -138,6 +165,23 @@ namespace CADBooster.SolidDna
                 list.ForEach(f => f.Dispose());
             }
         }
+
+        #endregion
+
+        #region Deselect
+
+        /// <summary>
+        /// Deselect all selected objects.
+        /// </summary>
+        public void DeselectAll() => mModel.UnsafeObject.ClearSelection2(true);
+
+        /// <summary>
+        /// Deselect the object at a given index with an optional selection mark.
+        /// </summary>
+        /// <param name="index">The index of the selected object. Is 1-based.</param>
+        /// <param name="selectionMark">The mark that the item was originally selected with.
+        /// Use <see cref="SelectionMark.Any"/> to ignore the mark and <see cref="SelectionMark.None"/> to deselect an object that was selected without a mark.</param>
+        public void DeselectAtIndex(int index, SelectionMark selectionMark = SelectionMark.Any) => BaseObject.DeSelect2(index, (int)selectionMark);
 
         #endregion
     }
