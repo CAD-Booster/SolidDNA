@@ -1,7 +1,8 @@
-using SolidWorks.Interop.sldworks;
+﻿using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
 using System;
 using System.Collections.Generic;
+using System.Windows.Media.Media3D;
 
 namespace CADBooster.SolidDna
 {
@@ -204,6 +205,119 @@ namespace CADBooster.SolidDna
             {
                 // Dispose of all items
                 list.ForEach(f => f.Dispose());
+            }
+        }
+
+        #endregion
+
+        #region Select entities
+
+        /// <summary>
+        /// Select all objects in the model. Does not include graphic bodies.
+        /// </summary>
+        public void SelectAll() => mModelExtension.UnsafeObject.SelectAll();
+
+        /// <summary>
+        /// Select an object by its type and a position. Throws when it fails.
+        /// </summary>
+        /// <param name="selectionType">The object type to select</param>
+        /// <param name="position">The position of the object</param>
+        /// <param name="selectionMode">Whether to start a new selection or append an existing one</param>
+        /// <param name="selectionMark">Whether to mark this selected object with a number</param>
+        public void SelectByPosition(SelectionType selectionType, Point3D position, SelectionMode selectionMode = SelectionMode.Create, SelectionMark selectionMark = SelectionMark.Any) =>
+            SelectByNameOrPosition(selectionType, "", position, selectionMode, selectionMark);
+
+        /// <summary>
+        /// Select an object by its type and name. Throws when it fails.
+        /// </summary>
+        /// <param name="selectionType">The object type to select</param>
+        /// <param name="name">The name of the object</param>
+        /// <param name="selectionMode">Whether to start a new selection or append an existing one</param>
+        /// <param name="selectionMark">Whether to mark this selected object with a number</param>
+        public void SelectByName(SelectionType selectionType, string name, SelectionMode selectionMode = SelectionMode.Create, SelectionMark selectionMark = SelectionMark.Any) =>
+            SelectByNameOrPosition(selectionType, name, new Point3D(), selectionMode, selectionMark);
+
+        /// <summary>
+        /// Select an object by its type and a vector starting at a point. Throws when it fails.
+        /// Actively clears the selection first when in create mode.
+        /// </summary>
+        /// <param name="selectionType">The object type to select</param>
+        /// <param name="startPosition">The position in 3D space to start the ray from</param>
+        /// <param name="direction">The direction of the ray</param>
+        /// <param name="rayRadius">The radius of the ray</param>
+        /// <param name="selectionMode">Whether to start a new selection or append an existing one</param>
+        /// <param name="selectionMark">Whether to mark this selected object with a number</param>
+        public void SelectByRay(SelectionType selectionType, Point3D startPosition, Vector3D direction, SelectionMode selectionMode = SelectionMode.Create, SelectionMark selectionMark = SelectionMark.Any, RayRadius rayRadius = RayRadius.Standard)
+        {
+            SolidDnaErrors.Wrap(() =>
+            {
+                // This should not be necessary, but it is.
+                if (selectionMode == SelectionMode.Create)
+                    DeselectAll();
+
+                // Convert the selection mode to an append boolean
+                var append = selectionMode == SelectionMode.Append;
+
+                // Convert the ray radius to a double
+                var radius = GetRayRadius(rayRadius);
+
+                // Select the object
+                var selected = mModelExtension.UnsafeObject.SelectByRay(startPosition.X, startPosition.Y, startPosition.Z, direction.X, direction.Y, direction.Z, radius, (int)selectionType, append, (int)selectionMark, 0);
+
+                // Check if it was successful
+                if (!selected)
+                    throw new Exception("Object not selected");
+
+            }, SolidDnaErrorTypeCode.SolidWorksModel, SolidDnaErrorCode.SolidWorksModelObjectNotSelectedError);
+        }
+
+        /// <summary>
+        /// Select an object by its type plus name or position. Throws when it fails.
+        /// </summary>
+        /// <param name="selectionType">The object type to select</param>
+        /// <param name="name">The name of the object</param>
+        /// <param name="position">The position of the object</param>
+        /// <param name="selectionMode">Whether to start a new selection or append an existing one</param>
+        /// <param name="selectionMark">Whether to mark this selected object with a number</param>
+        private void SelectByNameOrPosition(SelectionType selectionType, string name, Point3D position, SelectionMode selectionMode = SelectionMode.Create, SelectionMark selectionMark = SelectionMark.Any)
+        {
+            SolidDnaErrors.Wrap(() =>
+            {
+                // Convert the selection mode to an append boolean
+                var append = selectionMode == SelectionMode.Append;
+
+                // Select the object
+                var success = mModelExtension.UnsafeObject.SelectByID2(name, selectionType.StringValue, position.X, position.Y, position.Z, append, (int)selectionMark, null, 0);
+
+                // Check if it was successful
+                if (!success)
+                    throw new Exception("Object not selected");
+
+            }, SolidDnaErrorTypeCode.SolidWorksModel, SolidDnaErrorCode.SolidWorksModelObjectNotSelectedError);
+        }
+
+        /// <summary>
+        /// Convert the ray radius enum to a double value.
+        /// </summary>
+        /// <param name="rayRadius"></param>
+        /// <returns></returns>
+        private static double GetRayRadius(RayRadius rayRadius)
+        {
+            switch (rayRadius)
+            {
+                case RayRadius.ExtraExtraSmall:
+                    return 0.0001;
+                case RayRadius.ExtraSmall:
+                    return 0.0002;
+                case RayRadius.Small:
+                    return 0.0004;
+                case RayRadius.Large:
+                    return 0.0016;
+                case RayRadius.ExtraLarge:
+                    return 0.0032;
+                case RayRadius.Standard:
+                default:
+                    return 0.0008;
             }
         }
 

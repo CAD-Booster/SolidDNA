@@ -169,6 +169,11 @@
         /// </summary>
         SolidWorksModelGetConfigurationError = 11014,
 
+        /// <summary>
+        /// There was an error selecting an object.
+        /// </summary>
+        SolidWorksModelObjectNotSelectedError = 11015,
+
         #endregion
 
         #region SolidWorks Command Manager (12,000)
