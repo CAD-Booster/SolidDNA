@@ -75,10 +75,14 @@ namespace CADBooster.SolidDna
         public string FeatureTypeName => GetFeatureTypeName();
 
         /// <summary>
-        /// Gets the SolidWorks feature name, such as Sketch1
+        /// Gets or sets the SolidWorks feature name, such as Sketch1
         /// </summary>
         /// <returns></returns>
-        public string FeatureName => BaseObject.Name;
+        public string FeatureName
+        {
+            get => BaseObject.Name;
+            set => BaseObject.Name = value;
+        }
 
         /// <summary>
         /// The specific feature for this feature, if any.
