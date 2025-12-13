@@ -8,7 +8,8 @@ namespace CADBooster.SolidDna
     /// <summary>
     /// The unique ID for a sketch segment. Consists of two longs, but is only unique in combination with the sketch (name) and sketch segment type.
     /// This means that the same two long values can be used in different sketches and the same sketch can have segments with the same two long values but different types.
-    /// See https://help.solidworks.com/2026/english/api/sldworksapi/solidworks.interop.sldworks~solidworks.interop.sldworks.isketchsegment~getid.html
+    /// See <see href="https://help.solidworks.com/2026/english/api/sldworksapi/solidworks.interop.sldworks~solidworks.interop.sldworks.isketchsegment~getid.html"/> for sketch segments
+    /// and <see href="https://help.solidworks.com/2026/english/api/sldworksapi/solidworks.interop.sldworks~solidworks.interop.sldworks.isketchpoint~getid.html"/> for sketch points.
     /// </summary>
     public class SketchSegmentId
     {
@@ -30,7 +31,7 @@ namespace CADBooster.SolidDna
         public string SketchName { get; }
 
         /// <summary>
-        /// Sketch segment type
+        /// Sketch segment type. Is <see cref="SketchSegmentType.Point"/> for points, even though SketchPoints are not SketchSegments.
         /// </summary>
         public SketchSegmentType Type { get; }
 
@@ -39,7 +40,7 @@ namespace CADBooster.SolidDna
         #region Constructor
 
         /// <summary>
-        /// The unique identifier for an item in a sketch.
+        /// The unique identifier for a sketch segment.
         /// Is determined by its sketch name, two long/int values and the type.
         /// </summary>
         /// <param name="sketchSegment"></param>
@@ -55,6 +56,25 @@ namespace CADBooster.SolidDna
 
             // Get the sketch segment type
             Type = (SketchSegmentType)sketchSegment.GetType();
+        }
+
+        /// <summary>
+        /// The unique identifier for a point in a sketch.
+        /// Is determined by its sketch name, two long/int values and the type.
+        /// </summary>
+        /// <param name="sketchPoint"></param>
+        public SketchSegmentId(ISketchPoint sketchPoint)
+        {
+            // Get the two longs 
+            var ids = GetIds(sketchPoint);
+            Id0 = ids[0];
+            Id1 = ids[1];
+
+            // Get the sketch name by casting the sketch to a Feature first
+            SketchName = ((Feature)sketchPoint.GetSketch()).Name;
+
+            // Set the sketch segment type to a point, even though SketchPoints are not SketchSegments
+            Type = SketchSegmentType.Point;
         }
 
         #endregion
@@ -99,6 +119,26 @@ namespace CADBooster.SolidDna
         #endregion
 
         #region Private methods
+
+        /// <summary>
+        /// Get two longs from two integers or longs.
+        /// See https://help.solidworks.com/2026/english/api/sldworksapiprogguide/overview/Long_vs_Integer.htm
+        /// </summary>
+        /// <param name="sketchPoint"></param>
+        /// <returns></returns>
+        private static List<long> GetIds(ISketchPoint sketchPoint)
+        {
+            try
+            {
+                // Try getting the IDs as integers first, the convert them to longs
+                return ((int[])sketchPoint.GetID()).Select(Convert.ToInt64).ToList();
+            }
+            catch (Exception)
+            {
+                // If that fails, try getting them as longs directly
+                return ((long[])sketchPoint.GetID()).ToList();
+            }
+        }
 
         /// <summary>
         /// Get two longs from two integers or longs.
