@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
     <Version>$(ProductVersion)</Version>
@@ -16,6 +16,7 @@
     <AssemblyName>$(ProductName)</AssemblyName>
     <RootNamespace>$(ProductName)</RootNamespace>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageReleaseNotes>(For v3.4.1.0: Fixed Windows Forms and WPF references.)
 Added support for SOLIDWORKS 2026.
 Added methods for selecting, deselecting and getting selected objects to SelectionManager.
@@ -46,7 +47,8 @@ Fixed missing feature type names.</PackageReleaseNotes>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Localization\Strings\Strings-en-US.xml" />
-    <None Include="icon.png" Pack="True" PackagePath="" />
+    <None Include="icon.png" Pack="True" PackagePath="\" />
+    <None Include="README.md" Pack="true" PackagePath="\"/>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Localization\Strings\Strings-en-US.xml" />
