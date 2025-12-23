@@ -7,7 +7,7 @@
     <Authors>Luke Malpass, Peter Brinkhuis</Authors>
     <Company>CAD Booster B.V.</Company>
     <Description>The new SolidDNA SDK, making the SolidWorks API easier, well behaved and modern</Description>
-    <Copyright>$(Copyright)</Copyright>
+    <Copyright>Copyright (c) CAD Booster B.V. and AngelSix 2016-$([System.DateTime]::Now.Year)</Copyright>
     <PackageProjectUrl>https://github.com/CAD-Booster/SolidDNA/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/CAD-Booster/SolidDNA/</RepositoryUrl>
     <PackageTags>soliddna solidworks cadbooster angelsix api</PackageTags>
