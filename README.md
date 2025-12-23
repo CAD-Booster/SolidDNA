@@ -72,7 +72,7 @@ Once you have Visual Studio open:
     3. Click Install on the right.
     4. [NuGet](https://www.nuget.org/) is a package manager that lets you add functionality to your product with a few clicks.
 4. Add references to the SOLIDWORKS DLL files:
-    1. Download the SOLIDWORKS DLL files from our [References](https://github.com/CAD-Booster/solidworks-api/tree/master/References) folder or get them from your SOLIDWORKS folder (C:\Program Files\SOLIDWORKS Corp\SOLIDWORKS\api\redist). The version does not really matter, so use the latest version.
+    1. Download the SOLIDWORKS DLL files from our [References](https://github.com/CAD-Booster/solidworks-api/tree/master/References) folder or get them from your SOLIDWORKS folder (C:\Program Files\SOLIDWORKS Corp\SOLIDWORKS\api\redist). Use the same version as SolidDNA does, or your code will not compile. The DLL version does not influence in which SOLIDWORKS version your add-in will run. 
     2. Copy all files into your project folder, for example to a References folder.
     3. Go to your project tree, right-click Dependencies and click Add Assembly Reference.
     4. Click Browse and select all 9 SOLIDWORKS DLLs. Only the ones that you really use will get copied to the output folder later on.
@@ -108,6 +108,7 @@ Once you have Visual Studio open:
     1. If you now start SOLIDWORKS, your add-in should start as well. Pretty cool, right?
     2. If the add-in does not start, check the list of add-ins to make sure it's enabled.
     3. If you enable the add-in, close the add-ins window and the checkbox gets unchecked again, there was some sort of error and the add-in did not start correctly.
+	4. Your add-in should run in all latest SOLIDWORKS versions. If you use APIs that are not available in that SOLIDWORKS version, your code will throw an exception. You can avoid this problem by checking the current SOLIDWORKS version first, or by avoiding all recent APIs like I do.
 9. Debug your add-in:
     1. We can also start up SOLIDWORKS from Visual Studio, which lets us debug our add-in and run the code line by line. This is crucial for proper software development.
     2. Go into your project folder, then inside the Properties folder.
