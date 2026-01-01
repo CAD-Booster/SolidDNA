@@ -1,4 +1,4 @@
-![NuGet Version](https://img.shields.io/nuget/v/CADBooster.SolidDNA)
+[<img src="https://img.shields.io/nuget/v/CADBooster.SolidDNA">](https://www.nuget.org/packages/CADBooster.SolidDna)
 
 # SolidDNA
 
