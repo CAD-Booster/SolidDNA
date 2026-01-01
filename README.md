@@ -1,3 +1,5 @@
+![NuGet Version](https://img.shields.io/nuget/v/CADBooster.SolidDNA)
+
 # SolidDNA
 
 ## A user-friendly framework for SOLIDWORKS add-ins
