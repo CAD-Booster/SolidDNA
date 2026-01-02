@@ -1,4 +1,5 @@
 [![NuGet version](https://img.shields.io/nuget/v/CADBooster.SolidDNA)](https://www.nuget.org/packages/CADBooster.SolidDna)
+[![NuGet downloads](https://img.shields.io/nuget/dt/CADBooster.SolidDNA?logo=nuget&label=Downloads&color=yellow)](https://www.nuget.org/packages/CADBooster.SolidDna)
 ![MIT license](https://img.shields.io/badge/License-MIT-green)
 
 # SolidDNA
