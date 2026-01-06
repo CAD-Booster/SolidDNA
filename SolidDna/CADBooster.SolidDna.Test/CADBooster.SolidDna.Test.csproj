@@ -5,4 +5,7 @@
     <PackageReference Include="NUnit" Version="4.4.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="6.0.1" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CADBooster.SolidDna\CADBooster.SolidDna.csproj" />
+  </ItemGroup>
 </Project>
