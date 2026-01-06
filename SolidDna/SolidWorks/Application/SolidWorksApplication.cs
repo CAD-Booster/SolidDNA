@@ -931,10 +931,12 @@ namespace CADBooster.SolidDna
         /// Any portions of the bitmap that are white (RGB 255,255,255) will be transparent.
         /// </param>
         /// <param name="toolTip">The title text to show at the top of the taskpane</param>
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
         public async Task<Taskpane> CreateTaskpaneAsync(string iconPath, string toolTip)
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
         {
             // Wrap any error creating the taskpane in a SolidDna exception
-            return SolidDnaErrors.Wrap<Taskpane>(() =>
+            return SolidDnaErrors.Wrap(() =>
             {
                 // Attempt to create the taskpane
                 var comTaskpane = BaseObject.CreateTaskpaneView2(iconPath, toolTip);
@@ -957,10 +959,12 @@ namespace CADBooster.SolidDna
         /// For example C:\Folder\icons{0}.png
         /// </param>
         /// <param name="toolTip">The title text to show at the top of the taskpane</param>
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
         public async Task<Taskpane> CreateTaskpaneAsync2(string iconPathFormat, string toolTip)
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
         {
             // Wrap any error creating the taskpane in a SolidDna exception
-            return SolidDnaErrors.Wrap<Taskpane>(() =>
+            return SolidDnaErrors.Wrap(() =>
                 {
                     // Get up to six icon paths
                     var icons = Icons.GetPathArrayFromPathFormat(iconPathFormat);

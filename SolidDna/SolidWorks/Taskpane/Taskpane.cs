@@ -30,10 +30,12 @@ namespace CADBooster.SolidDna
         /// <param name="progId">The [ProgId()] attribute value adorned on the UserControl class</param>
         /// <param name="licenseKey">The license key (for specific SolidWorks add-in types)</param>
         /// <returns></returns>
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
         public async Task<T> AddControlAsync<T>(string progId, string licenseKey)
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
         {
             // Wrap any error creating the taskpane in a SolidDna exception
-            return SolidDnaErrors.Wrap<T>(() =>
+            return SolidDnaErrors.Wrap(() =>
             {
                 // Attempt to create the taskpane
                 return (T)BaseObject.AddControl(progId, licenseKey);
