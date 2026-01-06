@@ -8,15 +8,17 @@
     <Company>CAD Booster B.V.</Company>
     <Description>The new SolidDNA SDK, making the SolidWorks API easier, well behaved and modern</Description>
     <Copyright>Copyright (c) CAD Booster B.V. and AngelSix 2016-$([System.DateTime]::Now.Year)</Copyright>
-    <PackageProjectUrl>https://github.com/CAD-Booster/SolidDNA/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/CAD-Booster/SolidDNA/</RepositoryUrl>
-    <PackageTags>soliddna solidworks cadbooster angelsix api</PackageTags>
     <Product>$(ProductName)</Product>
-    <PackageId>$(ProductName)</PackageId>
     <AssemblyName>$(ProductName)</AssemblyName>
     <RootNamespace>$(ProductName)</RootNamespace>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageIconUrl />
+    <PackageId>$(ProductName)</PackageId>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/CAD-Booster/SolidDNA/</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>soliddna solidworks cadbooster angelsix api</PackageTags>
     <PackageReleaseNotes>(For v3.4.1.0: Fixed Windows Forms and WPF references.)
 Added support for SOLIDWORKS 2026.
 Added methods for selecting, deselecting and getting selected objects to SelectionManager.
@@ -32,8 +34,6 @@ Cleaned up folder structure, projects, tools and license.
 Fixed returning an emtpy list of configurations for drawings.
 Fixed missing feature type names.</PackageReleaseNotes>
     <SignAssembly>true</SignAssembly>
-    <PackageIcon>icon.png</PackageIcon>
-    <PackageIconUrl />
     <AssemblyOriginatorKeyFile>StrongNameKey.snk</AssemblyOriginatorKeyFile>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
