@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
     <Version>$(ProductVersion)</Version>
     <AssemblyVersion>$(ProductVersion)</AssemblyVersion>
     <FileVersion>$(ProductVersion)</FileVersion>
