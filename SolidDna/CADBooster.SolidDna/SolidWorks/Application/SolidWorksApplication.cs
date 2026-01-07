@@ -14,7 +14,7 @@ namespace CADBooster.SolidDna
     /// <summary>
     /// Represents the current SolidWorks application
     /// </summary>
-    public partial class SolidWorksApplication : SharedSolidDnaObject<SldWorks>
+    public partial class SolidWorksApplication : SharedSolidDnaObject<SldWorks>, ISolidWorksApplication
     {
         #region Protected Members
 

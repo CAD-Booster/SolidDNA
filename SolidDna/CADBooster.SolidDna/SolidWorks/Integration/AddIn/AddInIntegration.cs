@@ -1,4 +1,4 @@
-using SolidWorks.Interop.sldworks;
+﻿using SolidWorks.Interop.sldworks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +13,7 @@ namespace CADBooster.SolidDna
         /// <summary>
         /// Represents the current SolidWorks application
         /// </summary>
-        public static SolidWorksApplication SolidWorks { get; private set; }
+        public static ISolidWorksApplication SolidWorks { get; private set; }
 
         #endregion
 
@@ -107,6 +107,20 @@ namespace CADBooster.SolidDna
 
             // Should not happen 
             return "SldWorks.Application";
+        }
+
+        #endregion
+
+        #region Set application for tests
+
+        /// <summary>
+        /// Set a mocked application for (unit) testing purposes.
+        /// Do not call this method in your add-in.
+        /// </summary>
+        /// <param name="application"></param>
+        public static void SetApplicationForTesting(ISolidWorksApplication application)
+        {
+            SolidWorks = application;
         }
 
         #endregion

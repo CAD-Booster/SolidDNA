@@ -8,6 +8,6 @@
         /// <summary>
         /// The currently running instance of SolidWorks
         /// </summary>
-        public static SolidWorksApplication Application => AddInIntegration.SolidWorks;
+        public static ISolidWorksApplication Application => AddInIntegration.SolidWorks;
     }
 }

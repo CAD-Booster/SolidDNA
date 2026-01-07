@@ -3,7 +3,7 @@ using SolidWorks.Interop.swconst;
 
 namespace CADBooster.SolidDna
 {
-    public partial class SolidWorksApplication : SharedSolidDnaObject<SldWorks>
+    public partial class SolidWorksApplication : SharedSolidDnaObject<SldWorks>, ISolidWorksApplication
     {
         public class SolidWorksPreferences
         {
