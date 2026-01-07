@@ -9,7 +9,7 @@ namespace CADBooster.SolidDna
     /// NOTE: Use this shared type if another part of the application may have access to this
     ///       same COM object and the life-cycle for each reference is managed independently
     /// </summary>
-    public class SharedSolidDnaObject<T> : SolidDnaObject<T>
+    public class SharedSolidDnaObject<T> : SolidDnaObject<T>, ISharedSolidDnaObject<T>
     {
         #region Constructor
 

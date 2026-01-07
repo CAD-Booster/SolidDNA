@@ -1,5 +1,4 @@
-﻿using System;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 
 namespace CADBooster.SolidDna
 {
@@ -7,7 +6,7 @@ namespace CADBooster.SolidDna
     /// Represents a core SolidDNA object, that is disposable
     /// and needs a COM object disposing cleanly on disposal
     /// </summary>
-    public class SolidDnaObject
+    public class SolidDnaObject : ISolidDnaObject
     {
         #region Protected Members
 
@@ -33,7 +32,7 @@ namespace CADBooster.SolidDna
     /// Represents a core SolidDNA object, that is disposable
     /// and needs a COM object disposing cleanly on disposal
     /// </summary>
-    public class SolidDnaObject<T> : SolidDnaObject, IDisposable
+    public class SolidDnaObject<T> : SolidDnaObject, ISolidDnaObject<T>
     {
         #region Protected Properties
 
@@ -101,7 +100,7 @@ namespace CADBooster.SolidDna
 
         /// <summary>
         /// Checks if the inner COM object is null. If so, returns null instead of 
-        /// the created safe <see cref="SolidDnaObject"/> object
+        /// the created safe <see cref="SolidDnaObject{T}"/> object
         /// </summary>
         /// <typeparam name="T">The type of SolidDnaObject object being created</typeparam>
         /// <param name="createdObject">The instance that was created</param>
