@@ -12,7 +12,7 @@ namespace CADBooster.SolidDna
     /// <summary>
     /// Represents a SolidWorks model of any type (Drawing, Part or Assembly)
     /// </summary>
-    public class Model : SharedSolidDnaObject<ModelDoc2>
+    public class Model : SharedSolidDnaObject<ModelDoc2>, IModel
     {
         #region Public Properties
 
