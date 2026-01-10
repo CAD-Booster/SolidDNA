@@ -1,10 +1,10 @@
 using Moq;
 using NUnit.Framework;
 
-namespace CADBooster.SolidDna.Test
+namespace CADBooster.SolidDna.Test.SolidWorks.Application
 {
     [TestFixture]
-    public class Tests
+    public class SolidWorksApplicationTest
     {
         private Mock<ISolidWorksApplication> _mockApplication;
 
@@ -32,7 +32,7 @@ namespace CADBooster.SolidDna.Test
         }
 
         [Test]
-        public void SolidWorksCookie_WhenMocked_ReturnsExpectedValue()
+        public void SolidWorksCookie()
         {
             // Arrange
             _mockApplication.Setup(x => x.SolidWorksCookie).Returns(12345);
@@ -47,7 +47,6 @@ namespace CADBooster.SolidDna.Test
         [Test]
         public void ShowMessageBox_WhenCalled_InvokesMockMethod()
         {
-            // Arrange
             _mockApplication
                 .Setup(x => x.ShowMessageBox(
                     It.IsAny<string>(),
@@ -55,10 +54,8 @@ namespace CADBooster.SolidDna.Test
                     It.IsAny<SolidWorksMessageBoxButtons>()))
                 .Returns(SolidWorksMessageBoxResult.Ok);
 
-            // Act
             var result = SolidWorksEnvironment.IApplication.ShowMessageBox("Test message");
 
-            // Assert
             Assert.That(result, Is.EqualTo(SolidWorksMessageBoxResult.Ok));
             _mockApplication.Verify(x => x.ShowMessageBox(
                 "Test message",
