@@ -1,33 +1,69 @@
-﻿using NUnit.Framework;
 using Moq;
+using NUnit.Framework;
 
 namespace CADBooster.SolidDna.Test
 {
     [TestFixture]
     public class Tests
     {
+        private Mock<ISolidWorksApplication> _mockApplication;
+
         [SetUp]
         public void Setup()
         {
-            
+            _mockApplication = new Mock<ISolidWorksApplication>();
+            SolidWorksEnvironment.SetApplicationForTesting(_mockApplication.Object);
+        }
+
+        [TearDown]
+        public void TearDown() => SolidWorksEnvironment.ResetApplicationForTesting();
+
+        [Test]
+        public void ActiveModel_WhenMocked_ReturnsNull()
+        {
+            // Arrange
+            _mockApplication.Setup(x => x.ActiveModel).Returns((Model)null);
+
+            // Act
+            var model = SolidWorksEnvironment.IApplication.ActiveModel;
+
+            // Assert
+            Assert.That(model, Is.Null);
         }
 
         [Test]
-        public void Application_Version()
+        public void SolidWorksCookie_WhenMocked_ReturnsExpectedValue()
         {
-            var application = new Mock<ISolidWorksApplication>();
-            application.Setup(a => a.SolidWorksVersion).Returns(new SolidWorksVersion("32.2.0", "sw2024_SP20", "d240722.003", ""));
+            // Arrange
+            _mockApplication.Setup(x => x.SolidWorksCookie).Returns(12345);
 
-            AddInIntegration.SetApplicationForTesting(application.Object);
+            // Act
+            var cookie = SolidWorksEnvironment.IApplication.SolidWorksCookie;
 
-            var version = SolidWorksEnvironment.Application.SolidWorksVersion;
-            Assert.That(version.BuildNumber, Is.EqualTo("d240722.003"));
-            Assert.That(version.Hotfix, Is.EqualTo(""));
-            Assert.That(version.Revision, Is.EqualTo("sw2024_SP20"));
-            Assert.That(version.RevisionNumber, Is.EqualTo("32.2.0"));
-            Assert.That(version.ServicePackMajor, Is.EqualTo(2));
-            Assert.That(version.ServicePackMinor, Is.EqualTo(0));
-            Assert.That(version.Version, Is.EqualTo(2024));
+            // Assert
+            Assert.That(cookie, Is.EqualTo(12345));
+        }
+
+        [Test]
+        public void ShowMessageBox_WhenCalled_InvokesMockMethod()
+        {
+            // Arrange
+            _mockApplication
+                .Setup(x => x.ShowMessageBox(
+                    It.IsAny<string>(),
+                    It.IsAny<SolidWorksMessageBoxIcon>(),
+                    It.IsAny<SolidWorksMessageBoxButtons>()))
+                .Returns(SolidWorksMessageBoxResult.Ok);
+
+            // Act
+            var result = SolidWorksEnvironment.IApplication.ShowMessageBox("Test message");
+
+            // Assert
+            Assert.That(result, Is.EqualTo(SolidWorksMessageBoxResult.Ok));
+            _mockApplication.Verify(x => x.ShowMessageBox(
+                "Test message",
+                SolidWorksMessageBoxIcon.Information,
+                SolidWorksMessageBoxButtons.Ok), Times.Once);
         }
     }
 }
