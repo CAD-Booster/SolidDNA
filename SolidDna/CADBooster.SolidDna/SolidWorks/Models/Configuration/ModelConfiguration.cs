@@ -7,12 +7,12 @@ namespace CADBooster.SolidDna
     /// <summary>
     /// Represents a SolidWorks model configuration
     /// </summary>
-    public class ModelConfiguration : SolidDnaObject<Configuration>
+    public class ModelConfiguration : SolidDnaObject<Configuration>, IModelConfiguration
     {
         #region Public Properties
 
         /// <summary>
-        /// The list of child configurations. Is an empty list whn this configuration does not have any children.
+        /// The list of child configurations. Is an empty list when this configuration does not have any children.
         /// </summary>
         public List<ModelConfiguration> Children
         {

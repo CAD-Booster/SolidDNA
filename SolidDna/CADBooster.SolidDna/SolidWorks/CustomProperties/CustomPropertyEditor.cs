@@ -8,7 +8,7 @@ namespace CADBooster.SolidDna
     /// <summary>
     /// Represents a SolidWorks custom property manager for a model
     /// </summary>
-    public class CustomPropertyEditor : SolidDnaObject<CustomPropertyManager>
+    public class CustomPropertyEditor : SolidDnaObject<CustomPropertyManager>, ICustomPropertyEditor
     {
         #region Constructor
 
@@ -22,11 +22,13 @@ namespace CADBooster.SolidDna
 
         #endregion
 
+        #region Public methods
+
         /// <summary>
-        /// Checks if a custom property exists
+        /// Check if a custom property exists.
         /// </summary>
         /// <param name="name">The name of the custom property</param>
-        /// <returns></returns>
+        /// <returns>True if the custom property exists, otherwise false</returns>
         public bool CustomPropertyExists(string name)
         {
             // TODO: Add error checking and exception catching
@@ -35,11 +37,11 @@ namespace CADBooster.SolidDna
         }
 
         /// <summary>
-        /// Gets the value of a custom property by name
+        /// Get the value of a custom property by name.
         /// </summary>
         /// <param name="name">The name of the custom property</param>
         /// <param name="resolve">True to resolve the custom property value</param>
-        /// <returns></returns>
+        /// <returns>The value of the custom property</returns>
         public string GetCustomProperty(string name, bool resolve = false)
         {
             // TODO: Add error checking and exception catching
@@ -52,12 +54,11 @@ namespace CADBooster.SolidDna
         }
 
         /// <summary>
-        /// Sets the value of a custom property by name
+        /// Set the value of a custom property by name.
         /// </summary>
         /// <param name="name">The name of the custom property</param>
         /// <param name="value">The value of the custom property</param>
         /// <param name="type">The type of the custom property</param>
-        /// <returns></returns>
         public void SetCustomProperty(string name, string value, swCustomInfoType_e type = swCustomInfoType_e.swCustomInfoText)
         {
             // TODO: Add error checking and exception catching
@@ -76,7 +77,7 @@ namespace CADBooster.SolidDna
         }
 
         /// <summary>
-        /// Deletes a custom property by name
+        /// Delete a custom property by name.
         /// </summary>
         /// <param name="name">The name of the custom property</param>
         public void DeleteCustomProperty(string name)
@@ -87,9 +88,9 @@ namespace CADBooster.SolidDna
         }
 
         /// <summary>
-        /// Gets a list of all custom properties
+        /// Get a list of all custom properties.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A list of all custom properties</returns>
         public List<CustomProperty> GetCustomProperties()
         {
             // TODO: Add error checking and exception catching
@@ -107,5 +108,7 @@ namespace CADBooster.SolidDna
             // Return the list
             return list;
         }
+
+        #endregion
     }
 }
