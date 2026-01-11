@@ -77,7 +77,7 @@ namespace CADBooster.SolidDna
         /// Was introduced in SolidWorks 2021.
         /// Not set in the constructor because when you have a model open during startup, the SolidWorks version object is not set yet.
         /// </summary>
-        public ModelSourceProgram ModelSourceProgram => SolidWorksEnvironment.Application.SolidWorksVersion.Version < 2021
+        public ModelSourceProgram ModelSourceProgram => SolidWorksEnvironment.IApplication.SolidWorksVersion.Version < 2021
             ? ModelSourceProgram.SolidWorksDesktop
             : (ModelSourceProgram)Extension.UnsafeObject.Get3DExperienceModelType();
 
@@ -720,11 +720,11 @@ namespace CADBooster.SolidDna
             {
                 void refreshEvent()
                 {
-                    SolidWorksEnvironment.Application.RequestActiveModelChanged();
-                    SolidWorksEnvironment.Application.Idle -= refreshEvent;
+                    SolidWorksEnvironment.IApplication.RequestActiveModelChanged();
+                    SolidWorksEnvironment.IApplication.Idle -= refreshEvent;
                 }
 
-                SolidWorksEnvironment.Application.Idle += refreshEvent;
+                SolidWorksEnvironment.IApplication.Idle += refreshEvent;
             }
 
             // NOTE: 0 is success, anything else is an error
@@ -893,7 +893,7 @@ namespace CADBooster.SolidDna
                 {
                     var path = FilePath;
                     Dispose();
-                    SolidWorksEnvironment.Application.CloseFile(path);
+                    SolidWorksEnvironment.IApplication.CloseFile(path);
                 },
                 SolidDnaErrorTypeCode.SolidWorksModel,
                 SolidDnaErrorCode.SolidWorksModelCloseFileError);
@@ -1113,13 +1113,13 @@ namespace CADBooster.SolidDna
                 var materialName = ids[1];
 
                 // See if we have a database file with the same name
-                var fullPath = SolidWorksEnvironment.Application.GetMaterials()?.FirstOrDefault(f => string.Equals(databaseName, Path.GetFileNameWithoutExtension(f.DatabasePathOrFilename), StringComparison.InvariantCultureIgnoreCase));
+                var fullPath = SolidWorksEnvironment.IApplication.GetMaterials()?.FirstOrDefault(f => string.Equals(databaseName, Path.GetFileNameWithoutExtension(f.DatabasePathOrFilename), StringComparison.InvariantCultureIgnoreCase));
                 var found = fullPath != null;
 
                 // Now we have the file, try and find the material from it
                 if (found)
                 {
-                    var foundMaterial = SolidWorksEnvironment.Application.FindMaterial(fullPath.DatabasePathOrFilename, materialName);
+                    var foundMaterial = SolidWorksEnvironment.IApplication.FindMaterial(fullPath.DatabasePathOrFilename, materialName);
                     if (foundMaterial != null)
                         return foundMaterial;
                 }
@@ -1365,7 +1365,7 @@ namespace CADBooster.SolidDna
         /// </summary>
         /// <param name="configurationName">The configuration name to get the preview for. If null, uses the active configuration.</param>
         /// <returns>A Bitmap containing the preview image</returns>
-        public Bitmap GetPreviewBitmap(string configurationName = null) => SolidWorksEnvironment.Application.GetPreviewBitmap(FilePath, configurationName ?? ActiveConfiguration.Name);
+        public Bitmap GetPreviewBitmap(string configurationName = null) => SolidWorksEnvironment.IApplication.GetPreviewBitmap(FilePath, configurationName ?? ActiveConfiguration.Name);
 
         /// <summary>
         /// Get a preview bitmap from the saved version of the model file for the specified configuration. Does not include unsaved changes.
@@ -1373,7 +1373,7 @@ namespace CADBooster.SolidDna
         /// <param name="configurationName">The configuration name to get the preview for. If null, uses the active configuration.</param>
         /// <returns>A Bitmap containing the preview image</returns>
         /// <param name="bitmapFilepath">The filepath to save the bitmap to</param>
-        public void SavePreviewBitmap(string bitmapFilepath, string configurationName = null) => SolidWorksEnvironment.Application.SavePreviewBitmap(FilePath, configurationName ?? ActiveConfiguration.Name, bitmapFilepath);
+        public void SavePreviewBitmap(string bitmapFilepath, string configurationName = null) => SolidWorksEnvironment.IApplication.SavePreviewBitmap(FilePath, configurationName ?? ActiveConfiguration.Name, bitmapFilepath);
 
         /// <summary>
         /// Saves the current model, with the specified options
@@ -1409,7 +1409,7 @@ namespace CADBooster.SolidDna
                 // as this RCW is now invalid. If this model is not active when saved then 
                 // it will simply reload the active models information
                 if (!HasBeenSaved)
-                    SolidWorksEnvironment.Application.RequestActiveModelChanged();
+                    SolidWorksEnvironment.IApplication.RequestActiveModelChanged();
 
                 // Return result
                 return result;
@@ -1459,7 +1459,7 @@ namespace CADBooster.SolidDna
                 // as this RCW is now invalid. If this model is not active when saved then 
                 // it will simply reload the active models information
                 if (!HasBeenSaved)
-                    SolidWorksEnvironment.Application.RequestActiveModelChanged();
+                    SolidWorksEnvironment.IApplication.RequestActiveModelChanged();
 
                 // Return result
                 return result;
@@ -1485,7 +1485,7 @@ namespace CADBooster.SolidDna
             return SolidDnaErrors.Wrap(() =>
             {
                 // Check if we can save to 3DExperience
-                if (SolidWorksEnvironment.Application.ApplicationType == SolidWorksApplicationType.Desktop)
+                if (SolidWorksEnvironment.IApplication.ApplicationType == SolidWorksApplicationType.Desktop)
                 {
                     // Pick the closest error there is
                     return new ModelSaveResult
@@ -1512,7 +1512,7 @@ namespace CADBooster.SolidDna
                 else
                 {
                     // Get a new options object 
-                    var options = (ISaveTo3DExperienceOptions)SolidWorksEnvironment.Application.UnsafeObject.GetSaveTo3DExperienceOptions();
+                    var options = (ISaveTo3DExperienceOptions)SolidWorksEnvironment.IApplication.UnsafeObject.GetSaveTo3DExperienceOptions();
 
                     // Add relevant data
                     options.FileName = filename;
@@ -1538,7 +1538,7 @@ namespace CADBooster.SolidDna
                 // as this RCW is now invalid. If this model is not active when saved then 
                 // it will simply reload the active models information
                 if (!HasBeenSaved)
-                    SolidWorksEnvironment.Application.RequestActiveModelChanged();
+                    SolidWorksEnvironment.IApplication.RequestActiveModelChanged();
 
                 return result;
             },

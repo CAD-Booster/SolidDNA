@@ -47,7 +47,7 @@ namespace CADBooster.SolidDna
 
         /// <summary>
         /// Called when SolidWorks tries to determine if this add-in is registered with the Partner Program.
-        /// This method is called before <see cref="SolidAddIn.ConnectToSW"/> and before <see cref="SolidWorksEnvironment.Application"/> is set.
+        /// This method is called before <see cref="SolidAddIn.ConnectToSW"/> and before <see cref="SolidWorksEnvironment.IApplication"/> is set.
         /// Your add-in will not start up any further if the partner key is invalid and you are running SolidWorks Connected.
         /// To detect that, set a timer and show a popup if <see cref="SolidAddIn.ApplicationStartup"/> is not called after a few seconds.
         /// See <see cref="SolidWorksAddInPartnerLicenseKey"/>.

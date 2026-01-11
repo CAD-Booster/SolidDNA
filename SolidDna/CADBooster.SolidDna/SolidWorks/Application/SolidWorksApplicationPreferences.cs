@@ -12,8 +12,8 @@ namespace CADBooster.SolidDna
             /// </summary>
             public string DefaultAssemblyTemplate
             {
-                get => SolidWorksEnvironment.Application.GetUserPreferencesString(swUserPreferenceStringValue_e.swDefaultTemplateAssembly);
-                set => SolidWorksEnvironment.Application.SetUserPreferencesString(swUserPreferenceStringValue_e.swDefaultTemplateAssembly, value);
+                get => SolidWorksEnvironment.IApplication.GetUserPreferencesString(swUserPreferenceStringValue_e.swDefaultTemplateAssembly);
+                set => SolidWorksEnvironment.IApplication.SetUserPreferencesString(swUserPreferenceStringValue_e.swDefaultTemplateAssembly, value);
             }
 
             /// <summary>
@@ -21,8 +21,8 @@ namespace CADBooster.SolidDna
             /// </summary>
             public string DefaultDrawingTemplate
             {
-                get => SolidWorksEnvironment.Application.GetUserPreferencesString(swUserPreferenceStringValue_e.swDefaultTemplateDrawing);
-                set => SolidWorksEnvironment.Application.SetUserPreferencesString(swUserPreferenceStringValue_e.swDefaultTemplateDrawing, value);
+                get => SolidWorksEnvironment.IApplication.GetUserPreferencesString(swUserPreferenceStringValue_e.swDefaultTemplateDrawing);
+                set => SolidWorksEnvironment.IApplication.SetUserPreferencesString(swUserPreferenceStringValue_e.swDefaultTemplateDrawing, value);
             }
 
             /// <summary>
@@ -30,8 +30,8 @@ namespace CADBooster.SolidDna
             /// </summary>
             public string DefaultPartTemplate
             {
-                get => SolidWorksEnvironment.Application.GetUserPreferencesString(swUserPreferenceStringValue_e.swDefaultTemplatePart);
-                set => SolidWorksEnvironment.Application.SetUserPreferencesString(swUserPreferenceStringValue_e.swDefaultTemplatePart, value);
+                get => SolidWorksEnvironment.IApplication.GetUserPreferencesString(swUserPreferenceStringValue_e.swDefaultTemplatePart);
+                set => SolidWorksEnvironment.IApplication.SetUserPreferencesString(swUserPreferenceStringValue_e.swDefaultTemplatePart, value);
             }
 
             /// <summary>
@@ -39,8 +39,8 @@ namespace CADBooster.SolidDna
             /// </summary>
             public double DxfOutputScaleFactor
             {
-                get => SolidWorksEnvironment.Application.GetUserPreferencesDouble(swUserPreferenceDoubleValue_e.swDxfOutputScaleFactor);
-                set => SolidWorksEnvironment.Application.SetUserPreferencesDouble(swUserPreferenceDoubleValue_e.swDxfOutputScaleFactor, value);
+                get => SolidWorksEnvironment.IApplication.GetUserPreferencesDouble(swUserPreferenceDoubleValue_e.swDxfOutputScaleFactor);
+                set => SolidWorksEnvironment.IApplication.SetUserPreferencesDouble(swUserPreferenceDoubleValue_e.swDxfOutputScaleFactor, value);
             }
 
             /// <summary>
@@ -48,8 +48,8 @@ namespace CADBooster.SolidDna
             /// </summary>
             public int DxfMultiSheetOption
             {
-                get => SolidWorksEnvironment.Application.GetUserPreferencesInteger(swUserPreferenceIntegerValue_e.swDxfMultiSheetOption);
-                set => SolidWorksEnvironment.Application.SetUserPreferencesInteger(swUserPreferenceIntegerValue_e.swDxfMultiSheetOption, value);
+                get => SolidWorksEnvironment.IApplication.GetUserPreferencesInteger(swUserPreferenceIntegerValue_e.swDxfMultiSheetOption);
+                set => SolidWorksEnvironment.IApplication.SetUserPreferencesInteger(swUserPreferenceIntegerValue_e.swDxfMultiSheetOption, value);
             }
 
             /// <summary>
@@ -57,8 +57,8 @@ namespace CADBooster.SolidDna
             /// </summary>
             public bool DxfOutputNoScale
             {
-                get => SolidWorksEnvironment.Application.GetUserPreferencesInteger(swUserPreferenceIntegerValue_e.swDxfOutputNoScale) == 1;
-                set => SolidWorksEnvironment.Application.SetUserPreferencesInteger(swUserPreferenceIntegerValue_e.swDxfOutputNoScale, value ? 1 : 0);
+                get => SolidWorksEnvironment.IApplication.GetUserPreferencesInteger(swUserPreferenceIntegerValue_e.swDxfOutputNoScale) == 1;
+                set => SolidWorksEnvironment.IApplication.SetUserPreferencesInteger(swUserPreferenceIntegerValue_e.swDxfOutputNoScale, value ? 1 : 0);
             }
         }
     }

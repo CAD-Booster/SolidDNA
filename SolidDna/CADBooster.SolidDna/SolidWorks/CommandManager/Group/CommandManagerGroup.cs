@@ -412,7 +412,7 @@ namespace CADBooster.SolidDna
         private void SetIcons()
         {
             // If we set all properties, the wrong image sizes appear in the Customize window. So we check the SolidWorks version first.
-            if (SolidWorksEnvironment.Application.SolidWorksVersion.Version >= 2016)
+            if (SolidWorksEnvironment.IApplication.SolidWorksVersion.Version >= 2016)
             {
                 // The list of icons for the toolbar or menu. There should be a sprite (a combination of all icons) for each icon size.
                 BaseObject.IconList = Icons.GetArrayFromDictionary(mIconListPaths);

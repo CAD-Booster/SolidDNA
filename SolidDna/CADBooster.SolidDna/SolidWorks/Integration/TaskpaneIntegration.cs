@@ -101,7 +101,7 @@ namespace CADBooster.SolidDna
             var taskpaneTitle = mParentAddin?.SolidWorksAddInTitle ?? "Unknown add-in";
 
             // Create our Taskpane. Use the old version if no IconPathFormat is set or if we are running SolidWorks 2016 or older.
-            mTaskpaneView = IconPathFormat == null || SolidWorksEnvironment.Application.SolidWorksVersion.Version < 2017
+            mTaskpaneView = IconPathFormat == null || SolidWorksEnvironment.IApplication.SolidWorksVersion.Version < 2017
                 ? await AddInIntegration.SolidWorks.CreateTaskpaneAsync(Icon, taskpaneTitle)
                 : await AddInIntegration.SolidWorks.CreateTaskpaneAsync2(IconPathFormat, taskpaneTitle);
 

@@ -74,7 +74,7 @@ namespace CADBooster.SolidDna
                 var status = statusDefault;
 
                 const int highestAccuracy = 2;
-                var solidWorksVersion = SolidWorksEnvironment.Application.SolidWorksVersion;
+                var solidWorksVersion = SolidWorksEnvironment.IApplication.SolidWorksVersion;
                 double[] massPropertiesArray;
 
                 if (solidWorksVersion == null || solidWorksVersion.Version < 2016)

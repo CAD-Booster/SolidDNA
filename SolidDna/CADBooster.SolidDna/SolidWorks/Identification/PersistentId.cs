@@ -84,7 +84,7 @@ namespace CADBooster.SolidDna
                 throw new ArgumentNullException(nameof(obj));
 
             // Get the raw persistent reference object
-            var persistentRefObject = SolidWorksEnvironment.Application.ActiveModel.Extension.UnsafeObject.GetPersistReference3(obj);
+            var persistentRefObject = SolidWorksEnvironment.IApplication.ActiveModel.Extension.UnsafeObject.GetPersistReference3(obj);
 
             // Make sure it's not null
             if (persistentRefObject == null)
@@ -190,7 +190,7 @@ namespace CADBooster.SolidDna
         public T GetObject<T>() where T : class
         {
             // Try to get an object by its persistent ID
-            var obj = SolidWorksEnvironment.Application.ActiveModel.Extension.UnsafeObject.GetObjectByPersistReference3(ByteArray, out var errorCode);
+            var obj = SolidWorksEnvironment.IApplication.ActiveModel.Extension.UnsafeObject.GetObjectByPersistReference3(ByteArray, out var errorCode);
 
             // If there is no error, return the object
             if (errorCode == 0)
@@ -212,7 +212,7 @@ namespace CADBooster.SolidDna
         /// <returns></returns>
         public T GetObjectOrNull<T>() where T : class
         {
-            return (T)SolidWorksEnvironment.Application.ActiveModel?.Extension?.UnsafeObject.GetObjectByPersistReference3(ByteArray, out var errorCode);
+            return (T)SolidWorksEnvironment.IApplication.ActiveModel?.Extension?.UnsafeObject.GetObjectByPersistReference3(ByteArray, out var errorCode);
         }
 
         #endregion

@@ -72,7 +72,7 @@ namespace CADBooster.SolidDna
             SolidDnaErrors.Wrap(() =>
             {
                 // Try and get export data object
-                mExportData = SolidWorksEnvironment.Application.GetPdfExportData();
+                mExportData = SolidWorksEnvironment.IApplication.GetPdfExportData();
             },
                 SolidDnaErrorTypeCode.ExportData,
                 SolidDnaErrorCode.SolidWorksExportDataGetPdfExportDataError);
