@@ -4,7 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 
-namespace AngelSix.SolidWorksApi.IconGeneator;
+namespace AngelSix.SolidWorksApi.IconGenerator;
 
 class Program
 {
