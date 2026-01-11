@@ -5,7 +5,7 @@ namespace CADBooster.SolidDna
     /// <summary>
     /// A sheet of a drawing
     /// </summary>
-    public class DrawingSheet: SolidDnaObject<Sheet>
+    public class DrawingSheet : SolidDnaObject<Sheet>, IDrawingSheet
     {
         #region Private Members
 
@@ -40,8 +40,9 @@ namespace CADBooster.SolidDna
         #endregion
 
         /// <summary>
-        /// Activates this sheet
+        /// Activate this sheet.
         /// </summary>
+        /// <returns>True if successful</returns>
         public bool Activate() => mDrawingDoc.ActivateSheet(SheetName);
     }
 }

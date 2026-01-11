@@ -5,32 +5,32 @@ namespace CADBooster.SolidDna
     /// <summary>
     /// A view of a drawing
     /// </summary>
-    public class DrawingView : SolidDnaObject<View>
+    public class DrawingView : SolidDnaObject<View>, IDrawingView
     {
         #region Public Properties
 
         /// <summary>
-        /// The drawing view type
+        /// The drawing view type.
         /// </summary>
         public DrawingViewType ViewType => (DrawingViewType)BaseObject.Type;
 
         /// <summary>
-        /// The name of the view
+        /// The name of the view.
         /// </summary>
         public string Name => BaseObject.Name;
 
         /// <summary>
-        /// The X position of the view origin with respect to the drawing sheet origin
+        /// The X position of the view origin with respect to the drawing sheet origin.
         /// </summary>
         public double PositionX => ((double[])BaseObject.Position)[0];
 
         /// <summary>
-        /// The Y position of the view origin with respect to the drawing sheet origin
+        /// The Y position of the view origin with respect to the drawing sheet origin.
         /// </summary>
         public double PositionY => ((double[])BaseObject.Position)[1];
 
         /// <summary>
-        /// The bounding box of the view
+        /// The bounding box of the view.
         /// </summary>
         public BoundingBox BoundingBox
         {

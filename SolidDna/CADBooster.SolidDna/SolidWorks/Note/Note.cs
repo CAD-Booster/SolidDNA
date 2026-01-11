@@ -5,7 +5,7 @@ namespace CADBooster.SolidDna
     /// <summary>
     /// A SolidWorks Note object
     /// </summary>
-    public class Note : SolidDnaObject<INote>
+    public class Note : SolidDnaObject<INote>, ISolidDnaNote
     {
         #region Constructor
 
@@ -22,7 +22,7 @@ namespace CADBooster.SolidDna
         #region Public properties
 
         /// <summary>
-        /// Get or set the note name
+        /// Get or set the note name.
         /// </summary>
         public string Name
         {
@@ -31,7 +31,7 @@ namespace CADBooster.SolidDna
         }
 
         /// <summary>
-        /// Get or set the note text content
+        /// Get or set the note text content.
         /// </summary>
         public string Text
         {
@@ -44,19 +44,19 @@ namespace CADBooster.SolidDna
         #region Balloon Methods
 
         /// <summary>
-        /// Get the upper text of the selected BOM Balloon note
+        /// Get the upper text of the selected BOM Balloon note.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The upper text</returns>
         public string GetBOMBalloonUpperText() => BaseObject.GetBomBalloonText(true);
 
         /// <summary>
-        /// Get the upper text of the selected BOM Balloon note
+        /// Get the lower text of the selected BOM Balloon note.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The lower text</returns>
         public string GetBOMBalloonLowerText() => BaseObject.GetBomBalloonText(false);
 
         /// <summary>
-        /// Set the text for the selected BOM Balloon note
+        /// Set the text for the selected BOM Balloon note.
         /// </summary>
         /// <param name="upperTextStyle">The upper text style</param>
         /// <param name="upperText">The upper text</param>
