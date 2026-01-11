@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Local Linear Pattern feature data
+/// </summary>
+public class FeatureLocalLinearPatternData : SolidDnaObject<ILocalLinearPatternFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Local Linear Pattern feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureLocalLinearPatternData : SolidDnaObject<ILocalLinearPatternFeatureData>
+    public FeatureLocalLinearPatternData(ILocalLinearPatternFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureLocalLinearPatternData(ILocalLinearPatternFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

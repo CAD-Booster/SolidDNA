@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Delete Body feature data
+/// </summary>
+public class FeatureDeleteBodyData : SolidDnaObject<IDeleteBodyFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Delete Body feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureDeleteBodyData : SolidDnaObject<IDeleteBodyFeatureData>
+    public FeatureDeleteBodyData(IDeleteBodyFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureDeleteBodyData(IDeleteBodyFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

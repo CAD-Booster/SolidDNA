@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Profile Center Mate feature data
+/// </summary>
+public class FeatureProfileCenterMateData : SolidDnaObject<IProfileCenterMateFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Profile Center Mate feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureProfileCenterMateData : SolidDnaObject<IProfileCenterMateFeatureData>
+    public FeatureProfileCenterMateData(IProfileCenterMateFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureProfileCenterMateData(IProfileCenterMateFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

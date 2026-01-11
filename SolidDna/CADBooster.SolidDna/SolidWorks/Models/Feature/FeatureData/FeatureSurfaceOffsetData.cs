@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Surface Offset feature data
+/// </summary>
+public class FeatureSurfaceOffsetData : SolidDnaObject<ISurfaceOffsetFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Surface Offset feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureSurfaceOffsetData : SolidDnaObject<ISurfaceOffsetFeatureData>
+    public FeatureSurfaceOffsetData(ISurfaceOffsetFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureSurfaceOffsetData(ISurfaceOffsetFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

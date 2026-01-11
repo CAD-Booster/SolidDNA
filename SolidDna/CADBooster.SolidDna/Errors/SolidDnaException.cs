@@ -1,56 +1,55 @@
 ﻿using System;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// A SolidDNA exception containing specific error codes and details for a <see cref="SolidDnaError"/>
+/// </summary>
+public class SolidDnaException : Exception
 {
+    #region Public Properties
+
     /// <summary>
-    /// A SolidDNA exception containing specific error codes and details for a <see cref="SolidDnaError"/>
+    /// The SolidDNA error details
     /// </summary>
-    public class SolidDnaException : Exception
+    public SolidDnaError SolidDnaError { get; set; }
+
+    /// <summary>
+    /// The inner exception details
+    /// </summary>
+    public new Exception InnerException { get; set; }
+
+    #endregion
+
+    #region Constructor
+
+    /// <summary>
+    /// Default constructor
+    /// </summary>
+    public SolidDnaException(SolidDnaError error, Exception innerException = null)
     {
-        #region Public Properties
+        SolidDnaError = error;
+        InnerException = innerException;
+    }
 
-        /// <summary>
-        /// The SolidDNA error details
-        /// </summary>
-        public SolidDnaError SolidDnaError { get; set; }
+    #endregion
 
-        /// <summary>
-        /// The inner exception details
-        /// </summary>
-        public new Exception InnerException { get; set; }
+    public override string ToString()
+    {
+        return $"SolidDnaException ({SolidDnaError}){(InnerException == null ? "" : $" Inner exception: {InnerException.ToString()}")}";
+    }
 
-        #endregion
+    /// <summary>
+    /// Combines the SolidDnaError and InnerException, adding the InnerException message to the SolidDnaError.ErrorDescription
+    /// </summary>
+    /// <returns></returns>
+    public SolidDnaError ToCompositeSolidDnaError()
+    {
+        var copy = new SolidDnaError(SolidDnaError);
 
-        #region Constructor
+        if (InnerException != null)
+            copy.ErrorDetails = $"{copy.ErrorDetails}. Inner Exception ({InnerException.GetType()}): {InnerException.GetErrorMessage()}";
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public SolidDnaException(SolidDnaError error, Exception innerException = null)
-        {
-            SolidDnaError = error;
-            InnerException = innerException;
-        }
-
-        #endregion
-
-        public override string ToString()
-        {
-            return $"SolidDnaException ({SolidDnaError}){(InnerException == null ? "" : $" Inner exception: {InnerException.ToString()}")}";
-        }
-
-        /// <summary>
-        /// Combines the SolidDnaError and InnerException, adding the InnerException message to the SolidDnaError.ErrorDescription
-        /// </summary>
-        /// <returns></returns>
-        public SolidDnaError ToCompositeSolidDnaError()
-        {
-            var copy = new SolidDnaError(SolidDnaError);
-
-            if (InnerException != null)
-                copy.ErrorDetails = $"{copy.ErrorDetails}. Inner Exception ({InnerException.GetType()}): {InnerException.GetErrorMessage()}";
-
-            return copy;
-        }
+        return copy;
     }
 }

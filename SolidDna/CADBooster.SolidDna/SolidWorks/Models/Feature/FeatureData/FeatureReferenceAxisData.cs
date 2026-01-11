@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Reference Axis feature data
+/// </summary>
+public class FeatureReferenceAxisData : SolidDnaObject<IRefAxisFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Reference Axis feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureReferenceAxisData : SolidDnaObject<IRefAxisFeatureData>
+    public FeatureReferenceAxisData(IRefAxisFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureReferenceAxisData(IRefAxisFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Split Line feature data
+/// </summary>
+public class FeatureSplitLineData : SolidDnaObject<ISplitLineFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Split Line feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureSplitLineData : SolidDnaObject<ISplitLineFeatureData>
+    public FeatureSplitLineData(ISplitLineFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureSplitLineData(ISplitLineFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

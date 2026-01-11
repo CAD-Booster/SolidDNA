@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Gear Mate feature data
+/// </summary>
+public class FeatureGearMateData : SolidDnaObject<IGearMateFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Gear Mate feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureGearMateData : SolidDnaObject<IGearMateFeatureData>
+    public FeatureGearMateData(IGearMateFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureGearMateData(IGearMateFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

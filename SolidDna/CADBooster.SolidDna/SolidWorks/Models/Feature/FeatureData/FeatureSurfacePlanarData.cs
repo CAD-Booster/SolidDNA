@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Surface Planar feature data
+/// </summary>
+public class FeatureSurfacePlanarData : SolidDnaObject<ISurfacePlanarFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Surface Planar feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureSurfacePlanarData : SolidDnaObject<ISurfacePlanarFeatureData>
+    public FeatureSurfacePlanarData(ISurfacePlanarFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureSurfacePlanarData(ISurfacePlanarFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

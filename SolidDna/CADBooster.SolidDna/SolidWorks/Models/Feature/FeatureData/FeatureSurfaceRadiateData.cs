@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Surface Radiate feature data
+/// </summary>
+public class FeatureSurfaceRadiateData : SolidDnaObject<ISurfaceRadiateFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Surface Radiate feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureSurfaceRadiateData : SolidDnaObject<ISurfaceRadiateFeatureData>
+    public FeatureSurfaceRadiateData(ISurfaceRadiateFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureSurfaceRadiateData(ISurfaceRadiateFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

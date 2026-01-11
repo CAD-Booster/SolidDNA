@@ -2,94 +2,93 @@
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Methods for aiding in thread-related actions
+/// </summary>
+public static class ThreadHelpers
 {
+    #region Private Members
+
     /// <summary>
-    /// Methods for aiding in thread-related actions
+    /// A blank control created on the UI thread used to invoke tasks on the UI thread
     /// </summary>
-    public static class ThreadHelpers
+    private static Control mInvoker;
+
+    #endregion
+
+    /// <summary>
+    /// Should be called from the UI thread to set up an Invoker (a user control)
+    /// used to invoke any require tasks on the UI thread
+    /// </summary>
+    public static void Enable(Control uiControl)
     {
-        #region Private Members
+        mInvoker = uiControl;
+    }
 
-        /// <summary>
-        /// A blank control created on the UI thread used to invoke tasks on the UI thread
-        /// </summary>
-        private static Control mInvoker;
+    /// <summary>
+    /// Runs the specified action on the UI thread
+    /// 
+    /// NOTE: Only possible right now if the application is making use of TaskpaneIntegration as the
+    /// UI dispatcher is via the Taskpane control on the UI thread
+    /// 
+    /// TODO: Find a better way to access an invoker/dispatcher without needing a Taskpane
+    /// </summary>
+    /// <param name="action">The action to run</param>
+    public static void RunOnUIThread(Action action)
+    {
+        // If we are already on the UI thread, just run
+        if (!mInvoker.InvokeRequired)
+            action();
+        // Otherwise invoke
+        else
+            mInvoker.Invoke((MethodInvoker)delegate { action(); });
+    }
 
-        #endregion
+    /// <summary>
+    /// Runs the specified action on the UI thread.
+    /// 
+    /// IMPORTANT: Make sure the caller (doing the await RunOnUIThreadAwait)
+    /// does not await anything inside the action that can be locked by the 
+    /// parent scope (the scope of the await itself) otherwise a deadlock
+    /// could occur.
+    /// 
+    /// NOTE: Only possible right now if the application is making use of TaskpaneIntegration as the
+    /// UI dispatcher is via the Taskpane control on the UI thread
+    /// 
+    /// TODO: Find a better way to access an invoker/dispatcher without needing a Taskpane
+    /// </summary>
+    /// <param name="action">The action to run</param>
+    public static async Task RunOnUIThreadAsync(Action action)
+    {
+        // Check if invoker is set by creating a taskpane
+        if (mInvoker == null)
+            throw new ArgumentNullException(await Localization.GetStringAsync("ThreadInvokerNullError"));
 
-        /// <summary>
-        /// Should be called from the UI thread to set up an Invoker (a user control)
-        /// used to invoke any require tasks on the UI thread
-        /// </summary>
-        public static void Enable(Control uiControl)
+        // If we are already on the UI thread, just run the action
+        if (!mInvoker.InvokeRequired)
+            action();
+        else
         {
-            mInvoker = uiControl;
-        }
+            // We are not on the UI thread, so it is safe to await a task that will run on the UI thread as it will not deadlock this thread
+            var tcs = new TaskCompletionSource<bool>();
 
-        /// <summary>
-        /// Runs the specified action on the UI thread
-        /// 
-        /// NOTE: Only possible right now if the application is making use of TaskpaneIntegration as the
-        /// UI dispatcher is via the Taskpane control on the UI thread
-        /// 
-        /// TODO: Find a better way to access an invoker/dispatcher without needing a Taskpane
-        /// </summary>
-        /// <param name="action">The action to run</param>
-        public static void RunOnUIThread(Action action)
-        {
-            // If we are already on the UI thread, just run
-            if (!mInvoker.InvokeRequired)
-                action();
-            // Otherwise invoke
-            else
-                mInvoker.Invoke((MethodInvoker)delegate { action(); });
-        }
-
-        /// <summary>
-        /// Runs the specified action on the UI thread.
-        /// 
-        /// IMPORTANT: Make sure the caller (doing the await RunOnUIThreadAwait)
-        /// does not await anything inside the action that can be locked by the 
-        /// parent scope (the scope of the await itself) otherwise a deadlock
-        /// could occur.
-        /// 
-        /// NOTE: Only possible right now if the application is making use of TaskpaneIntegration as the
-        /// UI dispatcher is via the Taskpane control on the UI thread
-        /// 
-        /// TODO: Find a better way to access an invoker/dispatcher without needing a Taskpane
-        /// </summary>
-        /// <param name="action">The action to run</param>
-        public static async Task RunOnUIThreadAsync(Action action)
-        {
-            // Check if invoker is set by creating a taskpane
-            if (mInvoker == null)
-                throw new ArgumentNullException(await Localization.GetStringAsync("ThreadInvokerNullError"));
-
-            // If we are already on the UI thread, just run the action
-            if (!mInvoker.InvokeRequired)
-                action();
-            else
+            // Invoke action
+            mInvoker.Invoke((MethodInvoker)delegate
             {
-                // We are not on the UI thread, so it is safe to await a task that will run on the UI thread as it will not deadlock this thread
-                var tcs = new TaskCompletionSource<bool>();
-
-                // Invoke action
-                mInvoker.Invoke((MethodInvoker)delegate
+                try
                 {
-                    try
-                    {
-                        action();
-                    }
-                    finally
-                    {
-                        tcs.TrySetResult(true);
-                    }
-                });
+                    action();
+                }
+                finally
+                {
+                    tcs.TrySetResult(true);
+                }
+            });
 
-                // Wait for completion
-                await tcs.Task;
-            }
+            // Wait for completion
+            await tcs.Task;
         }
     }
 }

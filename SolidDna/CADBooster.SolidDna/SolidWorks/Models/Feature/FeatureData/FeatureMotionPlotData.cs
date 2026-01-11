@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Motion Plot feature data
+/// </summary>
+public class FeatureMotionPlotData : SolidDnaObject<IMotionPlotFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Motion Plot feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureMotionPlotData : SolidDnaObject<IMotionPlotFeatureData>
+    public FeatureMotionPlotData(IMotionPlotFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureMotionPlotData(IMotionPlotFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

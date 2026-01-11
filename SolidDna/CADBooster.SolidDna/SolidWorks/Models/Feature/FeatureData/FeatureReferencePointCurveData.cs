@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Reference Point Curve feature data
+/// </summary>
+public class FeatureReferencePointCurveData : SolidDnaObject<IReferencePointCurveFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Reference Point Curve feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureReferencePointCurveData : SolidDnaObject<IReferencePointCurveFeatureData>
+    public FeatureReferencePointCurveData(IReferencePointCurveFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureReferencePointCurveData(IReferencePointCurveFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

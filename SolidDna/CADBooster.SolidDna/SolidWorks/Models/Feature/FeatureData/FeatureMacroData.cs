@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Macro feature data
+/// </summary>
+public class FeatureMacroData : SolidDnaObject<IMacroFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Macro feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureMacroData : SolidDnaObject<IMacroFeatureData>
+    public FeatureMacroData(IMacroFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureMacroData(IMacroFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

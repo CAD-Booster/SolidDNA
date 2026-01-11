@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Feature folder feature
+/// </summary>
+public class FeatureFeatureFolder : SolidDnaObject<IFeatureFolder>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Feature folder feature
+    /// Default constructor
     /// </summary>
-    public class FeatureFeatureFolder : SolidDnaObject<IFeatureFolder>
+    public FeatureFeatureFolder(IFeatureFolder model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureFeatureFolder(IFeatureFolder model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Fill Pattern feature data
+/// </summary>
+public class FeatureFillPatternData : SolidDnaObject<IFillPatternFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Fill Pattern feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureFillPatternData : SolidDnaObject<IFillPatternFeatureData>
+    public FeatureFillPatternData(IFillPatternFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureFillPatternData(IFillPatternFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

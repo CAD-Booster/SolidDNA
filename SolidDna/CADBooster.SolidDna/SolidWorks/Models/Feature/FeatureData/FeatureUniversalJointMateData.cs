@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Universal Joint Mate feature data
+/// </summary>
+public class FeatureUniversalJointMateData : SolidDnaObject<IUniversalJointMateFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Universal Joint Mate feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureUniversalJointMateData : SolidDnaObject<IUniversalJointMateFeatureData>
+    public FeatureUniversalJointMateData(IUniversalJointMateFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureUniversalJointMateData(IUniversalJointMateFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

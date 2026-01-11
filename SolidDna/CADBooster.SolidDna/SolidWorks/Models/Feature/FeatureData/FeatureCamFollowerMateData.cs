@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Cam Follower Mate feature data
+/// </summary>
+public class FeatureCamFollowerMateData : SolidDnaObject<ICamFollowerMateFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Cam Follower Mate feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureCamFollowerMateData : SolidDnaObject<ICamFollowerMateFeatureData>
+    public FeatureCamFollowerMateData(ICamFollowerMateFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureCamFollowerMateData(ICamFollowerMateFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

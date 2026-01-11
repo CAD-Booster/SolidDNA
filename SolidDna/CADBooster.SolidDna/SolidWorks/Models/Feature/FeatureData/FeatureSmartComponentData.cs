@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Smart Component feature data
+/// </summary>
+public class FeatureSmartComponentData : SolidDnaObject<ISmartComponentFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Smart Component feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureSmartComponentData : SolidDnaObject<ISmartComponentFeatureData>
+    public FeatureSmartComponentData(ISmartComponentFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureSmartComponentData(ISmartComponentFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

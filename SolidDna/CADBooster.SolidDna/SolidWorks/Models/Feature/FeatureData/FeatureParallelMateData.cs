@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Parallel Mate feature data
+/// </summary>
+public class FeatureParallelMateData : SolidDnaObject<IParallelMateFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Parallel Mate feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureParallelMateData : SolidDnaObject<IParallelMateFeatureData>
+    public FeatureParallelMateData(IParallelMateFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureParallelMateData(IParallelMateFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

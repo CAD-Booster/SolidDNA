@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Bounding Box feature data
+/// </summary>
+public class FeatureBoundingBoxData : SolidDnaObject<IBoundingBoxFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Bounding Box feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureBoundingBoxData : SolidDnaObject<IBoundingBoxFeatureData>
+    public FeatureBoundingBoxData(IBoundingBoxFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureBoundingBoxData(IBoundingBoxFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

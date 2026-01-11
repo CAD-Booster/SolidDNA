@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Sketch feature
+/// </summary>
+public class FeatureSketch : SolidDnaObject<ISketch>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Sketch feature
+    /// Default constructor
     /// </summary>
-    public class FeatureSketch : SolidDnaObject<ISketch>
+    public FeatureSketch(ISketch model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureSketch(ISketch model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

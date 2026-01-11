@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Chain Pattern feature data
+/// </summary>
+public class FeatureChainPatternData : SolidDnaObject<IChainPatternFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Chain Pattern feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureChainPatternData : SolidDnaObject<IChainPatternFeatureData>
+    public FeatureChainPatternData(IChainPatternFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureChainPatternData(IChainPatternFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

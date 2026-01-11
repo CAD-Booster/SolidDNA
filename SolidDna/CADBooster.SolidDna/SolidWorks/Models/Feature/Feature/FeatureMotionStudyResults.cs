@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.swmotionstudy;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Motion Study Results feature
+/// </summary>
+public class FeatureMotionStudyResults : SolidDnaObject<IMotionStudyResults>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Motion Study Results feature
+    /// Default constructor
     /// </summary>
-    public class FeatureMotionStudyResults : SolidDnaObject<IMotionStudyResults>
+    public FeatureMotionStudyResults(IMotionStudyResults model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureMotionStudyResults(IMotionStudyResults model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

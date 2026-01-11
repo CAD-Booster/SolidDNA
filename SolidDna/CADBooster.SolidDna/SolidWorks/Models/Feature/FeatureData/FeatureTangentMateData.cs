@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Tangent Mate feature data
+/// </summary>
+public class FeatureTangentMateData : SolidDnaObject<ITangentMateFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Tangent Mate feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureTangentMateData : SolidDnaObject<ITangentMateFeatureData>
+    public FeatureTangentMateData(ITangentMateFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureTangentMateData(ITangentMateFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

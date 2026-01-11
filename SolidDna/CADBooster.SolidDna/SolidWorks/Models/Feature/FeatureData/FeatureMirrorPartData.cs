@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Mirror Part feature data
+/// </summary>
+public class FeatureMirrorPartData : SolidDnaObject<IMirrorPartFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Mirror Part feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureMirrorPartData : SolidDnaObject<IMirrorPartFeatureData>
+    public FeatureMirrorPartData(IMirrorPartFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureMirrorPartData(IMirrorPartFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Detail Circle feature
+/// </summary>
+public class FeatureDetailCircle : SolidDnaObject<IDetailCircle>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Detail Circle feature
+    /// Default constructor
     /// </summary>
-    public class FeatureDetailCircle : SolidDnaObject<IDetailCircle>
+    public FeatureDetailCircle(IDetailCircle model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureDetailCircle(IDetailCircle model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

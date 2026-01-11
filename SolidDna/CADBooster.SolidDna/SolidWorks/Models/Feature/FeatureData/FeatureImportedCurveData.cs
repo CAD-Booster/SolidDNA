@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Imported Curve feature data
+/// </summary>
+public class FeatureImportedCurveData : SolidDnaObject<IImportedCurveFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Imported Curve feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureImportedCurveData : SolidDnaObject<IImportedCurveFeatureData>
+    public FeatureImportedCurveData(IImportedCurveFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureImportedCurveData(IImportedCurveFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

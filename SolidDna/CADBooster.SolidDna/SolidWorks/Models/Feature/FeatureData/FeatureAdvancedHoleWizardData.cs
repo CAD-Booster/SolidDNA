@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Advanced Hole Wizard feature data
+/// </summary>
+public class FeatureAdvancedHoleWizardData : SolidDnaObject<IAdvancedHoleFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Advanced Hole Wizard feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureAdvancedHoleWizardData : SolidDnaObject<IAdvancedHoleFeatureData>
+    public FeatureAdvancedHoleWizardData(IAdvancedHoleFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureAdvancedHoleWizardData(IAdvancedHoleFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

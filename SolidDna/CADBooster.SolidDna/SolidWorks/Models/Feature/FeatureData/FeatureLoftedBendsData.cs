@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Lofted Bends feature data
+/// </summary>
+public class FeatureLoftedBendsData : SolidDnaObject<ILoftedBendsFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Lofted Bends feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureLoftedBendsData : SolidDnaObject<ILoftedBendsFeatureData>
+    public FeatureLoftedBendsData(ILoftedBendsFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureLoftedBendsData(ILoftedBendsFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

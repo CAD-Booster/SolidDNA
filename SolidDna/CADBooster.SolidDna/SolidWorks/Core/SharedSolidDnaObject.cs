@@ -1,53 +1,52 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a core SolidDNA object, that is disposable
+/// and needs a COM object disposing cleanly on disposal
+/// 
+/// NOTE: Use this shared type if another part of the application may have access to this
+///       same COM object and the life-cycle for each reference is managed independently
+/// </summary>
+public class SharedSolidDnaObject<T> : SolidDnaObject<T>, ISharedSolidDnaObject<T>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a core SolidDNA object, that is disposable
-    /// and needs a COM object disposing cleanly on disposal
-    /// 
-    /// NOTE: Use this shared type if another part of the application may have access to this
-    ///       same COM object and the life-cycle for each reference is managed independently
+    /// Default constructor
     /// </summary>
-    public class SharedSolidDnaObject<T> : SolidDnaObject<T>, ISharedSolidDnaObject<T>
+    /// <param name="comObject">The COM object to wrap</param>
+    public SharedSolidDnaObject(T comObject) : base(comObject)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        /// <param name="comObject">The COM object to wrap</param>
-        public SharedSolidDnaObject(T comObject) : base(comObject)
-        {
-
-        }
-
-        #endregion
-
-        #region Dispose
-
-        /// <summary>
-        /// Disposal
-        /// </summary>
-        public override void Dispose()
-        {
-            if (BaseObject == null)
-                return;
-
-            // Do any specific disposal
-            SolidDnaObjectDisposal.Dispose<T>(BaseObject);
-
-            // Only release if it's actually a COM object (Moq/mocks are not RCWs)
-            if (Marshal.IsComObject(BaseObject))
-            {
-                // COM release object. Calling Marshal.FinalReleaseComObject caused other add-ins to malfunction, so we use the less aggressive option.
-                Marshal.ReleaseComObject(BaseObject);
-            }
-
-            // Clear reference
-            BaseObject = default;
-        }
-
-        #endregion
     }
+
+    #endregion
+
+    #region Dispose
+
+    /// <summary>
+    /// Disposal
+    /// </summary>
+    public override void Dispose()
+    {
+        if (BaseObject == null)
+            return;
+
+        // Do any specific disposal
+        SolidDnaObjectDisposal.Dispose<T>(BaseObject);
+
+        // Only release if it's actually a COM object (Moq/mocks are not RCWs)
+        if (Marshal.IsComObject(BaseObject))
+        {
+            // COM release object. Calling Marshal.FinalReleaseComObject caused other add-ins to malfunction, so we use the less aggressive option.
+            Marshal.ReleaseComObject(BaseObject);
+        }
+
+        // Clear reference
+        BaseObject = default;
+    }
+
+    #endregion
 }

@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Ground Plane feature data
+/// </summary>
+public class FeatureGroundPlaneData : SolidDnaObject<IGroundPlaneFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Ground Plane feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureGroundPlaneData : SolidDnaObject<IGroundPlaneFeatureData>
+    public FeatureGroundPlaneData(IGroundPlaneFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureGroundPlaneData(IGroundPlaneFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Weldment Cut List feature data
+/// </summary>
+public class FeatureWeldmentCutListData : SolidDnaObject<IWeldmentCutListFeature>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Weldment Cut List feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureWeldmentCutListData : SolidDnaObject<IWeldmentCutListFeature>
+    public FeatureWeldmentCutListData(IWeldmentCutListFeature model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureWeldmentCutListData(IWeldmentCutListFeature model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

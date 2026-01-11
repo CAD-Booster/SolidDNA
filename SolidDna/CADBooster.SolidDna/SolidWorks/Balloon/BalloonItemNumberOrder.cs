@@ -1,26 +1,25 @@
 ﻿using System;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Balloon item ordering options
+/// </summary>
+[Flags]
+public enum BalloonItemNumberOrder
 {
     /// <summary>
-    /// Balloon item ordering options
+    /// Do not change the item numbers
     /// </summary>
-    [Flags]
-    public enum BalloonItemNumberOrder
-    {
-        /// <summary>
-        /// Do not change the item numbers
-        /// </summary>
-        DoNotChangeItemNumbers = 1,
+    DoNotChangeItemNumbers = 1,
 
-        /// <summary>
-        /// Follow the same order as the assembly
-        /// </summary>
-        FollowAssemblyOrder = 2,
+    /// <summary>
+    /// Follow the same order as the assembly
+    /// </summary>
+    FollowAssemblyOrder = 2,
 
-        /// <summary>
-        /// Order sequentially
-        /// </summary>
-        OrderSequentially = 4
-    }
+    /// <summary>
+    /// Order sequentially
+    /// </summary>
+    OrderSequentially = 4
 }

@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Perpendicular Mate feature data
+/// </summary>
+public class FeaturePerpendicularMateData : SolidDnaObject<IPerpendicularMateFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Perpendicular Mate feature data
+    /// Default constructor
     /// </summary>
-    public class FeaturePerpendicularMateData : SolidDnaObject<IPerpendicularMateFeatureData>
+    public FeaturePerpendicularMateData(IPerpendicularMateFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeaturePerpendicularMateData(IPerpendicularMateFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

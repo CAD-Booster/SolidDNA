@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Local Curve Pattern feature data
+/// </summary>
+public class FeatureLocalCurvePatternData : SolidDnaObject<ILocalCurvePatternFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Local Curve Pattern feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureLocalCurvePatternData : SolidDnaObject<ILocalCurvePatternFeatureData>
+    public FeatureLocalCurvePatternData(ILocalCurvePatternFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureLocalCurvePatternData(ILocalCurvePatternFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

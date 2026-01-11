@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Rack Pinion Mate feature data
+/// </summary>
+public class FeatureRackPinionMateData : SolidDnaObject<IRackPinionMateFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Rack Pinion Mate feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureRackPinionMateData : SolidDnaObject<IRackPinionMateFeatureData>
+    public FeatureRackPinionMateData(IRackPinionMateFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureRackPinionMateData(IRackPinionMateFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

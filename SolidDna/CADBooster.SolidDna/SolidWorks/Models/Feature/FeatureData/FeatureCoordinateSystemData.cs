@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Coordinate System feature data
+/// </summary>
+public class FeatureCoordinateSystemData : SolidDnaObject<ICoordinateSystemFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Coordinate System feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureCoordinateSystemData : SolidDnaObject<ICoordinateSystemFeatureData>
+    public FeatureCoordinateSystemData(ICoordinateSystemFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureCoordinateSystemData(ICoordinateSystemFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

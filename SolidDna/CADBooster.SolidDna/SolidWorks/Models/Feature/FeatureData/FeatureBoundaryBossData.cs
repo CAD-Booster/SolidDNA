@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Boundary Boss feature data
+/// </summary>
+public class FeatureBoundaryBossData : SolidDnaObject<IBoundaryBossFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Boundary Boss feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureBoundaryBossData : SolidDnaObject<IBoundaryBossFeatureData>
+    public FeatureBoundaryBossData(IBoundaryBossFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureBoundaryBossData(IBoundaryBossFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

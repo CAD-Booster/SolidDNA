@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Hinge Mate feature data
+/// </summary>
+public class FeatureHingeMateData : SolidDnaObject<IHingeMateFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Hinge Mate feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureHingeMateData : SolidDnaObject<IHingeMateFeatureData>
+    public FeatureHingeMateData(IHingeMateFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureHingeMateData(IHingeMateFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

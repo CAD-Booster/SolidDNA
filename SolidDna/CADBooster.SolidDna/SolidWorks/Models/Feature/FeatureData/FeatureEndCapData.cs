@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks End Cap feature data
+/// </summary>
+public class FeatureEndCapData : SolidDnaObject<IEndCapFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks End Cap feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureEndCapData : SolidDnaObject<IEndCapFeatureData>
+    public FeatureEndCapData(IEndCapFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureEndCapData(IEndCapFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

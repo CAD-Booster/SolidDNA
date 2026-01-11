@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Table Anchor feature
+/// </summary>
+public class FeatureTableAnchor : SolidDnaObject<ITableAnchor>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Table Anchor feature
+    /// Default constructor
     /// </summary>
-    public class FeatureTableAnchor : SolidDnaObject<ITableAnchor>
+    public FeatureTableAnchor(ITableAnchor model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureTableAnchor(ITableAnchor model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

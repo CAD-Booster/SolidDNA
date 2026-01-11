@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Sheet Metal feature data
+/// </summary>
+public class FeatureSheetMetalData : SolidDnaObject<ISheetMetalFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Sheet Metal feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureSheetMetalData : SolidDnaObject<ISheetMetalFeatureData>
+    public FeatureSheetMetalData(ISheetMetalFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureSheetMetalData(ISheetMetalFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

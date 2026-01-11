@@ -1,18 +1,17 @@
-﻿namespace CADBooster.SolidDna
+﻿namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Options for the <see cref="AutoBalloonOptions.EditBalloonOptions"/>
+/// </summary>
+public enum EditBalloonOptions
 {
     /// <summary>
-    /// Options for the <see cref="AutoBalloonOptions.EditBalloonOptions"/>
+    /// Replaces existing balloons
     /// </summary>
-    public enum EditBalloonOptions
-    {
-        /// <summary>
-        /// Replaces existing balloons
-        /// </summary>
-        Replace = 0,
+    Replace = 0,
 
-        /// <summary>
-        /// Re-sequences existing balloons
-        /// </summary>
-        Resequence = 1
-    }
+    /// <summary>
+    /// Re-sequences existing balloons
+    /// </summary>
+    Resequence = 1
 }

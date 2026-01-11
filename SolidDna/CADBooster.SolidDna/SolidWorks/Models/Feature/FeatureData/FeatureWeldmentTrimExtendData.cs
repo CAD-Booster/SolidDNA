@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Weldment Trim Extend feature data
+/// </summary>
+public class FeatureWeldmentTrimExtendData : SolidDnaObject<IWeldmentTrimExtendFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Weldment Trim Extend feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureWeldmentTrimExtendData : SolidDnaObject<IWeldmentTrimExtendFeatureData>
+    public FeatureWeldmentTrimExtendData(IWeldmentTrimExtendFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureWeldmentTrimExtendData(IWeldmentTrimExtendFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

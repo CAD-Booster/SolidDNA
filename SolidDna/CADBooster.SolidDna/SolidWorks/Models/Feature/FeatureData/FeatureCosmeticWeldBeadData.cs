@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Cosmetic Weld Bead feature data
+/// </summary>
+public class FeatureCosmeticWeldBeadData : SolidDnaObject<ICosmeticWeldBeadFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Cosmetic Weld Bead feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureCosmeticWeldBeadData : SolidDnaObject<ICosmeticWeldBeadFeatureData>
+    public FeatureCosmeticWeldBeadData(ICosmeticWeldBeadFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureCosmeticWeldBeadData(ICosmeticWeldBeadFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Simulation Damper feature data
+/// </summary>
+public class FeatureSimulationDamperData : SolidDnaObject<ISimulationDamperFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Simulation Damper feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureSimulationDamperData : SolidDnaObject<ISimulationDamperFeatureData>
+    public FeatureSimulationDamperData(ISimulationDamperFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureSimulationDamperData(ISimulationDamperFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

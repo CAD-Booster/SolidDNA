@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Motion Plot Axis feature data
+/// </summary>
+public class FeatureMotionPlotAxisData : SolidDnaObject<IMotionPlotAxisFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Motion Plot Axis feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureMotionPlotAxisData : SolidDnaObject<IMotionPlotAxisFeatureData>
+    public FeatureMotionPlotAxisData(IMotionPlotAxisFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureMotionPlotAxisData(IMotionPlotAxisFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

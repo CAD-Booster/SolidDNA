@@ -1,70 +1,69 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// A set of helper functions related to exceptions
+/// </summary>
+public static class ExceptionHelpers
 {
     /// <summary>
-    /// A set of helper functions related to exceptions
+    /// A tidy way to do try { ... } finally { ... }
     /// </summary>
-    public static class ExceptionHelpers
+    /// <param name="action">The action to perform in the try block</param>
+    /// <param name="final">The action to perform in the finally block</param>
+    public static void TryFinally(Action action, Action final)
     {
-        /// <summary>
-        /// A tidy way to do try { ... } finally { ... }
-        /// </summary>
-        /// <param name="action">The action to perform in the try block</param>
-        /// <param name="final">The action to perform in the finally block</param>
-        public static void TryFinally(Action action, Action final)
+        try
         {
-            try
-            {
-                action();
-            }
-            finally
-            {
-                final();
-            }
+            action();
+        }
+        finally
+        {
+            final();
+        }
+    }
+
+    /// <summary>
+    /// Combines the exception itself and all inner exceptions into one string 
+    /// so the full details of the error can be easily presented.
+    /// </summary>
+    /// <param name="ex">The exception to retrieve the inner exception details from</param>
+    /// <returns></returns>
+    public static string GetErrorMessage(this Exception ex)
+    {
+        var text = string.Empty;
+
+        while (ex != null)
+        {
+            text = ex + Environment.NewLine + text;
+
+            ex = ex.InnerException;
         }
 
-        /// <summary>
-        /// Combines the exception itself and all inner exceptions into one string 
-        /// so the full details of the error can be easily presented.
-        /// </summary>
-        /// <param name="ex">The exception to retrieve the inner exception details from</param>
-        /// <returns></returns>
-        public static string GetErrorMessage(this Exception ex)
+        return text;
+    }
+
+    /// <summary>
+    /// Handles the exception and logs it to the injected logger
+    /// </summary>
+    /// <param name="ex">The exception</param>
+    /// <param name="source">The source of the exception (usually the method or class name)</param>
+    public static void Handle(this Exception ex, string source)
+    {
+        try
         {
-            var text = string.Empty;
+            // Break here if we are debugging
+            if (Debugger.IsAttached)
+                Debugger.Break();
 
-            while (ex != null)
-            {
-                text = ex + Environment.NewLine + text;
-
-                ex = ex.InnerException;
-            }
-
-            return text;
+            // Log the error
+            Logger.LogCriticalSource($"Unexpected error at {source}. {ex.GetErrorMessage()}");
         }
-
-        /// <summary>
-        /// Handles the exception and logs it to the injected logger
-        /// </summary>
-        /// <param name="ex">The exception</param>
-        /// <param name="source">The source of the exception (usually the method or class name)</param>
-        public static void Handle(this Exception ex, string source)
+        catch (Exception iex)
         {
-            try
-            {
-                // Break here if we are debugging
-                if (Debugger.IsAttached)
-                    Debugger.Break();
-
-                // Log the error
-                Logger.LogCriticalSource($"Unexpected error at {source}. {ex.GetErrorMessage()}");
-            }
-            catch (Exception iex)
-            {
-                Logger.LogCriticalSource("GLOBAL EXCEPTION CRASHED ITSELF WITH " + iex.GetErrorMessage());
-            }
+            Logger.LogCriticalSource("GLOBAL EXCEPTION CRASHED ITSELF WITH " + iex.GetErrorMessage());
         }
     }
 }

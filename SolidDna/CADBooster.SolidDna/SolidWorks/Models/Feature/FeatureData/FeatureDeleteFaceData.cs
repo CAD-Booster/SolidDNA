@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Delete Face feature data
+/// </summary>
+public class FeatureDeleteFaceData : SolidDnaObject<IDeleteFaceFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Delete Face feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureDeleteFaceData : SolidDnaObject<IDeleteFaceFeatureData>
+    public FeatureDeleteFaceData(IDeleteFaceFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureDeleteFaceData(IDeleteFaceFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

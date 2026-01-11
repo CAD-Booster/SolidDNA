@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Mate Reference feature
+/// </summary>
+public class FeatureMateReference : SolidDnaObject<IMateReference>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Mate Reference feature
+    /// Default constructor
     /// </summary>
-    public class FeatureMateReference : SolidDnaObject<IMateReference>
+    public FeatureMateReference(IMateReference model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureMateReference(IMateReference model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

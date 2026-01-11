@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Coincident Mate feature data
+/// </summary>
+public class FeatureCoincidentMateData : SolidDnaObject<ICoincidentMateFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Coincident Mate feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureCoincidentMateData : SolidDnaObject<ICoincidentMateFeatureData>
+    public FeatureCoincidentMateData(ICoincidentMateFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureCoincidentMateData(ICoincidentMateFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

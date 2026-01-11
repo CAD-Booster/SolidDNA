@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Reference Plane feature
+/// </summary>
+public class FeatureRefPlane : SolidDnaObject<IRefPlane>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Reference Plane feature
+    /// Default constructor
     /// </summary>
-    public class FeatureRefPlane : SolidDnaObject<IRefPlane>
+    public FeatureRefPlane(IRefPlane model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureRefPlane(IRefPlane model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

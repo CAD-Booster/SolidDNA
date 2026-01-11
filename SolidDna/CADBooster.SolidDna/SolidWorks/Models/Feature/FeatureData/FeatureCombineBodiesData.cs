@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Combine Bodies feature data
+/// </summary>
+public class FeatureCombineBodiesData : SolidDnaObject<ICombineBodiesFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Combine Bodies feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureCombineBodiesData : SolidDnaObject<ICombineBodiesFeatureData>
+    public FeatureCombineBodiesData(ICombineBodiesFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureCombineBodiesData(ICombineBodiesFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

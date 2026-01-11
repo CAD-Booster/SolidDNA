@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Sweep feature data
+/// </summary>
+public class FeatureSweepData : SolidDnaObject<ISweepFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Sweep feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureSweepData : SolidDnaObject<ISweepFeatureData>
+    public FeatureSweepData(ISweepFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureSweepData(ISweepFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

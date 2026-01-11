@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Surface Extrude feature data
+/// </summary>
+public class FeatureSurfaceExtrudeData : SolidDnaObject<ISurfExtrudeFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Surface Extrude feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureSurfaceExtrudeData : SolidDnaObject<ISurfExtrudeFeatureData>
+    public FeatureSurfaceExtrudeData(ISurfExtrudeFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureSurfaceExtrudeData(ISurfExtrudeFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

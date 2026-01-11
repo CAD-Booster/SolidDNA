@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Parting Line feature data
+/// </summary>
+public class FeaturePartingLineData : SolidDnaObject<IPartingLineFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Parting Line feature data
+    /// Default constructor
     /// </summary>
-    public class FeaturePartingLineData : SolidDnaObject<IPartingLineFeatureData>
+    public FeaturePartingLineData(IPartingLineFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeaturePartingLineData(IPartingLineFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

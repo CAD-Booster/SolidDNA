@@ -1,28 +1,27 @@
-﻿namespace CADBooster.SolidDna
+﻿namespace CADBooster.SolidDna;
+
+/// <summary>
+/// BOM Balloon note text style
+/// </summary>
+public enum NoteTextContent
 {
     /// <summary>
-    /// BOM Balloon note text style
+    /// Custom text
     /// </summary>
-    public enum NoteTextContent
-    {
-        /// <summary>
-        /// Custom text
-        /// </summary>
-        Custom = 1,
+    Custom = 1,
 
-        /// <summary>
-        /// Custom property
-        /// </summary>
-        CustomProperty = 2,
+    /// <summary>
+    /// Custom property
+    /// </summary>
+    CustomProperty = 2,
 
-        /// <summary>
-        /// Item number
-        /// </summary>
-        ItemNumber = 3,
+    /// <summary>
+    /// Item number
+    /// </summary>
+    ItemNumber = 3,
 
-        /// <summary>
-        /// Text quantity
-        /// </summary>
-        TextQuantity = 4
-    }
+    /// <summary>
+    /// Text quantity
+    /// </summary>
+    TextQuantity = 4
 }

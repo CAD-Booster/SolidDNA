@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks One Bend feature data
+/// </summary>
+public class FeatureOneBendData : SolidDnaObject<IOneBendFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks One Bend feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureOneBendData : SolidDnaObject<IOneBendFeatureData>
+    public FeatureOneBendData(IOneBendFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureOneBendData(IOneBendFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

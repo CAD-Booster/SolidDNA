@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Lock Mate feature data
+/// </summary>
+public class FeatureLockMateData : SolidDnaObject<ILockMateFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Lock Mate feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureLockMateData : SolidDnaObject<ILockMateFeatureData>
+    public FeatureLockMateData(ILockMateFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureLockMateData(ILockMateFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }
