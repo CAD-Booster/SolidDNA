@@ -36,7 +36,7 @@ namespace CADBooster.SolidDna
         /// SolidWorks does not fire <see cref="FileOpenPostNotify"/> for view-only ('Large Design Review' or 'Quick-view') models, so we fire the event ourselves.
         /// Skip firing <see cref="FileOpenPostNotify"/> if the model path is already in this list. File path is removed when file is closed.
         /// </summary>
-        private static readonly List<string> ViewOnlyFilePaths = new List<string>();
+        private static readonly List<string> ViewOnlyFilePaths = [];
 
         /// <summary>
         /// Locking object for synchronizing the disposing of SolidWorks and reloading active model info.

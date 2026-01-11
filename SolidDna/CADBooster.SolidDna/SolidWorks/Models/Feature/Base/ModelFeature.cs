@@ -974,9 +974,7 @@ namespace CADBooster.SolidDna
 
             // Return an empty list if there are no parents
             // Convert the objects to features, then to ModelFeatures
-            return parents == null
-                ? new List<ModelFeature>()
-                : parents.Cast<Feature>().Select(x => new ModelFeature(x)).ToList();
+            return parents?.Cast<Feature>().Select(x => new ModelFeature(x)).ToList() ?? [];
         }
 
         /// <summary>
@@ -990,9 +988,7 @@ namespace CADBooster.SolidDna
 
             // Return an empty list if there are no children
             // Convert the objects to features, then to ModelFeatures
-            return children == null
-                ? new List<ModelFeature>()
-                : children.Cast<Feature>().Select(x => new ModelFeature(x)).ToList();
+            return children?.Cast<Feature>().Select(x => new ModelFeature(x)).ToList() ?? [];
         }
 
         /// <summary>

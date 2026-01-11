@@ -42,7 +42,7 @@ namespace CADBooster.SolidDna
             if (Loggers.ContainsKey(typeof(TAddIn)))
                 Loggers[typeof(TAddIn)].Add(logger);
             else
-                Loggers.Add(typeof(TAddIn), new List<ILogger> {logger});
+                Loggers.Add(typeof(TAddIn), [logger]);
         }
 
         /// <summary>

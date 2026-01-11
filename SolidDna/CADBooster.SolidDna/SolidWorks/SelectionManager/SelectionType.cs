@@ -801,7 +801,7 @@ namespace CADBooster.SolidDna
         /// <remarks>
         /// Can be used with <see cref="SelectionType.Attribute"/>
         /// </remarks>
-        public static SelectionType CreateCustomFeatureType(SelectionType baseType, string featureName) => new SelectionType(baseType, new List<string> { featureName });
+        public static SelectionType CreateCustomFeatureType(SelectionType baseType, string featureName) => new SelectionType(baseType, [featureName]);
 
         /// <summary>
         /// Create a new <see cref="SelectionType"/> for multiple custom features.

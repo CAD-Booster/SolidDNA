@@ -14,7 +14,7 @@ namespace CADBooster.SolidDna
         /// Separated into multiple boxes so we don't have to add separators after creating a single tab box with all <see cref="CommandManagerItem"/>.
         /// Now we create a tab box every time we find a separator and add only the items before the next separator.
         /// </summary>
-        public List<CommandManagerTabBox> TabBoxes { get; } = new List<CommandManagerTabBox>();
+        public List<CommandManagerTabBox> TabBoxes { get; } = [];
 
         /// <summary>
         /// Wrap a <see cref="ICommandTab"/> and create an empty list of <see cref="CommandManagerTabBox"/>es.

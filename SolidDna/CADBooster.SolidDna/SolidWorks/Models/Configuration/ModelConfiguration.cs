@@ -23,7 +23,7 @@ namespace CADBooster.SolidDna
 
                 // Return an empty list instead of null when there are no children.
                 // Create a list of ModelConfigurations if there are children.
-                return children == null ? new List<ModelConfiguration>() : children.Cast<Configuration>().Select(x => new ModelConfiguration(x)).ToList();
+                return children == null ? [] : children.Cast<Configuration>().Select(x => new ModelConfiguration(x)).ToList();
             }
         }
 

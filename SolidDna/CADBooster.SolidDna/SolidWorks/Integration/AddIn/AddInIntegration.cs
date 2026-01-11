@@ -23,7 +23,7 @@ namespace CADBooster.SolidDna
         /// A list of all add-ins that are currently active.
         /// Private so we can call <see cref="TearDown"/> when the list becomes empty.
         /// </summary>
-        private static List<SolidAddIn> ActiveAddIns { get; } = new List<SolidAddIn>();
+        private static List<SolidAddIn> ActiveAddIns { get; } = [];
 
         #endregion
 

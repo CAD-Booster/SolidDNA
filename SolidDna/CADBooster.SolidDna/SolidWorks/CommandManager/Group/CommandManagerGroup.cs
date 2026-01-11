@@ -289,7 +289,7 @@ namespace CADBooster.SolidDna
                     if (currentList.Count > 0)
                     {
                         // Start a new list
-                        currentList = new List<ICommandManagerItem>();
+                        currentList = [];
 
                         // Add the newly created list to the results list
                         results.Add(currentList);

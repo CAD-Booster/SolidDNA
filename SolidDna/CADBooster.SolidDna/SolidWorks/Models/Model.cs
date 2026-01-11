@@ -29,7 +29,7 @@ namespace CADBooster.SolidDna
         /// <summary>
         /// Get the configuration names. Returns an empty list for drawings.
         /// </summary>
-        public List<string> ConfigurationNames => IsDrawing ? new List<string>() : new List<string>((string[])BaseObject.GetConfigurationNames());
+        public List<string> ConfigurationNames => IsDrawing ? [] : ((string[])BaseObject.GetConfigurationNames()).ToList();
 
         /// <summary>
         /// The absolute file path of this model if it has been saved

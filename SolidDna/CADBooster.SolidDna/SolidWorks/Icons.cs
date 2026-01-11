@@ -12,7 +12,7 @@ namespace CADBooster.SolidDna
         /// List of icon sizes used by SOLIDWORKS for the task pane and command manager.
         /// Icons are square, so these values are both width and height.
         /// </summary>
-        private static readonly int[] mIconSizes = { 20, 32, 40, 64, 96, 128 };
+        private static readonly int[] mIconSizes = [20, 32, 40, 64, 96, 128];
 
         #endregion
 

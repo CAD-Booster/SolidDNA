@@ -185,7 +185,7 @@ namespace CADBooster.SolidDna
                 // If we have none, we are done
                 if (count <= 0)
                 {
-                    action(new List<SelectedObject>());
+                    action([]);
                     return;
                 }
 

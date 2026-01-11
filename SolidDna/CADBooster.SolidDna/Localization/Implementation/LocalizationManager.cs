@@ -29,11 +29,7 @@ namespace CADBooster.SolidDna
             DefaultCulture = "en-US";
 
             // Add the providers we want to use by default
-            Providers = new List<IResourceFormatProvider>
-            {
-                // Support XML format
-                new XmlFormatProvider()
-            };
+            Providers = [new XmlFormatProvider()]; // Support XML format
         }
 
         #endregion

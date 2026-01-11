@@ -23,7 +23,7 @@ namespace CADBooster.SolidDna
         /// A list of assembly paths that contain plug-ins that have been added to be loaded. 
         /// Contains the absolute file paths of all DLLs that contain at least one <see cref="SolidPlugIn"/>.
         /// </summary>
-        public List<string> PlugInAssemblyPaths { get; } = new List<string>();
+        public List<string> PlugInAssemblyPaths { get; } = [];
 
         /// <summary>
         /// Default true. If true, searches in the directory of the application (where CADBooster.SolidDna.dll is) for any dll that

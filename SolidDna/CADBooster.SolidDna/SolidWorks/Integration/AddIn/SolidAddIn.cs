@@ -35,7 +35,7 @@ namespace CADBooster.SolidDna
         /// <summary>
         /// A list of available plug-ins loaded once SolidWorks has connected
         /// </summary>
-        public List<SolidPlugIn> PlugIns { get; set; } = new List<SolidPlugIn>();
+        public List<SolidPlugIn> PlugIns { get; set; } = [];
 
         /// <summary>
         /// The title displayed for this SolidWorks Add-in

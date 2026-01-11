@@ -12,12 +12,12 @@ namespace CADBooster.SolidDna
         /// <summary>
         /// A list of all created command groups
         /// </summary>
-        private readonly List<CommandManagerGroup> mCommandGroups = new List<CommandManagerGroup>();
+        private readonly List<CommandManagerGroup> mCommandGroups = [];
 
         /// <summary>
         /// A list of all created command flyouts
         /// </summary>
-        private readonly List<CommandManagerFlyout> mCommandFlyouts = new List<CommandManagerFlyout>();
+        private readonly List<CommandManagerFlyout> mCommandFlyouts = [];
 
         /// <summary>
         /// Unique ID for flyouts (just increment every time we add one)
@@ -111,7 +111,7 @@ namespace CADBooster.SolidDna
                 lock (mCommandGroups)
                 {
                     // Make sure the list is not null. Check it once here so we never have to check again.
-                    commandManagerItems ??= new List<ICommandManagerItem>();
+                    commandManagerItems ??= [];
 
                     // Create the command group
                     var group = CreateCommandGroup(title, id, commandManagerItems, position, ignorePreviousVersion, hasMenu, hasToolbar, documentTypes, iconListsPathFormat, mainIconPathFormat);
@@ -165,7 +165,7 @@ namespace CADBooster.SolidDna
                                                        CommandManagerItemTabView tabView = CommandManagerItemTabView.IconWithTextBelow, CommandManagerFlyoutType type = CommandManagerFlyoutType.ExpandOnly)
         {
             // Make sure the item list is not null. Check it once here so we never have to check again.
-            items ??= new List<CommandManagerItem>();
+            items ??= [];
 
             // Get icon paths
             var mainIconPaths = Icons.GetPathArrayFromPathFormat(mainIconPathFormat);

@@ -34,8 +34,7 @@ namespace CADBooster.SolidDna
         /// <summary>
         /// Get children from this Component
         /// </summary>
-        public List<Component> Children => ((object[])BaseObject.GetChildren())?.Cast<Component2>().Select(x => new Component(x)).ToList() ??
-                                           new List<Component>();
+        public List<Component> Children => ((object[])BaseObject.GetChildren())?.Cast<Component2>().Select(x => new Component(x)).ToList() ?? [];
 
         /// <summary>
         /// Get the real name of the component, without the parent assembly names and without its instance number.
