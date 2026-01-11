@@ -143,16 +143,14 @@ namespace CADBooster.SolidDna
                     Directory.CreateDirectory(mDirectory);
 
                 // Open the file
-                using (var fileStream = new StreamWriter(File.Open(mFilePath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite)))
-                {
-                    // Go to end
-                    fileStream.BaseStream.Seek(0, SeekOrigin.End);
+                using var fileStream = new StreamWriter(File.Open(mFilePath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite));
+                // Go to end
+                fileStream.BaseStream.Seek(0, SeekOrigin.End);
 
-                    // NOTE: Ignore logToTop in configuration as not efficient for files on OS
+                // NOTE: Ignore logToTop in configuration as not efficient for files on OS
 
-                    // Write the message to the file
-                    fileStream.Write(output);
-                }
+                // Write the message to the file
+                fileStream.Write(output);
             }
         }
     }

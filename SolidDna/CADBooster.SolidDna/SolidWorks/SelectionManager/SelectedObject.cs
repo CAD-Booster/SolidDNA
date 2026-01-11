@@ -85,14 +85,12 @@ namespace CADBooster.SolidDna
         {
             // Wrap any error
             SolidDnaErrors.Wrap(() =>
-            {
-                // Create feature
-                using (var model = new ModelFeature((Feature)BaseObject))
                 {
+                    // Create feature
+                    using var model = new ModelFeature((Feature)BaseObject);
                     // Run action
                     action(model);
-                }
-            },
+                },
                 SolidDnaErrorTypeCode.SolidWorksModel,
                 SolidDnaErrorCode.SolidWorksModelSelectedObjectCastError);
         }
@@ -106,14 +104,12 @@ namespace CADBooster.SolidDna
         {
             // Wrap any error
             SolidDnaErrors.Wrap(() =>
-            {
-                // Create feature
-                using (var model = new ModelDisplayDimension((IDisplayDimension)BaseObject))
                 {
+                    // Create feature
+                    using var model = new ModelDisplayDimension((IDisplayDimension)BaseObject);
                     // Run action
                     action(model);
-                }
-            },
+                },
                 SolidDnaErrorTypeCode.SolidWorksModel,
                 SolidDnaErrorCode.SolidWorksModelSelectedObjectCastError);
         }

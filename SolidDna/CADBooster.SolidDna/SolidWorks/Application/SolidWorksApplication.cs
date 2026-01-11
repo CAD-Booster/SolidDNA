@@ -553,9 +553,8 @@ namespace CADBooster.SolidDna
             foreach (ModelDoc2 modelDoc in (object[])BaseObject.GetDocuments())
             {
                 // Create safe model
-                using (var model = new Model(modelDoc))
-                    // Return it
-                    yield return model;
+                using var model = new Model(modelDoc);
+                yield return model;
             }
         }
 
@@ -759,38 +758,36 @@ namespace CADBooster.SolidDna
             try
             {
                 // File should be an XML document, so attempt to read that
-                using (var stream = File.Open(databasePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+                using var stream = File.Open(databasePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+                // Try and parse the Xml
+                var xmlDoc = XDocument.Load(stream);
+
+                var materials = new List<Material>();
+
+                // Iterate all classification nodes and inside are the materials
+                xmlDoc.Root.Elements("classification").ToList().ForEach(f =>
                 {
-                    // Try and parse the Xml
-                    var xmlDoc = XDocument.Load(stream);
+                    // Get classification name
+                    var classification = f.Attribute("name")?.Value;
 
-                    var materials = new List<Material>();
-
-                    // Iterate all classification nodes and inside are the materials
-                    xmlDoc.Root.Elements("classification").ToList().ForEach(f =>
+                    // Iterate all materials
+                    f.Elements("material").ToList().ForEach(material =>
                     {
-                        // Get classification name
-                        var classification = f.Attribute("name")?.Value;
-
-                        // Iterate all materials
-                        f.Elements("material").ToList().ForEach(material =>
+                        // Add them to the list
+                        materials.Add(new Material
                         {
-                            // Add them to the list
-                            materials.Add(new Material
-                            {
-                                DatabasePathOrFilename = databasePath,
-                                DatabaseFileFound = true,
-                                Classification = classification,
-                                Name = material.Attribute("name")?.Value,
-                                Description = material.Attribute("description")?.Value,
-                            });
+                            DatabasePathOrFilename = databasePath,
+                            DatabaseFileFound = true,
+                            Classification = classification,
+                            Name = material.Attribute("name")?.Value,
+                            Description = material.Attribute("description")?.Value,
                         });
                     });
+                });
 
-                    // If we found any materials, add them
-                    if (materials.Count > 0)
-                        list.AddRange(materials);
-                }
+                // If we found any materials, add them
+                if (materials.Count > 0)
+                    list.AddRange(materials);
             }
             catch (Exception ex)
             {

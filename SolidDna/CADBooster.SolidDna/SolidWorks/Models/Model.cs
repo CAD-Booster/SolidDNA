@@ -983,16 +983,14 @@ namespace CADBooster.SolidDna
             foreach (var configuration in ConfigurationNames)
             {
                 // Get the custom property editor
-                using (var editor = Extension.CustomPropertyEditor(configuration))
-                {
-                    // Get the properties
-                    var properties = editor.GetCustomProperties();
+                using var editor = Extension.CustomPropertyEditor(configuration);
+                // Get the properties
+                var properties = editor.GetCustomProperties();
 
-                    // Loop each property
-                    foreach (var property in properties)
-                        // Return result
-                        yield return (configuration, property);
-                }
+                // Loop each property
+                foreach (var property in properties)
+                    // Return result
+                    yield return (configuration, property);
             }
         }
 
@@ -1006,14 +1004,12 @@ namespace CADBooster.SolidDna
         public void CustomProperties(Action<List<CustomProperty>> action, string configuration = null)
         {
             // Get the custom property editor
-            using (var editor = Extension.CustomPropertyEditor(configuration))
-            {
-                // Get the properties
-                var properties = editor.GetCustomProperties();
+            using var editor = Extension.CustomPropertyEditor(configuration);
+            // Get the properties
+            var properties = editor.GetCustomProperties();
 
-                // Let the action use them
-                action(properties);
-            }
+            // Let the action use them
+            action(properties);
         }
 
         /// <summary>
@@ -1025,11 +1021,9 @@ namespace CADBooster.SolidDna
         public void DeleteCustomProperty(string name, string configuration = null)
         {
             // Get the custom property editor
-            using (var editor = Extension.CustomPropertyEditor(configuration))
-            {
-                // Get the property
-                editor.DeleteCustomProperty(name);
-            }
+            using var editor = Extension.CustomPropertyEditor(configuration);
+            // Get the property
+            editor.DeleteCustomProperty(name);
         }
 
         /// <summary>
@@ -1042,11 +1036,9 @@ namespace CADBooster.SolidDna
         public string GetCustomProperty(string name, string configuration = null, bool resolved = false)
         {
             // Get the custom property editor
-            using (var editor = Extension.CustomPropertyEditor(configuration))
-            {
-                // Get the property
-                return editor.GetCustomProperty(name, resolve: resolved);
-            }
+            using var editor = Extension.CustomPropertyEditor(configuration);
+            // Get the property
+            return editor.GetCustomProperty(name, resolve: resolved);
         }
 
         /// <summary>
@@ -1059,11 +1051,9 @@ namespace CADBooster.SolidDna
         public void SetCustomProperty(string name, string value, string configuration = null)
         {
             // Get the custom property editor
-            using (var editor = Extension.CustomPropertyEditor(configuration))
-            {
-                // Set the property
-                editor.SetCustomProperty(name, value);
-            }
+            using var editor = Extension.CustomPropertyEditor(configuration);
+            // Set the property
+            editor.SetCustomProperty(name, value);
         }
 
         #endregion

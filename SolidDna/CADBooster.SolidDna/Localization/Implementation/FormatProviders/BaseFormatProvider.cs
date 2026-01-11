@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
@@ -67,12 +67,10 @@ namespace CADBooster.SolidDna
                 try
                 {
                     // Try to get the stream for this resource
-                    using (var stream = await ResourceFormatProviderHelpers.GetStreamAsync(pathFormat.Type, resourcePath).ConfigureAwait(false))
-                    {
-                        // If successful, try and convert that data into a usable resource object
-                        if (stream != null)
-                            resourceDocument = constructData(stream);
-                    }
+                    using var stream = await ResourceFormatProviderHelpers.GetStreamAsync(pathFormat.Type, resourcePath).ConfigureAwait(false);
+                    // If successful, try and convert that data into a usable resource object
+                    if (stream != null)
+                        resourceDocument = constructData(stream);
                 }
                 finally
                 {

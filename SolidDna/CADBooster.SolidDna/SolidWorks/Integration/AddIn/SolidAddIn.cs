@@ -339,36 +339,34 @@ namespace CADBooster.SolidDna
                 var keyPath = string.Format(@"SOFTWARE\SolidWorks\AddIns\{0:b}", t.GUID);
 
                 // Create our registry folder for the add-in
-                using (var rk = Microsoft.Win32.Registry.LocalMachine.CreateSubKey(keyPath))
-                {
-                    // Load add-in when SolidWorks opens
-                    rk.SetValue(null, 1);
+                using var rk = Microsoft.Win32.Registry.LocalMachine.CreateSubKey(keyPath);
+                // Load add-in when SolidWorks opens
+                rk.SetValue(null, 1);
 
-                    //
-                    // IMPORTANT: 
-                    //
-                    //   In this special case, COM register won't load the wrong CADBooster.SolidDna.dll file 
-                    //   as it isn't loading multiple instances and keeping them in memory
-                    //            
-                    //   So loading the path of the CADBooster.SolidDna.dll file that should be in the same
-                    //   folder as the add-in dll right now will work fine to get the add-in path
-                    //
-                    var pluginPath = typeof(PlugInIntegration).CodeBaseNormalized();
+                //
+                // IMPORTANT: 
+                //
+                //   In this special case, COM register won't load the wrong CADBooster.SolidDna.dll file 
+                //   as it isn't loading multiple instances and keeping them in memory
+                //            
+                //   So loading the path of the CADBooster.SolidDna.dll file that should be in the same
+                //   folder as the add-in dll right now will work fine to get the add-in path
+                //
+                var pluginPath = typeof(PlugInIntegration).CodeBaseNormalized();
 
-                    // Force auto-discovering plug-in during COM registration
-                    addIn.PlugInIntegration.AutoDiscoverPlugins = true;
+                // Force auto-discovering plug-in during COM registration
+                addIn.PlugInIntegration.AutoDiscoverPlugins = true;
 
-                    Logger.LogInformationSource("Configuring plugins...");
+                Logger.LogInformationSource("Configuring plugins...");
 
-                    // Let plug-ins configure title and descriptions
-                    addIn.PlugInIntegration.ConfigurePlugIns(pluginPath, addIn);
+                // Let plug-ins configure title and descriptions
+                addIn.PlugInIntegration.ConfigurePlugIns(pluginPath, addIn);
 
-                    // Set SolidWorks add-in title and description
-                    rk.SetValue("Title", addIn.SolidWorksAddInTitle);
-                    rk.SetValue("Description", addIn.SolidWorksAddInDescription);
+                // Set SolidWorks add-in title and description
+                rk.SetValue("Title", addIn.SolidWorksAddInTitle);
+                rk.SetValue("Description", addIn.SolidWorksAddInDescription);
 
-                    Logger.LogInformationSource($"COM Registration successful. '{addIn.SolidWorksAddInTitle}' : '{addIn.SolidWorksAddInDescription}'");
-                }
+                Logger.LogInformationSource($"COM Registration successful. '{addIn.SolidWorksAddInTitle}' : '{addIn.SolidWorksAddInDescription}'");
             }
             catch (Exception ex)
             {

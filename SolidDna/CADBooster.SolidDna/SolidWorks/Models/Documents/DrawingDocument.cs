@@ -68,14 +68,12 @@ namespace CADBooster.SolidDna
         {
             // Wrap any error
             return SolidDnaErrors.Wrap(() =>
-            {
-                // Create feature
-                using (var modelFeature = GetModelFeatureByNameOrNull(featureName))
                 {
+                    // Create feature
+                    using var modelFeature = GetModelFeatureByNameOrNull(featureName);
                     // Run function
                     return function.Invoke(modelFeature);
-                }
-            },
+                },
                 SolidDnaErrorTypeCode.SolidWorksModel,
                 SolidDnaErrorCode.SolidWorksModelAssemblyGetFeatureByNameError);
         }
@@ -89,14 +87,12 @@ namespace CADBooster.SolidDna
         {
             // Wrap any error
             SolidDnaErrors.Wrap(() =>
-            {
-                // Create feature
-                using (var modelFeature = GetModelFeatureByNameOrNull(featureName))
                 {
+                    // Create feature
+                    using var modelFeature = GetModelFeatureByNameOrNull(featureName);
                     // Run action
                     action(modelFeature);
-                }
-            },
+                },
                 SolidDnaErrorTypeCode.SolidWorksModel,
                 SolidDnaErrorCode.SolidWorksModelAssemblyGetFeatureByNameError);
         }
@@ -133,10 +129,8 @@ namespace CADBooster.SolidDna
         /// <returns></returns>
         public string CurrentActiveSheet()
         {
-            using (var sheet = new DrawingSheet((Sheet)mBaseObject.GetCurrentSheet(), this))
-            {
-                return sheet.SheetName;
-            }
+            using var sheet = new DrawingSheet((Sheet)mBaseObject.GetCurrentSheet(), this);
+            return sheet.SheetName;
         }
 
         /// <summary>
@@ -158,11 +152,9 @@ namespace CADBooster.SolidDna
             foreach (var sheetName in sheetNames)
             {
                 // Get instance of sheet
-                using (var sheet = new DrawingSheet(mBaseObject.Sheet[sheetName], this))
-                {
-                    // Callback
-                    sheetsCallback(sheet);
-                }
+                using var sheet = new DrawingSheet(mBaseObject.Sheet[sheetName], this);
+                // Callback
+                sheetsCallback(sheet);
             }
         }
 

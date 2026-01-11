@@ -222,14 +222,12 @@ namespace CADBooster.SolidDna
         {
             // Wrap any error
             return SolidDnaErrors.Wrap(() =>
-            {
-                // Create feature
-                using (var modelFeature = GetModelFeatureByNameOrNull(featureName))
                 {
+                    // Create feature
+                    using var modelFeature = GetModelFeatureByNameOrNull(featureName);
                     // Run function
                     return function.Invoke(modelFeature);
-                }
-            },
+                },
                 SolidDnaErrorTypeCode.SolidWorksModel,
                 SolidDnaErrorCode.SolidWorksModelAssemblyGetFeatureByNameError);
         }
@@ -244,14 +242,12 @@ namespace CADBooster.SolidDna
         {
             // Wrap any error
             SolidDnaErrors.Wrap(() =>
-            {
-                // Create feature
-                using (var modelFeature = GetModelFeatureByNameOrNull(featureName))
                 {
+                    // Create feature
+                    using var modelFeature = GetModelFeatureByNameOrNull(featureName);
                     // Run action
                     action(modelFeature);
-                }
-            },
+                },
                 SolidDnaErrorTypeCode.SolidWorksModel,
                 SolidDnaErrorCode.SolidWorksModelAssemblyGetFeatureByNameError);
         }
