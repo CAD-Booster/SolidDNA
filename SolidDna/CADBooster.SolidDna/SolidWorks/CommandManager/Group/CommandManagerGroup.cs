@@ -161,13 +161,13 @@ public class CommandManagerGroup : SolidDnaObject<ICommandGroup>
         var itemsForAllModelTypes = items.Where(f => f.AddToTab && f.TabView != CommandManagerItemTabView.None);
 
         // Return the items for this model type
-        switch (modelType)
+        return modelType switch
         {
-            case ModelType.Part:     return itemsForAllModelTypes.Where(f => f.VisibleForParts).ToList();
-            case ModelType.Assembly: return itemsForAllModelTypes.Where(f => f.VisibleForAssemblies).ToList();
-            case ModelType.Drawing:  return itemsForAllModelTypes.Where(f => f.VisibleForDrawings).ToList();
-            default:                 throw new ArgumentException("Invalid model type for command manager items");
-        }
+            ModelType.Part => itemsForAllModelTypes.Where(f => f.VisibleForParts).ToList(),
+            ModelType.Assembly => itemsForAllModelTypes.Where(f => f.VisibleForAssemblies).ToList(),
+            ModelType.Drawing => itemsForAllModelTypes.Where(f => f.VisibleForDrawings).ToList(),
+            _ => throw new ArgumentException("Invalid model type for command manager items")
+        };
     }
 
     /// <summary>

@@ -301,22 +301,16 @@ public class SelectionManager : SolidDnaObject<SelectionMgr>, ISelectionManager
     /// <returns></returns>
     private static double GetRayRadius(RayRadius rayRadius)
     {
-        switch (rayRadius)
+        return rayRadius switch
         {
-            case RayRadius.ExtraExtraSmall:
-                return 0.0001;
-            case RayRadius.ExtraSmall:
-                return 0.0002;
-            case RayRadius.Small:
-                return 0.0004;
-            case RayRadius.Large:
-                return 0.0016;
-            case RayRadius.ExtraLarge:
-                return 0.0032;
-            case RayRadius.Standard:
-            default:
-                return 0.0008;
-        }
+            RayRadius.ExtraExtraSmall => 0.0001,
+            RayRadius.ExtraSmall => 0.0002,
+            RayRadius.Small => 0.0004,
+            RayRadius.Large => 0.0016,
+            RayRadius.ExtraLarge => 0.0032,
+            RayRadius.Standard => 0.0008,
+            _ => 0.0008
+        };
     }
 
     #endregion
