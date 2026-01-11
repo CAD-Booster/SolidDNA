@@ -57,8 +57,8 @@ public class BaseFormatProvider
             mCache ??= new Dictionary<string, object>();
 
             // If we have a document already, return that
-            if (mCache.ContainsKey(resourcePath))
-                return (T)mCache[resourcePath];
+            if (mCache.TryGetValue(resourcePath, out var value))
+                return (T)value;
 
             // Otherwise try and get it
             var resourceDocument = default(T);
