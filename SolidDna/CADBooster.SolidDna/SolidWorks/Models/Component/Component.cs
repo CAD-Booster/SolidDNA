@@ -214,7 +214,7 @@ namespace CADBooster.SolidDna
                 using (var modelFeature = GetModelFeatureByNameOrNull(featureName))
                 {
                     // Run function
-                    return (T)function.Invoke(modelFeature);
+                    return function.Invoke(modelFeature);
                 }
             },
                 SolidDnaErrorTypeCode.SolidWorksModel,

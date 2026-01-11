@@ -85,7 +85,7 @@ namespace CADBooster.SolidDna
             Marshal.ReleaseComObject(BaseObject);
 
             // Clear reference
-            BaseObject = default(T);
+            BaseObject = default;
         }
 
         #endregion

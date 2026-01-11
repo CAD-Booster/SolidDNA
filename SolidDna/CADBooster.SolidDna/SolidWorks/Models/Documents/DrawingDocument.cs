@@ -1,4 +1,4 @@
-﻿using SolidWorks.Interop.sldworks;
+using SolidWorks.Interop.sldworks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -73,7 +73,7 @@ namespace CADBooster.SolidDna
                 using (var modelFeature = GetModelFeatureByNameOrNull(featureName))
                 {
                     // Run function
-                    return (T)function.Invoke(modelFeature);
+                    return function.Invoke(modelFeature);
                 }
             },
                 SolidDnaErrorTypeCode.SolidWorksModel,
@@ -199,7 +199,7 @@ namespace CADBooster.SolidDna
             // Get all views
             foreach (object[] viewArray in sheetArray)
                 foreach (View view in viewArray)
-                    views.Add(new DrawingView((View)view));
+                    views.Add(new DrawingView(view));
 
             try
             {

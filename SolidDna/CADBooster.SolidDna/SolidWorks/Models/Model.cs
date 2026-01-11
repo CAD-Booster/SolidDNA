@@ -283,7 +283,7 @@ namespace CADBooster.SolidDna
                     var results = (PackAndGoSaveStatus[])BaseObject.Extension.SavePackAndGo(packAndGo);
 
                     // There is a result per file, so all must be successful
-                    if (!results.All(f => f == PackAndGoSaveStatus.Success))
+                    if (results.Any(f => f != PackAndGoSaveStatus.Success))
                         // Throw error
                         throw new ArgumentException("Failed to save pack and go");
 
@@ -1206,15 +1206,15 @@ namespace CADBooster.SolidDna
             while (currentFeature != null)
             {
                 // Now get the first sub-feature
-                var subFeature = currentFeature.GetFirstSubFeature() as Feature;
+                var subFeature = currentFeature.IGetFirstSubFeature();
 
                 // Get the next feature if we should
                 var nextFeature = default(Feature);
                 if (featureDepth == 0)
-                    nextFeature = currentFeature.GetNextFeature() as Feature;
+                    nextFeature = currentFeature.IGetNextFeature();
 
                 // Create model feature
-                using (var modelFeature = new ModelFeature((Feature)currentFeature))
+                using (var modelFeature = new ModelFeature(currentFeature))
                 {
                     // Inform callback of the feature
                     featureAction(modelFeature, featureDepth);
@@ -1224,7 +1224,7 @@ namespace CADBooster.SolidDna
                 while (subFeature != null)
                 {
                     // Get its next sub-feature
-                    var nextSubFeature = subFeature.GetNextSubFeature() as Feature;
+                    var nextSubFeature = subFeature.IGetNextSubFeature();
 
                     // Recurse all the sub-features
                     RecurseFeatures(featureAction, subFeature, featureDepth + 1);
