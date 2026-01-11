@@ -1,4 +1,4 @@
-﻿using SolidWorks.Interop.sldworks;
+using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
 using System;
 using System.Collections.Generic;
@@ -38,20 +38,28 @@ namespace CADBooster.SolidDna
                                            new List<Component>();
 
         /// <summary>
-        /// Get the real name of the component, without the sub-assembly name and without instance numbers.
+        /// Get the real name of the component, without the parent assembly names and without its instance number.
+        /// When <see cref="Name"/> is "HighLevelAssembly-2/SubAssembly-3/Part1-4", the clean name is "Part1". 
         /// </summary>
         public string CleanName
         {
             get
             {
-                var nameWithInstanceNumber = Name;
-                var nameWithoutInstanceNumber = nameWithInstanceNumber.LastIndexOf('-') == -1
-                    ? nameWithInstanceNumber
-                    : nameWithInstanceNumber.Remove(nameWithInstanceNumber.LastIndexOf('-'));
+                // Remove the instance number and dash at the end.
+                var lastDashIndex = Name.LastIndexOf('-');
+                var nameWithoutInstanceNumber = lastDashIndex == -1
+                    ? Name
+                    : Name.Remove(lastDashIndex);
 
-                return nameWithoutInstanceNumber.LastIndexOf('/') == -1
+                // Remove any parent assembly names left of the component name.
+                var lastSlashIndex = nameWithoutInstanceNumber.LastIndexOf('/');
+                var withoutParentAssembly = lastSlashIndex == -1
                     ? nameWithoutInstanceNumber
-                    : nameWithoutInstanceNumber.Substring(nameWithoutInstanceNumber.LastIndexOf('/') + 1);
+                    : nameWithoutInstanceNumber.Substring(lastSlashIndex + 1);
+
+                // Remove any virtual component markers (^ and following text)
+                var caretIndex = withoutParentAssembly.IndexOf('^');
+                return caretIndex == -1 ? withoutParentAssembly : withoutParentAssembly.Substring(0, caretIndex);
             }
         }
 
@@ -130,8 +138,13 @@ namespace CADBooster.SolidDna
             : ComponentTypes.Assembly;
 
         /// <summary>
-        /// Get the name of the component including the instance number.
+        /// Get the full name of the component.
+        /// This always includes a dash and the instance number.
+        /// The name contains parent assembly names if this not a top-level component.
         /// If this component is in a sub-assembly, the name starts with the name of the sub-assembly component.
+        /// Examples:
+        /// "Part1-1" (top-level component), "Part1^MainAssembly-1" (virtual top-level component),
+        /// "SubAssembly-1/Part1-1" (part in sub-assembly), "HighLevelAssembly-1/LowLevelAssembly-1/Part1-1" (part in sub-assembly), 
         /// </summary>
         public string Name => BaseObject.Name2;
 
