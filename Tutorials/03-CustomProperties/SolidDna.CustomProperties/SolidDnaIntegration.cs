@@ -2,89 +2,88 @@
 using System.IO;
 using System.Runtime.InteropServices;
 
-namespace SolidDna.CustomProperties
+namespace SolidDna.CustomProperties;
+
+/// <summary>
+/// Register as a SolidWorks Add-in
+/// </summary>
+[Guid("1010E01C-C249-421B-9B96-D0849CBCB03B"), ComVisible(true)]  // Replace the GUID with your own.
+public class SolidDnaAddinIntegration : SolidAddIn
 {
     /// <summary>
-    /// Register as a SolidWorks Add-in
+    /// Specific application start-up code
     /// </summary>
-    [Guid("1010E01C-C249-421B-9B96-D0849CBCB03B"), ComVisible(true)]  // Replace the GUID with your own.
-    public class SolidDnaAddinIntegration : SolidAddIn
+    public override void ApplicationStartup()
     {
-        /// <summary>
-        /// Specific application start-up code
-        /// </summary>
-        public override void ApplicationStartup()
-        {
 
-        }
-
-        /// <summary>
-        /// Steps to take before any add-ins load
-        /// </summary>
-        /// <returns></returns>
-        public override void PreLoadPlugIns()
-        {
-
-        }
-
-        public override void PreConnectToSolidWorks()
-        {
-            // NOTE: To run in our own AppDomain do the following
-            //       Be aware doing so sometimes causes API's to fail
-            //       when they try to load dll's
-            //
-            // AppDomainBoundary.UseDetachedAppDomain = true;
-        }
     }
 
     /// <summary>
-    /// Register as SolidDna Plugin
+    /// Steps to take before any add-ins load
     /// </summary>
-    public class CustomPropertiesSolidDnaPlugin : SolidPlugIn
+    /// <returns></returns>
+    public override void PreLoadPlugIns()
     {
-        #region Private Members
 
-        /// <summary>
-        /// The Taskpane UI for our plug-in
-        /// </summary>
-        private TaskpaneIntegration<TaskpaneUserControlHost, SolidDnaAddinIntegration> mTaskpane;
-
-        #endregion
-
-        #region Public Properties
-
-        /// <summary>
-        /// My Add-in description
-        /// </summary>
-        public override string AddInDescription => "An example of manipulating Custom Properties inside a SolidWorks model";
-
-        /// <summary>
-        /// My Add-in title
-        /// </summary>
-        public override string AddInTitle => "SolidDNA Custom Properties";
-
-        #endregion
-
-        #region Connect To SolidWorks
-
-        public override void ConnectedToSolidWorks()
-        {
-            // Create our taskpane
-            mTaskpane = new TaskpaneIntegration<TaskpaneUserControlHost, SolidDnaAddinIntegration>
-            {
-                Icon = Path.Combine(this.AssemblyPath(), "logo-small.bmp"),
-                WpfControl = new CustomPropertiesUI()
-            };
-
-            // Add to taskpane
-            mTaskpane.AddToTaskpaneAsync();
-        }
-
-        public override void DisconnectedFromSolidWorks()
-        {
-
-        }
-
-        #endregion
     }
+
+    public override void PreConnectToSolidWorks()
+    {
+        // NOTE: To run in our own AppDomain do the following
+        //       Be aware doing so sometimes causes API's to fail
+        //       when they try to load dll's
+        //
+        // AppDomainBoundary.UseDetachedAppDomain = true;
+    }
+}
+
+/// <summary>
+/// Register as SolidDna Plugin
+/// </summary>
+public class CustomPropertiesSolidDnaPlugin : SolidPlugIn
+{
+    #region Private Members
+
+    /// <summary>
+    /// The Taskpane UI for our plug-in
+    /// </summary>
+    private TaskpaneIntegration<TaskpaneUserControlHost, SolidDnaAddinIntegration> mTaskpane;
+
+    #endregion
+
+    #region Public Properties
+
+    /// <summary>
+    /// My Add-in description
+    /// </summary>
+    public override string AddInDescription => "An example of manipulating Custom Properties inside a SolidWorks model";
+
+    /// <summary>
+    /// My Add-in title
+    /// </summary>
+    public override string AddInTitle => "SolidDNA Custom Properties";
+
+    #endregion
+
+    #region Connect To SolidWorks
+
+    public override void ConnectedToSolidWorks()
+    {
+        // Create our taskpane
+        mTaskpane = new TaskpaneIntegration<TaskpaneUserControlHost, SolidDnaAddinIntegration>
+        {
+            Icon = Path.Combine(this.AssemblyPath(), "logo-small.bmp"),
+            WpfControl = new CustomPropertiesUI()
+        };
+
+        // Add to taskpane
+        mTaskpane.AddToTaskpaneAsync();
+    }
+
+    public override void DisconnectedFromSolidWorks()
+    {
+
+    }
+
+    #endregion
 }
