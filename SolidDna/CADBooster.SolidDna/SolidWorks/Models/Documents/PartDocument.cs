@@ -1,4 +1,4 @@
-using SolidWorks.Interop.sldworks;
+﻿using SolidWorks.Interop.sldworks;
 using System;
 
 namespace CADBooster.SolidDna
@@ -107,8 +107,11 @@ namespace CADBooster.SolidDna
         /// <returns>The <see cref="ModelFeature"/> for the named feature or null.</returns>
         private ModelFeature GetModelFeatureByNameOrNull(string featureName)
         {
-            var feature = (Feature)mBaseObject.FeatureByName(featureName);
-            return feature == null ? null : new ModelFeature(feature);
+            // Get the underlying feature by name. Returns null if not found.
+            var feature = mBaseObject.IFeatureByName(featureName);
+
+            // Create a model feature, check if the underlying feature is null and return null if so.
+            return new ModelFeature(feature).CreateOrNull();
         }
 
         #endregion

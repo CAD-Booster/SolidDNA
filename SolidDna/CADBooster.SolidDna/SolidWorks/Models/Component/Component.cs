@@ -1,4 +1,4 @@
-using SolidWorks.Interop.sldworks;
+﻿using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
 using System;
 using System.Collections.Generic;
@@ -264,8 +264,11 @@ namespace CADBooster.SolidDna
         /// <returns></returns>
         private ModelFeature GetModelFeatureByNameOrNull(string featureName)
         {
+            // Get the underlying feature by name. Returns null if not found.
             var feature = UnsafeObject.FeatureByName(featureName);
-            return feature == null ? null : new ModelFeature(feature);
+
+            // Create a model feature, check if the underlying feature is null and return null if so.
+            return new ModelFeature(feature).CreateOrNull();
         }
 
         #endregion
