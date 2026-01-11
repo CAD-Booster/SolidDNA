@@ -10,9 +10,11 @@ SolidDNA is a great framework to build SOLIDWORKS add-ins because it acts as a w
 We'd love your help to keep expanding and improving this project. Before starting a big pull request, please create an issue and ask if it's something that would fit this project.
 
 ## About this fork
-This repository is a fork of [SolidDNA](https://github.com/angelsix/solidworks-api) by AngelSix. Because that project wasn't actively maintained, we forked it, applied our improvements and published the results. 
+This repository is a fork of [SolidDNA](https://github.com/angelsix/solidworks-api) by AngelSix. Because that project wasn't being maintained, we forked it in 2021, applied our improvements and published the results. 
 
 We fixed bugs, made SolidDNA capable of running multiple add-ins and we strong-name signed the NuGet package. Signing lets us run multiple versions of SolidDNA side by side. To achieve that, we removed the dependency injection (because all add-ins run in the same thread) and removed running in a separate app domain (because it exposed SOLIDWORKS bugs).
+
+And we have been improving it ever since.
 
 ## Tips for creating a pull request
 If you want to add a feature to SolidDNA or want to request a change, a Pull Request is the way to go. Fork the repository, create a feature branch, make your changes and create a pull request in this project.
