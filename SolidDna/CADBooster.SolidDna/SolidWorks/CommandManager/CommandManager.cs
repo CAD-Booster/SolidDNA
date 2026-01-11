@@ -111,8 +111,7 @@ namespace CADBooster.SolidDna
                 lock (mCommandGroups)
                 {
                     // Make sure the list is not null. Check it once here so we never have to check again.
-                    if (commandManagerItems == null)
-                        commandManagerItems = new List<ICommandManagerItem>();
+                    commandManagerItems ??= new List<ICommandManagerItem>();
 
                     // Create the command group
                     var group = CreateCommandGroup(title, id, commandManagerItems, position, ignorePreviousVersion, hasMenu, hasToolbar, documentTypes, iconListsPathFormat, mainIconPathFormat);
@@ -166,8 +165,7 @@ namespace CADBooster.SolidDna
                                                        CommandManagerItemTabView tabView = CommandManagerItemTabView.IconWithTextBelow, CommandManagerFlyoutType type = CommandManagerFlyoutType.ExpandOnly)
         {
             // Make sure the item list is not null. Check it once here so we never have to check again.
-            if (items == null)
-                items = new List<CommandManagerItem>();
+            items ??= new List<CommandManagerItem>();
 
             // Get icon paths
             var mainIconPaths = Icons.GetPathArrayFromPathFormat(mainIconPathFormat);
@@ -296,8 +294,7 @@ namespace CADBooster.SolidDna
             }
 
             // Create it if it doesn't exist
-            if (unsafeTab == null)
-                unsafeTab = BaseObject.AddCommandTab((int)type, title);
+            unsafeTab ??= BaseObject.AddCommandTab((int) type, title);
 
             // If it's still null, we failed
             if (unsafeTab == null)

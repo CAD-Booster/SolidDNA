@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
@@ -53,9 +53,8 @@ namespace CADBooster.SolidDna
                 // Get culture path 
                 var resourcePath = ResourceFormatProviderHelpers.GetCulturePath(pathFormat.Location, culture);
 
-                // Make sure list has been initialized
-                if (mCache == null)
-                    mCache = new Dictionary<string, object>();
+                // Initialize the list if needed
+                mCache ??= new Dictionary<string, object>();
 
                 // If we have a document already, return that
                 if (mCache.ContainsKey(resourcePath))

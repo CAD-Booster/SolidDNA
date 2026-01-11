@@ -27,8 +27,8 @@ namespace CADBooster.SolidDna
         /// <param name="configuration"></param>
         public static void AddFileLogger<TAddIn>(string filePath, FileLoggerConfiguration configuration) where TAddIn : SolidAddIn
         {
-            if (configuration == null)
-                configuration = new FileLoggerConfiguration();
+            // Set a default configuration if none is provided.
+            configuration ??= new FileLoggerConfiguration();
             AddLogger<TAddIn>(new FileLogger("SolidDna", filePath, configuration));
         }
 
