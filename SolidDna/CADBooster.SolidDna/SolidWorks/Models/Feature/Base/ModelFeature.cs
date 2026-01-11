@@ -966,7 +966,6 @@ namespace CADBooster.SolidDna
         /// <summary>
         /// Get a list of all features that are required to create this feature.
         /// </summary>
-        /// <param name="feature"></param>
         /// <returns></returns>
         public List<ModelFeature> GetParents()
         {
@@ -983,7 +982,6 @@ namespace CADBooster.SolidDna
         /// <summary>
         /// Get a list of all child features.
         /// </summary>
-        /// <param name="feature"></param>
         /// <returns></returns>
         public List<ModelFeature> GetChildren()
         {
