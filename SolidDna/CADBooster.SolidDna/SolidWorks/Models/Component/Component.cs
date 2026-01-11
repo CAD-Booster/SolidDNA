@@ -9,9 +9,9 @@ namespace CADBooster.SolidDna
     /// <summary>
     /// Represents a component (Part or Assembly) in a SolidWorks assembly.
     /// An assembly has a root component, which is the assembly itself.
-    /// Each component can have root components. The structure is the same as you see in the feature tree.
+    /// Each component can have child components. The structure is the same as you see in the feature tree.
     /// </summary>
-    public class Component : SolidDnaObject<Component2>
+    public class Component : SolidDnaObject<Component2>, IComponent
     {
         #region Public Properties
 

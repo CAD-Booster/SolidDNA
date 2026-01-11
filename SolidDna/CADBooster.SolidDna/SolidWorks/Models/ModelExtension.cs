@@ -33,10 +33,10 @@ namespace CADBooster.SolidDna
         #region Custom Properties
 
         /// <summary>
-        /// Gets a configuration-specific custom property editor for the specified configuration
-        /// If no configuration is specified the default custom property manager is returned
+        /// Gets a configuration-specific custom property editor for the specified configuration.
+        /// If no configuration is specified the default custom property manager is returned.
         /// 
-        /// NOTE: Custom Property Editor must be disposed of once finished
+        /// NOTE: Custom Property Editor must be disposed of once finished.
         /// </summary>
         /// <param name="configuration"></param>
         /// <returns></returns>
@@ -52,7 +52,7 @@ namespace CADBooster.SolidDna
         #region Mass
 
         /// <summary>
-        /// Gets the mass properties of a part/assembly
+        /// Gets the mass properties of a part/assembly.
         /// </summary>
         /// <param name="doNotThrowOnError">If true, don't throw on errors, just return empty mass</param>
         /// <returns></returns>

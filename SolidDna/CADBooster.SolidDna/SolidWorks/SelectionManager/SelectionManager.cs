@@ -9,7 +9,7 @@ namespace CADBooster.SolidDna
     /// <summary>
     /// Represents a SolidWorks selection manager. Used for selecting, deselecting and getting selected objects.
     /// </summary>
-    public class SelectionManager : SolidDnaObject<SelectionMgr>
+    public class SelectionManager : SolidDnaObject<SelectionMgr>, ISelectionManager
     {
         #region Private members
 
@@ -132,7 +132,7 @@ namespace CADBooster.SolidDna
         /// Get the number of selected objects in the current model with a certain selection mark.
         /// </summary>
         /// <param name="mark">Only include objects with this selection mark</param>
-        /// <returns></returns>
+        /// <returns>The count of selected objects</returns>
         public int GetSelectedObjectCount(SelectionMark mark = SelectionMark.Any) => BaseObject.GetSelectedObjectCount2((int)mark);
 
         /// <summary>
@@ -164,7 +164,6 @@ namespace CADBooster.SolidDna
         /// </summary>
         /// <param name="action">The selected objects list to be worked on inside the action.
         /// NOTE: Do not store references to these objects outside of this action</param>
-        /// <returns></returns>
         public void SelectedObjects(Action<List<SelectedObject>> action) => SelectedObjects(action, SelectionMark.Any);
 
         /// <summary>
@@ -173,7 +172,6 @@ namespace CADBooster.SolidDna
         /// <param name="action">The selected objects list to be worked on inside the action.
         /// NOTE: Do not store references to these objects outside of this action</param>
         /// <param name="selectionMark"></param>
-        /// <returns></returns>
         public void SelectedObjects(Action<List<SelectedObject>> action, SelectionMark selectionMark)
         {
             // Create list

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using SolidWorks.Interop.sldworks;
@@ -45,7 +45,7 @@ namespace CADBooster.SolidDna
     ///       PrtExploder (MultiBodyPartExplodedView), RefSurface (Surface-Imported),
     ///       SweepRefSurface (Surface-Sweep), UnTrimRefSurf (Surface-Untrim), MateGroup (MateGroup), Weldment (Weldment)
     /// </summary>
-    public class ModelFeature : SharedSolidDnaObject<Feature>
+    public class ModelFeature : SharedSolidDnaObject<Feature>, IModelFeature
     {
         #region Protected Members
 
