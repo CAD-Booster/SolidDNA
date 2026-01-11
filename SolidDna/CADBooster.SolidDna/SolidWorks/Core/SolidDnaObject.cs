@@ -1,4 +1,4 @@
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 
 namespace CADBooster.SolidDna
 {
@@ -81,8 +81,12 @@ namespace CADBooster.SolidDna
             // Do any specific disposal
             SolidDnaObjectDisposal.Dispose<T>(BaseObject);
 
-            // COM release object. Calling Marshal.FinalReleaseComObject caused other add-ins to malfunction, so we use the less aggressive option
-            Marshal.ReleaseComObject(BaseObject);
+            // Only release if it's actually a COM object (Moq/mocks are not RCWs)
+            if (Marshal.IsComObject(BaseObject))
+            {
+                // COM release object. Calling Marshal.FinalReleaseComObject caused other add-ins to malfunction, so we use the less aggressive option.
+                Marshal.ReleaseComObject(BaseObject);
+            }
 
             // Clear reference
             BaseObject = default;
