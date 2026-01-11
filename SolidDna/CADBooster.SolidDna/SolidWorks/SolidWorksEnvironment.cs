@@ -30,11 +30,5 @@ namespace CADBooster.SolidDna
         /// </summary>
         /// <param name="application">The mock application instance</param>
         public static void SetApplicationForTesting(ISolidWorksApplication application) => _testApplication = application;
-
-        /// <summary>
-        /// Resets to use the default SolidWorks instance from AddInIntegration.
-        /// Call this after unit tests to restore normal behavior.
-        /// </summary>
-        public static void ResetApplicationForTesting() => _testApplication = null;
     }
 }

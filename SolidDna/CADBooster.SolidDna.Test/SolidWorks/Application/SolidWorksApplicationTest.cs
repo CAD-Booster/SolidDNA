@@ -15,9 +15,6 @@ namespace CADBooster.SolidDna.Test.SolidWorks.Application
             SolidWorksEnvironment.SetApplicationForTesting(_mockApplication.Object);
         }
 
-        [TearDown]
-        public void TearDown() => SolidWorksEnvironment.ResetApplicationForTesting();
-
         [Test]
         public void ActiveModel_WhenMocked_ReturnsNull()
         {

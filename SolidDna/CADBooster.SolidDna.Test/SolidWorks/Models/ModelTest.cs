@@ -44,9 +44,6 @@ namespace CADBooster.SolidDna.Test.SolidWorks.Models
             _mockModelDoc.As<DrawingDoc>();
         }
 
-        [TearDown]
-        public void TearDown() => SolidWorksEnvironment.ResetApplicationForTesting();
-
         [Test]
         public void Model_CannotBeMockedDirectly_BecauseMethodsAreNotVirtual()
         {
