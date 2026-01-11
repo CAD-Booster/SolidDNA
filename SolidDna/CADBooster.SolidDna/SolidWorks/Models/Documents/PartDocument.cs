@@ -6,7 +6,7 @@ namespace CADBooster.SolidDna
     /// <summary>
     /// Exposes all Part Document calls from a <see cref="Model"/>
     /// </summary>
-    public class PartDocument
+    public class PartDocument : IPartDocument
     {
         #region Protected Members
 
@@ -58,9 +58,10 @@ namespace CADBooster.SolidDna
         /// <summary>
         /// Get the <see cref="ModelFeature"/> of the item in the feature tree based on its name and perform a function on it.
         /// </summary>
+        /// <typeparam name="T">The return type of the function</typeparam>
         /// <param name="featureName">Name of the feature</param>
         /// <param name="function">The function to perform on this feature</param>
-        /// <returns>The <see cref="ModelFeature"/> for the named feature</returns>
+        /// <returns>The result of the function</returns>
         public T GetFeatureByName<T>(string featureName, Func<ModelFeature, T> function)
         {
             // Wrap any error
@@ -82,7 +83,6 @@ namespace CADBooster.SolidDna
         /// </summary>
         /// <param name="featureName">Name of the feature</param>
         /// <param name="action">The action to perform on this feature</param>
-        /// <returns>The <see cref="ModelFeature"/> for the named feature</returns>
         public void GetFeatureByName(string featureName, Action<ModelFeature> action)
         {
             // Wrap any error
@@ -104,7 +104,7 @@ namespace CADBooster.SolidDna
         /// Returns the actual model feature or null when not found.
         /// </summary>
         /// <param name="featureName"></param>
-        /// <returns></returns>
+        /// <returns>The <see cref="ModelFeature"/> for the named feature or null.</returns>
         private ModelFeature GetModelFeatureByNameOrNull(string featureName)
         {
             var feature = (Feature)mBaseObject.FeatureByName(featureName);

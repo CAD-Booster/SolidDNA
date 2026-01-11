@@ -8,7 +8,7 @@ namespace CADBooster.SolidDna
     /// <summary>
     /// Exposes all Drawing Document calls from a <see cref="Model"/>
     /// </summary>
-    public class DrawingDocument
+    public class DrawingDocument : IDrawingDocument
     {
         #region Protected Members
 
@@ -44,7 +44,8 @@ namespace CADBooster.SolidDna
         #region Feature Methods
 
         /// <summary>
-        /// Get the <see cref="ModelFeature"/> of the item in the feature tree based on its name. Returns the actual model feature.
+        /// Get the <see cref="ModelFeature"/> of the item in the feature tree based on its name.
+        /// Returns the actual model feature or null when not found.
         /// </summary>
         /// <param name="featureName">Name of the feature</param>
         /// <returns>The <see cref="ModelFeature"/> for the named feature</returns>
@@ -59,9 +60,10 @@ namespace CADBooster.SolidDna
         /// <summary>
         /// Get the <see cref="ModelFeature"/> of the item in the feature tree based on its name and perform a function on it.
         /// </summary>
+        /// <typeparam name="T">The return type of the function</typeparam>
         /// <param name="featureName">Name of the feature</param>
         /// <param name="function">The function to perform on this feature</param>
-        /// <returns>The <see cref="ModelFeature"/> for the named feature</returns>
+        /// <returns>The result of the function</returns>
         public T GetFeatureByName<T>(string featureName, Func<ModelFeature, T> function)
         {
             // Wrap any error
@@ -83,7 +85,6 @@ namespace CADBooster.SolidDna
         /// </summary>
         /// <param name="featureName">Name of the feature</param>
         /// <param name="action">The action to perform on this feature</param>
-        /// <returns>The <see cref="ModelFeature"/> for the named feature</returns>
         public void GetFeatureByName(string featureName, Action<ModelFeature> action)
         {
             // Wrap any error
@@ -117,14 +118,14 @@ namespace CADBooster.SolidDna
         #region Sheet Methods
 
         /// <summary>
-        /// Activates the specified drawing sheet
+        /// Activate the specified drawing sheet.
         /// </summary>
         /// <param name="sheetName">Name of the sheet</param>
         /// <returns>True if the sheet was activated, false if SOLIDWORKS generated an error</returns>
         public bool ActivateSheet(string sheetName) => mBaseObject.ActivateSheet(sheetName);
 
         /// <summary>
-        /// Gets the name of the currently active sheet
+        /// Get the name of the currently active sheet.
         /// </summary>
         /// <returns></returns>
         public string CurrentActiveSheet()
@@ -136,11 +137,15 @@ namespace CADBooster.SolidDna
         }
 
         /// <summary>
-        /// Gets the sheet names of the drawing
+        /// Get the sheet names of the drawing.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>An array of sheet names</returns>
         public string[] SheetNames() => (string[])mBaseObject.GetSheetNames();
-        
+
+        /// <summary>
+        /// Perform an action on each sheet in the drawing.
+        /// </summary>
+        /// <param name="sheetsCallback"></param>
         public void ForEachSheet(Action<DrawingSheet> sheetsCallback)
         {
             // Get each sheet name
@@ -163,24 +168,24 @@ namespace CADBooster.SolidDna
         #region View Methods
 
         /// <summary>
-        /// Activates the specified drawing view
+        /// Activate the specified drawing view.
         /// </summary>
         /// <param name="viewName">Name of the drawing view</param>
         /// <returns>True if successful, false if not</returns>
         public bool ActivateView(string viewName) => mBaseObject.ActivateView(viewName);
 
         /// <summary>
-        /// Rotates the view so the selected line in the view is horizontal
+        /// Rotate the view so the selected line in the view is horizontal.
         /// </summary>
         public void AlignViewHorizontally() => mBaseObject.AlignHorz();
 
         /// <summary>
-        /// Rotates the view so the selected line in the view is vertical
+        /// Rotate the view so the selected line in the view is vertical.
         /// </summary>
         public void AlignViewVertically() => mBaseObject.AlignVert();
 
         /// <summary>
-        /// Gets all the views of the drawing
+        /// Perform an action on each view in the drawing.
         /// </summary>
         /// <param name="viewsCallback">The callback containing all views</param>
         public void Views(Action<List<DrawingView>> viewsCallback)
@@ -213,7 +218,7 @@ namespace CADBooster.SolidDna
         #region Balloon Methods
 
         /// <summary>
-        /// Automatically inserts BOM balloons in selected drawing views
+        /// Automatically inserts BOM balloons in selected drawing views.
         /// </summary>
         /// <param name="options">The balloon options</param>
         /// <param name="onSuccess">Callback containing all created notes if successful</param>
@@ -276,7 +281,7 @@ namespace CADBooster.SolidDna
         #region Dimension Methods
 
         /// <summary>
-        /// Adds a chamfer dimension to the selected edges
+        /// Add a chamfer dimension to the selected edges.
         /// </summary>
         /// <param name="x">X dimension</param>
         /// <param name="y">Y dimension</param>
@@ -287,7 +292,7 @@ namespace CADBooster.SolidDna
             => new ModelDisplayDimension((IDisplayDimension)mBaseObject.AddChamferDim(x, y, z)).CreateOrNull();
 
         /// <summary>
-        /// 
+        /// Add a hole callout to the selected hole.
         /// </summary>
         /// <param name="x">X dimension</param>
         /// <param name="y">Y dimension</param>
@@ -298,7 +303,7 @@ namespace CADBooster.SolidDna
             => new ModelDisplayDimension((IDisplayDimension)mBaseObject.AddHoleCallout2(x, y, z)).CreateOrNull();
 
         /// <summary>
-        /// Re-aligns the selected ordinate dimension if it was previously broken
+        /// Re-align the selected ordinate dimension if it was previously broken.
         /// </summary>
         public void AlignOrdinateDimension() => mBaseObject.AlignOrdinate();
 
@@ -307,7 +312,7 @@ namespace CADBooster.SolidDna
         #region Annotation Methods
 
         /// <summary>
-        /// Attaches an existing annotation to a drawing sheet or view
+        /// Attach an existing annotation to a drawing sheet or view.
         /// </summary>
         /// <param name="option">The attach option</param>
         /// <returns>True if successful, false if not</returns>
@@ -318,7 +323,7 @@ namespace CADBooster.SolidDna
         public bool AttachAnnotation(AttachAnnotationOption option) => mBaseObject.AttachAnnotation((int)option);
 
         /// <summary>
-        /// Attempts to attach unattached dimensions, for example in an imported DXF file
+        /// Attempt to attach unattached dimensions, for example in an imported DXF file.
         /// </summary>
         public void AttachDimensions() => mBaseObject.AttachDimensions();
 
@@ -327,7 +332,7 @@ namespace CADBooster.SolidDna
         #region Line Style Methods
 
         /// <summary>
-        /// Adds a line style to the drawing document
+        /// Add a line style to the drawing document.
         /// </summary>
         /// <param name="styleName">The name of the style</param>
         /// <param name="boldLineEnds">True to have bold dots at each end of the line</param>

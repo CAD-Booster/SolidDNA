@@ -8,7 +8,7 @@ namespace CADBooster.SolidDna
     /// <summary>
     /// Exposes all Assembly Document calls from a <see cref="Model"/>
     /// </summary>
-    public class AssemblyDocument
+    public class AssemblyDocument : IAssemblyDocument
     {
         #region Protected Members
 
@@ -47,9 +47,9 @@ namespace CADBooster.SolidDna
         /// Set the suppression state for a list of components in a certain configuration.
         /// You cannot set components as Lightweight with this method.
         /// </summary>
-        /// <param name="components"></param>
-        /// <param name="state"></param>
-        /// <param name="configurationOption"></param>
+        /// <param name="components">The components to change</param>
+        /// <param name="state">The suppression state to set</param>
+        /// <param name="configurationOption">The configuration option</param>
         /// <param name="configurationName">If you select <see cref="ModelConfigurationOptions.SpecificConfiguration"/>, pass the configuration name here.</param>
         /// <returns>True if successful, false if it fails or if the list is empty</returns>
         public bool SetComponentSuppressionState(List<Component> components, ComponentSuppressionStates state,
@@ -69,7 +69,7 @@ namespace CADBooster.SolidDna
         /// Set the configuration for a file that was just dropped into the assembly.
         /// Use this method after receiving a <see cref="Model.FileDropped"/> event to set the configuration name of the dropped model.
         /// </summary>
-        /// <param name="configurationName"></param>
+        /// <param name="configurationName">The configuration name that the dropped component should use</param>
         /// <returns>True if successful</returns>
         public bool SetConfigurationForDroppedFile(string configurationName) => UnsafeObject.SetDroppedFileConfigName(configurationName);
 
@@ -96,9 +96,10 @@ namespace CADBooster.SolidDna
         /// Get the <see cref="ModelFeature"/> of the item in the feature tree based on its name and perform a function on it.
         /// Only works for features in the root assembly, not in sub-assemblies.
         /// </summary>
+        /// <typeparam name="T">The return type of the function</typeparam>
         /// <param name="featureName">Name of the feature</param>
         /// <param name="function">The function to perform on this feature</param>
-        /// <returns>The <see cref="ModelFeature"/> for the named feature</returns>
+        /// <returns>The result of the function</returns>
         public T GetFeatureByName<T>(string featureName, Func<ModelFeature, T> function)
         {
             // Wrap any error
@@ -116,7 +117,7 @@ namespace CADBooster.SolidDna
         }
 
         /// <summary>
-        /// Gets the <see cref="ModelFeature"/> of the item in the feature tree based on its name and perform an action on it.
+        /// Get the <see cref="ModelFeature"/> of the item in the feature tree based on its name and perform an action on it.
         /// Only works for features in the root assembly, not in sub-assemblies.
         /// </summary>
         /// <param name="featureName">Name of the feature</param>
