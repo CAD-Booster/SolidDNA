@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
+    <LangVersion>13.0</LangVersion>
     <OutputType>WinExe</OutputType>
     <AssemblyName>AddinInstaller</AssemblyName>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>

@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Reference Curve feature
+/// </summary>
+public class FeatureReferenceCurve : SolidDnaObject<IReferenceCurve>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Reference Curve feature
+    /// Default constructor
     /// </summary>
-    public class FeatureReferenceCurve : SolidDnaObject<IReferenceCurve>
+    public FeatureReferenceCurve(IReferenceCurve model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureReferenceCurve(IReferenceCurve model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

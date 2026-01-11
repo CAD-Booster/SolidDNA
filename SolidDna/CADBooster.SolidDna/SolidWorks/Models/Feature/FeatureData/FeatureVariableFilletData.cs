@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Variable Fillet feature data
+/// </summary>
+public class FeatureVariableFilletData : SolidDnaObject<IVariableFilletFeatureData2>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Variable Fillet feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureVariableFilletData : SolidDnaObject<IVariableFilletFeatureData2>
+    public FeatureVariableFilletData(IVariableFilletFeatureData2 model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureVariableFilletData(IVariableFilletFeatureData2 model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

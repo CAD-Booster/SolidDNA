@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Revolve feature data
+/// </summary>
+public class FeatureRevolveData : SolidDnaObject<IRevolveFeatureData2>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Revolve feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureRevolveData : SolidDnaObject<IRevolveFeatureData2>
+    public FeatureRevolveData(IRevolveFeatureData2 model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureRevolveData(IRevolveFeatureData2 model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

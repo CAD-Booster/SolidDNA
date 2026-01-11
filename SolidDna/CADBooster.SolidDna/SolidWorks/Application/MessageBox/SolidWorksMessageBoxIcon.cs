@@ -1,30 +1,29 @@
 ﻿using SolidWorks.Interop.swconst;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// The type of message box icon for a SolidWorks message, of type <see cref="swMessageBoxIcon_e"/>
+/// </summary>
+public enum SolidWorksMessageBoxIcon
 {
     /// <summary>
-    /// The type of message box icon for a SolidWorks message, of type <see cref="swMessageBoxIcon_e"/>
+    /// A warning icon
     /// </summary>
-    public enum SolidWorksMessageBoxIcon
-    {
-        /// <summary>
-        /// A warning icon
-        /// </summary>
-        Warning = 1,
+    Warning = 1,
 
-        /// <summary>
-        /// An information icon
-        /// </summary>
-        Information = 2,
+    /// <summary>
+    /// An information icon
+    /// </summary>
+    Information = 2,
 
-        /// <summary>
-        /// A question mark icon
-        /// </summary>
-        Question = 3,
+    /// <summary>
+    /// A question mark icon
+    /// </summary>
+    Question = 3,
 
-        /// <summary>
-        /// An exclamation icon
-        /// </summary>
-        Stop = 4
-    }
+    /// <summary>
+    /// An exclamation icon
+    /// </summary>
+    Stop = 4
 }

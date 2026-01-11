@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Simulation 3D Contact feature data
+/// </summary>
+public class FeatureSimulation3DContactData : SolidDnaObject<ISimulation3DContactFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Simulation 3D Contact feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureSimulation3DContactData : SolidDnaObject<ISimulation3DContactFeatureData>
+    public FeatureSimulation3DContactData(ISimulation3DContactFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureSimulation3DContactData(ISimulation3DContactFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

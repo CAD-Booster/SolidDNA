@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Symmetric Mate feature data
+/// </summary>
+public class FeatureSymmetricMateData : SolidDnaObject<ISymmetricMateFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Symmetric Mate feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureSymmetricMateData : SolidDnaObject<ISymmetricMateFeatureData>
+    public FeatureSymmetricMateData(ISymmetricMateFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureSymmetricMateData(ISymmetricMateFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

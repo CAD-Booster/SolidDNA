@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Surface Fill feature data
+/// </summary>
+public class FeatureSurfaceFillData : SolidDnaObject<IFillSurfaceFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Surface Fill feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureSurfaceFillData : SolidDnaObject<IFillSurfaceFeatureData>
+    public FeatureSurfaceFillData(IFillSurfaceFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureSurfaceFillData(IFillSurfaceFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Sheet Metal Gusset feature data
+/// </summary>
+public class FeatureSheetMetalGussetData : SolidDnaObject<ISMGussetFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Sheet Metal Gusset feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureSheetMetalGussetData : SolidDnaObject<ISMGussetFeatureData>
+    public FeatureSheetMetalGussetData(ISMGussetFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureSheetMetalGussetData(ISMGussetFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

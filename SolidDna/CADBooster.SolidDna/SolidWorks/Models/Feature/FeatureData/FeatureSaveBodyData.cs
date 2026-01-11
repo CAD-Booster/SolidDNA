@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Save Body feature data
+/// </summary>
+public class FeatureSaveBodyData : SolidDnaObject<ISaveBodyFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Save Body feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureSaveBodyData : SolidDnaObject<ISaveBodyFeatureData>
+    public FeatureSaveBodyData(ISaveBodyFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureSaveBodyData(ISaveBodyFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

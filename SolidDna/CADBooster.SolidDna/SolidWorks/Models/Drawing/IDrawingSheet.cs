@@ -1,37 +1,36 @@
 using SolidWorks.Interop.sldworks;
 using System;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Interface for a SolidWorks drawing sheet.
+/// Enables mocking for unit testing code that consumes drawing sheets.
+/// </summary>
+public interface IDrawingSheet : IDisposable
 {
+    #region Properties
+
     /// <summary>
-    /// Interface for a SolidWorks drawing sheet.
-    /// Enables mocking for unit testing code that consumes drawing sheets.
+    /// The sheet name.
     /// </summary>
-    public interface IDrawingSheet : IDisposable
-    {
-        #region Properties
+    string SheetName { get; }
 
-        /// <summary>
-        /// The sheet name.
-        /// </summary>
-        string SheetName { get; }
+    /// <summary>
+    /// The raw underlying COM object.
+    /// WARNING: Use with caution. You must handle all disposal from this point on.
+    /// </summary>
+    Sheet UnsafeObject { get; }
 
-        /// <summary>
-        /// The raw underlying COM object.
-        /// WARNING: Use with caution. You must handle all disposal from this point on.
-        /// </summary>
-        Sheet UnsafeObject { get; }
+    #endregion
 
-        #endregion
+    #region Methods
 
-        #region Methods
+    /// <summary>
+    /// Activate this sheet.
+    /// </summary>
+    /// <returns>True if successful</returns>
+    bool Activate();
 
-        /// <summary>
-        /// Activate this sheet.
-        /// </summary>
-        /// <returns>True if successful</returns>
-        bool Activate();
-
-        #endregion
-    }
+    #endregion
 }

@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Light feature
+/// </summary>
+public class FeatureLight : SolidDnaObject<ILight>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Light feature
+    /// Default constructor
     /// </summary>
-    public class FeatureLight : SolidDnaObject<ILight>
+    public FeatureLight(ILight model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureLight(ILight model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

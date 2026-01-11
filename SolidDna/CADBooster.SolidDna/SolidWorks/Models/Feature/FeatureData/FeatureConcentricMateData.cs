@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Concentric Mate feature data
+/// </summary>
+public class FeatureConcentricMateData : SolidDnaObject<IConcentricMateFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Concentric Mate feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureConcentricMateData : SolidDnaObject<IConcentricMateFeatureData>
+    public FeatureConcentricMateData(IConcentricMateFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureConcentricMateData(IConcentricMateFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

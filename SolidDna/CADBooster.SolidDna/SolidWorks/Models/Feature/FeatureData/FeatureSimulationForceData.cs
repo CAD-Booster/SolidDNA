@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Simulation Force feature data
+/// </summary>
+public class FeatureSimulationForceData : SolidDnaObject<ISimulationForceFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Simulation Force feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureSimulationForceData : SolidDnaObject<ISimulationForceFeatureData>
+    public FeatureSimulationForceData(ISimulationForceFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureSimulationForceData(ISimulationForceFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

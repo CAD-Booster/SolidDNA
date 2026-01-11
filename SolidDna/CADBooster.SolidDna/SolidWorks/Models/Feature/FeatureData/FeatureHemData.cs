@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Hem feature data
+/// </summary>
+public class FeatureHemData : SolidDnaObject<IHemFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Hem feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureHemData : SolidDnaObject<IHemFeatureData>
+    public FeatureHemData(IHemFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureHemData(IHemFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

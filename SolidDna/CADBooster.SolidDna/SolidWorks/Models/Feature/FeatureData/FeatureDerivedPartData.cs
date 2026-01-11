@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Derived Part feature data
+/// </summary>
+public class FeatureDerivedPartData : SolidDnaObject<IDerivedPartFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Derived Part feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureDerivedPartData : SolidDnaObject<IDerivedPartFeatureData>
+    public FeatureDerivedPartData(IDerivedPartFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureDerivedPartData(IDerivedPartFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

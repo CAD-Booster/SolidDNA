@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Helix feature data
+/// </summary>
+public class FeatureHelixData : SolidDnaObject<IHelixFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Helix feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureHelixData : SolidDnaObject<IHelixFeatureData>
+    public FeatureHelixData(IHelixFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureHelixData(IHelixFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

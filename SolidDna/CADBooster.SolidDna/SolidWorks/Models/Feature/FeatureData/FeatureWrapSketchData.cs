@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Wrap Sketch feature data
+/// </summary>
+public class FeatureWrapSketchData : SolidDnaObject<IWrapSketchFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Wrap Sketch feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureWrapSketchData : SolidDnaObject<IWrapSketchFeatureData>
+    public FeatureWrapSketchData(IWrapSketchFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureWrapSketchData(IWrapSketchFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

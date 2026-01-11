@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Local Circular Pattern feature data
+/// </summary>
+public class FeatureLocalCircularPatternData : SolidDnaObject<ILocalCircularPatternFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Local Circular Pattern feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureLocalCircularPatternData : SolidDnaObject<ILocalCircularPatternFeatureData>
+    public FeatureLocalCircularPatternData(ILocalCircularPatternFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureLocalCircularPatternData(ILocalCircularPatternFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

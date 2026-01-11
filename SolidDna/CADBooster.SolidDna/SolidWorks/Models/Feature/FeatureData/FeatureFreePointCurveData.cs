@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Free Point Curve feature data
+/// </summary>
+public class FeatureFreePointCurveData : SolidDnaObject<IFreePointCurveFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Free Point Curve feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureFreePointCurveData : SolidDnaObject<IFreePointCurveFeatureData>
+    public FeatureFreePointCurveData(IFreePointCurveFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureFreePointCurveData(IFreePointCurveFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

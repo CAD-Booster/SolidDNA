@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Weldment Member feature data
+/// </summary>
+public class FeatureWeldmentMemberData : SolidDnaObject<IStructuralMemberFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Weldment Member feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureWeldmentMemberData : SolidDnaObject<IStructuralMemberFeatureData>
+    public FeatureWeldmentMemberData(IStructuralMemberFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureWeldmentMemberData(IStructuralMemberFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Simulation Linear Spring feature data
+/// </summary>
+public class FeatureSimulationLinearSpringData : SolidDnaObject<ISimulationLinearSpringFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Simulation Linear Spring feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureSimulationLinearSpringData : SolidDnaObject<ISimulationLinearSpringFeatureData>
+    public FeatureSimulationLinearSpringData(ISimulationLinearSpringFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureSimulationLinearSpringData(ISimulationLinearSpringFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

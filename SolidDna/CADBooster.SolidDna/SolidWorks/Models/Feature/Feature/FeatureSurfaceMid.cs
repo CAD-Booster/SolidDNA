@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Surface Mid feature
+/// </summary>
+public class FeatureSurfaceMid : SolidDnaObject<IMidSurface3>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Surface Mid feature
+    /// Default constructor
     /// </summary>
-    public class FeatureSurfaceMid : SolidDnaObject<IMidSurface3>
+    public FeatureSurfaceMid(IMidSurface3 model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureSurfaceMid(IMidSurface3 model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

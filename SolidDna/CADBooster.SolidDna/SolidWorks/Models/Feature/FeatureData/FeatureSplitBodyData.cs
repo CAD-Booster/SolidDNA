@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Split Body feature data
+/// </summary>
+public class FeatureSplitBodyData : SolidDnaObject<ISplitBodyFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Split Body feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureSplitBodyData : SolidDnaObject<ISplitBodyFeatureData>
+    public FeatureSplitBodyData(ISplitBodyFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureSplitBodyData(ISplitBodyFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

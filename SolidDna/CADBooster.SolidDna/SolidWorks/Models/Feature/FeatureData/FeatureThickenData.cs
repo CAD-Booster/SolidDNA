@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Thicken feature data
+/// </summary>
+public class FeatureThickenData : SolidDnaObject<IThickenFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Thicken feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureThickenData : SolidDnaObject<IThickenFeatureData>
+    public FeatureThickenData(IThickenFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureThickenData(IThickenFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

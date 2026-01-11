@@ -1,13 +1,12 @@
-﻿namespace CADBooster.SolidDna
+﻿namespace CADBooster.SolidDna;
+
+/// <summary>
+/// A user control that is to be used as a UI control inside the SolidWorks Taskpane
+/// </summary>
+public interface ITaskpaneControl
 {
     /// <summary>
-    /// A user control that is to be used as a UI control inside the SolidWorks Taskpane
+    /// The unique ProgId of this control
     /// </summary>
-    public interface ITaskpaneControl
-    {
-        /// <summary>
-        /// The unique ProgId of this control
-        /// </summary>
-        string ProgId { get; }
-    }
+    string ProgId { get; }
 }

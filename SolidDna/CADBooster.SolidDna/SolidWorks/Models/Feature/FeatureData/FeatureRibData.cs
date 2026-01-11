@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Rib feature data
+/// </summary>
+public class FeatureRibData : SolidDnaObject<IRibFeatureData2>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Rib feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureRibData : SolidDnaObject<IRibFeatureData2>
+    public FeatureRibData(IRibFeatureData2 model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureRibData(IRibFeatureData2 model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

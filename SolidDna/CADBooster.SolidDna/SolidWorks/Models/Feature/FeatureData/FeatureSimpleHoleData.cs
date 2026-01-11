@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Simple Hole feature data
+/// </summary>
+public class FeatureSimpleHoleData : SolidDnaObject<ISimpleHoleFeatureData2>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Simple Hole feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureSimpleHoleData : SolidDnaObject<ISimpleHoleFeatureData2>
+    public FeatureSimpleHoleData(ISimpleHoleFeatureData2 model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureSimpleHoleData(ISimpleHoleFeatureData2 model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

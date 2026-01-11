@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Sensor feature
+/// </summary>
+public class FeatureSensor : SolidDnaObject<ISensor>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Sensor feature
+    /// Default constructor
     /// </summary>
-    public class FeatureSensor : SolidDnaObject<ISensor>
+    public FeatureSensor(ISensor model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureSensor(ISensor model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

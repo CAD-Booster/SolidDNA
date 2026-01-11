@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Surface Trim feature data
+/// </summary>
+public class FeatureSurfaceTrimData : SolidDnaObject<ISurfaceTrimFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Surface Trim feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureSurfaceTrimData : SolidDnaObject<ISurfaceTrimFeatureData>
+    public FeatureSurfaceTrimData(ISurfaceTrimFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureSurfaceTrimData(ISurfaceTrimFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

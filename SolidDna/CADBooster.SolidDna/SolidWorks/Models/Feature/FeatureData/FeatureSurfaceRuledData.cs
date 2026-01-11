@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Surface Ruled feature data
+/// </summary>
+public class FeatureSurfaceRuledData : SolidDnaObject<IRuledSurfaceFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Surface Ruled feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureSurfaceRuledData : SolidDnaObject<IRuledSurfaceFeatureData>
+    public FeatureSurfaceRuledData(IRuledSurfaceFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureSurfaceRuledData(IRuledSurfaceFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

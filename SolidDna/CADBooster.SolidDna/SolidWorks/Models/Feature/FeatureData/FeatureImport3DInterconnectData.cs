@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Import 3D Interconnect feature data
+/// </summary>
+public class FeatureImport3DInterconnectData : SolidDnaObject<IImport3DInterconnectData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Import 3D Interconnect feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureImport3DInterconnectData : SolidDnaObject<IImport3DInterconnectData>
+    public FeatureImport3DInterconnectData(IImport3DInterconnectData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureImport3DInterconnectData(IImport3DInterconnectData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

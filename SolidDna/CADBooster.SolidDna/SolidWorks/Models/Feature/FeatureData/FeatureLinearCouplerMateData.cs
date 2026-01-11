@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Linear Coupler Mate feature data
+/// </summary>
+public class FeatureLinearCouplerMateData : SolidDnaObject<ILinearCouplerMateFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Linear Coupler Mate feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureLinearCouplerMateData : SolidDnaObject<ILinearCouplerMateFeatureData>
+    public FeatureLinearCouplerMateData(ILinearCouplerMateFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureLinearCouplerMateData(ILinearCouplerMateFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

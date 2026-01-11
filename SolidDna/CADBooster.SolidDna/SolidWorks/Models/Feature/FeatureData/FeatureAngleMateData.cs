@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Angle Mate feature data
+/// </summary>
+public class FeatureAngleMateData : SolidDnaObject<IAngleMateFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Angle Mate feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureAngleMateData : SolidDnaObject<IAngleMateFeatureData>
+    public FeatureAngleMateData(IAngleMateFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureAngleMateData(IAngleMateFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

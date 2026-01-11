@@ -2,24 +2,23 @@
 using System.Runtime.InteropServices;
 using CADBooster.SolidDna;
 
-namespace SolidDna.WpfAddIn
+namespace SolidDna.WpfAddIn;
+
+[ProgId(MyProgId)]
+public partial class MyTaskpaneUI : UserControl, ITaskpaneControl
 {
-    [ProgId(MyProgId)]
-    public partial class MyTaskpaneUI : UserControl, ITaskpaneControl
-    {
-        #region Private Members
+    #region Private Members
 
-        /// <summary>
-        /// Our unique ProgId for SolidWorks to find and load us
-        /// </summary>
-        private const string MyProgId = "AngelSix.SolidDna.Taskpane";
+    /// <summary>
+    /// Our unique ProgId for SolidWorks to find and load us
+    /// </summary>
+    private const string MyProgId = "AngelSix.SolidDna.Taskpane";
 
-        #endregion
+    #endregion
 
-        #region Public Properties
+    #region Public Properties
 
-        public string ProgId { get { return MyProgId; } }
+    public string ProgId => MyProgId;
 
-        #endregion
-    }
+    #endregion
 }

@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Reference Point feature data
+/// </summary>
+public class FeatureReferencePointData : SolidDnaObject<IRefPointFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Reference Point feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureReferencePointData : SolidDnaObject<IRefPointFeatureData>
+    public FeatureReferencePointData(IRefPointFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureReferencePointData(IRefPointFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

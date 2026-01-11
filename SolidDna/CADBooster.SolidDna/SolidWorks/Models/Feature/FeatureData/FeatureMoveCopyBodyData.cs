@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Move Copy Body feature data
+/// </summary>
+public class FeatureMoveCopyBodyData : SolidDnaObject<IMoveCopyBodyFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Move Copy Body feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureMoveCopyBodyData : SolidDnaObject<IMoveCopyBodyFeatureData>
+    public FeatureMoveCopyBodyData(IMoveCopyBodyFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureMoveCopyBodyData(IMoveCopyBodyFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

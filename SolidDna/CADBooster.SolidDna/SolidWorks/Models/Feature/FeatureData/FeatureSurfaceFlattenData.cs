@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Surface Flatten feature data
+/// </summary>
+public class FeatureSurfaceFlattenData : SolidDnaObject<ISurfaceFlattenFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Surface Flatten feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureSurfaceFlattenData : SolidDnaObject<ISurfaceFlattenFeatureData>
+    public FeatureSurfaceFlattenData(ISurfaceFlattenFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureSurfaceFlattenData(ISurfaceFlattenFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

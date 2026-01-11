@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Sheet Metal Normal Cut feature data
+/// </summary>
+public class FeatureNormalCutData : SolidDnaObject<ISMNormalCutFeatureData2>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Sheet Metal Normal Cut feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureNormalCutData : SolidDnaObject<ISMNormalCutFeatureData2>
+    public FeatureNormalCutData(ISMNormalCutFeatureData2 model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureNormalCutData(ISMNormalCutFeatureData2 model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Cosmetic Thread feature data
+/// </summary>
+public class FeatureCosmeticThreadData : SolidDnaObject<ICosmeticThreadFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Cosmetic Thread feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureCosmeticThreadData : SolidDnaObject<ICosmeticThreadFeatureData>
+    public FeatureCosmeticThreadData(ICosmeticThreadFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureCosmeticThreadData(ICosmeticThreadFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

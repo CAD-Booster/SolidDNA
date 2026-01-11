@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Simulation Motor feature data
+/// </summary>
+public class FeatureSimulationMotorData : SolidDnaObject<ISimulationMotorFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Simulation Motor feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureSimulationMotorData : SolidDnaObject<ISimulationMotorFeatureData>
+    public FeatureSimulationMotorData(ISimulationMotorFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureSimulationMotorData(ISimulationMotorFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

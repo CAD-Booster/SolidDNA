@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Replace Face feature data
+/// </summary>
+public class FeatureReplaceFaceData : SolidDnaObject<IReplaceFaceFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Replace Face feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureReplaceFaceData : SolidDnaObject<IReplaceFaceFeatureData>
+    public FeatureReplaceFaceData(IReplaceFaceFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureReplaceFaceData(IReplaceFaceFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

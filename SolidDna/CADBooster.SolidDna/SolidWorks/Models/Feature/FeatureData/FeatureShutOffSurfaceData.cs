@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Shut Off Surface feature data
+/// </summary>
+public class FeatureShutOffSurfaceData : SolidDnaObject<IShutOffSurfaceFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Shut Off Surface feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureShutOffSurfaceData : SolidDnaObject<IShutOffSurfaceFeatureData>
+    public FeatureShutOffSurfaceData(IShutOffSurfaceFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureShutOffSurfaceData(IShutOffSurfaceFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }

@@ -1,19 +1,18 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Handles SolidWorks-specific COM disposal based on the type of object
+/// </summary>
+public static class SolidDnaObjectDisposal
 {
-    /// <summary>
-    /// Handles SolidWorks-specific COM disposal based on the type of object
-    /// </summary>
-    public static class SolidDnaObjectDisposal
+    public static void Dispose<T>(object comObject)
     {
-        public static void Dispose<T>(object comObject)
+        // Taskpane View
+        if (typeof(T).IsInterfaceOrHasInterface<ITaskpaneView>())
         {
-            // Taskpane View
-            if (typeof(T).IsInterfaceOrHasInterface<ITaskpaneView>())
-            {
-                ((ITaskpaneView)comObject).DeleteView();
-            }  
-        }
+            ((ITaskpaneView)comObject).DeleteView();
+        }  
     }
 }

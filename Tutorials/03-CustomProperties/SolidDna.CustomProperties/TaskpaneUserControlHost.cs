@@ -2,24 +2,23 @@
 using System.Runtime.InteropServices;
 using CADBooster.SolidDna;
 
-namespace SolidDna.CustomProperties
+namespace SolidDna.CustomProperties;
+
+[ProgId(MyProgId)]
+public partial class TaskpaneUserControlHost : UserControl, ITaskpaneControl
 {
-    [ProgId(MyProgId)]
-    public partial class TaskpaneUserControlHost : UserControl, ITaskpaneControl
-    {
-        #region Private Members
+    #region Private Members
 
-        /// <summary>
-        /// Our unique ProgId for SolidWorks to find and load us
-        /// </summary>
-        private const string MyProgId = "AngelSix.SolidDna.CustomProperties";
+    /// <summary>
+    /// Our unique ProgId for SolidWorks to find and load us
+    /// </summary>
+    private const string MyProgId = "AngelSix.SolidDna.CustomProperties";
 
-        #endregion
+    #endregion
 
-        #region Public Properties
+    #region Public Properties
 
-        public string ProgId { get { return MyProgId; } }
+    public string ProgId { get { return MyProgId; } }
 
-        #endregion
-    }
+    #endregion
 }

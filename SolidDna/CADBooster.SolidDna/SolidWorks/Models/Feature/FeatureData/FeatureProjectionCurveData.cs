@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Projection Curve feature data
+/// </summary>
+public class FeatureProjectionCurveData : SolidDnaObject<IProjectionCurveFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Projection Curve feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureProjectionCurveData : SolidDnaObject<IProjectionCurveFeatureData>
+    public FeatureProjectionCurveData(IProjectionCurveFeatureData model) : base(model)
     {
-        #region Constructor
-
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureProjectionCurveData(IProjectionCurveFeatureData model) : base(model)
-        {
             
-        }
-
-        #endregion
     }
+
+    #endregion
 }

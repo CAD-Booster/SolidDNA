@@ -1,22 +1,21 @@
 ﻿using SolidWorks.Interop.sldworks;
 
-namespace CADBooster.SolidDna
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// Represents a SolidWorks Composite Curve feature data
+/// </summary>
+public class FeatureCompositeCurveData : SolidDnaObject<ICompositeCurveFeatureData>
 {
+    #region Constructor
+
     /// <summary>
-    /// Represents a SolidWorks Composite Curve feature data
+    /// Default constructor
     /// </summary>
-    public class FeatureCompositeCurveData : SolidDnaObject<ICompositeCurveFeatureData>
+    public FeatureCompositeCurveData(ICompositeCurveFeatureData model) : base(model)
     {
-        #region Constructor
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public FeatureCompositeCurveData(ICompositeCurveFeatureData model) : base(model)
-        {
-
-        }
-
-        #endregion
     }
+
+    #endregion
 }
