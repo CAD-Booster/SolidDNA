@@ -1,7 +1,7 @@
 using Moq;
 using NUnit.Framework;
 
-namespace CADBooster.SolidDna.Test.SolidWorks.Application
+namespace CADBooster.SolidDna.Test
 {
     [TestFixture]
     public class SolidWorksApplicationTest

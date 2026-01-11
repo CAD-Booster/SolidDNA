@@ -3,7 +3,7 @@ using NUnit.Framework;
 using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
 
-namespace CADBooster.SolidDna.Test.SolidWorks.Models
+namespace CADBooster.SolidDna.Test
 {
     [TestFixture]
     internal class ModelTest
