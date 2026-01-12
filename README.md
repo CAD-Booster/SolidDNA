@@ -96,7 +96,7 @@ using CADBooster.SolidDna;
 
 namespace CADBooster.MyFirstPlugin;
 
-[Guid("CA31FE14-A587-40BA-B549-0C4BA03611A9"), ComVisible(true)]
+[Guid("CA31FE14-A587-40BA-B549-0C4BA03611A9"), ComVisible(true)] // Replace the GUID with your own, then never change it 
 public class MyAddIn : SolidAddIn
 {
     /// <summary>
@@ -128,7 +128,8 @@ public class MyAddIn : SolidAddIn
     /// </summary>
     public override void ApplicationStartup()
     {
-        // Is called third. Here you do general add-in startup stuff. You can also do startup work in your plugin's ConnectedToSolidWorks method, but that runs later.
+        // Is called third. Here you do general add-in startup stuff. 
+		// You can also do startup work in your plugin's ConnectedToSolidWorks method, but that runs later.
     }
 }
 ```
