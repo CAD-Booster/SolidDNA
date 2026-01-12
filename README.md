@@ -4,7 +4,7 @@
 
 # SolidDNA
 
-![SolidDNA logo](https://raw.githubusercontent.com/CAD-Booster/SolidDNA/develop/Images/logo.png)
+![SolidDNA logo](https://raw.githubusercontent.com/CAD-Booster/SolidDNA/master/Images/logo.png)
 
 ## A user-friendly framework for SOLIDWORKS add-ins
 SolidDNA is a great framework to build SOLIDWORKS add-ins because it acts as a wrapper around the core SOLIDWORKS API. If a SOLIDWORKS API topic is hard to understand or otherwise annoying, we create a more user-friendly version for it. If we don't have an API for it yet, you can still access the underlying SOLIDWORKS objects.
@@ -205,6 +205,6 @@ public class MyPlugin : SolidPlugIn
 }
 ```
 
-![image](https://raw.githubusercontent.com/CAD-Booster/SolidDNA/develop/Images/first-plugin-debugging.png)
+![image](https://raw.githubusercontent.com/CAD-Booster/SolidDNA/master/Images/first-plugin-debugging.png)
 
 You now have the absolute basics in place for a SOLIDWORKS add-in! 
