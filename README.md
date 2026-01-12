@@ -90,6 +90,30 @@ Once you have Visual Studio open:
     5. Add a MessageBox.Show line so we can verify that we started up correctly.
     5. The result should be something like this:
 
+```csharp
+using System.Runtime.InteropServices;
+using System.Windows;
+using CADBooster.SolidDna;
+
+namespace CADBooster.MyFirstPlugin;
+
+[Guid("BDABC95A-53A3-48D0-89B7-2FAADCDE4889"), ComVisible(true)]
+public class MyPlugin : SolidPlugIn
+{
+    public override string AddInTitle => "My amazing plugin";
+    public override string AddInDescription => "My colleagues are going to love this";
+    public override void ConnectedToSolidWorks()
+    {
+        MessageBox.Show("We have started up!");
+    }
+
+    public override void DisconnectedFromSolidWorks()
+    {
+            
+    }
+}
+```
+
 ![image](https://github.com/user-attachments/assets/7e61fcd3-f592-4f63-88f8-94c8296f02d2)
 
 6. Create a class that implements SolidPlugIn:
