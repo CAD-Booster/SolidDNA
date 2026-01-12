@@ -82,11 +82,11 @@ Once you have Visual Studio open:
     3. Go to your project tree, right-click Dependencies and click Add Assembly Reference.
     4. Click Browse and select all 9 SOLIDWORKS DLLs. Only the ones that you really use will get copied to the output folder later on.
     5. Expand Dependencies > Assemblies in the tree, select all SOLIDWORKS DLLs and set their property Embed Interop Types to No.
-5. Create a class that implements SolidAddin:
+5. Create a class that implements SolidAddIn:
     1. Right-click your project > Add > Class, name it something like MyAddIn.cs.
     2. Make sure the class is marked as "public" because we will need to register our class in the Windows Registry later.
     3. Add a Guid attribute and a ComVisible(true) attribute. [Create a new GUID](https://guidgenerator.com/) and add it, do not copy the example value. This GUID is the unique identifier for your add-in, so it can never ever change. If you become a SOLIDWORKS partner, you give them this GUID as well.
-    4. Add " : SolidAddin" after your class name to make your class implement the SolidAddIn class. Visual Studio will tell you that you need to implement three methods if you want to implement SolidAddIn, so do that.
+    4. Add " : SolidAddIn" after your class name to make your class implement the SolidAddIn class. Visual Studio will tell you that you need to implement three methods if you want to implement SolidAddIn, so do that.
     5. Add a MessageBox.Show line so we can verify that we started up correctly.
     5. The result should be something like this:
 
