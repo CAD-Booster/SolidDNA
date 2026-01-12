@@ -11,7 +11,7 @@
     <Product>$(ProductName)</Product>
     <AssemblyName>$(ProductName)</AssemblyName>
     <RootNamespace>$(ProductName)</RootNamespace>
-    <PackageIcon>icon.png</PackageIcon>
+    <PackageIcon>logo.png</PackageIcon>
     <PackageIconUrl />
     <PackageId>$(ProductName)</PackageId>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -48,8 +48,8 @@ Fixed missing feature type names.</PackageReleaseNotes>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Localization\Strings\Strings-en-US.xml" />
-    <None Include="icon.png" Pack="True" PackagePath="\" />
-    <None Include="README.md" Pack="True" PackagePath="\" />
+    <None Include="..\..\Images\logo.png" Pack="True" PackagePath="\" />
+    <None Include="..\..\README.md" Pack="True" PackagePath="\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Localization\Strings\Strings-en-US.xml" />
