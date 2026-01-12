@@ -92,12 +92,60 @@ Once you have Visual Studio open:
 
 ```csharp
 using System.Runtime.InteropServices;
+using CADBooster.SolidDna;
+
+namespace CADBooster.MyFirstPlugin;
+
+[Guid("CA31FE14-A587-40BA-B549-0C4BA03611A9"), ComVisible(true)]
+public class MyAddIn : SolidAddIn
+{
+    /// <summary>
+    /// Run immediately when <see cref="SolidAddIn.ConnectToSW(object, int)"/> is called to do any pre-setup.
+    /// For example, call <see cref="Logger.AddFileLogger{TAddIn}"/> to add a file logger for SolidDna messages.
+    /// Runs before <see cref="PreLoadPlugIns"/> and before <see cref="ApplicationStartup"/>.
+    /// </summary>
+    public override void PreConnectToSolidWorks()
+    {
+        // Is called first. You generally don't need to do anything here.
+    }
+
+    /// <summary>
+    /// Run before loading plug-ins.
+    /// This call should be used to add plug-ins to be loaded, via <see cref="PlugInIntegration.AddPlugIn{T}"/>.
+    /// Runs after <see cref="PreConnectToSolidWorks"/> and before <see cref="ApplicationStartup"/>.
+    /// </summary>
+    public override void PreLoadPlugIns()
+    {
+        // Is called second. You normally don't need to do anything here. We will discover all plugins inside your add-in DLL file.
+		// You can disable autodiscovery to make starting up faster:
+		var assemblyPath = new MyPlugin().AssemblyFilePath();
+		PlugInIntegration.PlugInAssemblyPaths.Add(assemblyPath);
+		PlugInIntegration.AutoDiscoverPlugins = false;
+    }
+
+    /// <summary>
+    /// Specific application startup code when SolidWorks is connected and before any plug-ins or listeners are informed.
+    /// </summary>
+    public override void ApplicationStartup()
+    {
+        // Is called third. Here you do general add-in startup stuff. You can also do startup work in your plugin's ConnectedToSolidWorks method, but that runs later.
+    }
+}
+```
+
+6. Create a class that implements SolidPlugIn:
+    1. Follow the same steps as for the add-in class. I'm not 100% sure this class also needs to be public, but I make it public, add a GUID and a ComVisible(true) attribute anyway.
+    2. Add " : SolidPlugIn" after your class name to make your class implement the SolidPlugIn class. Visual Studio will tell you that you need to implement two methods and two properties to implement SolidPlugIn, so do that.
+    3. The result should be something like this:
+
+```csharp
+using System.Runtime.InteropServices;
 using System.Windows;
 using CADBooster.SolidDna;
 
 namespace CADBooster.MyFirstPlugin;
 
-[Guid("BDABC95A-53A3-48D0-89B7-2FAADCDE4889"), ComVisible(true)]
+[Guid("BDABC95A-53A3-48D0-89B7-2FAADCDE4889"), ComVisible(true)] // Replace the GUID with your own, then never change it 
 public class MyPlugin : SolidPlugIn
 {
     public override string AddInTitle => "My amazing plugin";
@@ -113,15 +161,6 @@ public class MyPlugin : SolidPlugIn
     }
 }
 ```
-
-![image](https://github.com/user-attachments/assets/7e61fcd3-f592-4f63-88f8-94c8296f02d2)
-
-6. Create a class that implements SolidPlugIn:
-    1. Follow the same steps as for the add-in class. I'm not 100% sure this class also needs to be public, but I make it public, add a GUID and a ComVisible(true) attribute anyway.
-    2. Add " : SolidPlugIn" after your class name to make your class implement the SolidPlugIn class. Visual Studio will tell you that you need to implement two methods and two properties to implement SolidPlugIn, so do that.
-    3. The result should be something like this:
-
-![image](https://github.com/user-attachments/assets/236bf5e7-b874-48ba-b548-eebf59ee3a7d)
 
 7. Build your solution:
     1. Select Debug from the dropdown at the top of Visual Studio.
@@ -148,7 +187,20 @@ public class MyPlugin : SolidPlugIn
     7. Once you hit your breakpoint, hit F5 to continue until the next breakpoint or hit F10 to go to the next line.
     8. Extra tip: enable [Hot Reload](https://learn.microsoft.com/en-us/visualstudio/debugger/hot-reload?view=vs-2022&pivots=programming-language-dotnetf) so you can make changes and save your code while SOLIDWORKS is running. Hot Reload is awesome. Very often, you can make quick changes this way without having to restart SOLIDWORKS.
   
-![image](https://github.com/user-attachments/assets/f8656a5a-4465-4409-a96f-d9af4984a020)
+```json
+{
+  "profiles": {
+    "SW2024": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Program Files\\SOLIDWORKS Corp\\SOLIDWORKS (1)\\SLDWORKS.exe"
+    },
+    "SW2025": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Program Files\\SOLIDWORKS Corp\\SOLIDWORKS (2)\\SLDWORKS.exe"
+    }
+  }
+}
+```
 
 ![image](https://github.com/user-attachments/assets/afa561b1-cb1a-48fe-8226-bb46cbfa754c)
 
