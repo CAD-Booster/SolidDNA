@@ -2,13 +2,13 @@
 using System.IO;
 using System.Runtime.InteropServices;
 
-namespace SolidDna.CustomProperties;
+namespace AddInWithSolidDna;
 
 /// <summary>
 /// Register as a SolidWorks Add-in
 /// </summary>
-[Guid("1010E01C-C249-421B-9B96-D0849CBCB03B"), ComVisible(true)]  // Replace the GUID with your own.
-public class SolidDnaAddInIntegration : SolidAddIn
+[Guid("DBD0F7F2-FD55-4512-8C97-28AC70719FEC"), ComVisible(true)]  // Replace the GUID with your own.
+public class MyAddinIntegration : SolidAddIn
 {
     // <Inheritdoc />
     public override void PreConnectToSolidWorks()
@@ -30,17 +30,17 @@ public class SolidDnaAddInIntegration : SolidAddIn
 }
 
 /// <summary>
-/// Register as SolidDna Plugin
+/// My first SolidDna Plug-in
 /// </summary>
-[Guid("38BBAACF-95B0-4831-A48A-6C4EE0682B33"), ComVisible(true)]  // Replace the GUID with your own.
-public class CustomPropertiesSolidDnaPlugin : SolidPlugIn
+[Guid("8442EC6F-A261-4392-8459-B9F98A73D4DA"), ComVisible(true)]  // Replace the GUID with your own.
+public class MySolidDnaPlugin : SolidPlugIn
 {
     #region Private Members
 
     /// <summary>
     /// The Taskpane UI for our plug-in
     /// </summary>
-    private TaskpaneIntegration<TaskpaneUserControlHost, SolidDnaAddInIntegration> mTaskpane;
+    private TaskpaneIntegration<MyTaskpaneUI, MyAddinIntegration> mTaskpane;
 
     #endregion
 
@@ -49,12 +49,12 @@ public class CustomPropertiesSolidDnaPlugin : SolidPlugIn
     /// <summary>
     /// My Add-in description
     /// </summary>
-    public override string AddInDescription => "An example of manipulating Custom Properties inside a SolidWorks model";
+    public override string AddInDescription => "My Addin Description";
 
     /// <summary>
     /// My Add-in title
     /// </summary>
-    public override string AddInTitle => "SolidDNA Custom Properties";
+    public override string AddInTitle => "My Addin Title";
 
     #endregion
 
@@ -63,13 +63,12 @@ public class CustomPropertiesSolidDnaPlugin : SolidPlugIn
     public override void ConnectedToSolidWorks()
     {
         // Create our taskpane
-        mTaskpane = new TaskpaneIntegration<TaskpaneUserControlHost, SolidDnaAddInIntegration>
+        mTaskpane = new TaskpaneIntegration<MyTaskpaneUI, MyAddinIntegration>
         {
             Icon = Path.Combine(this.AssemblyPath(), "logo-small.bmp"),
-            WpfControl = new CustomPropertiesUI()
+            WpfControl = new MyAddinControl()
         };
 
-        // Add to taskpane
         mTaskpane.AddToTaskpaneAsync();
     }
 
