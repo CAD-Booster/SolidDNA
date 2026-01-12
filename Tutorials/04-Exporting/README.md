@@ -1,0 +1,7 @@
+# An add-in that exports models to DXF, STEP and PDF
+
+This project shows how to create a 'command group', also known as a command tab or a toolbar, for each model type (parts, assemblies and drawings). We only show a button when it is relevant for that model type.
+
+SolidWorks uses 'sprites' for its toolbar icons. Sprites are images that combine all icons into a single image file, where the icons site side-by-side. You then tell SolidWorks the position of your icon in the sprite. Because SolidWorks supports scaling and many resolutions, you need to add a sprite image for every supported icon size. The icon sizes are 20x20 pixels, 32px, 40px, 64px, 96px and 128x128 pixels.
+
+You can use our [IconGenerator](https://github.com/CAD-Booster/SolidDNA/tree/master/Tools) to create these sprites from your icon files. Just select your icons (in the correct order) and drag them onto the IconGenerator. You can also run the generator as a command-line tool. The tool creates 6 sprits, one for each supported size, called icons{size}.png. Add these icons to your project with 'Build Action' set to 'None' and 'Copy to outpur directory' set to 'Copy if newer'. This will copy the files into the Bin folder when you build your project, where the files end up next to your DLLs. SolidWorks looks for image files for its icons, it does not look inside your DLL. That is why the icons should not be marked as Resources.

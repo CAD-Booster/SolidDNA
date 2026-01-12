@@ -1,9 +1,5 @@
-# SolidDNA Custom Properties
-This project shows how to read/edit custom propeties using SolidDNA and a WPF Add-in
+# Edit custom properties with SolidDNA
 
-# Video
-I will be making videos available on my YouTube channel that will be guides to everything contained in this repository
+This project shows how to read and write custom properties in a SolidWorks model using an add-in. The add-in is built using SolidDNA and contains a SolidWorks task pane built using WPF.
 
-http://www.angelsix.com/youtube
-
-
+All work is done in the code-behind of the xaml file to keep things simple. This is not ideal, you should learn how to use MVVM and data binding to separate the UI from the data logic.
