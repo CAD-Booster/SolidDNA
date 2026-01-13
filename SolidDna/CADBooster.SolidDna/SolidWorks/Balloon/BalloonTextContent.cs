@@ -51,7 +51,7 @@ public enum BalloonTextContent
     FileName = 7,
 
     /// <summary>
-    /// Cutlist properties
+    /// Cut list properties
     /// </summary>
     CutlistProperties = 8,
 

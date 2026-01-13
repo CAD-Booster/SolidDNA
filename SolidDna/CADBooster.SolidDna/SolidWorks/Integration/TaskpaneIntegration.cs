@@ -134,7 +134,7 @@ public class TaskpaneIntegration<THost, TParentAddIn>
 
             // IMPORTANT: 
             //
-            //   This litle f*cking beauty right here took me 18 hours to figure out
+            //   This little f*cking beauty right here took me 18 hours to figure out
             //   Whenever you add a WPF control to SolidWorks, Win 10 is nice enough
             //   if your machine has a pen or stylus to start up a
             //   System.Windows.Input.PenThreadWorker.ThreadProc

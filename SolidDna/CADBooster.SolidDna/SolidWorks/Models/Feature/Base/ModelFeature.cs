@@ -14,7 +14,7 @@ namespace CADBooster.SolidDna;
 
     I’ve mapped everything then I come to check out the document for GetSpecificFeature2 http://help.solidworks.com/2026/english/api/sldworksapi/SOLIDWORKS.Interop.sldworks~SOLIDWORKS.Interop.sldworks.IFeature~GetSpecificFeature2.html
 
-    It states it returns IAttribute, IBodyFolder etc... Now this list doesn’t match up.
+    It states it returns IAttribute, IBodyFolder etc... Now this list doesn't match up.
 
     GetTypeName2 never returns any possible name that would result in it being any of the following types:
 
@@ -22,7 +22,7 @@ namespace CADBooster.SolidDna;
 
     And on the opposite side, we have specific feature names that map to the following interfaces that are not mentioned in the GetSpecificFeature2 list
 
-    IMotionStudyResults, ISketchBlockInstance,  apparently doesn’t return from the GetSpecificFeature2 call
+    IMotionStudyResults, ISketchBlockInstance,  apparently doesn't return from the GetSpecificFeature2 call
 
     So my questions are:
 
