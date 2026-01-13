@@ -1,4 +1,4 @@
-namespace CADBooster.SolidDna;
+﻿namespace CADBooster.SolidDna;
 
 /// <summary>
 /// Creates a blank AddIn integration class
@@ -10,7 +10,7 @@ public class BlankSolidAddIn : SolidAddIn
     /// <summary>
     /// Default constructor
     /// </summary>
-    public BlankSolidAddIn() : base()
+    public BlankSolidAddIn()
     {
     }
 
