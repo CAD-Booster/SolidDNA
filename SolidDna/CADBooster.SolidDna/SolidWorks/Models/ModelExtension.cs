@@ -1,4 +1,4 @@
-﻿using SolidWorks.Interop.sldworks;
+using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
 using System;
 
@@ -108,6 +108,7 @@ public class ModelExtension : SolidDnaObject<ModelDocExtension>
 
     #region Dispose
 
+    /// <inheritdoc />
     public override void Dispose()
     {
         // Clear reference to be safe

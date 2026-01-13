@@ -1,4 +1,4 @@
-﻿using SolidWorks.Interop.sldworks;
+using SolidWorks.Interop.sldworks;
 
 namespace CADBooster.SolidDna;
 
@@ -7,6 +7,11 @@ namespace CADBooster.SolidDna;
 /// </summary>
 public static class ModelFeatureTypeMapping
 {
+    /// <summary>
+    /// Convert a ModelFeature type name string to its specific feature type enum value.
+    /// </summary>
+    /// <param name="feature"></param>
+    /// <returns></returns>
     public static ModelFeatureType SpecificFeatureType(this ModelFeature feature)
     {
         // Get type name

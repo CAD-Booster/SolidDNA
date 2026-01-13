@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
 namespace CADBooster.SolidDna;
 
+/// <summary>
+/// Helper class for managing SolidWorks icons
+/// </summary>
 public static class Icons
 {
     #region Private members

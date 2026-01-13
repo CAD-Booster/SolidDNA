@@ -1,4 +1,4 @@
-﻿using SolidWorks.Interop.sldworks;
+using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
 using System;
 using System.Collections.Generic;
@@ -7,6 +7,9 @@ using System.Runtime.InteropServices;
 
 namespace CADBooster.SolidDna;
 
+/// <summary>
+/// The class that manages command groups, tabs, toolbars and menus in SolidWorks.
+/// </summary>
 public class CommandManager : SolidDnaObject<ICommandManager>
 {
     /// <summary>

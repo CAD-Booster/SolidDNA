@@ -67,5 +67,6 @@ public class CommandManagerSeparator : ICommandManagerItem
     /// </summary>
     public bool VisibleForParts { get; set; } = true;
 
+    /// <inheritdoc />
     public override string ToString() => "Separator";
 }

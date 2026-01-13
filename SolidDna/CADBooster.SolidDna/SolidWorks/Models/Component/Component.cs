@@ -366,6 +366,7 @@ public class Component : SolidDnaObject<Component2>, IComponent
 
     #region Dispose
 
+    /// <inheritdoc />
     public override void Dispose()
     {
         // Clean up embedded objects

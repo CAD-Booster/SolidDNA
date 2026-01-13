@@ -3,8 +3,14 @@ using SolidWorks.Interop.swconst;
 
 namespace CADBooster.SolidDna;
 
+/// <summary>
+/// Represents the current SolidWorks application
+/// </summary>
 public partial class SolidWorksApplication : SharedSolidDnaObject<SldWorks>, ISolidWorksApplication
 {
+    /// <summary>
+    /// An embedded class to manage SolidWorks application preferences.
+    /// </summary>
     public class SolidWorksPreferences
     {
         /// <summary>

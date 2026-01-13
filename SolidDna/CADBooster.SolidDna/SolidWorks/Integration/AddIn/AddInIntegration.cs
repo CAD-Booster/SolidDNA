@@ -1,4 +1,4 @@
-﻿using SolidWorks.Interop.sldworks;
+using SolidWorks.Interop.sldworks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +6,9 @@ using System.Runtime.InteropServices;
 
 namespace CADBooster.SolidDna;
 
+/// <summary>
+/// Static class that handles integration between multiple add-ins and the SolidWorks application instance.
+/// </summary>
 public static class AddInIntegration
 {
     #region Public Properties

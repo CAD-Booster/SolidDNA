@@ -1,4 +1,4 @@
-﻿namespace CADBooster.SolidDna;
+namespace CADBooster.SolidDna;
 
 /// <summary>
 /// Creates a blank AddIn integration class
@@ -18,14 +18,17 @@ public class BlankSolidAddIn : SolidAddIn
 
     #region AddIn Methods
 
+    /// <inheritdoc />
     public override void ApplicationStartup()
     {
     }
 
+    /// <inheritdoc />
     public override void PreConnectToSolidWorks()
     {
     }
 
+    /// <inheritdoc />
     public override void PreLoadPlugIns()
     {
     }

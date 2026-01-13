@@ -53,7 +53,7 @@ public class SketchPointId
 
     #region Equals, GetHashCode and ToString
 
-    // Inheritdoc
+    /// <Inheritdoc />
     public override string ToString() => $"Sketch Point ID {SketchName}-{Id0}-{Id1}";
 
     /// <summary>
@@ -63,7 +63,7 @@ public class SketchPointId
     /// <returns></returns>
     public bool Equals(SketchPointId otherId) => SketchName.Equals(otherId.SketchName, StringComparison.InvariantCultureIgnoreCase) && Id0 == otherId.Id0 && Id1 == otherId.Id1;
 
-    // Inheritdoc
+    /// <Inheritdoc />
     public override bool Equals(object obj)
     {
         if (obj == null || obj.GetType() != typeof(SketchPointId))
@@ -72,7 +72,7 @@ public class SketchPointId
         return Equals((SketchPointId) obj);
     }
 
-    // Inheritdoc
+    /// <Inheritdoc />
     public override int GetHashCode()
     {
         unchecked

@@ -234,5 +234,6 @@ public class CommandManagerFlyout : SolidDnaObject<IFlyoutGroup>, ICommandManage
         base.Dispose();
     }
 
+    /// <inheritdoc />
     public override string ToString() => $"Flyout with name: {Tooltip}. CommandID: {CommandId}. Position: {Position}. Hint: {Hint}.";
 }

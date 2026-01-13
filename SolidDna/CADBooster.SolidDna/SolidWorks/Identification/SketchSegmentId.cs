@@ -63,7 +63,7 @@ public class SketchSegmentId
 
     #region Equals, GetHashCode and ToString
 
-    // Inheritdoc
+    /// <Inheritdoc />
     public override string ToString() => $"Sketch segment ID {SketchName}-{Type}-{Id0}-{Id1}";
 
     /// <summary>
@@ -74,7 +74,7 @@ public class SketchSegmentId
     public bool Equals(SketchSegmentId otherId) =>
         SketchName.Equals(otherId.SketchName, StringComparison.InvariantCultureIgnoreCase) && Id0 == otherId.Id0 && Id1 == otherId.Id1 && Type == otherId.Type;
 
-    // Inheritdoc
+    /// <Inheritdoc />
     public override bool Equals(object obj)
     {
         if (obj == null || obj.GetType() != typeof(SketchSegmentId))
@@ -83,7 +83,7 @@ public class SketchSegmentId
         return Equals((SketchSegmentId) obj);
     }
 
-    // Inheritdoc
+    /// <Inheritdoc />
     public override int GetHashCode()
     {
         unchecked

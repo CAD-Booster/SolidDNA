@@ -24,6 +24,11 @@ public class XmlFormatProvider : BaseFormatProvider, IResourceFormatProvider
 
     #region Public Methods
 
+    /// <summary>
+    /// Get whether this format provider supports the given format.
+    /// </summary>
+    /// <param name="format"></param>
+    /// <returns></returns>
     public bool SupportsFormat(string format)
     {
         // Supports XML extensions

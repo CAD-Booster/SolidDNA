@@ -1,5 +1,8 @@
 ﻿namespace CADBooster.SolidDna;
 
+/// <summary>
+/// The type of drawing view
+/// </summary>
 public enum DrawingViewType
 {
     /// <summary>

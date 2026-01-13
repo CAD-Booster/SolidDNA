@@ -1,4 +1,4 @@
-﻿using SolidWorks.Interop.sldworks;
+using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
 using System;
 using System.Collections.Generic;
@@ -1578,6 +1578,7 @@ public class Model : SharedSolidDnaObject<ModelDoc2>, IModel
         ClearModelEventHandlers();
     }
 
+    /// <inheritdoc />
     public override void Dispose()
     {
         // Clean up embedded objects

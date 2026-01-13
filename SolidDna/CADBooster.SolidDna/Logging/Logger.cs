@@ -5,6 +5,9 @@ using System.Runtime.CompilerServices;
 
 namespace CADBooster.SolidDna;
 
+/// <summary>
+/// Static logger class to log messages from SolidDna.
+/// </summary>
 public static class Logger
 {
     private static readonly Dictionary<Type, List<ILogger>> Loggers = new Dictionary<Type, List<ILogger>>();
