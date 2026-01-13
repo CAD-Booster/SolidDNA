@@ -14,7 +14,6 @@ public class FeatureLockMateData : SolidDnaObject<ILockMateFeatureData>
     /// </summary>
     public FeatureLockMateData(ILockMateFeatureData model) : base(model)
     {
-
     }
 
     #endregion

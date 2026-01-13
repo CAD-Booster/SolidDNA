@@ -14,7 +14,6 @@ public class FeatureMateReference : SolidDnaObject<IMateReference>
     /// </summary>
     public FeatureMateReference(IMateReference model) : base(model)
     {
-
     }
 
     #endregion

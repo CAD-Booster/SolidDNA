@@ -14,7 +14,6 @@ public class FeatureReferenceCurve : SolidDnaObject<IReferenceCurve>
     /// </summary>
     public FeatureReferenceCurve(IReferenceCurve model) : base(model)
     {
-
     }
 
     #endregion

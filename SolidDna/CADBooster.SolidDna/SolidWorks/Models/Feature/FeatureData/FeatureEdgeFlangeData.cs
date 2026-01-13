@@ -14,7 +14,6 @@ public class FeatureEdgeFlangeData : SolidDnaObject<IEdgeFlangeFeatureData>
     /// </summary>
     public FeatureEdgeFlangeData(IEdgeFlangeFeatureData model) : base(model)
     {
-
     }
 
     #endregion

@@ -20,10 +20,8 @@ public static class Localization
     {
         StringResourceDefinition = new ResourceDefinition
         {
-            Type = ResourceDefinitionType.EmbeddedResource,
-            Location = "CADBooster.SolidDna.Localization.Strings.Strings-{0}.xml",
-            UseDefaultCultureIfNotFound = true
-        }
+            Type = ResourceDefinitionType.EmbeddedResource, Location = "CADBooster.SolidDna.Localization.Strings.Strings-{0}.xml", UseDefaultCultureIfNotFound = true,
+        },
     };
 
     /// <summary>

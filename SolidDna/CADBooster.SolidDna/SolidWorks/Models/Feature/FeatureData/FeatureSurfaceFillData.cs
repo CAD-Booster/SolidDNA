@@ -14,7 +14,6 @@ public class FeatureSurfaceFillData : SolidDnaObject<IFillSurfaceFeatureData>
     /// </summary>
     public FeatureSurfaceFillData(IFillSurfaceFeatureData model) : base(model)
     {
-
     }
 
     #endregion

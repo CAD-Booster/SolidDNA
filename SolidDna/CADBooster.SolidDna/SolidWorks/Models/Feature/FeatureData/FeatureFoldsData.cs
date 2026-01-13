@@ -14,7 +14,6 @@ public class FeatureFoldsData : SolidDnaObject<IFoldsFeatureData>
     /// </summary>
     public FeatureFoldsData(IFoldsFeatureData model) : base(model)
     {
-
     }
 
     #endregion

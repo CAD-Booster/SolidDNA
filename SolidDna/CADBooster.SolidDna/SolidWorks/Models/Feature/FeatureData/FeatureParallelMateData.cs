@@ -14,7 +14,6 @@ public class FeatureParallelMateData : SolidDnaObject<IParallelMateFeatureData>
     /// </summary>
     public FeatureParallelMateData(IParallelMateFeatureData model) : base(model)
     {
-
     }
 
     #endregion

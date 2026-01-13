@@ -94,7 +94,8 @@ public abstract class PartnerProductAddIn : SolidAddIn, ISwPEManager
     {
         try
         {
-            return (PartnerAddInKeyStatus)factory.SetPartnerKey(key, out var tokenForFutureUse);
+            // ReSharper disable once UnusedVariable
+            return (PartnerAddInKeyStatus) factory.SetPartnerKey(key, out var tokenForFutureUse);
         }
         catch (Exception e)
         {

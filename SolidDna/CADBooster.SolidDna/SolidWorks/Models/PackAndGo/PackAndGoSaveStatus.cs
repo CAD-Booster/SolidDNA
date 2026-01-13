@@ -31,5 +31,5 @@ public enum PackAndGoSaveStatus
     /// <summary>
     /// Error when saving
     /// </summary>
-    SaveError = 4
+    SaveError = 4,
 }

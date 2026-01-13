@@ -14,7 +14,6 @@ public class Note : SolidDnaObject<INote>, ISolidDnaNote
     /// </summary>
     public Note(INote note) : base(note)
     {
-
     }
 
     #endregion
@@ -68,7 +67,7 @@ public class Note : SolidDnaObject<INote>, ISolidDnaNote
     ///     specified upper or lower text.
     /// </remarks>
     public void SetBOMBalloonText(NoteTextContent upperTextStyle, string upperText, NoteTextContent lowerTextStyle, string lowerText)
-        => BaseObject.SetBomBalloonText((int)upperTextStyle, upperText, (int)lowerTextStyle, lowerText);
+        => BaseObject.SetBomBalloonText((int) upperTextStyle, upperText, (int) lowerTextStyle, lowerText);
 
     #endregion
 }

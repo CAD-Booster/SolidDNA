@@ -14,7 +14,6 @@ public class FeatureWeldmentBeadData : SolidDnaObject<IWeldmentBeadFeatureData>
     /// </summary>
     public FeatureWeldmentBeadData(IWeldmentBeadFeatureData model) : base(model)
     {
-
     }
 
     #endregion

@@ -49,7 +49,7 @@ public class PdfExportData
     /// <remarks>
     /// To set the value, use <see cref="SetSheets(PdfSheetsToExport, List{string})"/>
     /// </remarks>
-    public PdfSheetsToExport WhichSheets => (PdfSheetsToExport)mExportData.GetWhichSheets();
+    public PdfSheetsToExport WhichSheets => (PdfSheetsToExport) mExportData.GetWhichSheets();
 
     /// <summary>
     /// Gets the specific sheets names that will be exported.
@@ -94,7 +94,7 @@ public class PdfExportData
         return SolidDnaErrors.Wrap(() =>
             {
                 // Try and set sheets
-                return mExportData.SetSheets((int)whichSheets, specificSheets.ToArray());
+                return mExportData.SetSheets((int) whichSheets, specificSheets.ToArray());
             },
             SolidDnaErrorTypeCode.ExportData,
             SolidDnaErrorCode.SolidWorksExportDataPdfSetSheetsError);

@@ -14,7 +14,6 @@ public class FeatureLocalCircularPatternData : SolidDnaObject<ILocalCircularPatt
     /// </summary>
     public FeatureLocalCircularPatternData(ILocalCircularPatternFeatureData model) : base(model)
     {
-
     }
 
     #endregion

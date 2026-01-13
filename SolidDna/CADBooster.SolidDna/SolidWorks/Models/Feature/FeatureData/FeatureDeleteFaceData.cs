@@ -14,7 +14,6 @@ public class FeatureDeleteFaceData : SolidDnaObject<IDeleteFaceFeatureData>
     /// </summary>
     public FeatureDeleteFaceData(IDeleteFaceFeatureData model) : base(model)
     {
-
     }
 
     #endregion

@@ -7,32 +7,31 @@ namespace SolidDna.Exporting;
 /// <summary>
 /// Register as a SolidWorks Add-in
 /// </summary>
-[Guid("6D769D97-6103-4495-AACD-63CDD0EC396B"), ComVisible(true)]  // Replace the GUID with your own.
+[Guid("6D769D97-6103-4495-AACD-63CDD0EC396B")] // Replace the GUID with your own.
+[ComVisible(true)]
 public class SolidDnaAddInIntegration : SolidAddIn
 {
     // <Inheritdoc />
     public override void PreConnectToSolidWorks()
     {
-
     }
 
     // <Inheritdoc />
     public override void PreLoadPlugIns()
     {
-
     }
 
     // <Inheritdoc />
     public override void ApplicationStartup()
     {
-
     }
 }
 
 /// <summary>
 /// Register as SolidDna Plug-in
 /// </summary>
-[Guid("B94EEB04-83DC-483D-B598-68DC3FC3CAF4"), ComVisible(true)]  // Replace the GUID with your own.
+[Guid("B94EEB04-83DC-483D-B598-68DC3FC3CAF4")] // Replace the GUID with your own.
+[ComVisible(true)]
 public class MySolidDnaPlugin : SolidPlugIn
 {
     #region Public Properties
@@ -56,9 +55,8 @@ public class MySolidDnaPlugin : SolidPlugIn
         // Part commands.
         // You don't need to use the return value, but it's there if you want to.
         var partGroup = Application.CommandManager.CreateCommandTab(
-            title: "Export Part",
-            id: 120_000,
-            commandManagerItems:
+            "Export Part",
+            120_000,
             [
                 new CommandManagerItem
                 {
@@ -69,7 +67,7 @@ public class MySolidDnaPlugin : SolidPlugIn
                     VisibleForAssemblies = false,
                     VisibleForDrawings = false,
                     VisibleForParts = true,
-                    OnClick = FileExporting.ExportPartAsDxf
+                    OnClick = FileExporting.ExportPartAsDxf,
                 },
 
                 new CommandManagerItem
@@ -81,17 +79,16 @@ public class MySolidDnaPlugin : SolidPlugIn
                     VisibleForAssemblies = false,
                     VisibleForDrawings = false,
                     VisibleForParts = true,
-                    OnClick = FileExporting.ExportModelAsStep
-                }
+                    OnClick = FileExporting.ExportModelAsStep,
+                },
             ],
-            mainIconPathFormat: "icons{0}.png",
-            iconListsPathFormat: "icons{0}.png");
+            "icons{0}.png",
+            "icons{0}.png");
 
         // Assembly commands
         var assemblyGroup = Application.CommandManager.CreateCommandTab(
-            title: "Export Assembly",
-            id: 120_001,
-            commandManagerItems:
+            "Export Assembly",
+            120_001,
             [
                 new CommandManagerItem
                 {
@@ -102,17 +99,16 @@ public class MySolidDnaPlugin : SolidPlugIn
                     VisibleForAssemblies = true,
                     VisibleForDrawings = false,
                     VisibleForParts = false,
-                    OnClick = FileExporting.ExportModelAsStep
-                }
+                    OnClick = FileExporting.ExportModelAsStep,
+                },
             ],
-            mainIconPathFormat: "icons{0}.png",
-            iconListsPathFormat: "icons{0}.png");
+            "icons{0}.png",
+            "icons{0}.png");
 
         // Drawing commands
         var drawingGroup = Application.CommandManager.CreateCommandTab(
-            title: "Export Drawing",
-            id: 120_002,
-            commandManagerItems:
+            "Export Drawing",
+            120_002,
             [
                 new CommandManagerItem
                 {
@@ -123,16 +119,15 @@ public class MySolidDnaPlugin : SolidPlugIn
                     VisibleForAssemblies = false,
                     VisibleForDrawings = true,
                     VisibleForParts = false,
-                    OnClick = FileExporting.ExportDrawingAsPdf
-                }
+                    OnClick = FileExporting.ExportDrawingAsPdf,
+                },
             ],
-            mainIconPathFormat: "icons{0}.png",
-            iconListsPathFormat: "icons{0}.png");
+            "icons{0}.png",
+            "icons{0}.png");
     }
 
     public override void DisconnectedFromSolidWorks()
     {
-
     }
 
     #endregion

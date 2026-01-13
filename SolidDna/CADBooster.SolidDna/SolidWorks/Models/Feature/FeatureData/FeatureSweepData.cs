@@ -14,7 +14,6 @@ public class FeatureSweepData : SolidDnaObject<ISweepFeatureData>
     /// </summary>
     public FeatureSweepData(ISweepFeatureData model) : base(model)
     {
-
     }
 
     #endregion

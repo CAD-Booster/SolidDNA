@@ -14,7 +14,6 @@ public class FeatureJogData : SolidDnaObject<IJogFeatureData>
     /// </summary>
     public FeatureJogData(IJogFeatureData model) : base(model)
     {
-
     }
 
     #endregion

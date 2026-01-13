@@ -26,7 +26,7 @@ public class Component : SolidDnaObject<Component2>, IComponent
     {
         get
         {
-            var modelDoc2 = (ModelDoc2)BaseObject.GetModelDoc2();
+            var modelDoc2 = (ModelDoc2) BaseObject.GetModelDoc2();
             return modelDoc2 == null ? null : new Model(modelDoc2);
         }
     }
@@ -34,7 +34,7 @@ public class Component : SolidDnaObject<Component2>, IComponent
     /// <summary>
     /// Get children from this Component
     /// </summary>
-    public List<Component> Children => ((object[])BaseObject.GetChildren())?.Cast<Component2>().Select(x => new Component(x)).ToList() ?? [];
+    public List<Component> Children => ((object[]) BaseObject.GetChildren())?.Cast<Component2>().Select(x => new Component(x)).ToList() ?? [];
 
     /// <summary>
     /// Get the real name of the component, without the parent assembly names and without its instance number.
@@ -69,7 +69,7 @@ public class Component : SolidDnaObject<Component2>, IComponent
     {
         get => BaseObject.ReferencedConfiguration;
         set => BaseObject.ReferencedConfiguration = value;
-    } 
+    }
 
     /// <summary>
     /// The name of the display state for this component.
@@ -93,7 +93,7 @@ public class Component : SolidDnaObject<Component2>, IComponent
     /// <summary>
     /// Check if this sub-assembly is flexible.
     /// </summary>
-    public bool IsFlexible => BaseObject.Solving == (int)swComponentSolvingOption_e.swComponentFlexibleSolving;
+    public bool IsFlexible => BaseObject.Solving == (int) swComponentSolvingOption_e.swComponentFlexibleSolving;
 
     /// <summary>
     /// True if this component is a part
@@ -123,8 +123,8 @@ public class Component : SolidDnaObject<Component2>, IComponent
     /// </summary>
     public bool IsVisible
     {
-        get => BaseObject.Visible == (int)swComponentVisibilityState_e.swComponentVisible;
-        set => BaseObject.Visible = (int)(value
+        get => BaseObject.Visible == (int) swComponentVisibilityState_e.swComponentVisible;
+        set => BaseObject.Visible = (int) (value
             ? swComponentVisibilityState_e.swComponentVisible
             : swComponentVisibilityState_e.swComponentHidden);
     }
@@ -156,7 +156,7 @@ public class Component : SolidDnaObject<Component2>, IComponent
         {
             // The root component does not have a parent
             if (IsRoot) return null;
-                
+
             // Get the parent component. If we are working with a top-level component, this returns null
             var parentComponent = BaseObject.GetParent();
             if (parentComponent != null)
@@ -190,7 +190,6 @@ public class Component : SolidDnaObject<Component2>, IComponent
     /// </summary>
     public Component(Component2 component) : base(component)
     {
-
     }
 
     #endregion
@@ -306,11 +305,11 @@ public class Component : SolidDnaObject<Component2>, IComponent
                 return false;
 
             // Get the current component suppression state so we can reuse it
-            var suppressionState = (swComponentSuppressionState_e)BaseObject.GetSuppression();
+            var suppressionState = (swComponentSuppressionState_e) BaseObject.GetSuppression();
 
             // Call the assembly to mark the selected component as rigid/flexible.
             // Use as many existing properties and methods as possible so we only change the rigid/flexible setting
-            return assemblyModel.AsAssembly().CompConfigProperties5((int)suppressionState, (int)solving,
+            return assemblyModel.AsAssembly().CompConfigProperties5((int) suppressionState, (int) solving,
                 IsVisible, false, ConfigurationName, BaseObject.ExcludeFromBOM, BaseObject.IsEnvelope());
         }, SolidDnaErrorTypeCode.SolidWorksModel, SolidDnaErrorCode.SolidWorksModelAssemblyComponentRigidFlexibleError);
     }
@@ -323,13 +322,13 @@ public class Component : SolidDnaObject<Component2>, IComponent
     /// Suppress this component in the current assembly configuration.
     /// </summary>
     /// <returns>Result enum</returns>
-    public ComponentSuppressionResults Suppress() => (ComponentSuppressionResults)BaseObject.SetSuppression2((int)swComponentSuppressionState_e.swComponentSuppressed);
+    public ComponentSuppressionResults Suppress() => (ComponentSuppressionResults) BaseObject.SetSuppression2((int) swComponentSuppressionState_e.swComponentSuppressed);
 
     /// <summary>
     /// Unsuppress this component in the current assembly configuration.
     /// </summary>
     /// <returns>Result enum</returns>
-    public ComponentSuppressionResults Unsuppress() => (ComponentSuppressionResults)BaseObject.SetSuppression2((int)swComponentSuppressionState_e.swComponentResolved);
+    public ComponentSuppressionResults Unsuppress() => (ComponentSuppressionResults) BaseObject.SetSuppression2((int) swComponentSuppressionState_e.swComponentResolved);
 
     #endregion
 
@@ -361,15 +360,13 @@ public class Component : SolidDnaObject<Component2>, IComponent
     /// Returns a user-friendly string with component properties.
     /// </summary>
     /// <returns></returns>
-    public override string ToString()
-    {
-        return $"Name: {Name}. Is root: {IsRoot}";
-    }
+    public override string ToString() => $"Name: {Name}. Is root: {IsRoot}";
 
     #endregion
 
     #region Dispose
 
+    /// <inheritdoc />
     public override void Dispose()
     {
         // Clean up embedded objects

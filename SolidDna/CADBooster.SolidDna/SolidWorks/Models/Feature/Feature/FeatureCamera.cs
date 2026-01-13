@@ -14,7 +14,6 @@ public class FeatureCamera : SolidDnaObject<ICamera>
     /// </summary>
     public FeatureCamera(ICamera model) : base(model)
     {
-
     }
 
     #endregion

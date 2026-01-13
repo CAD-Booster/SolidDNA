@@ -14,7 +14,6 @@ public class FeatureSensor : SolidDnaObject<ISensor>
     /// </summary>
     public FeatureSensor(ISensor model) : base(model)
     {
-
     }
 
     #endregion

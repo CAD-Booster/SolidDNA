@@ -14,7 +14,6 @@ public class FeatureFlatPatternData : SolidDnaObject<IFlatPatternFeatureData>
     /// </summary>
     public FeatureFlatPatternData(IFlatPatternFeatureData model) : base(model)
     {
-
     }
 
     #endregion

@@ -22,7 +22,7 @@ public class SolidDnaError
     /// <summary>
     /// The error type code for this error
     /// </summary>
-    public int ErrorTypeCode => (int)ErrorTypeCodeValue;
+    public int ErrorTypeCode => (int) ErrorTypeCodeValue;
 
     /// <summary>
     /// The enum value that this error type code refers to. See <see cref="SolidDnaErrorTypeCode"/>
@@ -32,7 +32,7 @@ public class SolidDnaError
     /// <summary>
     /// The unique error code for this exact error
     /// </summary>
-    public int ErrorCode => (int)ErrorCodeValue;
+    public int ErrorCode => (int) ErrorCodeValue;
 
     /// <summary>
     /// The enum value that this error code refers to. See <see cref="SolidDnaErrorCode"/>
@@ -67,7 +67,7 @@ public class SolidDnaError
     /// <summary>
     /// Constructor
     /// </summary>
-    public SolidDnaError([CallerMemberName] string callerMemberName = "", [CallerFilePath]string callerFilePath = "", [CallerLineNumber]int callerLineNumber = 0)
+    public SolidDnaError([CallerMemberName] string callerMemberName = "", [CallerFilePath] string callerFilePath = "", [CallerLineNumber] int callerLineNumber = 0)
     {
         // Set the caller information
         CallerMemberName = callerMemberName;
@@ -97,8 +97,5 @@ public class SolidDnaError
     /// Returns a user-friendly string about the error
     /// </summary>
     /// <returns></returns>
-    public override string ToString()
-    {
-        return $"Error details: {ErrorDetails ?? "None"}. Message: {ErrorMessage ?? "None"}. Type code: {ErrorTypeCodeValue}. Code: {ErrorCodeValue}.";
-    }
+    public override string ToString() => $"Error details: {ErrorDetails ?? "None"}. Message: {ErrorMessage ?? "None"}. Type code: {ErrorTypeCodeValue}. Code: {ErrorCodeValue}.";
 }

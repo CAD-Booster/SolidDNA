@@ -14,7 +14,6 @@ public class FeatureToolingSplitData : SolidDnaObject<IToolingSplitFeatureData>
     /// </summary>
     public FeatureToolingSplitData(IToolingSplitFeatureData model) : base(model)
     {
-
     }
 
     #endregion

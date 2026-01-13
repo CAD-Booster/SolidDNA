@@ -57,10 +57,7 @@ public static class ResourceFormatProviderHelpers
     /// </summary>
     /// <param name="culture">The international standard for the desired culture, such as en-GB, en-US, fr-FR etc...</param>
     /// <returns></returns>
-    public static string GetCultureName(string culture = null)
-    {
-        return culture ?? Localization.DefaultCulture;
-    }
+    public static string GetCultureName(string culture = null) => culture ?? Localization.DefaultCulture;
 
     /// <summary>
     /// Takes a formatted path and a culture name and returns the path

@@ -14,7 +14,6 @@ public class FeatureSurfaceKnitData : SolidDnaObject<ISurfaceKnitFeatureData>
     /// </summary>
     public FeatureSurfaceKnitData(ISurfaceKnitFeatureData model) : base(model)
     {
-
     }
 
     #endregion

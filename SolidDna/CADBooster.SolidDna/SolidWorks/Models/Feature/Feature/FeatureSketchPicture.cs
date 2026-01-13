@@ -14,7 +14,6 @@ public class FeatureSketchPicture : SolidDnaObject<ISketchPicture>
     /// </summary>
     public FeatureSketchPicture(ISketchPicture model) : base(model)
     {
-
     }
 
     #endregion

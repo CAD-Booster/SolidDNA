@@ -14,7 +14,6 @@ public class FeatureSmartComponentData : SolidDnaObject<ISmartComponentFeatureDa
     /// </summary>
     public FeatureSmartComponentData(ISmartComponentFeatureData model) : base(model)
     {
-
     }
 
     #endregion

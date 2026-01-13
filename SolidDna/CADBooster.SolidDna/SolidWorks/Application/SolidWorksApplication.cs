@@ -65,9 +65,9 @@ public partial class SolidWorksApplication : SharedSolidDnaObject<SldWorks>, ISo
     /// <summary>
     /// Whether we are currently connected to 3DExperience. Was added in SolidWorks 2022, so we always return None for older versions.
     /// </summary>
-    public ConnectionStatus3DExperience ConnectionStatus3DExperience => SolidWorksVersion.Version < 2022 
-        ? ConnectionStatus3DExperience.None 
-        : (ConnectionStatus3DExperience)BaseObject.Get3DExperienceState();
+    public ConnectionStatus3DExperience ConnectionStatus3DExperience => SolidWorksVersion.Version < 2022
+        ? ConnectionStatus3DExperience.None
+        : (ConnectionStatus3DExperience) BaseObject.Get3DExperienceState();
 
     /// <summary>
     /// True if the application is disposing
@@ -163,10 +163,7 @@ public partial class SolidWorksApplication : SharedSolidDnaObject<SldWorks>, ISo
     /// <summary>
     /// Informs this class that the active model may have changed and it should be reloaded
     /// </summary>
-    public void RequestActiveModelChanged()
-    {
-        ReloadActiveModelInformation();
-    }
+    public void RequestActiveModelChanged() => ReloadActiveModelInformation();
 
     #endregion
 
@@ -181,7 +178,7 @@ public partial class SolidWorksApplication : SharedSolidDnaObject<SldWorks>, ISo
     private SolidWorksApplicationType GetApplicationType()
     {
         // If we are running in a version older than 2020, we are always running in the desktop application.
-        return SolidWorksVersion.Version < 2020 ? SolidWorksApplicationType.Desktop : (SolidWorksApplicationType)BaseObject.ApplicationType;
+        return SolidWorksVersion.Version < 2020 ? SolidWorksApplicationType.Desktop : (SolidWorksApplicationType) BaseObject.ApplicationType;
     }
 
     /// <summary>
@@ -434,7 +431,6 @@ public partial class SolidWorksApplication : SharedSolidDnaObject<SldWorks>, ISo
                 // GetDocumentCount takes longer to go to zero for big assemblies, but it might be a more reliable indicator.
                 if (BaseObject?.ActiveDoc == null || BaseObject?.GetDocumentCount() == 0)
                     ReloadActiveModelInformation();
-
             }
         });
     }
@@ -464,7 +460,7 @@ public partial class SolidWorksApplication : SharedSolidDnaObject<SldWorks>, ISo
         // If the user did not pass a template path, we get the default template path from SolidWorks.
         if (templatePath.IsNullOrEmpty())
             templatePath = Preferences.DefaultAssemblyTemplate;
-            
+
         return CreateFile(templatePath);
     }
 
@@ -479,7 +475,7 @@ public partial class SolidWorksApplication : SharedSolidDnaObject<SldWorks>, ISo
         // If the user did not pass a template path, we get the default template path from SolidWorks.
         if (templatePath.IsNullOrEmpty())
             templatePath = Preferences.DefaultDrawingTemplate;
-            
+
         return CreateFile(templatePath, paperSize);
     }
 
@@ -527,14 +523,12 @@ public partial class SolidWorksApplication : SharedSolidDnaObject<SldWorks>, ISo
         return SolidDnaErrors.Wrap(() =>
         {
             // Create the new file
-            var swModel = UnsafeObject.INewDocument2(templatePath, (int)paperSize, width, height);
+            var swModel = UnsafeObject.INewDocument2(templatePath, (int) paperSize, width, height);
 
             // If the modelDoc is null, creating a new file failed
-            if (swModel == null)
-                throw new Exception("Failed to create a new file");
-
-            // If we have a value, we wrap it in a Model
-            return new Model(swModel);
+            return swModel == null
+                ? throw new Exception("Failed to create a new file")
+                : new Model(swModel); // If we have a value, we wrap it in a Model
         }, SolidDnaErrorTypeCode.File, SolidDnaErrorCode.FileCreateError);
     }
 
@@ -550,7 +544,7 @@ public partial class SolidWorksApplication : SharedSolidDnaObject<SldWorks>, ISo
     public IEnumerable<Model> OpenDocuments()
     {
         // Loop each child
-        foreach (ModelDoc2 modelDoc in (object[])BaseObject.GetDocuments())
+        foreach (ModelDoc2 modelDoc in (object[]) BaseObject.GetDocuments())
         {
             // Create safe model
             using var model = new Model(modelDoc);
@@ -582,15 +576,11 @@ public partial class SolidWorksApplication : SharedSolidDnaObject<SldWorks>, ISo
                 var warnings = 0;
 
                 // Attempt to open the document
-                var swModel = BaseObject.OpenDoc6(filePath, (int)fileType, (int)options, configuration, ref errors, ref warnings);
+                var swModel = BaseObject.OpenDoc6(filePath, (int) fileType, (int) options, configuration, ref errors, ref warnings);
 
                 // TODO: Read errors into enums for better reporting
                 // For now just check if model is not null
-                if (swModel == null)
-                    throw new Exception($"Failed to open file. Errors {errors}, Warnings {warnings}");
-
-                // Return new model
-                return new Model(swModel);
+                return swModel == null ? throw new Exception($"Failed to open file. Errors {errors}, Warnings {warnings}") : new Model(swModel); // Return new model
             },
             SolidDnaErrorTypeCode.SolidWorksApplication,
             SolidDnaErrorCode.SolidWorksModelOpenFileError);
@@ -614,11 +604,9 @@ public partial class SolidWorksApplication : SharedSolidDnaObject<SldWorks>, ISo
 
                 // TODO: Read errors into enums for better reporting
                 // For now just check if model is not null
-                if (swModel == null)
-                    throw new Exception($"Failed to open file. Errors {documentSpecification.Error}, Warnings {documentSpecification.Warning}");
-
-                // Return new model
-                return new Model(swModel);
+                return swModel == null
+                    ? throw new Exception($"Failed to open file. Errors {documentSpecification.Error}, Warnings {documentSpecification.Warning}")
+                    : new Model(swModel); // Return new model
             },
             SolidDnaErrorTypeCode.SolidWorksApplication,
             SolidDnaErrorCode.SolidWorksModelOpenFileError);
@@ -634,10 +622,10 @@ public partial class SolidWorksApplication : SharedSolidDnaObject<SldWorks>, ISo
     public Model OpenFileFrom3DExperience(string plmId)
     {
         // Get a new object specification
-        var swDocSpecification = (IDocumentSpecification)BaseObject.GetOpenDocSpec("");
+        var swDocSpecification = (IDocumentSpecification) BaseObject.GetOpenDocSpec("");
 
         // Get a detailed 3DX object specification
-        var plmObjectSpecification = (IPLMObjectSpecification)swDocSpecification.PLMObjectSpecification;
+        var plmObjectSpecification = (IPLMObjectSpecification) swDocSpecification.PLMObjectSpecification;
 
         // Set the PLM ID
         plmObjectSpecification.PLMID = plmId;
@@ -675,7 +663,7 @@ public partial class SolidWorksApplication : SharedSolidDnaObject<SldWorks>, ISo
         // NOTE: No point making our own enumerator for the export file type
         //       as right now and for many years it's only ever been
         //       1 for PDF. I do not see this ever changing.
-        return BaseObject.GetExportFileData((int)swExportDataFileType_e.swExportPdfData) as IExportPdfData;
+        return BaseObject.GetExportFileData((int) swExportDataFileType_e.swExportPdfData) as IExportPdfData;
     }
 
     #endregion
@@ -701,12 +689,14 @@ public partial class SolidWorksApplication : SharedSolidDnaObject<SldWorks>, ISo
                 {
                     // Otherwise, get all known ones
                     // Get the list of material databases (full paths to SLDMAT files)
-                    var databasePaths = (string[])BaseObject.GetMaterialDatabases();
+                    var databasePaths = (string[]) BaseObject.GetMaterialDatabases();
 
                     // Get materials from each
                     if (databasePaths != null)
+                    {
                         foreach (var path in databasePaths)
                             ReadMaterials(path, ref list);
+                    }
                 }
 
                 // Order the list
@@ -750,10 +740,12 @@ public partial class SolidWorksApplication : SharedSolidDnaObject<SldWorks>, ISo
     {
         // First make sure the file exists
         if (!File.Exists(databasePath))
+        {
             throw new SolidDnaException(
                 SolidDnaErrors.CreateError(
                     SolidDnaErrorTypeCode.SolidWorksApplication,
                     SolidDnaErrorCode.SolidWorksApplicationGetMaterialsFileNotFoundError));
+        }
 
         try
         {
@@ -793,11 +785,13 @@ public partial class SolidWorksApplication : SharedSolidDnaObject<SldWorks>, ISo
         {
             // If we crashed for any reason during parsing, wrap in SolidDna exception
             if (!File.Exists(databasePath))
+            {
                 throw new SolidDnaException(
                     SolidDnaErrors.CreateError(
                         SolidDnaErrorTypeCode.SolidWorksApplication,
                         SolidDnaErrorCode.SolidWorksApplicationGetMaterialsFileFormatError),
                     ex);
+            }
         }
     }
 
@@ -812,7 +806,7 @@ public partial class SolidWorksApplication : SharedSolidDnaObject<SldWorks>, ISo
     /// </summary>
     /// <param name="preference">The preference to get</param>
     /// <returns></returns>
-    public double GetUserPreferencesDouble(swUserPreferenceDoubleValue_e preference) => BaseObject.GetUserPreferenceDoubleValue((int)preference);
+    public double GetUserPreferencesDouble(swUserPreferenceDoubleValue_e preference) => BaseObject.GetUserPreferenceDoubleValue((int) preference);
 
     /// <summary>
     /// Sets the specified user preference value
@@ -820,14 +814,14 @@ public partial class SolidWorksApplication : SharedSolidDnaObject<SldWorks>, ISo
     /// <param name="preference">The preference to set</param>
     /// <param name="value">The new value of the preference</param>
     /// <returns></returns>
-    public bool SetUserPreferencesDouble(swUserPreferenceDoubleValue_e preference, double value) => BaseObject.SetUserPreferenceDoubleValue((int)preference, value);
+    public bool SetUserPreferencesDouble(swUserPreferenceDoubleValue_e preference, double value) => BaseObject.SetUserPreferenceDoubleValue((int) preference, value);
 
     /// <summary>
     /// Gets the specified user preference value
     /// </summary>
     /// <param name="preference">The preference to get</param>
     /// <returns></returns>
-    public int GetUserPreferencesInteger(swUserPreferenceIntegerValue_e preference) => BaseObject.GetUserPreferenceIntegerValue((int)preference);
+    public int GetUserPreferencesInteger(swUserPreferenceIntegerValue_e preference) => BaseObject.GetUserPreferenceIntegerValue((int) preference);
 
     /// <summary>
     /// Sets the specified user preference value
@@ -835,14 +829,14 @@ public partial class SolidWorksApplication : SharedSolidDnaObject<SldWorks>, ISo
     /// <param name="preference">The preference to set</param>
     /// <param name="value">The new value of the preference</param>
     /// <returns></returns>
-    public bool SetUserPreferencesInteger(swUserPreferenceIntegerValue_e preference, int value) => BaseObject.SetUserPreferenceIntegerValue((int)preference, value);
+    public bool SetUserPreferencesInteger(swUserPreferenceIntegerValue_e preference, int value) => BaseObject.SetUserPreferenceIntegerValue((int) preference, value);
 
     /// <summary>
     /// Gets the specified user preference value
     /// </summary>
     /// <param name="preference">The preference to get</param>
     /// <returns></returns>
-    public string GetUserPreferencesString(swUserPreferenceStringValue_e preference) => BaseObject.GetUserPreferenceStringValue((int)preference);
+    public string GetUserPreferencesString(swUserPreferenceStringValue_e preference) => BaseObject.GetUserPreferenceStringValue((int) preference);
 
     /// <summary>
     /// Sets the specified user preference value
@@ -850,14 +844,14 @@ public partial class SolidWorksApplication : SharedSolidDnaObject<SldWorks>, ISo
     /// <param name="preference">The preference to set</param>
     /// <param name="value">The new value of the preference</param>
     /// <returns></returns>
-    public bool SetUserPreferencesString(swUserPreferenceStringValue_e preference, string value) => BaseObject.SetUserPreferenceStringValue((int)preference, value);
+    public bool SetUserPreferencesString(swUserPreferenceStringValue_e preference, string value) => BaseObject.SetUserPreferenceStringValue((int) preference, value);
 
     /// <summary>
     /// Gets the specified user preference value
     /// </summary>
     /// <param name="preference">The preference to get</param>
     /// <returns></returns>
-    public bool GetUserPreferencesToggle(swUserPreferenceToggle_e preference) => BaseObject.GetUserPreferenceToggle((int)preference);
+    public bool GetUserPreferencesToggle(swUserPreferenceToggle_e preference) => BaseObject.GetUserPreferenceToggle((int) preference);
 
     /// <summary>
     /// Sets the specified user preference value
@@ -865,7 +859,7 @@ public partial class SolidWorksApplication : SharedSolidDnaObject<SldWorks>, ISo
     /// <param name="preference">The preference to set</param>
     /// <param name="value">The new value of the preference</param>
     /// <returns></returns>
-    public void SetUserPreferencesToggle(swUserPreferenceToggle_e preference, bool value) => BaseObject.SetUserPreferenceToggle((int)preference, value);
+    public void SetUserPreferencesToggle(swUserPreferenceToggle_e preference, bool value) => BaseObject.SetUserPreferenceToggle((int) preference, value);
 
     #endregion
 
@@ -882,10 +876,10 @@ public partial class SolidWorksApplication : SharedSolidDnaObject<SldWorks>, ISo
         return SolidDnaErrors.Wrap(() =>
             {
                 // Get a pointer to the picture object from SolidWorks
-                var dispatchPicture = (IPictureDisp)BaseObject.GetPreviewBitmap(modelFilePath, configurationName);
+                var dispatchPicture = (IPictureDisp) BaseObject.GetPreviewBitmap(modelFilePath, configurationName);
 
                 // Convert the object to a bitmap
-                return Image.FromHbitmap((IntPtr)dispatchPicture.Handle, (IntPtr)dispatchPicture.hPal);
+                return Image.FromHbitmap((IntPtr) dispatchPicture.Handle, (IntPtr) dispatchPicture.hPal);
             },
             SolidDnaErrorTypeCode.SolidWorksApplication,
             SolidDnaErrorCode.SolidWorksApplicationPreviewImageError);
@@ -903,10 +897,10 @@ public partial class SolidWorksApplication : SharedSolidDnaObject<SldWorks>, ISo
         SolidDnaErrors.Wrap(() =>
             {
                 // Get a pointer to the picture object from SolidWorks
-                var dispatchPicture = (IPictureDisp)BaseObject.GetPreviewBitmap(modelFilePath, configurationName);
+                var dispatchPicture = (IPictureDisp) BaseObject.GetPreviewBitmap(modelFilePath, configurationName);
 
                 // Convert the object to a bitmap
-                var bitmap = Image.FromHbitmap((IntPtr)dispatchPicture.Handle, (IntPtr)dispatchPicture.hPal);
+                var bitmap = Image.FromHbitmap((IntPtr) dispatchPicture.Handle, (IntPtr) dispatchPicture.hPal);
 
                 // Save the bitmap to file
                 bitmap.Save(bitmapFilePath);
@@ -990,10 +984,11 @@ public partial class SolidWorksApplication : SharedSolidDnaObject<SldWorks>, ISo
     /// <param name="message">The message to display to the user</param>
     /// <param name="icon">The severity icon to display</param>
     /// <param name="buttons">The buttons to display</param>
-    public SolidWorksMessageBoxResult ShowMessageBox(string message, SolidWorksMessageBoxIcon icon = SolidWorksMessageBoxIcon.Information, SolidWorksMessageBoxButtons buttons = SolidWorksMessageBoxButtons.Ok)
+    public SolidWorksMessageBoxResult ShowMessageBox(string message, SolidWorksMessageBoxIcon icon = SolidWorksMessageBoxIcon.Information,
+        SolidWorksMessageBoxButtons buttons = SolidWorksMessageBoxButtons.Ok)
     {
         // Send message to user
-        return (SolidWorksMessageBoxResult)BaseObject.SendMsgToUser2(message, (int)icon, (int)buttons);
+        return (SolidWorksMessageBoxResult) BaseObject.SendMsgToUser2(message, (int) icon, (int) buttons);
     }
 
     #endregion
@@ -1007,7 +1002,6 @@ public partial class SolidWorksApplication : SharedSolidDnaObject<SldWorks>, ISo
     {
         lock (mDisposingLock)
         {
-
             // Flag as disposing
             Disposing = true;
 

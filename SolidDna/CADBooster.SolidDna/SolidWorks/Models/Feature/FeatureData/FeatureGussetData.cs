@@ -14,7 +14,6 @@ public class FeatureGussetData : SolidDnaObject<IGussetFeatureData>
     /// </summary>
     public FeatureGussetData(IGussetFeatureData model) : base(model)
     {
-
     }
 
     #endregion

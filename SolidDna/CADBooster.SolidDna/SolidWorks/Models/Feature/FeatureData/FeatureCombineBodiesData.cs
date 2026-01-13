@@ -14,7 +14,6 @@ public class FeatureCombineBodiesData : SolidDnaObject<ICombineBodiesFeatureData
     /// </summary>
     public FeatureCombineBodiesData(ICombineBodiesFeatureData model) : base(model)
     {
-
     }
 
     #endregion

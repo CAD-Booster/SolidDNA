@@ -62,7 +62,7 @@ public class AssemblyDocument : IAssemblyDocument
         var swComponents = components.Select(x => x.UnsafeObject).ToArray();
 
         // Change the suppression state
-        return mBaseObject.SetComponentState((int)state, swComponents, (int)configurationOption, configurationName, true);
+        return mBaseObject.SetComponentState((int) state, swComponents, (int) configurationOption, configurationName, true);
     }
 
     /// <summary>

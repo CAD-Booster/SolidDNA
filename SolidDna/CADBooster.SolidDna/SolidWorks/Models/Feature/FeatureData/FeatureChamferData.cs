@@ -14,7 +14,6 @@ public class FeatureChamferData : SolidDnaObject<IChamferFeatureData2>
     /// </summary>
     public FeatureChamferData(IChamferFeatureData2 model) : base(model)
     {
-
     }
 
     #endregion

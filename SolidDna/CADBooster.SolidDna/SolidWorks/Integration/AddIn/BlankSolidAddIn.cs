@@ -10,28 +10,27 @@ public class BlankSolidAddIn : SolidAddIn
     /// <summary>
     /// Default constructor
     /// </summary>
-    public BlankSolidAddIn() : base()
+    public BlankSolidAddIn()
     {
-
     }
 
     #endregion
 
     #region AddIn Methods
 
+    /// <inheritdoc />
     public override void ApplicationStartup()
     {
-
     }
 
+    /// <inheritdoc />
     public override void PreConnectToSolidWorks()
     {
-
     }
 
+    /// <inheritdoc />
     public override void PreLoadPlugIns()
     {
-
     }
 
     #endregion

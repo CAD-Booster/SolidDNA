@@ -1,4 +1,4 @@
-﻿using CADBooster.SolidDna;
+using CADBooster.SolidDna;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -10,32 +10,31 @@ namespace SolidDna.Menus;
 /// <summary>
 /// Register as a SolidWorks Add-in
 /// </summary>
-[Guid("DF33DFF8-AE92-4DDA-84BF-624869A6A9E9"), ComVisible(true)]  // Replace the GUID with your own.
+[Guid("DF33DFF8-AE92-4DDA-84BF-624869A6A9E9")] // Replace the GUID with your own.
+[ComVisible(true)]
 public class SolidDnaAddInIntegration : SolidAddIn
 {
     // <Inheritdoc />
     public override void PreConnectToSolidWorks()
     {
-
     }
 
     // <Inheritdoc />
     public override void PreLoadPlugIns()
     {
-
     }
 
     // <Inheritdoc />
     public override void ApplicationStartup()
     {
-
     }
 }
 
 /// <summary>
 /// Register as SolidDna Plug-in
 /// </summary>
-[Guid("A3B49158-4483-4679-A249-64E7F5FE6042"), ComVisible(true)]  // Replace the GUID with your own.
+[Guid("A3B49158-4483-4679-A249-64E7F5FE6042")] // Replace the GUID with your own.
+[ComVisible(true)]
 public class MySolidDnaPlugin : SolidPlugIn
 {
     #region Public Properties
@@ -63,7 +62,6 @@ public class MySolidDnaPlugin : SolidPlugIn
 
     public override void DisconnectedFromSolidWorks()
     {
-
     }
 
     /// <summary>
@@ -117,7 +115,7 @@ public class MySolidDnaPlugin : SolidPlugIn
             VisibleForAssemblies = true,
             VisibleForParts = true,
             OnClick = () => System.Windows.MessageBox.Show("CreateCommandTab DeselectedDisabled item clicked!"),
-            OnStateCheck = (args) => args.Result = CommandManagerItemState.DeselectedDisabled
+            OnStateCheck = (args) => args.Result = CommandManagerItemState.DeselectedDisabled,
         },
 
         new CommandManagerItem
@@ -130,7 +128,7 @@ public class MySolidDnaPlugin : SolidPlugIn
             VisibleForAssemblies = true,
             VisibleForParts = true,
             OnClick = () => System.Windows.MessageBox.Show("CreateCommandTab DeselectedEnabled item clicked!"),
-            OnStateCheck = (args) => args.Result = CommandManagerItemState.DeselectedEnabled
+            OnStateCheck = (args) => args.Result = CommandManagerItemState.DeselectedEnabled,
         },
 
 
@@ -144,7 +142,7 @@ public class MySolidDnaPlugin : SolidPlugIn
             VisibleForAssemblies = true,
             VisibleForParts = true,
             OnClick = () => System.Windows.MessageBox.Show("CreateCommandTab SelectedDisabled item clicked!"),
-            OnStateCheck = (args) => args.Result = CommandManagerItemState.SelectedDisabled
+            OnStateCheck = (args) => args.Result = CommandManagerItemState.SelectedDisabled,
         },
 
         new CommandManagerItem
@@ -157,7 +155,7 @@ public class MySolidDnaPlugin : SolidPlugIn
             VisibleForAssemblies = true,
             VisibleForParts = true,
             OnClick = () => System.Windows.MessageBox.Show("CreateCommandTab SelectedEnabled item clicked!"),
-            OnStateCheck = (args) => args.Result = CommandManagerItemState.SelectedEnabled
+            OnStateCheck = (args) => args.Result = CommandManagerItemState.SelectedEnabled,
         },
 
         new CommandManagerItem
@@ -170,7 +168,7 @@ public class MySolidDnaPlugin : SolidPlugIn
             VisibleForAssemblies = true,
             VisibleForParts = true,
             OnClick = () => System.Windows.MessageBox.Show("CreateCommandTab Hidden item clicked!"),
-            OnStateCheck = (args) => args.Result = CommandManagerItemState.Hidden
+            OnStateCheck = (args) => args.Result = CommandManagerItemState.Hidden,
         },
 
         new CommandManagerItem
@@ -184,8 +182,8 @@ public class MySolidDnaPlugin : SolidPlugIn
             VisibleForParts = true,
             OnClick = () => mToggle = !mToggle,
             OnStateCheck = (args) =>
-                args.Result = mToggle ? CommandManagerItemState.SelectedEnabled : CommandManagerItemState.DeselectedEnabled
-        }
+                args.Result = mToggle ? CommandManagerItemState.SelectedEnabled : CommandManagerItemState.DeselectedEnabled,
+        },
     ];
 
     /// <summary>
@@ -212,7 +210,7 @@ public class MySolidDnaPlugin : SolidPlugIn
             VisibleForAssemblies = true,
             VisibleForParts = true,
             OnClick = () => System.Windows.MessageBox.Show("CreateCommandTab DeselectedDisabled item clicked!"),
-            OnStateCheck = (args) => args.Result = CommandManagerItemState.DeselectedDisabled
+            OnStateCheck = (args) => args.Result = CommandManagerItemState.DeselectedDisabled,
         },
 
         new CommandManagerItem
@@ -225,7 +223,7 @@ public class MySolidDnaPlugin : SolidPlugIn
             VisibleForAssemblies = true,
             VisibleForParts = true,
             OnClick = () => System.Windows.MessageBox.Show("CreateCommandTab DeselectedEnabled item clicked!"),
-            OnStateCheck = (args) => args.Result = CommandManagerItemState.DeselectedEnabled
+            OnStateCheck = (args) => args.Result = CommandManagerItemState.DeselectedEnabled,
         },
 
 
@@ -241,7 +239,7 @@ public class MySolidDnaPlugin : SolidPlugIn
             VisibleForAssemblies = true,
             VisibleForParts = true,
             OnClick = () => System.Windows.MessageBox.Show("CreateCommandTab SelectedDisabled item clicked!"),
-            OnStateCheck = (args) => args.Result = CommandManagerItemState.SelectedDisabled
+            OnStateCheck = (args) => args.Result = CommandManagerItemState.SelectedDisabled,
         },
 
         new CommandManagerItem
@@ -254,7 +252,7 @@ public class MySolidDnaPlugin : SolidPlugIn
             VisibleForAssemblies = true,
             VisibleForParts = true,
             OnClick = () => System.Windows.MessageBox.Show("CreateCommandTab SelectedEnabled item clicked!"),
-            OnStateCheck = (args) => args.Result = CommandManagerItemState.SelectedEnabled
+            OnStateCheck = (args) => args.Result = CommandManagerItemState.SelectedEnabled,
         },
 
 
@@ -270,7 +268,7 @@ public class MySolidDnaPlugin : SolidPlugIn
             VisibleForAssemblies = true,
             VisibleForParts = true,
             OnClick = () => System.Windows.MessageBox.Show("CreateCommandTab Hidden item clicked!"),
-            OnStateCheck = (args) => args.Result = CommandManagerItemState.Hidden
+            OnStateCheck = (args) => args.Result = CommandManagerItemState.Hidden,
         },
 
         new CommandManagerItem
@@ -284,8 +282,8 @@ public class MySolidDnaPlugin : SolidPlugIn
             VisibleForParts = true,
             OnClick = () => mToggle = !mToggle,
             OnStateCheck = (args) =>
-                args.Result = mToggle ? CommandManagerItemState.SelectedEnabled : CommandManagerItemState.DeselectedEnabled
-        }
+                args.Result = mToggle ? CommandManagerItemState.SelectedEnabled : CommandManagerItemState.DeselectedEnabled,
+        },
     ];
 
     #endregion

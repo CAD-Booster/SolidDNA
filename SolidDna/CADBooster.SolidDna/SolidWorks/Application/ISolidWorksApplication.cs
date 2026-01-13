@@ -227,7 +227,8 @@ public interface ISolidWorksApplication : IDisposable
     /// <summary>
     /// Pops up a message box to the user with the given message
     /// </summary>
-    SolidWorksMessageBoxResult ShowMessageBox(string message, SolidWorksMessageBoxIcon icon = SolidWorksMessageBoxIcon.Information, SolidWorksMessageBoxButtons buttons = SolidWorksMessageBoxButtons.Ok);
+    SolidWorksMessageBoxResult ShowMessageBox(string message, SolidWorksMessageBoxIcon icon = SolidWorksMessageBoxIcon.Information,
+        SolidWorksMessageBoxButtons buttons = SolidWorksMessageBoxButtons.Ok);
 
     #endregion
 }

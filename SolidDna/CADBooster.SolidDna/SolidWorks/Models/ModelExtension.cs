@@ -1,4 +1,4 @@
-﻿using SolidWorks.Interop.sldworks;
+using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
 using System;
 
@@ -78,22 +78,23 @@ public class ModelExtension : SolidDnaObject<ModelDocExtension>
                 double[] massPropertiesArray;
 
                 if (solidWorksVersion == null || solidWorksVersion.Version < 2016)
-                    massPropertiesArray = (double[])BaseObject.GetMassProperties(highestAccuracy, ref status);
+                    massPropertiesArray = (double[]) BaseObject.GetMassProperties(highestAccuracy, ref status);
                 else
                 {
                     // SolidWorks 2016 introduced GetMassProperties2
-                    massPropertiesArray = (double[])BaseObject.GetMassProperties2(highestAccuracy, out status, false);
+                    massPropertiesArray = (double[]) BaseObject.GetMassProperties2(highestAccuracy, out status, false);
                 }
 
                 // Make sure it succeeded. SOLIDWORKS does not always update the status when it returns null
-                if (status == (int)swMassPropertiesStatus_e.swMassPropertiesStatus_UnknownError || status == statusDefault)
+                if (status == (int) swMassPropertiesStatus_e.swMassPropertiesStatus_UnknownError || status == statusDefault)
                 {
                     return doNotThrowOnError
                         ? new MassProperties()
                         : throw new InvalidOperationException(Localization.GetString("SolidWorksModelGetMassModelStatusFailed"));
                 }
+
                 // If we have no mass, return empty
-                if (status == (int)swMassPropertiesStatus_e.swMassPropertiesStatus_NoBody)
+                if (status == (int) swMassPropertiesStatus_e.swMassPropertiesStatus_NoBody)
                     return new MassProperties();
 
                 // Otherwise we have the properties so return them
@@ -107,6 +108,7 @@ public class ModelExtension : SolidDnaObject<ModelDocExtension>
 
     #region Dispose
 
+    /// <inheritdoc />
     public override void Dispose()
     {
         // Clear reference to be safe

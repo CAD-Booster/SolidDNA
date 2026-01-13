@@ -55,7 +55,7 @@ public class TaskpaneIntegration : ISwAddin
     public bool ConnectToSW(object solidWorksApplication, int cookie)
     {
         // Store a reference to the current SolidWorks instance
-        mSolidWorksApplication = (SldWorks)solidWorksApplication;
+        mSolidWorksApplication = (SldWorks) solidWorksApplication;
 
         // Store cookie Id
         mSwCookie = cookie;
@@ -99,7 +99,7 @@ public class TaskpaneIntegration : ISwAddin
         mTaskpaneView = mSolidWorksApplication.CreateTaskpaneView2(imagePath, "Woo! My first SwAddin");
 
         // Load our UI into the taskpane
-        mTaskpaneHost = (TaskpaneHostUI)mTaskpaneView.AddControl(TaskpaneIntegration.SWTASKPANE_PROGID, string.Empty);
+        mTaskpaneHost = (TaskpaneHostUI) mTaskpaneView.AddControl(SWTASKPANE_PROGID, string.Empty);
     }
 
     /// <summary>
@@ -152,7 +152,6 @@ public class TaskpaneIntegration : ISwAddin
 
         // Remove our registry entry
         Microsoft.Win32.Registry.LocalMachine.DeleteSubKeyTree(keyPath);
-
     }
 
     #endregion

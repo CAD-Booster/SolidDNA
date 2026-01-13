@@ -14,7 +14,6 @@ public class FeatureScaleData : SolidDnaObject<IScaleFeatureData>
     /// </summary>
     public FeatureScaleData(IScaleFeatureData model) : base(model)
     {
-
     }
 
     #endregion

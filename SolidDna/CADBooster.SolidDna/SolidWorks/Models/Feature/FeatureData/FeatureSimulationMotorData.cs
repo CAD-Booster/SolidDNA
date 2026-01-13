@@ -14,7 +14,6 @@ public class FeatureSimulationMotorData : SolidDnaObject<ISimulationMotorFeature
     /// </summary>
     public FeatureSimulationMotorData(ISimulationMotorFeatureData model) : base(model)
     {
-
     }
 
     #endregion

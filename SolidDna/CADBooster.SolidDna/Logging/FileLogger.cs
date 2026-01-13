@@ -75,21 +75,14 @@ public class FileLogger : ILogger
     /// <typeparam name="TState"></typeparam>
     /// <param name="state"></param>
     /// <returns></returns>
-    public IDisposable BeginScope<TState>(TState state)
-    {
-        return null;
-    }
+    public IDisposable BeginScope<TState>(TState state) => null;
 
     /// <summary>
     /// Enabled if the log level is the same or greater than the configuration
     /// </summary>
     /// <param name="logLevel">The log level to check against</param>
     /// <returns></returns>
-    public bool IsEnabled(LogLevel logLevel)
-    {
-        // Enabled if the log level is greater or equal to what we want to log
-        return logLevel >= mConfiguration.LogLevel;
-    }
+    public bool IsEnabled(LogLevel logLevel) => logLevel >= mConfiguration.LogLevel; // Enabled if the log level is greater or equal to what we want to log
 
     /// <summary>
     /// Logs the message to file
@@ -130,10 +123,8 @@ public class FileLogger : ILogger
 
         // Double safety even though the FileLocks should be thread safe
         lock (FileLockLock)
-        {
             // Get the file lock based on the absolute path
             fileLock = FileLocks.GetOrAdd(normalizedPath, path => new object());
-        }
 
         // Lock the file
         lock (fileLock)

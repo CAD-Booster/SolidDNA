@@ -14,7 +14,6 @@ public class FeatureMirrorPatternData : SolidDnaObject<IMirrorPatternFeatureData
     /// </summary>
     public FeatureMirrorPatternData(IMirrorPatternFeatureData model) : base(model)
     {
-
     }
 
     #endregion

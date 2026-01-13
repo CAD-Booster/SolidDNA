@@ -19,7 +19,6 @@ public class SharedSolidDnaObject<T> : SolidDnaObject<T>, ISharedSolidDnaObject<
     /// <param name="comObject">The COM object to wrap</param>
     public SharedSolidDnaObject(T comObject) : base(comObject)
     {
-
     }
 
     #endregion

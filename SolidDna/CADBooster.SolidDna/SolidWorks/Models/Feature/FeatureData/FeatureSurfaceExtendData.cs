@@ -14,7 +14,6 @@ public class FeatureSurfaceExtendData : SolidDnaObject<ISurfaceExtendFeatureData
     /// </summary>
     public FeatureSurfaceExtendData(ISurfaceExtendFeatureData model) : base(model)
     {
-
     }
 
     #endregion

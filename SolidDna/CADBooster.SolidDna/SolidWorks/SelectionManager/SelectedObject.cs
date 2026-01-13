@@ -61,7 +61,6 @@ public class SelectedObject : SolidDnaObject<object>, ISelectedObject
     [Obsolete("Use the constructor with selected object and type instead")]
     public SelectedObject(object selectedObject) : base(selectedObject)
     {
-            
     }
 
     /// <summary>
@@ -87,7 +86,7 @@ public class SelectedObject : SolidDnaObject<object>, ISelectedObject
         SolidDnaErrors.Wrap(() =>
             {
                 // Create feature
-                using var model = new ModelFeature((Feature)BaseObject);
+                using var model = new ModelFeature((Feature) BaseObject);
                 // Run action
                 action(model);
             },
@@ -106,7 +105,7 @@ public class SelectedObject : SolidDnaObject<object>, ISelectedObject
         SolidDnaErrors.Wrap(() =>
             {
                 // Create feature
-                using var model = new ModelDisplayDimension((IDisplayDimension)BaseObject);
+                using var model = new ModelDisplayDimension((IDisplayDimension) BaseObject);
                 // Run action
                 action(model);
             },

@@ -47,8 +47,5 @@ public class Material
     /// Show nice string for debugging purposes
     /// </summary>
     /// <returns></returns>
-    public override string ToString()
-    {
-        return $"{Name} ({Classification}) [{DatabasePathOrFilename}]";
-    }
+    public override string ToString() => $"{Name} ({Classification}) [{DatabasePathOrFilename}]";
 }

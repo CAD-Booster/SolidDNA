@@ -16,5 +16,5 @@ public enum AttachAnnotationOption
     /// <summary>
     /// Attaches the selected annotation to the view
     /// </summary>
-    View = 2
+    View = 2,
 }

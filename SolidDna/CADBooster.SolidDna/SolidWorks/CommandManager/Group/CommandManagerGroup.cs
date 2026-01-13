@@ -52,7 +52,7 @@ public class CommandManagerGroup : SolidDnaObject<ICommandGroup>
     /// <summary>
     /// The type of documents to show this command group in as a menu
     /// </summary>
-    public ModelTemplateType MenuVisibleInDocumentTypes => (ModelTemplateType)BaseObject.ShowInDocumentType;
+    public ModelTemplateType MenuVisibleInDocumentTypes => (ModelTemplateType) BaseObject.ShowInDocumentType;
 
     /// <summary>
     /// The tooltip of this command group
@@ -84,7 +84,7 @@ public class CommandManagerGroup : SolidDnaObject<ICommandGroup>
 
         // Set items
         Items = items;
-            
+
         // Set tooltip
         Tooltip = tooltip;
 
@@ -166,7 +166,7 @@ public class CommandManagerGroup : SolidDnaObject<ICommandGroup>
             ModelType.Part => itemsForAllModelTypes.Where(f => f.VisibleForParts).ToList(),
             ModelType.Assembly => itemsForAllModelTypes.Where(f => f.VisibleForAssemblies).ToList(),
             ModelType.Drawing => itemsForAllModelTypes.Where(f => f.VisibleForDrawings).ToList(),
-            _ => throw new ArgumentException("Invalid model type for command manager items")
+            _ => throw new ArgumentException("Invalid model type for command manager items"),
         };
     }
 
@@ -183,14 +183,16 @@ public class CommandManagerGroup : SolidDnaObject<ICommandGroup>
         {
             // Add the item. We pass a preferred position for each item and receive the actual position back.
             var actualPosition = BaseObject.AddCommandItem2(item.Name, item.Position, item.Hint, item.Tooltip, item.ImageIndex,
-                $"{nameof(SolidAddIn.Callback)}({item.CallbackId})", 
-                $"{nameof(SolidAddIn.ItemStateCheck)}({item.CallbackId})", 
-                UserId, (int)item.ItemType);
-                
+                $"{nameof(SolidAddIn.Callback)}({item.CallbackId})",
+                $"{nameof(SolidAddIn.ItemStateCheck)}({item.CallbackId})",
+                UserId, (int) item.ItemType);
+
             // If the returned position is -1, the item was not added.
             if (actualPosition == -1)
+            {
                 throw new SolidDnaException(SolidDnaErrors.CreateError(SolidDnaErrorTypeCode.SolidWorksCommandManager,
                     SolidDnaErrorCode.SolidWorksCommandItemPositionError, "Can be caused by setting the image indexes wrong."));
+            }
 
             // Store the actual position we receive. It's more an ID than it is a position because flyouts and separators are not counted.
             // If we have multiple items and, for example, set each position at the default -1, we receive sequential numbers, starting at 0.
@@ -260,7 +262,7 @@ public class CommandManagerGroup : SolidDnaObject<ICommandGroup>
 
         // Convert the list of TabData to arrays of ids and styles
         var ids = tabItemData.Select(tabData => tabData.Id).ToArray();
-        var styles = tabItemData.Select(tabData => (int)tabData.Style).ToArray();
+        var styles = tabItemData.Select(tabData => (int) tabData.Style).ToArray();
 
         // Add the items to the new tab box
         tabBox.AddCommands(ids, styles);
@@ -277,7 +279,7 @@ public class CommandManagerGroup : SolidDnaObject<ICommandGroup>
     private static List<List<ICommandManagerItem>> GetSplitListsAtSeparator(List<ICommandManagerItem> items)
     {
         var currentList = new List<ICommandManagerItem>();
-        var results = new List<List<ICommandManagerItem>> { currentList };  // Always add the first list
+        var results = new List<List<ICommandManagerItem>> { currentList }; // Always add the first list
 
         // Loop through each item in the original list.
         foreach (var item in items)
@@ -301,7 +303,7 @@ public class CommandManagerGroup : SolidDnaObject<ICommandGroup>
                 currentList.Add(item);
             }
         }
-            
+
         // Remove empty lists. If we don't do this, the first list is empty when Items is empty.
         return results.Where(x => x.Any()).ToList();
     }

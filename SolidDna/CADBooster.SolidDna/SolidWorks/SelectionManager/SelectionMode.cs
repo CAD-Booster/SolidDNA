@@ -15,5 +15,5 @@ public enum SelectionMode
     /// Adds to the current selection while keeping existing selected items. The new selection will be combined with the current selection.
     /// Same as append = true.
     /// </summary>
-    Append
+    Append,
 }

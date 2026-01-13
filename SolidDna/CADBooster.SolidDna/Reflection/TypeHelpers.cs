@@ -14,8 +14,5 @@ public static class TypeHelpers
     /// <typeparam name="T">The interface to check</typeparam>
     /// <param name="type">The type to check if it is or inherits the interface</param>
     /// <returns></returns>
-    public static bool IsInterfaceOrHasInterface<T>(this Type type)
-    {
-        return type == typeof(T) || type.GetInterfaces().Contains(typeof(T));
-    }
+    public static bool IsInterfaceOrHasInterface<T>(this Type type) => type == typeof(T) || type.GetInterfaces().Contains(typeof(T));
 }

@@ -18,7 +18,7 @@ public class PlugInIntegration
     /// The add-in that owns this plugin integration.
     /// </summary>
     public SolidAddIn ParentAddIn { get; set; }
-        
+
     /// <summary>
     /// A list of assembly paths that contain plug-ins that have been added to be loaded. 
     /// Contains the absolute file paths of all DLLs that contain at least one <see cref="SolidPlugIn"/>.
@@ -139,18 +139,17 @@ public class PlugInIntegration
         try
         {
             // Create a new arguments object so we can return a value from only the relevant command manager item or flyout.
-            var args = new CommandManagerItemStateCheckArgs(callbackId); 
+            var args = new CommandManagerItemStateCheckArgs(callbackId);
 
             // Inform listeners
             ItemStateCheckFired(args);
 
             if (args.Result != CommandManagerItemState.DeselectedEnabled)
             {
-
             }
 
             // Pass the result on to SolidWorks
-            return (int)args.Result;
+            return (int) args.Result;
         }
         catch (Exception ex)
         {
@@ -158,7 +157,7 @@ public class PlugInIntegration
 
             // Log it
             Logger.LogCriticalSource($"{nameof(OnItemStateCheck)} failed. {ex.GetErrorMessage()}");
-            return (int)CommandManagerItemState.DeselectedEnabled;
+            return (int) CommandManagerItemState.DeselectedEnabled;
         }
     }
 
@@ -239,6 +238,7 @@ public class PlugInIntegration
 
             // Add new based on if found
             foreach (var path in Directory.GetFiles(addinPath, "*.dll", SearchOption.TopDirectoryOnly))
+            {
                 GetPlugIns(path, (plugin) =>
                 {
                     // Log it
@@ -246,6 +246,7 @@ public class PlugInIntegration
 
                     plugIns.Add(plugin);
                 });
+            }
         }
         // Or load explicit ones
         else
@@ -299,7 +300,7 @@ public class PlugInIntegration
         // If we didn't succeed, ignore
         if (assembly == null)
             return;
-            
+
         // Find all types in an assembly. Catch assemblies that don't allow this.
         Type[] types;
         try

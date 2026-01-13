@@ -12,9 +12,9 @@ public enum ComponentTypes
     /// Component is a part
     /// </summary>
     Part = 1,
-        
+
     /// <summary>
     /// Component is a sub-assembly
     /// </summary>
-    Assembly =2,
+    Assembly = 2,
 }

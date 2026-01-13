@@ -14,7 +14,6 @@ public class FeatureCompositeCurveData : SolidDnaObject<ICompositeCurveFeatureDa
     /// </summary>
     public FeatureCompositeCurveData(ICompositeCurveFeatureData model) : base(model)
     {
-
     }
 
     #endregion

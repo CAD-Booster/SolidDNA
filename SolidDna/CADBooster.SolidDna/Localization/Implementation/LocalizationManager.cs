@@ -5,16 +5,25 @@ using System.Threading.Tasks;
 namespace CADBooster.SolidDna;
 
 /// <summary>
-/// A resource manager that supports cross-platform localization
+/// A resource manager that supports cross-platform localization.
 /// </summary>
 public class LocalizationManager : ILocalizationManager
 {
     #region Public Properties
 
+    /// <summary>
+    /// The default culture to use if none is specified.
+    /// </summary>
     public string DefaultCulture { get; set; }
 
+    /// <summary>
+    /// The resource definition for string resources.
+    /// </summary>
     public ResourceDefinition StringResourceDefinition { get; set; }
 
+    /// <summary>
+    /// The list of resource format providers to use.
+    /// </summary>
     public List<IResourceFormatProvider> Providers { get; set; }
 
     #endregion

@@ -14,7 +14,6 @@ public class FeatureMacroData : SolidDnaObject<IMacroFeatureData>
     /// </summary>
     public FeatureMacroData(IMacroFeatureData model) : base(model)
     {
-
     }
 
     #endregion

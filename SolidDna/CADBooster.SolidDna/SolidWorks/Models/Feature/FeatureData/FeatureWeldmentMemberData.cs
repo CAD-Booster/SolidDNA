@@ -14,7 +14,6 @@ public class FeatureWeldmentMemberData : SolidDnaObject<IStructuralMemberFeature
     /// </summary>
     public FeatureWeldmentMemberData(IStructuralMemberFeatureData model) : base(model)
     {
-
     }
 
     #endregion

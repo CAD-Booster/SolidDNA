@@ -14,7 +14,6 @@ public class FeatureRibData : SolidDnaObject<IRibFeatureData2>
     /// </summary>
     public FeatureRibData(IRibFeatureData2 model) : base(model)
     {
-
     }
 
     #endregion

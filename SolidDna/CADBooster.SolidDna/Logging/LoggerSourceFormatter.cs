@@ -17,10 +17,10 @@ public static class LoggerSourceFormatter
     public static string Format(object[] state, Exception exception)
     {
         // Get the values from the state
-        var origin = (string)state[0];
-        var filePath = (string)state[1];
-        var lineNumber = (int)state[2];
-        var message = (string)state[3];
+        var origin = (string) state[0];
+        var filePath = (string) state[1];
+        var lineNumber = (int) state[2];
+        var message = (string) state[3];
 
         // Get any exception message
         var exceptionMessage = exception?.ToString();

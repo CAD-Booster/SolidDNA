@@ -14,7 +14,6 @@ public class FeaturePerpendicularMateData : SolidDnaObject<IPerpendicularMateFea
     /// </summary>
     public FeaturePerpendicularMateData(IPerpendicularMateFeatureData model) : base(model)
     {
-
     }
 
     #endregion

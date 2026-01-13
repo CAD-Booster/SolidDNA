@@ -14,7 +14,6 @@ public class FeatureBoundingBoxData : SolidDnaObject<IBoundingBoxFeatureData>
     /// </summary>
     public FeatureBoundingBoxData(IBoundingBoxFeatureData model) : base(model)
     {
-
     }
 
     #endregion

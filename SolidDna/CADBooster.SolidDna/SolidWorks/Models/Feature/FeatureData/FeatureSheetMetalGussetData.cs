@@ -14,7 +14,6 @@ public class FeatureSheetMetalGussetData : SolidDnaObject<ISMGussetFeatureData>
     /// </summary>
     public FeatureSheetMetalGussetData(ISMGussetFeatureData model) : base(model)
     {
-
     }
 
     #endregion

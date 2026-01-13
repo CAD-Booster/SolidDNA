@@ -2,6 +2,9 @@
 
 namespace CADBooster.SolidDna;
 
+/// <summary>
+/// A menu item that can be added to a toolbar or Tools menu using the command manager.
+/// </summary>
 public interface ICommandManagerItem
 {
     /// <summary>

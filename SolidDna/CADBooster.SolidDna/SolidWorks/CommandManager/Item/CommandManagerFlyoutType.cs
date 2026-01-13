@@ -22,5 +22,5 @@ public enum CommandManagerFlyoutType
     /// The item you clicked last is visible. If you click the icon, it executes that item.
     /// If you click the arrow, the flyout expands.
     /// </summary>
-    LastUsedItemVisible = 2
+    LastUsedItemVisible = 2,
 }

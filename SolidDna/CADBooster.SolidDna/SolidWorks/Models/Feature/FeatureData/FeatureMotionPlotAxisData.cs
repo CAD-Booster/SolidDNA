@@ -14,7 +14,6 @@ public class FeatureMotionPlotAxisData : SolidDnaObject<IMotionPlotAxisFeatureDa
     /// </summary>
     public FeatureMotionPlotAxisData(IMotionPlotAxisFeatureData model) : base(model)
     {
-
     }
 
     #endregion

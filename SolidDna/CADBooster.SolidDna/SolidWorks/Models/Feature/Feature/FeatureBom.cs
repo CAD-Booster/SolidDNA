@@ -14,7 +14,6 @@ public class FeatureBom : SolidDnaObject<IBomFeature>
     /// </summary>
     public FeatureBom(IBomFeature model) : base(model)
     {
-
     }
 
     #endregion

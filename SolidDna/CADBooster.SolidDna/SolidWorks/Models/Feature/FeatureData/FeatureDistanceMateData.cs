@@ -14,7 +14,6 @@ public class FeatureDistanceMateData : SolidDnaObject<IDistanceMateFeatureData>
     /// </summary>
     public FeatureDistanceMateData(IDistanceMateFeatureData model) : base(model)
     {
-
     }
 
     #endregion

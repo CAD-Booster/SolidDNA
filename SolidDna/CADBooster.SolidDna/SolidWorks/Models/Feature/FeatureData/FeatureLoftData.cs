@@ -14,7 +14,6 @@ public class FeatureLoftData : SolidDnaObject<ILoftFeatureData>
     /// </summary>
     public FeatureLoftData(ILoftFeatureData model) : base(model)
     {
-
     }
 
     #endregion

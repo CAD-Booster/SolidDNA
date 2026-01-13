@@ -14,7 +14,6 @@ public class FeatureHealEdgesData : SolidDnaObject<IHealEdgesFeatureData>
     /// </summary>
     public FeatureHealEdgesData(IHealEdgesFeatureData model) : base(model)
     {
-
     }
 
     #endregion

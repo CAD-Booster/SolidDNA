@@ -14,7 +14,6 @@ public class FeatureAdvancedHoleWizardData : SolidDnaObject<IAdvancedHoleFeature
     /// </summary>
     public FeatureAdvancedHoleWizardData(IAdvancedHoleFeatureData model) : base(model)
     {
-
     }
 
     #endregion

@@ -14,7 +14,6 @@ public class FeatureMiterFlangeData : SolidDnaObject<IMiterFlangeFeatureData>
     /// </summary>
     public FeatureMiterFlangeData(IMiterFlangeFeatureData model) : base(model)
     {
-
     }
 
     #endregion

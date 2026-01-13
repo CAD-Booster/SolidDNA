@@ -18,7 +18,7 @@ public partial class TaskpaneUserControlHost : UserControl, ITaskpaneControl
 
     #region Public Properties
 
-    public string ProgId { get { return MyProgId; } }
+    public string ProgId => MyProgId;
 
     #endregion
 }

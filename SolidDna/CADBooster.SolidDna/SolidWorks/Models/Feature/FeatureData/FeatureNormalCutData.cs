@@ -14,7 +14,6 @@ public class FeatureNormalCutData : SolidDnaObject<ISMNormalCutFeatureData2>
     /// </summary>
     public FeatureNormalCutData(ISMNormalCutFeatureData2 model) : base(model)
     {
-
     }
 
     #endregion

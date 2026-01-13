@@ -14,7 +14,6 @@ public class FeatureSurfaceExtrudeData : SolidDnaObject<ISurfExtrudeFeatureData>
     /// </summary>
     public FeatureSurfaceExtrudeData(ISurfExtrudeFeatureData model) : base(model)
     {
-
     }
 
     #endregion

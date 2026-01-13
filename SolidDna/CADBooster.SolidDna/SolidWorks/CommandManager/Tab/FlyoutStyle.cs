@@ -47,5 +47,5 @@ public enum CommandManagerFlyoutStyle
     /// Sets style to have an action flyout. Represents the <see cref="swCommandTabButtonFlyoutStyle_e.swCommandTabButton_ActionFlyout"/>
     /// When we combine this value with <see cref="CommandManagerFlyout.TabView"/> to create <see cref="TabItemData.Style"/>, there are no visible changes.
     /// </summary>
-    ActionFlyout = 32
+    ActionFlyout = 32,
 }

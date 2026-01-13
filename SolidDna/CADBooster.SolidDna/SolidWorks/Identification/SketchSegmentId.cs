@@ -53,17 +53,17 @@ public class SketchSegmentId
         Id1 = ids[1];
 
         // Get the sketch name by casting the sketch to a Feature first
-        SketchName = ((Feature)sketchSegment.GetSketch()).Name;
+        SketchName = ((Feature) sketchSegment.GetSketch()).Name;
 
         // Get the sketch segment type
-        Type = (SketchSegmentType)sketchSegment.GetType();
+        Type = (SketchSegmentType) sketchSegment.GetType();
     }
 
     #endregion
 
     #region Equals, GetHashCode and ToString
 
-    // Inheritdoc
+    /// <Inheritdoc />
     public override string ToString() => $"Sketch segment ID {SketchName}-{Type}-{Id0}-{Id1}";
 
     /// <summary>
@@ -71,21 +71,19 @@ public class SketchSegmentId
     /// </summary>
     /// <param name="otherId"></param>
     /// <returns></returns>
-    public bool Equals(SketchSegmentId otherId)
-    {
-        return SketchName.Equals(otherId.SketchName, StringComparison.InvariantCultureIgnoreCase) && Id0 == otherId.Id0 && Id1 == otherId.Id1 && Type == otherId.Type;
-    }
+    public bool Equals(SketchSegmentId otherId) =>
+        SketchName.Equals(otherId.SketchName, StringComparison.InvariantCultureIgnoreCase) && Id0 == otherId.Id0 && Id1 == otherId.Id1 && Type == otherId.Type;
 
-    // Inheritdoc
+    /// <Inheritdoc />
     public override bool Equals(object obj)
     {
         if (obj == null || obj.GetType() != typeof(SketchSegmentId))
             return false;
 
-        return Equals((SketchSegmentId)obj);
+        return Equals((SketchSegmentId) obj);
     }
 
-    // Inheritdoc
+    /// <Inheritdoc />
     public override int GetHashCode()
     {
         unchecked
@@ -93,7 +91,7 @@ public class SketchSegmentId
             var hashCode = SketchName != null ? SketchName.GetHashCode() : 0;
             hashCode = (hashCode * 397) ^ Id0.GetHashCode();
             hashCode = (hashCode * 397) ^ Id1.GetHashCode();
-            hashCode = (hashCode * 397) ^ (int)Type;
+            hashCode = (hashCode * 397) ^ (int) Type;
             return hashCode;
         }
     }
@@ -113,12 +111,12 @@ public class SketchSegmentId
         try
         {
             // Try getting the IDs as integers first, the convert them to longs
-            return ((int[])sketchSegment.GetID()).Select(Convert.ToInt64).ToList();
+            return ((int[]) sketchSegment.GetID()).Select(Convert.ToInt64).ToList();
         }
         catch (Exception)
         {
             // If that fails, try getting them as longs directly
-            return ((long[])sketchSegment.GetID()).ToList();
+            return ((long[]) sketchSegment.GetID()).ToList();
         }
     }
 

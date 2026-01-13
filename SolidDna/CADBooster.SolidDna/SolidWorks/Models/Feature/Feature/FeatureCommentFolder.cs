@@ -14,7 +14,6 @@ public class FeatureCommentFolder : SolidDnaObject<ICommentFolder>
     /// </summary>
     public FeatureCommentFolder(ICommentFolder model) : base(model)
     {
-
     }
 
     #endregion

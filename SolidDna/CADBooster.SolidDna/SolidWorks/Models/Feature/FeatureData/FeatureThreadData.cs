@@ -14,7 +14,6 @@ public class FeatureThreadData : SolidDnaObject<IThreadFeatureData>
     /// </summary>
     public FeatureThreadData(IThreadFeatureData model) : base(model)
     {
-
     }
 
     #endregion

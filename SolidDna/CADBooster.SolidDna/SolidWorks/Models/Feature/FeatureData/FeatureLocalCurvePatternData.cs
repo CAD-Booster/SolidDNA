@@ -14,7 +14,6 @@ public class FeatureLocalCurvePatternData : SolidDnaObject<ILocalCurvePatternFea
     /// </summary>
     public FeatureLocalCurvePatternData(ILocalCurvePatternFeatureData model) : base(model)
     {
-
     }
 
     #endregion

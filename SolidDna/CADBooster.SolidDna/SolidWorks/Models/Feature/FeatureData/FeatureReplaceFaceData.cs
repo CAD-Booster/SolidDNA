@@ -14,7 +14,6 @@ public class FeatureReplaceFaceData : SolidDnaObject<IReplaceFaceFeatureData>
     /// </summary>
     public FeatureReplaceFaceData(IReplaceFaceFeatureData model) : base(model)
     {
-
     }
 
     #endregion

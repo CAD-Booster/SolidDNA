@@ -14,7 +14,6 @@ public class FeatureIntersectData : SolidDnaObject<IIntersectFeatureData>
     /// </summary>
     public FeatureIntersectData(IIntersectFeatureData model) : base(model)
     {
-
     }
 
     #endregion

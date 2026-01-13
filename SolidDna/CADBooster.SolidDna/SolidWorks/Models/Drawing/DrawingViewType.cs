@@ -1,5 +1,8 @@
 ﻿namespace CADBooster.SolidDna;
 
+/// <summary>
+/// The type of drawing view
+/// </summary>
 public enum DrawingViewType
 {
     /// <summary>
@@ -55,5 +58,5 @@ public enum DrawingViewType
     /// <summary>
     /// Alternate position view
     /// </summary>
-    AlternatePositionView = 10
+    AlternatePositionView = 10,
 }

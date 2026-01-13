@@ -32,5 +32,5 @@ public enum SaveAsVersion
     /// <summary>
     /// Saves a standard drawing as a detached drawing
     /// </summary>
-    DetachedDrawing = 4
+    DetachedDrawing = 4,
 }

@@ -1,4 +1,4 @@
-﻿using SolidWorks.Interop.sldworks;
+using SolidWorks.Interop.sldworks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +6,9 @@ using System.Runtime.InteropServices;
 
 namespace CADBooster.SolidDna;
 
+/// <summary>
+/// Static class that handles integration between multiple add-ins and the SolidWorks application instance.
+/// </summary>
 public static class AddInIntegration
 {
     #region Public Properties
@@ -38,7 +41,7 @@ public static class AddInIntegration
         try
         {
             // Try and get the active SolidWorks instance
-            SolidWorks = new SolidWorksApplication((SldWorks)Marshal.GetActiveObject("SldWorks.Application"), 0);
+            SolidWorks = new SolidWorksApplication((SldWorks) Marshal.GetActiveObject("SldWorks.Application"), 0);
 
             // Log it
             Logger.LogDebugSource($"Acquired active instance SolidWorks in Stand-Alone mode");
@@ -78,9 +81,9 @@ public static class AddInIntegration
         {
             // Get the ProgId, the name of the application including the version number
             var progId = GetProgId(version);
-                
+
             // Initialize SolidWorks (SolidDNA class)
-            SolidWorks = new SolidWorksApplication((SldWorks)Activator.CreateInstance(Type.GetTypeFromProgID(progId)), cookie);
+            SolidWorks = new SolidWorksApplication((SldWorks) Activator.CreateInstance(Type.GetTypeFromProgID(progId)), cookie);
 
             // Log it
             Logger.LogDebugSource($"SolidWorks Instance Created? {SolidWorks != null}");
@@ -117,10 +120,7 @@ public static class AddInIntegration
     /// Add a newly loaded add-in to the list of active ones.
     /// </summary>
     /// <param name="addIn"></param>
-    public static void AddAddIn(SolidAddIn addIn)
-    {
-        ActiveAddIns.Add(addIn);
-    }
+    public static void AddAddIn(SolidAddIn addIn) => ActiveAddIns.Add(addIn);
 
     /// <summary>
     /// Remove an unloaded add-in from the list of active ones.
@@ -140,11 +140,7 @@ public static class AddInIntegration
     /// </summary>
     /// <param name="type">The type of the add-in that contains the new taskpane</param>
     /// <returns>Returns the first add-in with the requested name or null.</returns>
-    public static SolidAddIn GetAddInWithType(Type type)
-    {
-        // Get the first add-in of this type. Is null when not found.
-        return ActiveAddIns.FirstOrDefault(x => x.GetType() == type);
-    }
+    public static SolidAddIn GetAddInWithType(Type type) => ActiveAddIns.FirstOrDefault(x => x.GetType() == type); // Get the first add-in of this type. Is null when not found.
 
     #endregion
 

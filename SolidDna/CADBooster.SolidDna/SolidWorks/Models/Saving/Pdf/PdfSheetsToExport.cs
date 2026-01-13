@@ -18,5 +18,5 @@ public enum PdfSheetsToExport
     /// <summary>
     /// Exports the sheets specified in the sheets array
     /// </summary>
-    ExportSpecifiedSheets = 3
+    ExportSpecifiedSheets = 3,
 }

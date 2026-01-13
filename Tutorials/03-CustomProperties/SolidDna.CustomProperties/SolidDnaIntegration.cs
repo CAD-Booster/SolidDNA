@@ -7,32 +7,31 @@ namespace SolidDna.CustomProperties;
 /// <summary>
 /// Register as a SolidWorks Add-in
 /// </summary>
-[Guid("1010E01C-C249-421B-9B96-D0849CBCB03B"), ComVisible(true)]  // Replace the GUID with your own.
+[Guid("1010E01C-C249-421B-9B96-D0849CBCB03B")] // Replace the GUID with your own.
+[ComVisible(true)]
 public class SolidDnaAddInIntegration : SolidAddIn
 {
     // <Inheritdoc />
     public override void PreConnectToSolidWorks()
     {
-
     }
 
     // <Inheritdoc />
     public override void PreLoadPlugIns()
     {
-
     }
 
     // <Inheritdoc />
     public override void ApplicationStartup()
     {
-
     }
 }
 
 /// <summary>
 /// Register as SolidDna Plugin
 /// </summary>
-[Guid("38BBAACF-95B0-4831-A48A-6C4EE0682B33"), ComVisible(true)]  // Replace the GUID with your own.
+[Guid("38BBAACF-95B0-4831-A48A-6C4EE0682B33")] // Replace the GUID with your own.
+[ComVisible(true)]
 public class CustomPropertiesSolidDnaPlugin : SolidPlugIn
 {
     #region Private Members
@@ -63,11 +62,7 @@ public class CustomPropertiesSolidDnaPlugin : SolidPlugIn
     public override void ConnectedToSolidWorks()
     {
         // Create our taskpane
-        mTaskpane = new TaskpaneIntegration<TaskpaneUserControlHost, SolidDnaAddInIntegration>
-        {
-            Icon = Path.Combine(this.AssemblyPath(), "logo-small.bmp"),
-            WpfControl = new CustomPropertiesUI()
-        };
+        mTaskpane = new TaskpaneIntegration<TaskpaneUserControlHost, SolidDnaAddInIntegration> { Icon = Path.Combine(this.AssemblyPath(), "logo-small.bmp"), WpfControl = new CustomPropertiesUI() };
 
         // Add to taskpane
         mTaskpane.AddToTaskpaneAsync();
@@ -75,7 +70,6 @@ public class CustomPropertiesSolidDnaPlugin : SolidPlugIn
 
     public override void DisconnectedFromSolidWorks()
     {
-
     }
 
     #endregion

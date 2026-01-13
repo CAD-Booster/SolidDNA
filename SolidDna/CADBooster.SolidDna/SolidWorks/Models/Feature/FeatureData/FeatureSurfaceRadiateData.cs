@@ -14,7 +14,6 @@ public class FeatureSurfaceRadiateData : SolidDnaObject<ISurfaceRadiateFeatureDa
     /// </summary>
     public FeatureSurfaceRadiateData(ISurfaceRadiateFeatureData model) : base(model)
     {
-
     }
 
     #endregion

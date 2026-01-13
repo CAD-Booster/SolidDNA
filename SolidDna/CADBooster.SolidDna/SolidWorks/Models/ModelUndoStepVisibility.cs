@@ -15,5 +15,5 @@ public enum ModelUndoStepVisibility
     /// <summary>
     /// Hide this step from the user
     /// </summary>
-    Hidden
+    Hidden,
 }

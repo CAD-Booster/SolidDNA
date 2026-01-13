@@ -14,7 +14,6 @@ public class FeatureSketchedBendData : SolidDnaObject<ISketchedBendFeatureData>
     /// </summary>
     public FeatureSketchedBendData(ISketchedBendFeatureData model) : base(model)
     {
-
     }
 
     #endregion

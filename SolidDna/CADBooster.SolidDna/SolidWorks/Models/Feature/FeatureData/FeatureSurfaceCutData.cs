@@ -14,7 +14,6 @@ public class FeatureSurfaceCutData : SolidDnaObject<ISurfaceCutFeatureData>
     /// </summary>
     public FeatureSurfaceCutData(ISurfaceCutFeatureData model) : base(model)
     {
-
     }
 
     #endregion

@@ -20,7 +20,7 @@ public class CommandManagerTab : SolidDnaObject<ICommandTab>
     /// Wrap a <see cref="ICommandTab"/> and create an empty list of <see cref="CommandManagerTabBox"/>es.
     /// </summary>
     public CommandManagerTab(ICommandTab tab) : base(tab) { }
-        
+
     /// <summary>
     /// Dispose the <see cref="ICommandTab"/> and all <see cref="CommandManagerTabBox"/>es.
     /// </summary>
@@ -28,7 +28,7 @@ public class CommandManagerTab : SolidDnaObject<ICommandTab>
     {
         foreach (var tabBox in TabBoxes)
             tabBox?.Dispose();
-            
+
         base.Dispose();
     }
 }

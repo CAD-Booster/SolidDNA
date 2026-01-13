@@ -14,7 +14,6 @@ public class FeatureProjectionCurveData : SolidDnaObject<IProjectionCurveFeature
     /// </summary>
     public FeatureProjectionCurveData(IProjectionCurveFeatureData model) : base(model)
     {
-            
     }
 
     #endregion

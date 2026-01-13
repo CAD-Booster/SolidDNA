@@ -27,12 +27,12 @@ public enum SelectionMark
     /// Mark the selected object with mark 2.
     /// </summary>
     Mark2 = 2,
-        
+
     /// <summary>
     /// Mark the selected object with mark 4.
     /// </summary>
     Mark4 = 4,
-        
+
     /// <summary>
     /// Mark the selected object with mark 8.
     /// </summary>

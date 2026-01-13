@@ -83,5 +83,5 @@ public enum SaveAsOptions
     /// <summary>
     /// Prune a SolidWorks file's revision history to just the current file name
     /// </summary>
-    IgnoreBiography = 256
+    IgnoreBiography = 256,
 }

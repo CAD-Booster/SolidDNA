@@ -33,7 +33,7 @@ public static class FileExporting
             return;
 
         // Now export as DXF
-        Application.ActiveModel.AsPart().ExportFlatPatternView(location, (int)swExportFlatPatternViewOptions_e.swExportFlatPatternOption_RemoveBends);
+        Application.ActiveModel.AsPart().ExportFlatPatternView(location, (int) swExportFlatPatternViewOptions_e.swExportFlatPatternOption_RemoveBends);
 
         // Tell user
         Application.ShowMessageBox("Successfully saved part as DXF");
@@ -98,7 +98,7 @@ public static class FileExporting
             return;
 
         // Get sheet names
-        var sheetNames = new List<string>((string[])Application.ActiveModel.AsDrawing().GetSheetNames());
+        var sheetNames = new List<string>((string[]) Application.ActiveModel.AsDrawing().GetSheetNames());
 
         // Set PDF sheet settings
         var exportData = new PdfExportData();
@@ -122,7 +122,7 @@ public static class FileExporting
     }
 
     #region Private Helpers
-        
+
     /// <summary>
     /// Asks the user for a save filename and location
     /// </summary>

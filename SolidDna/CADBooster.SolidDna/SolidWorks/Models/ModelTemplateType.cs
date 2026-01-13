@@ -32,5 +32,5 @@ public enum ModelTemplateType
     /// <summary>
     /// An in-context part is open
     /// </summary>
-    InContext = 16
+    InContext = 16,
 }

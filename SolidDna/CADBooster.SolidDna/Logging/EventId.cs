@@ -59,35 +59,23 @@ public readonly struct EventId
     public string Name { get; }
 
     /// <inheritdoc />
-    public override string ToString()
-    {
-        return Name ?? Id.ToString();
-    }
+    public override string ToString() => Name ?? Id.ToString();
 
     /// <summary>
     /// Indicates whether the current object is equal to another object of the same type. Two events are equal if they have the same id.
     /// </summary>
     /// <param name="other">An object to compare with this object.</param>
     /// <returns><see langword="true" /> if the current object is equal to the other parameter; otherwise, <see langword="false" />.</returns>
-    public bool Equals(EventId other)
-    {
-        return Id == other.Id;
-    }
+    public bool Equals(EventId other) => Id == other.Id;
 
     /// <inheritdoc />
     public override bool Equals(object obj)
     {
-        if (obj is null)
-        {
-            return false;
-        }
+        if (obj is null) return false;
 
         return obj is EventId eventId && Equals(eventId);
     }
 
     /// <inheritdoc />
-    public override int GetHashCode()
-    {
-        return Id;
-    }
+    public override int GetHashCode() => Id;
 }

@@ -14,7 +14,6 @@ public class FeatureCosmeticWeldBeadData : SolidDnaObject<ICosmeticWeldBeadFeatu
     /// </summary>
     public FeatureCosmeticWeldBeadData(ICosmeticWeldBeadFeatureData model) : base(model)
     {
-
     }
 
     #endregion

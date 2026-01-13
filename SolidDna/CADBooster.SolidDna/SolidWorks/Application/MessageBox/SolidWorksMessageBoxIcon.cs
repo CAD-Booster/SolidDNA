@@ -25,5 +25,5 @@ public enum SolidWorksMessageBoxIcon
     /// <summary>
     /// An exclamation icon
     /// </summary>
-    Stop = 4
+    Stop = 4,
 }

@@ -14,10 +14,7 @@ public static class AssemblyObjectExtensions
     /// </summary>
     /// <param name="self">An instance of the calling type</param>
     /// <returns></returns>
-    public static string AssemblyPath(this object self)
-    {
-        return Path.GetDirectoryName(self.AssemblyFilePath());
-    }
+    public static string AssemblyPath(this object self) => Path.GetDirectoryName(self.AssemblyFilePath());
 
     /// <summary>
     /// Gets the full path (including filename) of the physical file (typically .exe or .dll)
@@ -25,10 +22,7 @@ public static class AssemblyObjectExtensions
     /// </summary>
     /// <param name="self">An instance of the calling type</param>
     /// <returns></returns>
-    public static string AssemblyFilePath(this object self)
-    {
-        return self.GetType().Assembly.Location;
-    }
+    public static string AssemblyFilePath(this object self) => self.GetType().Assembly.Location;
 
     /// <summary>
     /// Gets the full path (including filename) of the physical file (typically .exe or .dll)
@@ -36,8 +30,5 @@ public static class AssemblyObjectExtensions
     /// </summary>
     /// <param name="type">A calling type</param>
     /// <returns></returns>
-    public static string AssemblyFilePath(this Type type)
-    {
-        return type.Assembly.Location;
-    }
+    public static string AssemblyFilePath(this Type type) => type.Assembly.Location;
 }

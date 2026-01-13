@@ -100,5 +100,5 @@ public enum SaveAsErrors
     /// <summary>
     /// Detached drawings are not supported
     /// </summary>
-    FileSaveAsDetachedDrawingsNotSupported = 16384
+    FileSaveAsDetachedDrawingsNotSupported = 16384,
 }

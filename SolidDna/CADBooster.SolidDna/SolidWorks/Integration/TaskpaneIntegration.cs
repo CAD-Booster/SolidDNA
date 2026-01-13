@@ -11,7 +11,7 @@ namespace CADBooster.SolidDna;
 /// IMPORTANT: It is required that the class overriding this only uses a parameterless constructor
 /// as it is created via Com so cannot have a parameter-based construction otherwise it won't load
 /// </summary>
-public class TaskpaneIntegration<THost, TParentAddIn> 
+public class TaskpaneIntegration<THost, TParentAddIn>
     where THost : ITaskpaneControl, new()
     where TParentAddIn : SolidAddIn, new()
 {
@@ -26,6 +26,12 @@ public class TaskpaneIntegration<THost, TParentAddIn>
     /// The host <see cref="ITaskpaneControl"/> control this taskpane will create
     /// </summary>
     protected ITaskpaneControl mHostControl;
+
+    /// <summary>
+    /// Cached and cast version of <see cref="mHostControl"/> to avoid repeated casts.
+    /// Added so we don't create a breaking change by changing the type of <see cref="mHostControl"/>.
+    /// </summary>
+    protected Control mHostControlCast;
 
     /// <summary>
     /// The host control that hosts the WPF control
@@ -65,7 +71,7 @@ public class TaskpaneIntegration<THost, TParentAddIn>
     /// The WPF user control to inject as the main control inside the <see cref="ITaskpaneControl"/> control
     /// Leave as null to ignore
     /// 
-    /// NOTE: If using this control, the <see cref="THost"/> must be of type <see cref="IContainerControl"/>
+    /// NOTE: If using this control, the <typeparamref name="THost"/> must be of type <see cref="IContainerControl"/>
     /// such as a <see cref="System.Windows.Forms.UserControl"/>
     /// </summary>
     public System.Windows.Controls.UserControl WpfControl { get; set; }
@@ -95,6 +101,7 @@ public class TaskpaneIntegration<THost, TParentAddIn>
     /// 
     /// NOTE: This call MUST be run on the UI thread
     /// </summary>
+    // ReSharper disable once AsyncVoidMethod
     public async void AddToTaskpaneAsync()
     {
         // Get the title for the task pane from the parent add-in. If something goes wrong and we cannot find the parent add-in, set it to a default value.
@@ -112,8 +119,15 @@ public class TaskpaneIntegration<THost, TParentAddIn>
         // Load our UI into the taskpane
         mHostControl = await mTaskpaneView.AddControlAsync<ITaskpaneControl>(mHostProgId, string.Empty);
 
-        // Set UI thread
-        ThreadHelpers.Enable((Control)mHostControl);
+        // If the host control is a WinForms control, enable UI thread helpers and cache the reference
+        // ReSharper disable once SuspiciousTypeConversion.Global
+        if (mHostControl is Control hostControl) // 
+        {
+            mHostControlCast = hostControl;
+
+            // Set UI thread
+            ThreadHelpers.Enable(hostControl);
+        }
 
         // Hook into disconnect event of SolidWorks to unload ourselves automatically
         if (mParentAddin != null)
@@ -129,12 +143,12 @@ public class TaskpaneIntegration<THost, TParentAddIn>
                 // Add given WPF control
                 Child = WpfControl,
                 // Dock fill it
-                Dock = DockStyle.Fill
+                Dock = DockStyle.Fill,
             };
 
             // IMPORTANT: 
             //
-            //   This litle f*cking beauty right here took me 18 hours to figure out
+            //   This little f*cking beauty right here took me 18 hours to figure out
             //   Whenever you add a WPF control to SolidWorks, Win 10 is nice enough
             //   if your machine has a pen or stylus to start up a
             //   System.Windows.Input.PenThreadWorker.ThreadProc
@@ -148,15 +162,14 @@ public class TaskpaneIntegration<THost, TParentAddIn>
             AppContext.SetSwitch("Switch.System.Windows.Input.Stylus.DisableStylusAndTouchSupport", true);
 
             // Add and dock it to the parent control
-            if (mHostControl is Control control)
+            if (mHostControlCast != null)
             {
                 // Make sure parent is docked
-                control.Dock = DockStyle.Fill;
+                mHostControlCast.Dock = DockStyle.Fill;
 
                 // Add WPF host
-                control.Controls.Add(mElementHost);
+                mHostControlCast.Controls.Add(mElementHost);
             }
-
         }
     }
 
@@ -168,7 +181,7 @@ public class TaskpaneIntegration<THost, TParentAddIn>
         if (mTaskpaneView == null)
             return;
 
-        (mHostControl as Control)?.Controls.Clear();
+        mHostControlCast?.Controls.Clear();
 
         mElementHost?.Dispose();
 

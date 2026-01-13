@@ -14,7 +14,6 @@ public class FeatureHemData : SolidDnaObject<IHemFeatureData>
     /// </summary>
     public FeatureHemData(IHemFeatureData model) : base(model)
     {
-
     }
 
     #endregion

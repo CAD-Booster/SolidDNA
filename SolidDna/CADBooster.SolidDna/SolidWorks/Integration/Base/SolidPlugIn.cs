@@ -66,7 +66,7 @@ public abstract class SolidPlugIn<T> : SolidPlugIn
             // If we already have an add-in, do not change it.
             if (mParentAddIn != null) return;
             mParentAddIn = value;
-                
+
             // Once we have our parent add-in, we can call these methods.
 
             // Disable discovering plug-in and make it quicker by auto-adding it
@@ -84,7 +84,6 @@ public abstract class SolidPlugIn<T> : SolidPlugIn
     /// </summary>
     public SolidPlugIn() : base()
     {
-
     }
 
     #endregion

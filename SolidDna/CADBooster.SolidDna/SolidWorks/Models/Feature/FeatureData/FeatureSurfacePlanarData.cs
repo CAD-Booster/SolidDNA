@@ -14,7 +14,6 @@ public class FeatureSurfacePlanarData : SolidDnaObject<ISurfacePlanarFeatureData
     /// </summary>
     public FeatureSurfacePlanarData(ISurfacePlanarFeatureData model) : base(model)
     {
-
     }
 
     #endregion

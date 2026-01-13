@@ -14,7 +14,6 @@ public class FeatureTableAnchor : SolidDnaObject<ITableAnchor>
     /// </summary>
     public FeatureTableAnchor(ITableAnchor model) : base(model)
     {
-
     }
 
     #endregion

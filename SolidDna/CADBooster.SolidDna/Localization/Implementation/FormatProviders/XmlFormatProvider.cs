@@ -24,6 +24,11 @@ public class XmlFormatProvider : BaseFormatProvider, IResourceFormatProvider
 
     #region Public Methods
 
+    /// <summary>
+    /// Get whether this format provider supports the given format.
+    /// </summary>
+    /// <param name="format"></param>
+    /// <returns></returns>
     public bool SupportsFormat(string format)
     {
         // Supports XML extensions
@@ -65,9 +70,8 @@ public class XmlFormatProvider : BaseFormatProvider, IResourceFormatProvider
             return false;
 
         // Get the first element that matches the given name (ignore case)
-        var element = document.Root.Elements().FirstOrDefault(
-            f => f.Attributes().Any(a => a.Name.LocalName == "Name") && 
-                 string.Equals(name, f.Attributes().First(a => a.Name.LocalName == "Name").Value, StringComparison.CurrentCultureIgnoreCase));
+        var element = document.Root.Elements().FirstOrDefault(f => f.Attributes().Any(a => a.Name.LocalName == "Name") &&
+                                                                   string.Equals(name, f.Attributes().First(a => a.Name.LocalName == "Name").Value, StringComparison.CurrentCultureIgnoreCase));
 
         // Return false if not found
         if (element == null)

@@ -12,29 +12,29 @@ public enum ComponentSuppressionStates
     /// Fully suppressed, including child components.
     /// </summary>
     Suppressed = 0,
-        
+
     /// <summary>
     /// Makes only this component Lightweight
     /// </summary>
     Lightweight = 1,
-        
+
     /// <summary>
     /// Fully resolved, so including all child components
     /// </summary>
     ResolvedWithChildren = 2,
-        
+
     /// <summary>
     /// Makes only this component Resolved
     /// </summary>
     Resolved = 3,
-        
+
     /// <summary>
     /// Fully Lightweight, so including all child components
     /// </summary>
     LightweightWithChildren = 4,
-        
+
     /// <summary>
     /// The ID of the component does not match the ID the component had when the assembly was last saved.
     /// </summary>
-    InternalIdMismatch = 5
+    InternalIdMismatch = 5,
 }

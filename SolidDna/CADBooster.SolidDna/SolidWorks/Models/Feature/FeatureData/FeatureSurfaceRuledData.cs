@@ -14,7 +14,6 @@ public class FeatureSurfaceRuledData : SolidDnaObject<IRuledSurfaceFeatureData>
     /// </summary>
     public FeatureSurfaceRuledData(IRuledSurfaceFeatureData model) : base(model)
     {
-
     }
 
     #endregion

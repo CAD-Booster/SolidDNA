@@ -14,7 +14,6 @@ public class FeatureImport3DInterconnectData : SolidDnaObject<IImport3DInterconn
     /// </summary>
     public FeatureImport3DInterconnectData(IImport3DInterconnectData model) : base(model)
     {
-
     }
 
     #endregion

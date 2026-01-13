@@ -14,7 +14,6 @@ public class FeatureCavityData : SolidDnaObject<ICavityFeatureData>
     /// </summary>
     public FeatureCavityData(ICavityFeatureData model) : base(model)
     {
-
     }
 
     #endregion

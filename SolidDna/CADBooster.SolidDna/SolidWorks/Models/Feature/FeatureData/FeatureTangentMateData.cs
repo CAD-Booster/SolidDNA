@@ -14,7 +14,6 @@ public class FeatureTangentMateData : SolidDnaObject<ITangentMateFeatureData>
     /// </summary>
     public FeatureTangentMateData(ITangentMateFeatureData model) : base(model)
     {
-
     }
 
     #endregion

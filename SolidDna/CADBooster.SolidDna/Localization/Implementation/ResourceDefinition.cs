@@ -18,7 +18,7 @@ public enum ResourceDefinitionType
     /// <summary>
     /// The resource is a remote URL
     /// </summary>
-    Url = 3
+    Url = 3,
 }
 
 /// <summary>
