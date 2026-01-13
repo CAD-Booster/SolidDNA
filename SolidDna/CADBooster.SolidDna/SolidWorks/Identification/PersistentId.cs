@@ -214,6 +214,7 @@ public class PersistentId
     /// Find an object (sheet, view etc.) by its persistent ID or return null when it fails.
     /// </summary>
     /// <returns></returns>
+    // ReSharper disable once UnusedVariable
     public T GetObjectOrNull<T>() where T : class => (T) SolidWorksEnvironment.IApplication.ActiveModel?.Extension?.UnsafeObject.GetObjectByPersistReference3(ByteArray, out var errorCode);
 
     #endregion

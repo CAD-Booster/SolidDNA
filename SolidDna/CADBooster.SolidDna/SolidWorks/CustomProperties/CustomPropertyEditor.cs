@@ -46,6 +46,7 @@ public class CustomPropertyEditor : SolidDnaObject<CustomPropertyManager>, ICust
         // TODO: Add error checking and exception catching
 
         // Get custom property
+        // ReSharper disable once UnusedVariable
         BaseObject.Get5(name, false, out var val, out var resolvedVal, out var wasResolved);
 
         // Return desired result

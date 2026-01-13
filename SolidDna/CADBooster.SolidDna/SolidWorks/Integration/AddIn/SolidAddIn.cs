@@ -284,6 +284,7 @@ public abstract class SolidAddIn : ISwAddin
         // Log it
         Logger.LogDebugSource($"Setting AddinCallbackInfo...");
 
+        // ReSharper disable once UnusedVariable
         var ok = ((SldWorks) thisSw).SetAddinCallbackInfo2(0, this, cookie);
     }
 
