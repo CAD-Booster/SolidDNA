@@ -247,3 +247,4 @@ dotnet_style_qualification_for_property = false:error
 dotnet_style_qualification_for_method = false:error
 dotnet_style_qualification_for_event = false:error
 dotnet_style_predefined_type_for_member_access = true:error
+dotnet_diagnostic.IDE0090.severity = none
