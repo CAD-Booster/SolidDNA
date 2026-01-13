@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
 
@@ -65,7 +65,7 @@ public class TaskpaneIntegration<THost, TParentAddIn>
     /// The WPF user control to inject as the main control inside the <see cref="ITaskpaneControl"/> control
     /// Leave as null to ignore
     /// 
-    /// NOTE: If using this control, the <see cref="THost"/> must be of type <see cref="IContainerControl"/>
+    /// NOTE: If using this control, the <typeparamref name="THost"/> must be of type <see cref="IContainerControl"/>
     /// such as a <see cref="System.Windows.Forms.UserControl"/>
     /// </summary>
     public System.Windows.Controls.UserControl WpfControl { get; set; }
