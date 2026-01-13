@@ -342,9 +342,9 @@ public static class ModelFeatureTypeMapping
 
             case "DrBreakoutSectionLine":
 
-                if (feature.SpecificFeature as IBrokenOutSectionFeatureData != null)
+                if (feature.SpecificFeature is IBrokenOutSectionFeatureData)
                     return ModelFeatureType.BrokenOutSectionData;
-                else if (feature.SpecificFeature as IDrSection != null)
+                if (feature.SpecificFeature is IDrSection)
                     return ModelFeatureType.DrSection;
 
                 return ModelFeatureType.None;
@@ -404,10 +404,9 @@ public static class ModelFeatureTypeMapping
             case "SurfaceBodyFolder":
 
                 // As SubAtomFolder states "IBodyFolder if a body" we double-check here
-                if (feature.SpecificFeature as IBodyFolder != null)
+                if (feature.SpecificFeature is IBodyFolder)
                     return ModelFeatureType.BodyFolder;
-                else
-                    return ModelFeatureType.None;
+                return ModelFeatureType.None;
 
             case "TemplateFlatPattern":
                 return ModelFeatureType.FlatPatternFolder;
@@ -532,12 +531,11 @@ public static class ModelFeatureTypeMapping
 
             case "RefAxis":
 
-                if (feature.SpecificFeature as IRefAxisFeatureData != null)
+                if (feature.SpecificFeature is IRefAxisFeatureData)
                     return ModelFeatureType.ReferenceAxisData;
-                else if (feature.SpecificFeature as IRefAxis != null)
+                if (feature.SpecificFeature is IRefAxis)
                     return ModelFeatureType.ReferenceAxis;
-                else
-                    return ModelFeatureType.None;
+                return ModelFeatureType.None;
 
             case "RefPlane":
                 return ModelFeatureType.ReferencePlaneData;
@@ -639,30 +637,27 @@ public static class ModelFeatureTypeMapping
 
             case "3DSplineCurve":
 
-                if (feature.SpecificFeature as IReferencePointCurveFeatureData != null)
+                if (feature.SpecificFeature is IReferencePointCurveFeatureData)
                     return ModelFeatureType.ReferencePointCurveData;
-                if (feature.SpecificFeature as IReferenceCurve != null)
+                if (feature.SpecificFeature is IReferenceCurve)
                     return ModelFeatureType.ReferenceCurve;
-                else
-                    return ModelFeatureType.None;
+                return ModelFeatureType.None;
 
             case "CompositeCurve":
 
-                if (feature.SpecificFeature as ICompositeCurveFeatureData != null)
+                if (feature.SpecificFeature is ICompositeCurveFeatureData)
                     return ModelFeatureType.CompositeCurveData;
-                else if (feature.SpecificFeature as IReferenceCurve != null)
+                if (feature.SpecificFeature is IReferenceCurve)
                     return ModelFeatureType.ReferenceCurve;
-                else
-                    return ModelFeatureType.None;
+                return ModelFeatureType.None;
 
             case "ImportedCurve":
 
-                if (feature.SpecificFeature as IImportedCurveFeatureData != null)
+                if (feature.SpecificFeature is IImportedCurveFeatureData)
                     return ModelFeatureType.ImportedCurveData;
-                else if (feature.SpecificFeature as IReferenceCurve != null)
+                if (feature.SpecificFeature is IReferenceCurve)
                     return ModelFeatureType.ReferenceCurve;
-                else
-                    return ModelFeatureType.None;
+                return ModelFeatureType.None;
 
             case "PLine":
                 return ModelFeatureType.SplitLineData;
@@ -672,12 +667,11 @@ public static class ModelFeatureTypeMapping
 
             case "RefCurve":
 
-                if (feature.SpecificFeature as IProjectionCurveFeatureData != null)
+                if (feature.SpecificFeature is IProjectionCurveFeatureData)
                     return ModelFeatureType.ProjectionCurveData;
-                else if (feature.SpecificFeature as IReferenceCurve != null)
+                if (feature.SpecificFeature is IReferenceCurve)
                     return ModelFeatureType.ReferenceCurve;
-                else
-                    return ModelFeatureType.None;
+                return ModelFeatureType.None;
 
             case "SketchBlockDef":
                 return ModelFeatureType.SketchBlockDefinition;
