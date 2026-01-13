@@ -75,10 +75,7 @@ public partial class CustomPropertiesUI : UserControl
     /// Fired when the active SolidWorks model is changed
     /// </summary>
     /// <param name="obj"></param>
-    private void Application_ActiveModelInformationChanged(Model obj)
-    {
-        ReadDetails();
-    }
+    private void Application_ActiveModelInformationChanged(Model obj) => ReadDetails();
 
     #endregion
 
@@ -199,7 +196,7 @@ public partial class CustomPropertiesUI : UserControl
             foreach (var item in FinishList.Items)
             {
                 // Check if the combo box item has the same name
-                if ((string)((ComboBoxItem)item).Content == finish)
+                if ((string) ((ComboBoxItem) item).Content == finish)
                 {
                     // If so select it
                     FinishList.SelectedItem = item;
@@ -217,7 +214,7 @@ public partial class CustomPropertiesUI : UserControl
             foreach (var item in PurchaseInformationList.Items)
             {
                 // Check if the combo box item has the same name
-                if ((string)((ComboBoxItem)item).Content == purchaseInfo)
+                if ((string) ((ComboBoxItem) item).Content == purchaseInfo)
                 {
                     // If so select it
                     PurchaseInformationList.SelectedItem = item;
@@ -279,7 +276,7 @@ public partial class CustomPropertiesUI : UserControl
             model.SetMaterial(null);
         // Otherwise set the material to the selected one
         else
-            model.SetMaterial((Material)RawMaterialList.SelectedItem);
+            model.SetMaterial((Material) RawMaterialList.SelectedItem);
 
         // Manufacturing Info
         var manufacturingInfo = new List<string>();
@@ -312,10 +309,10 @@ public partial class CustomPropertiesUI : UserControl
         model.SetCustomProperty(CustomPropertyLength, SheetMetalLengthText.Text);
 
         // Finish
-        model.SetCustomProperty(CustomPropertyFinish, (string)((ComboBoxItem)FinishList.SelectedValue)?.Content);
+        model.SetCustomProperty(CustomPropertyFinish, (string) ((ComboBoxItem) FinishList.SelectedValue)?.Content);
 
         // Purchase Info
-        model.SetCustomProperty(CustomPropertyPurchaseInformation, (string)((ComboBoxItem)PurchaseInformationList.SelectedValue)?.Content);
+        model.SetCustomProperty(CustomPropertyPurchaseInformation, (string) ((ComboBoxItem) PurchaseInformationList.SelectedValue)?.Content);
 
         // Suppler Name
         model.SetCustomProperty(CustomPropertySupplierName, SupplierNameText.Text);
@@ -339,10 +336,7 @@ public partial class CustomPropertiesUI : UserControl
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void ReadButton_Click(object sender, System.Windows.RoutedEventArgs e)
-    {
-        ReadDetails();
-    }
+    private void ReadButton_Click(object sender, System.Windows.RoutedEventArgs e) => ReadDetails();
 
     /// <summary>
     /// Called when the reset button is clicked
@@ -379,20 +373,11 @@ public partial class CustomPropertiesUI : UserControl
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void ApplyButton_Click(object sender, System.Windows.RoutedEventArgs e)
-    {
-        SetDetails();
-    }
+    private void ApplyButton_Click(object sender, System.Windows.RoutedEventArgs e) => SetDetails();
 
     #endregion
 
-    private void MaterialAssemblyCheck_Checked(object sender, System.Windows.RoutedEventArgs e)
-    {
-        MaterialPlasmaCheck.IsChecked = false;
-    }
+    private void MaterialAssemblyCheck_Checked(object sender, System.Windows.RoutedEventArgs e) => MaterialPlasmaCheck.IsChecked = false;
 
-    private void MaterialPlasmaCheck_Checked(object sender, System.Windows.RoutedEventArgs e)
-    {
-        MaterialAssemblyCheck.IsChecked = false;
-    }
+    private void MaterialPlasmaCheck_Checked(object sender, System.Windows.RoutedEventArgs e) => MaterialAssemblyCheck.IsChecked = false;
 }
