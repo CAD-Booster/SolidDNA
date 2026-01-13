@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
 
@@ -26,6 +26,12 @@ public class TaskpaneIntegration<THost, TParentAddIn>
     /// The host <see cref="ITaskpaneControl"/> control this taskpane will create
     /// </summary>
     protected ITaskpaneControl mHostControl;
+
+    /// <summary>
+    /// Cached and cast version of <see cref="mHostControl"/> to avoid repeated casts.
+    /// Added so we don't create a breaking change by changing the type of <see cref="mHostControl"/>.
+    /// </summary>
+    protected Control mHostControlCast;
 
     /// <summary>
     /// The host control that hosts the WPF control
@@ -95,6 +101,7 @@ public class TaskpaneIntegration<THost, TParentAddIn>
     /// 
     /// NOTE: This call MUST be run on the UI thread
     /// </summary>
+    // ReSharper disable once AsyncVoidMethod
     public async void AddToTaskpaneAsync()
     {
         // Get the title for the task pane from the parent add-in. If something goes wrong and we cannot find the parent add-in, set it to a default value.
@@ -112,8 +119,15 @@ public class TaskpaneIntegration<THost, TParentAddIn>
         // Load our UI into the taskpane
         mHostControl = await mTaskpaneView.AddControlAsync<ITaskpaneControl>(mHostProgId, string.Empty);
 
-        // Set UI thread
-        ThreadHelpers.Enable((Control) mHostControl);
+        // If the host control is a WinForms control, enable UI thread helpers and cache the reference
+        // ReSharper disable once SuspiciousTypeConversion.Global
+        if (mHostControl is Control hostControl) // 
+        {
+            mHostControlCast = hostControl;
+
+            // Set UI thread
+            ThreadHelpers.Enable(hostControl);
+        }
 
         // Hook into disconnect event of SolidWorks to unload ourselves automatically
         if (mParentAddin != null)
@@ -148,13 +162,13 @@ public class TaskpaneIntegration<THost, TParentAddIn>
             AppContext.SetSwitch("Switch.System.Windows.Input.Stylus.DisableStylusAndTouchSupport", true);
 
             // Add and dock it to the parent control
-            if (mHostControl is Control control)
+            if (mHostControlCast != null)
             {
                 // Make sure parent is docked
-                control.Dock = DockStyle.Fill;
+                mHostControlCast.Dock = DockStyle.Fill;
 
                 // Add WPF host
-                control.Controls.Add(mElementHost);
+                mHostControlCast.Controls.Add(mElementHost);
             }
         }
     }
@@ -167,7 +181,7 @@ public class TaskpaneIntegration<THost, TParentAddIn>
         if (mTaskpaneView == null)
             return;
 
-        (mHostControl as Control)?.Controls.Clear();
+        mHostControlCast?.Controls.Clear();
 
         mElementHost?.Dispose();
 
