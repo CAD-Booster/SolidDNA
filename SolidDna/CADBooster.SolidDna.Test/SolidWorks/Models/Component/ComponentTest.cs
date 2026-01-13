@@ -11,7 +11,7 @@ internal class ComponentTest
     public void Constructor_Null_DoesNotThrow()
     {
         var component = new Component(null);
-            
+
         Assert.That(component, Is.Not.Null);
         Assert.That(component.UnsafeObject, Is.Null);
     }
@@ -23,7 +23,7 @@ internal class ComponentTest
         component2.Setup(c => c.Name2).Returns("Test/part-1@Assembly1.sldasm");
 
         var component = new Component(component2.Object);
-            
+
         Assert.That(component.UnsafeObject, Is.Not.Null);
         Assert.That(component.Name, Is.EqualTo("Test/part-1@Assembly1.sldasm"));
         Assert.That(component.CleanName, Is.EqualTo("part"));

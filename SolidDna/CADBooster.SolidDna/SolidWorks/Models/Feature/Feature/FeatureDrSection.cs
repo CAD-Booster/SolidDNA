@@ -14,7 +14,6 @@ public class FeatureDrSection : SolidDnaObject<IDrSection>
     /// </summary>
     public FeatureDrSection(IDrSection model) : base(model)
     {
-
     }
 
     #endregion

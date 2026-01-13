@@ -33,7 +33,7 @@ internal class ModelTest
         _mockModelDoc.Setup(x => x.ISelectionManager).Returns(_mockSelectionMgr.Object);
         _mockModelDoc.Setup(x => x.IGetActiveConfiguration()).Returns(_mockConfiguration.Object);
         _mockModelDoc.Setup(x => x.GetPathName()).Returns(@"C:\Test\Part.sldprt");
-        _mockModelDoc.Setup(x => x.GetType()).Returns((int)swDocumentTypes_e.swDocPART);
+        _mockModelDoc.Setup(x => x.GetType()).Returns((int) swDocumentTypes_e.swDocPART);
         _mockModelDoc.Setup(x => x.GetConfigurationCount()).Returns(1);
         _mockModelDoc.Setup(x => x.GetConfigurationNames()).Returns(new[] { "Default" });
 
@@ -64,7 +64,7 @@ internal class ModelTest
     [TestCase(swDocumentTypes_e.swDocDRAWING, false, true, false)]
     public void Model_WhenCreatedWithPart_SetsIsPart(swDocumentTypes_e docType, bool expectAssembly, bool expectDrawing, bool expectPart)
     {
-        _mockModelDoc.Setup(x => x.GetType()).Returns((int)docType);
+        _mockModelDoc.Setup(x => x.GetType()).Returns((int) docType);
         var model = new Model(_mockModelDoc.Object);
         Assert.That(model.IsAssembly, Is.EqualTo(expectAssembly));
         Assert.That(model.IsDrawing, Is.EqualTo(expectDrawing));
@@ -96,7 +96,7 @@ internal class ModelTest
     {
         var configNames = new[] { "Default", "Config1", "Config2" };
         _mockModelDoc.Setup(x => x.GetConfigurationNames()).Returns(configNames);
-        _mockModelDoc.Setup(x => x.GetType()).Returns((int)swDocumentTypes_e.swDocPART);
+        _mockModelDoc.Setup(x => x.GetType()).Returns((int) swDocumentTypes_e.swDocPART);
 
         var model = new Model(_mockModelDoc.Object);
 
@@ -108,7 +108,7 @@ internal class ModelTest
     [Test]
     public void ConfigurationNames_ForDrawing_ReturnsEmptyList()
     {
-        _mockModelDoc.Setup(x => x.GetType()).Returns((int)swDocumentTypes_e.swDocDRAWING);
+        _mockModelDoc.Setup(x => x.GetType()).Returns((int) swDocumentTypes_e.swDocDRAWING);
 
         var model = new Model(_mockModelDoc.Object);
 
@@ -129,7 +129,7 @@ internal class ModelTest
     public void ToString_ReturnsFormattedString()
     {
         _mockModelDoc.Setup(x => x.GetPathName()).Returns(@"C:\Test\Part.sldprt");
-        _mockModelDoc.Setup(x => x.GetType()).Returns((int)swDocumentTypes_e.swDocPART);
+        _mockModelDoc.Setup(x => x.GetType()).Returns((int) swDocumentTypes_e.swDocPART);
 
         var model = new Model(_mockModelDoc.Object);
 

@@ -55,5 +55,5 @@ public enum DrawingViewType
     /// <summary>
     /// Alternate position view
     /// </summary>
-    AlternatePositionView = 10
+    AlternatePositionView = 10,
 }

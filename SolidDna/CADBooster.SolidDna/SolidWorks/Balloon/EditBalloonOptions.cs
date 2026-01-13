@@ -13,5 +13,5 @@ public enum EditBalloonOptions
     /// <summary>
     /// Re-sequences existing balloons
     /// </summary>
-    Resequence = 1
+    Resequence = 1,
 }

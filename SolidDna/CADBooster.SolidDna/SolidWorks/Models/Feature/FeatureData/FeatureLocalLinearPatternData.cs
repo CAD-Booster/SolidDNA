@@ -14,7 +14,6 @@ public class FeatureLocalLinearPatternData : SolidDnaObject<ILocalLinearPatternF
     /// </summary>
     public FeatureLocalLinearPatternData(ILocalLinearPatternFeatureData model) : base(model)
     {
-
     }
 
     #endregion

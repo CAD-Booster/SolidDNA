@@ -14,7 +14,6 @@ public class FeatureDetailCircle : SolidDnaObject<IDetailCircle>
     /// </summary>
     public FeatureDetailCircle(IDetailCircle model) : base(model)
     {
-
     }
 
     #endregion

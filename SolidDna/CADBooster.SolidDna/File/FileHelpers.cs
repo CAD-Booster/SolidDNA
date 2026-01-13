@@ -40,18 +40,12 @@ public static class FileHelpers
     /// </summary>
     /// <param name="type">The type to get the codebase from</param>
     /// <returns></returns>
-    public static string CodeBaseNormalized(this Type type)
-    {
-        return Path.GetDirectoryName(type.AssemblyBaseNormalized());
-    }
+    public static string CodeBaseNormalized(this Type type) => Path.GetDirectoryName(type.AssemblyBaseNormalized());
 
     /// <summary>
     /// Gets the assembly base of a type in a normalized format, removing any file: prefixes
     /// </summary>
     /// <param name="type">The type to get the assembly base from</param>
     /// <returns></returns>
-    public static string AssemblyBaseNormalized(this Type type)
-    {
-        return type.Assembly.CodeBase.Replace(@"file:\", "").Replace(@"file:///", "");
-    }
+    public static string AssemblyBaseNormalized(this Type type) => type.Assembly.CodeBase.Replace(@"file:\", "").Replace(@"file:///", "");
 }

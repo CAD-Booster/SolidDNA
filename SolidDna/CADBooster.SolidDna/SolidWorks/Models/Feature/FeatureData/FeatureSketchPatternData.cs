@@ -14,7 +14,6 @@ public class FeatureSketchPatternData : SolidDnaObject<ISketchPatternFeatureData
     /// </summary>
     public FeatureSketchPatternData(ISketchPatternFeatureData model) : base(model)
     {
-
     }
 
     #endregion

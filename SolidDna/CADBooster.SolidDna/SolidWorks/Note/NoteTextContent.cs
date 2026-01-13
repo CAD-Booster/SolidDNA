@@ -23,5 +23,5 @@ public enum NoteTextContent
     /// <summary>
     /// Text quantity
     /// </summary>
-    TextQuantity = 4
+    TextQuantity = 4,
 }

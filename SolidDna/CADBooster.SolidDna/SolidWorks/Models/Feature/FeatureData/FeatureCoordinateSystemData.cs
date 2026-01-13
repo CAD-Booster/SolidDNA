@@ -14,7 +14,6 @@ public class FeatureCoordinateSystemData : SolidDnaObject<ICoordinateSystemFeatu
     /// </summary>
     public FeatureCoordinateSystemData(ICoordinateSystemFeatureData model) : base(model)
     {
-
     }
 
     #endregion

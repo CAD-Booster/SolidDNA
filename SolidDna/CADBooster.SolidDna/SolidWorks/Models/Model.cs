@@ -29,7 +29,7 @@ public class Model : SharedSolidDnaObject<ModelDoc2>, IModel
     /// <summary>
     /// Get the configuration names. Returns an empty list for drawings.
     /// </summary>
-    public List<string> ConfigurationNames => IsDrawing ? [] : ((string[])BaseObject.GetConfigurationNames()).ToList();
+    public List<string> ConfigurationNames => IsDrawing ? [] : ((string[]) BaseObject.GetConfigurationNames()).ToList();
 
     /// <summary>
     /// The absolute file path of this model if it has been saved
@@ -79,7 +79,7 @@ public class Model : SharedSolidDnaObject<ModelDoc2>, IModel
     /// </summary>
     public ModelSourceProgram ModelSourceProgram => SolidWorksEnvironment.IApplication.SolidWorksVersion.Version < 2021
         ? ModelSourceProgram.SolidWorksDesktop
-        : (ModelSourceProgram)Extension.UnsafeObject.Get3DExperienceModelType();
+        : (ModelSourceProgram) Extension.UnsafeObject.Get3DExperienceModelType();
 
     /// <summary>
     /// Indicates if this file needs saving (has file changes).
@@ -236,12 +236,14 @@ public class Model : SharedSolidDnaObject<ModelDoc2>, IModel
                 // If no output path specified...
                 if (string.IsNullOrEmpty(outputFolder))
                     // Set it to app data folder
+                {
                     outputFolder = Path.Combine(
                         System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData),
                         "SolidDna",
                         "PackAndGo",
                         // Unique folder name of current time
                         DateTime.UtcNow.ToString("MM-dd-yyyy-HH-mm-ss"));
+                }
 
                 // Create output folder
                 Directory.CreateDirectory(outputFolder);
@@ -269,7 +271,7 @@ public class Model : SharedSolidDnaObject<ModelDoc2>, IModel
                     throw new ArgumentException("Failed to get document names");
 
                 // Cast file names
-                var fileNames = (string[])filesArray;
+                var fileNames = (string[]) filesArray;
 
                 // If fails to set folder where to save the files
                 if (!packAndGo.SetSaveToName(true, outputFolder))
@@ -280,7 +282,7 @@ public class Model : SharedSolidDnaObject<ModelDoc2>, IModel
                 packAndGo.FlattenToSingleFolder = true;
 
                 // Save all files
-                var results = (PackAndGoSaveStatus[])BaseObject.Extension.SavePackAndGo(packAndGo);
+                var results = (PackAndGoSaveStatus[]) BaseObject.Extension.SavePackAndGo(packAndGo);
 
                 // There is a result per file, so all must be successful
                 if (results.Any(f => f != PackAndGoSaveStatus.Success))
@@ -292,7 +294,6 @@ public class Model : SharedSolidDnaObject<ModelDoc2>, IModel
             },
             SolidDnaErrorTypeCode.SolidWorksModel,
             SolidDnaErrorCode.SolidWorksModelPackAndGoError);
-
     }
 
     /// <summary>
@@ -394,7 +395,7 @@ public class Model : SharedSolidDnaObject<ModelDoc2>, IModel
         FilePath = BaseObject.GetPathName();
 
         // Get the models type
-        ModelType = (ModelType)BaseObject.GetType();
+        ModelType = (ModelType) BaseObject.GetType();
 
         // Get the active configuration
         ActiveConfiguration = new ModelConfiguration(BaseObject.IGetActiveConfiguration());
@@ -403,13 +404,13 @@ public class Model : SharedSolidDnaObject<ModelDoc2>, IModel
         SelectionManager = new SelectionManager(BaseObject.ISelectionManager, this, Extension);
 
         // Set drawing access
-        Drawing = IsDrawing ? new DrawingDocument((DrawingDoc)BaseObject) : null;
+        Drawing = IsDrawing ? new DrawingDocument((DrawingDoc) BaseObject) : null;
 
         // Set part access
-        Part = IsPart ? new PartDocument((PartDoc)BaseObject) : null;
+        Part = IsPart ? new PartDocument((PartDoc) BaseObject) : null;
 
         // Set assembly access
-        Assembly = IsAssembly ? new AssemblyDocument((AssemblyDoc)BaseObject) : null;
+        Assembly = IsAssembly ? new AssemblyDocument((AssemblyDoc) BaseObject) : null;
 
         // Attach or re-attach event handlers
         SetupModelEventHandlers();
@@ -513,7 +514,7 @@ public class Model : SharedSolidDnaObject<ModelDoc2>, IModel
     protected int AddItemNotify(int entityType, string itemName)
     {
         // Inform listeners
-        ItemAdded((swNotifyEntityType_e)entityType, itemName);
+        ItemAdded((swNotifyEntityType_e) entityType, itemName);
 
         // NOTE: 0 is success, anything else is an error
         return 0;
@@ -542,7 +543,7 @@ public class Model : SharedSolidDnaObject<ModelDoc2>, IModel
     private int DeleteItemPostNotify(int entityType, string itemName)
     {
         // Inform listeners
-        ItemDeleted((swNotifyEntityType_e)entityType, itemName);
+        ItemDeleted((swNotifyEntityType_e) entityType, itemName);
 
         // NOTE: 0 is success, anything else is an error
         return 0;
@@ -557,7 +558,7 @@ public class Model : SharedSolidDnaObject<ModelDoc2>, IModel
     private int DeleteItemPreNotify(int entityType, string itemName)
     {
         // Inform listeners
-        ItemDeleting((swNotifyEntityType_e)entityType, itemName);
+        ItemDeleting((swNotifyEntityType_e) entityType, itemName);
 
         // NOTE: 0 is success, anything else is an error
         return 0;
@@ -819,7 +820,6 @@ public class Model : SharedSolidDnaObject<ModelDoc2>, IModel
 
         // NOTE: 0 is success, anything else is an error
         return 0;
-
     }
 
     /// <summary>
@@ -845,21 +845,21 @@ public class Model : SharedSolidDnaObject<ModelDoc2>, IModel
     /// NOTE: Check the <see cref="ModelType"/> to confirm this model is of the correct type before casting
     /// </summary>
     /// <returns></returns>
-    public AssemblyDoc AsAssembly() => (AssemblyDoc)BaseObject;
+    public AssemblyDoc AsAssembly() => (AssemblyDoc) BaseObject;
 
     /// <summary>
     /// Casts the current model to a part
     /// NOTE: Check the <see cref="ModelType"/> to confirm this model is of the correct type before casting
     /// </summary>
     /// <returns></returns>
-    public PartDoc AsPart() => (PartDoc)BaseObject;
+    public PartDoc AsPart() => (PartDoc) BaseObject;
 
     /// <summary>
     /// Casts the current model to a drawing
     /// NOTE: Check the <see cref="ModelType"/> to confirm this model is of the correct type before casting
     /// </summary>
     /// <returns></returns>
-    public DrawingDoc AsDrawing() => (DrawingDoc)BaseObject;
+    public DrawingDoc AsDrawing() => (DrawingDoc) BaseObject;
 
     /// <summary>
     /// Accesses the current model as a drawing to expose all Drawing API calls.
@@ -923,7 +923,7 @@ public class Model : SharedSolidDnaObject<ModelDoc2>, IModel
         var configurationManager = UnsafeObject.ConfigurationManager;
 
         // Create the new configuration
-        var configuration = configurationManager.AddConfiguration2(configurationName, "", "", (int)options, parentConfigurationName, "", true);
+        var configuration = configurationManager.AddConfiguration2(configurationName, "", "", (int) options, parentConfigurationName, "", true);
 
         // Wrap it
         return new ModelConfiguration(configuration);
@@ -953,7 +953,6 @@ public class Model : SharedSolidDnaObject<ModelDoc2>, IModel
             return configuration == null
                 ? throw new Exception("No configuration found with this name")
                 : new ModelConfiguration(configuration);
-
         }, SolidDnaErrorTypeCode.SolidWorksModel, SolidDnaErrorCode.SolidWorksModelGetConfigurationError);
     }
 
@@ -1038,7 +1037,7 @@ public class Model : SharedSolidDnaObject<ModelDoc2>, IModel
         // Get the custom property editor
         using var editor = Extension.CustomPropertyEditor(configuration);
         // Get the property
-        return editor.GetCustomProperty(name, resolve: resolved);
+        return editor.GetCustomProperty(name, resolved);
     }
 
     /// <summary>
@@ -1065,10 +1064,7 @@ public class Model : SharedSolidDnaObject<ModelDoc2>, IModel
     /// </summary>
     /// <param name="entityType">Type of the entity</param>
     /// <returns></returns>
-    private static bool EntityIsDrawingSheet(int entityType)
-    {
-        return entityType == (int)swNotifyEntityType_e.swNotifyDrawingSheet;
-    }
+    private static bool EntityIsDrawingSheet(int entityType) => entityType == (int) swNotifyEntityType_e.swNotifyDrawingSheet;
 
     #endregion
 
@@ -1103,7 +1099,8 @@ public class Model : SharedSolidDnaObject<ModelDoc2>, IModel
                 var materialName = ids[1];
 
                 // See if we have a database file with the same name
-                var fullPath = SolidWorksEnvironment.IApplication.GetMaterials()?.FirstOrDefault(f => string.Equals(databaseName, Path.GetFileNameWithoutExtension(f.DatabasePathOrFilename), StringComparison.InvariantCultureIgnoreCase));
+                var fullPath = SolidWorksEnvironment.IApplication.GetMaterials()?.FirstOrDefault(f =>
+                    string.Equals(databaseName, Path.GetFileNameWithoutExtension(f.DatabasePathOrFilename), StringComparison.InvariantCultureIgnoreCase));
                 var found = fullPath != null;
 
                 // Now we have the file, try and find the material from it
@@ -1116,11 +1113,7 @@ public class Model : SharedSolidDnaObject<ModelDoc2>, IModel
 
                 // If we got here, the material was not found
                 // So fill in as much information as we have
-                return new Material
-                {
-                    DatabasePathOrFilename = databaseName,
-                    Name = materialName
-                };
+                return new Material { DatabasePathOrFilename = databaseName, Name = materialName };
             },
             SolidDnaErrorTypeCode.SolidWorksModel,
             SolidDnaErrorCode.SolidWorksModelGetMaterialError);
@@ -1161,10 +1154,7 @@ public class Model : SharedSolidDnaObject<ModelDoc2>, IModel
     /// </summary>
     /// <param name="action">The selected objects list to be worked on inside the action. NOTE: Do not store references to them outside of this action</param>
     /// <returns></returns>
-    public void SelectedObjects(Action<List<SelectedObject>> action)
-    {
-        SelectionManager?.SelectedObjects(action);
-    }
+    public void SelectedObjects(Action<List<SelectedObject>> action) => SelectionManager?.SelectedObjects(action);
 
     #endregion
 
@@ -1174,10 +1164,7 @@ public class Model : SharedSolidDnaObject<ModelDoc2>, IModel
     /// Recurses the model for all of its features and sub-features
     /// </summary>
     /// <param name="featureAction">The callback action that is called for each feature in the model</param>
-    public void Features(Action<ModelFeature, int> featureAction)
-    {
-        RecurseFeatures(featureAction, UnsafeObject.FirstFeature() as Feature);
-    }
+    public void Features(Action<ModelFeature, int> featureAction) => RecurseFeatures(featureAction, UnsafeObject.FirstFeature() as Feature);
 
     #region Private Feature Helpers
 
@@ -1205,10 +1192,8 @@ public class Model : SharedSolidDnaObject<ModelDoc2>, IModel
 
             // Create model feature
             using (var modelFeature = new ModelFeature(currentFeature))
-            {
                 // Inform callback of the feature
                 featureAction(modelFeature, featureDepth);
-            }
 
             // While we have a sub-feature...
             while (subFeature != null)
@@ -1326,7 +1311,7 @@ public class Model : SharedSolidDnaObject<ModelDoc2>, IModel
             dependencies.Add(FilePath);
 
         // Get array of dependencies of currently active swModel
-        var modelDependencies = (string[])BaseObject.GetDependencies2(true, true, false);
+        var modelDependencies = (string[]) BaseObject.GetDependencies2(true, true, false);
 
         // Add all dependencies (Format {"Name1", "Path1+Name1", "Name2", "Path2+Name2", ...})
         // Take every other element, starting at second one
@@ -1363,7 +1348,8 @@ public class Model : SharedSolidDnaObject<ModelDoc2>, IModel
     /// <param name="configurationName">The configuration name to get the preview for. If null, uses the active configuration.</param>
     /// <returns>A Bitmap containing the preview image</returns>
     /// <param name="bitmapFilepath">The filepath to save the bitmap to</param>
-    public void SavePreviewBitmap(string bitmapFilepath, string configurationName = null) => SolidWorksEnvironment.IApplication.SavePreviewBitmap(FilePath, configurationName ?? ActiveConfiguration.Name, bitmapFilepath);
+    public void SavePreviewBitmap(string bitmapFilepath, string configurationName = null) =>
+        SolidWorksEnvironment.IApplication.SavePreviewBitmap(FilePath, configurationName ?? ActiveConfiguration.Name, bitmapFilepath);
 
     /// <summary>
     /// Saves the current model, with the specified options
@@ -1383,7 +1369,7 @@ public class Model : SharedSolidDnaObject<ModelDoc2>, IModel
                 var warnings = 0;
 
                 // Try and save the model using the Save3 method
-                BaseObject.Save3((int)options, ref errors, ref warnings);
+                BaseObject.Save3((int) options, ref errors, ref warnings);
 
                 // Add any errors and warnings
                 result.AddErrorsAndWarnings(errors, warnings);
@@ -1429,11 +1415,11 @@ public class Model : SharedSolidDnaObject<ModelDoc2>, IModel
                 var warnings = 0;
 
                 // Try and save the model using the SaveAs method
-                BaseObject.Extension.SaveAs(savePath, (int)version, (int)options, pdfExportData?.ExportData, ref errors, ref warnings);
+                BaseObject.Extension.SaveAs(savePath, (int) version, (int) options, pdfExportData?.ExportData, ref errors, ref warnings);
 
                 // If this fails, try another way
                 if (errors != 0)
-                    BaseObject.SaveAs4(savePath, (int)version, (int)options, ref errors, ref warnings);
+                    BaseObject.SaveAs4(savePath, (int) version, (int) options, ref errors, ref warnings);
 
                 // Add any errors and warnings
                 result.AddErrorsAndWarnings(errors, warnings);
@@ -1478,10 +1464,7 @@ public class Model : SharedSolidDnaObject<ModelDoc2>, IModel
                 if (SolidWorksEnvironment.IApplication.ApplicationType == SolidWorksApplicationType.Desktop)
                 {
                     // Pick the closest error there is
-                    return new ModelSaveResult
-                    {
-                        Errors = SaveAsErrors.FileSaveFormatNotAvailable
-                    };
+                    return new ModelSaveResult { Errors = SaveAsErrors.FileSaveFormatNotAvailable };
                 }
 
                 // Start with a successful result
@@ -1502,7 +1485,7 @@ public class Model : SharedSolidDnaObject<ModelDoc2>, IModel
                 else
                 {
                     // Get a new options object 
-                    var options = (ISaveTo3DExperienceOptions)SolidWorksEnvironment.IApplication.UnsafeObject.GetSaveTo3DExperienceOptions();
+                    var options = (ISaveTo3DExperienceOptions) SolidWorksEnvironment.IApplication.UnsafeObject.GetSaveTo3DExperienceOptions();
 
                     // Add relevant data
                     options.FileName = filename;
@@ -1545,10 +1528,7 @@ public class Model : SharedSolidDnaObject<ModelDoc2>, IModel
     /// Hidden steps are ignored by SolidWorks and cannot be undone.
     /// If you start recording multiple times before finishing a recording, the first start call is used.
     /// </summary>
-    public void StartRecordingUndoStep()
-    {
-        Extension.UnsafeObject.StartRecordingUndoObject();
-    }
+    public void StartRecordingUndoStep() => Extension.UnsafeObject.StartRecordingUndoObject();
 
     /// <summary>
     /// Finish recording an undo step and (when set to visible) add it to the Undo list.
@@ -1571,10 +1551,7 @@ public class Model : SharedSolidDnaObject<ModelDoc2>, IModel
     /// Returns a user-friendly string with model properties.
     /// </summary>
     /// <returns></returns>
-    public override string ToString()
-    {
-        return $"Model type: {ModelType}. File path: {FilePath}";
-    }
+    public override string ToString() => $"Model type: {ModelType}. File path: {FilePath}";
 
     #endregion
 

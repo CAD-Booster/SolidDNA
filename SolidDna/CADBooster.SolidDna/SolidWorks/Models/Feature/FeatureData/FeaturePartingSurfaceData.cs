@@ -14,7 +14,6 @@ public class FeaturePartingSurfaceData : SolidDnaObject<IPartingSurfaceFeatureDa
     /// </summary>
     public FeaturePartingSurfaceData(IPartingSurfaceFeatureData model) : base(model)
     {
-
     }
 
     #endregion

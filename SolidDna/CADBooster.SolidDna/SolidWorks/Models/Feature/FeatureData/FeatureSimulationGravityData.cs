@@ -14,7 +14,6 @@ public class FeatureSimulationGravityData : SolidDnaObject<ISimulationGravityFea
     /// </summary>
     public FeatureSimulationGravityData(ISimulationGravityFeatureData model) : base(model)
     {
-
     }
 
     #endregion

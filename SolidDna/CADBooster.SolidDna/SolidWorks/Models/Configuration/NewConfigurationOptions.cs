@@ -34,7 +34,7 @@ public enum NewConfigurationOptions
     /// Suppress all newly added components in this configuration by default.
     /// </summary>
     SuppressNewComponents = 16,
-        
+
     /// <summary>
     /// Do not use
     /// </summary>

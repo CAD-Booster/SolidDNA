@@ -23,7 +23,7 @@ public static class EnumHelpers
             throw new InvalidCastException("Value passed into GetFlags must be an enumerator");
 
         // Get underlying value
-        var value = (int)(IConvertible)enumerator;
+        var value = (int) (IConvertible) enumerator;
 
         // Get all enumerator values for this type
         var enumValues = Enum.GetValues(enumerator.GetType()).Cast<int>();

@@ -14,7 +14,6 @@ public class FeatureBodyFolder : SolidDnaObject<IBodyFolder>
     /// </summary>
     public FeatureBodyFolder(IBodyFolder model) : base(model)
     {
-
     }
 
     #endregion

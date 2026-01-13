@@ -94,7 +94,7 @@ public abstract class PartnerProductAddIn : SolidAddIn, ISwPEManager
     {
         try
         {
-            return (PartnerAddInKeyStatus)factory.SetPartnerKey(key, out var tokenForFutureUse);
+            return (PartnerAddInKeyStatus) factory.SetPartnerKey(key, out var tokenForFutureUse);
         }
         catch (Exception e)
         {

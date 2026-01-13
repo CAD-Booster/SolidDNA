@@ -14,7 +14,6 @@ public class FeatureScrewMateData : SolidDnaObject<IScrewMateFeatureData>
     /// </summary>
     public FeatureScrewMateData(IScrewMateFeatureData model) : base(model)
     {
-
     }
 
     #endregion

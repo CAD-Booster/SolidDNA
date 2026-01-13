@@ -17,7 +17,6 @@ public class CustomPropertyEditor : SolidDnaObject<CustomPropertyManager>, ICust
     /// </summary>
     public CustomPropertyEditor(CustomPropertyManager model) : base(model)
     {
-
     }
 
     #endregion
@@ -73,7 +72,7 @@ public class CustomPropertyEditor : SolidDnaObject<CustomPropertyManager>, ICust
         //
 
         // Set new one
-        BaseObject.Add3(name, (int)type, value, (int)swCustomPropertyAddOption_e.swCustomPropertyReplaceValue);
+        BaseObject.Add3(name, (int) type, value, (int) swCustomPropertyAddOption_e.swCustomPropertyReplaceValue);
     }
 
     /// <summary>
@@ -99,7 +98,7 @@ public class CustomPropertyEditor : SolidDnaObject<CustomPropertyManager>, ICust
         var list = new List<CustomProperty>();
 
         // Get all properties
-        var names = (string[])BaseObject.GetNames();
+        var names = (string[]) BaseObject.GetNames();
 
         // Create custom property objects for each
         if (names?.Length > 0)

@@ -78,7 +78,6 @@ public class MassProperties
     /// </summary>
     public MassProperties()
     {
-
     }
 
     /// <summary>
@@ -124,11 +123,7 @@ public class MassProperties
     /// Returns a user-friendly string with group properties.
     /// </summary>
     /// <returns></returns>
-    public override string ToString()
-    {
-        return $"Mass: {Mass} kg";
-    }
+    public override string ToString() => $"Mass: {Mass} kg";
 
     #endregion
-
 }

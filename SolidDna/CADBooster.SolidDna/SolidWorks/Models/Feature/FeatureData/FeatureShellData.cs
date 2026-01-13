@@ -14,7 +14,6 @@ public class FeatureShellData : SolidDnaObject<IShellFeatureData>
     /// </summary>
     public FeatureShellData(IShellFeatureData model) : base(model)
     {
-
     }
 
     #endregion

@@ -158,7 +158,7 @@ public enum SolidDnaErrorCode
     /// There was an error closing a model
     /// </summary>
     SolidWorksModelCloseFileError = 11011,
-        
+
     /// <summary>
     /// There was an error getting the custom property editor for a feature.
     /// </summary>

@@ -26,5 +26,5 @@ public enum CommandManagerItemTabView
     /// <summary>
     /// The item is shown with the icon then the text to the right. See the "Linear Sketch Pattern" button in the Sketch tab for an example.
     /// </summary>
-    IconWithTextAtRight = 4
+    IconWithTextAtRight = 4,
 }

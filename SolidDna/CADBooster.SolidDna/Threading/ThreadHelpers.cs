@@ -22,10 +22,7 @@ public static class ThreadHelpers
     /// Should be called from the UI thread to set up an Invoker (a user control)
     /// used to invoke any require tasks on the UI thread
     /// </summary>
-    public static void Enable(Control uiControl)
-    {
-        mInvoker = uiControl;
-    }
+    public static void Enable(Control uiControl) => mInvoker = uiControl;
 
     /// <summary>
     /// Runs the specified action on the UI thread
@@ -43,7 +40,7 @@ public static class ThreadHelpers
             action();
         // Otherwise invoke
         else
-            mInvoker.Invoke((MethodInvoker)delegate { action(); });
+            mInvoker.Invoke((MethodInvoker) delegate { action(); });
     }
 
     /// <summary>
@@ -75,7 +72,7 @@ public static class ThreadHelpers
             var tcs = new TaskCompletionSource<bool>();
 
             // Invoke action
-            mInvoker.Invoke((MethodInvoker)delegate
+            mInvoker.Invoke((MethodInvoker) delegate
             {
                 try
                 {

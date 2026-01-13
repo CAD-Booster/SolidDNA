@@ -46,5 +46,5 @@ public enum DocumentType
     /// <summary>
     /// An imported assembly
     /// </summary>
-    ImportedAssembly = 7
+    ImportedAssembly = 7,
 }

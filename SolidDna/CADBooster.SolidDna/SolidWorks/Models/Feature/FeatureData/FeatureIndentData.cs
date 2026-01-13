@@ -14,7 +14,6 @@ public class FeatureIndentData : SolidDnaObject<IIndentFeatureData>
     /// </summary>
     public FeatureIndentData(IIndentFeatureData model) : base(model)
     {
-
     }
 
     #endregion

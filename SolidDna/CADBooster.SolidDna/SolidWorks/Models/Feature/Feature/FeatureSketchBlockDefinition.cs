@@ -14,7 +14,6 @@ public class FeatureSketchBlockDefinition : SolidDnaObject<ISketchBlockDefinitio
     /// </summary>
     public FeatureSketchBlockDefinition(ISketchBlockDefinition model) : base(model)
     {
-
     }
 
     #endregion

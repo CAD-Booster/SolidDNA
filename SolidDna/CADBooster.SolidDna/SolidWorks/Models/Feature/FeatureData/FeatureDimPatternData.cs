@@ -14,7 +14,6 @@ public class FeatureDimPatternData : SolidDnaObject<IDimPatternFeatureData>
     /// </summary>
     public FeatureDimPatternData(IDimPatternFeatureData model) : base(model)
     {
-
     }
 
     #endregion

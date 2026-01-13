@@ -14,7 +14,6 @@ public class FeatureCrossBreakData : SolidDnaObject<ICrossBreakFeatureData>
     /// </summary>
     public FeatureCrossBreakData(ICrossBreakFeatureData model) : base(model)
     {
-
     }
 
     #endregion

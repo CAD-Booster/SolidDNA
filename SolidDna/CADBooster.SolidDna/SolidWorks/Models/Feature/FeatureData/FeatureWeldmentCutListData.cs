@@ -14,7 +14,6 @@ public class FeatureWeldmentCutListData : SolidDnaObject<IWeldmentCutListFeature
     /// </summary>
     public FeatureWeldmentCutListData(IWeldmentCutListFeature model) : base(model)
     {
-
     }
 
     #endregion

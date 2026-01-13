@@ -108,5 +108,5 @@ public enum BalloonStyle
     /// <summary>
     /// Verbose
     /// </summary>
-    Verbose = 20
+    Verbose = 20,
 }

@@ -14,7 +14,6 @@ public class FeatureCosmeticThreadData : SolidDnaObject<ICosmeticThreadFeatureDa
     /// </summary>
     public FeatureCosmeticThreadData(ICosmeticThreadFeatureData model) : base(model)
     {
-
     }
 
     #endregion

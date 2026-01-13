@@ -14,7 +14,6 @@ public class FeatureDraftData : SolidDnaObject<IDraftFeatureData2>
     /// </summary>
     public FeatureDraftData(IDraftFeatureData2 model) : base(model)
     {
-
     }
 
     #endregion

@@ -14,7 +14,6 @@ public class FeatureVariableFilletData : SolidDnaObject<IVariableFilletFeatureDa
     /// </summary>
     public FeatureVariableFilletData(IVariableFilletFeatureData2 model) : base(model)
     {
-
     }
 
     #endregion

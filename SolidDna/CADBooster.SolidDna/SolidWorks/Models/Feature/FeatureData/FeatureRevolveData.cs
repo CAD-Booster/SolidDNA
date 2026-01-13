@@ -14,7 +14,6 @@ public class FeatureRevolveData : SolidDnaObject<IRevolveFeatureData2>
     /// </summary>
     public FeatureRevolveData(IRevolveFeatureData2 model) : base(model)
     {
-
     }
 
     #endregion

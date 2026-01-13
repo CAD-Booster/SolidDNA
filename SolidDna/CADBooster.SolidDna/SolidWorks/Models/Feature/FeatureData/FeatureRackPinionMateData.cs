@@ -14,7 +14,6 @@ public class FeatureRackPinionMateData : SolidDnaObject<IRackPinionMateFeatureDa
     /// </summary>
     public FeatureRackPinionMateData(IRackPinionMateFeatureData model) : base(model)
     {
-
     }
 
     #endregion

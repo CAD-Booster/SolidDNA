@@ -14,7 +14,6 @@ public class FeatureWeldmentTrimExtendData : SolidDnaObject<IWeldmentTrimExtendF
     /// </summary>
     public FeatureWeldmentTrimExtendData(IWeldmentTrimExtendFeatureData model) : base(model)
     {
-
     }
 
     #endregion

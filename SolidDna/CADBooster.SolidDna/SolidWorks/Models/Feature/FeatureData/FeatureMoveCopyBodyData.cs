@@ -14,7 +14,6 @@ public class FeatureMoveCopyBodyData : SolidDnaObject<IMoveCopyBodyFeatureData>
     /// </summary>
     public FeatureMoveCopyBodyData(IMoveCopyBodyFeatureData model) : base(model)
     {
-
     }
 
     #endregion

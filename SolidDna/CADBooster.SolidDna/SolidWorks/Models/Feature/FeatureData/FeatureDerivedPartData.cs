@@ -14,7 +14,6 @@ public class FeatureDerivedPartData : SolidDnaObject<IDerivedPartFeatureData>
     /// </summary>
     public FeatureDerivedPartData(IDerivedPartFeatureData model) : base(model)
     {
-
     }
 
     #endregion

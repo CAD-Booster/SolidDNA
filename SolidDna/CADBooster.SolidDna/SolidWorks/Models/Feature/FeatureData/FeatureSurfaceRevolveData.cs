@@ -14,7 +14,6 @@ public class FeatureSurfaceRevolveData : SolidDnaObject<ISurfRevolveFeatureData>
     /// </summary>
     public FeatureSurfaceRevolveData(ISurfRevolveFeatureData model) : base(model)
     {
-
     }
 
     #endregion

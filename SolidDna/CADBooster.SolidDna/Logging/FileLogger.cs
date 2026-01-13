@@ -75,10 +75,7 @@ public class FileLogger : ILogger
     /// <typeparam name="TState"></typeparam>
     /// <param name="state"></param>
     /// <returns></returns>
-    public IDisposable BeginScope<TState>(TState state)
-    {
-        return null;
-    }
+    public IDisposable BeginScope<TState>(TState state) => null;
 
     /// <summary>
     /// Enabled if the log level is the same or greater than the configuration
@@ -130,10 +127,8 @@ public class FileLogger : ILogger
 
         // Double safety even though the FileLocks should be thread safe
         lock (FileLockLock)
-        {
             // Get the file lock based on the absolute path
             fileLock = FileLocks.GetOrAdd(normalizedPath, path => new object());
-        }
 
         // Lock the file
         lock (fileLock)

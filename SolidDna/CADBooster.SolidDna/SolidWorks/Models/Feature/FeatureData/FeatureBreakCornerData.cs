@@ -14,7 +14,6 @@ public class FeatureBreakCornerData : SolidDnaObject<IBreakCornerFeatureData>
     /// </summary>
     public FeatureBreakCornerData(IBreakCornerFeatureData model) : base(model)
     {
-
     }
 
     #endregion

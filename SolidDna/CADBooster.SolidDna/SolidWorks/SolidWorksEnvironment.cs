@@ -18,7 +18,7 @@ public static class SolidWorksEnvironment
     #endregion
 
     #region Public Properties
-        
+
     /// <summary>
     /// The currently running instance of SolidWorks. Is being replaced by <see cref="IApplication"/> to support mocking.
     /// Returns the concrete type for backward compatibility and returns null when a mock is set via <see cref="SetApplicationForTesting"/>

@@ -14,7 +14,6 @@ public class FeatureAngleMateData : SolidDnaObject<IAngleMateFeatureData>
     /// </summary>
     public FeatureAngleMateData(IAngleMateFeatureData model) : base(model)
     {
-
     }
 
     #endregion

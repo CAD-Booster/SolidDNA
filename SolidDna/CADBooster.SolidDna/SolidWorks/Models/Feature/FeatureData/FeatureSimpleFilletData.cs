@@ -14,7 +14,6 @@ public class FeatureSimpleFilletData : SolidDnaObject<ISimpleFilletFeatureData2>
     /// </summary>
     public FeatureSimpleFilletData(ISimpleFilletFeatureData2 model) : base(model)
     {
-
     }
 
     #endregion

@@ -12,5 +12,5 @@ public enum SketchSegmentType
     Ellipse = 2,
     Spline = 3,
     Text = 4,
-    Parabola = 5
+    Parabola = 5,
 }

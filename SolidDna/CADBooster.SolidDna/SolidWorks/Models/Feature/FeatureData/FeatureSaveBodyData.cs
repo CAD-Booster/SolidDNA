@@ -14,7 +14,6 @@ public class FeatureSaveBodyData : SolidDnaObject<ISaveBodyFeatureData>
     /// </summary>
     public FeatureSaveBodyData(ISaveBodyFeatureData model) : base(model)
     {
-
     }
 
     #endregion

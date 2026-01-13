@@ -14,7 +14,6 @@ public class FeatureFeatureFolder : SolidDnaObject<IFeatureFolder>
     /// </summary>
     public FeatureFeatureFolder(IFeatureFolder model) : base(model)
     {
-
     }
 
     #endregion

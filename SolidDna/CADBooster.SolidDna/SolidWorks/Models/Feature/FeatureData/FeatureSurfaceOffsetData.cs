@@ -14,7 +14,6 @@ public class FeatureSurfaceOffsetData : SolidDnaObject<ISurfaceOffsetFeatureData
     /// </summary>
     public FeatureSurfaceOffsetData(ISurfaceOffsetFeatureData model) : base(model)
     {
-
     }
 
     #endregion

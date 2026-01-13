@@ -14,7 +14,6 @@ public class FeatureFreePointCurveData : SolidDnaObject<IFreePointCurveFeatureDa
     /// </summary>
     public FeatureFreePointCurveData(IFreePointCurveFeatureData model) : base(model)
     {
-
     }
 
     #endregion

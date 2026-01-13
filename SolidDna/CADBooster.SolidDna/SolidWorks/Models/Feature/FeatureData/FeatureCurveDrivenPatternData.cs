@@ -14,7 +14,6 @@ public class FeatureCurveDrivenPatternData : SolidDnaObject<ICurveDrivenPatternF
     /// </summary>
     public FeatureCurveDrivenPatternData(ICurveDrivenPatternFeatureData model) : base(model)
     {
-
     }
 
     #endregion

@@ -19,7 +19,7 @@ public class ModelConfiguration : SolidDnaObject<Configuration>, IModelConfigura
         get
         {
             // Get an array of child configuration
-            var children = (object[])UnsafeObject.GetChildren();
+            var children = (object[]) UnsafeObject.GetChildren();
 
             // Return an empty list instead of null when there are no children.
             // Create a list of ModelConfigurations if there are children.
@@ -72,7 +72,7 @@ public class ModelConfiguration : SolidDnaObject<Configuration>, IModelConfigura
     /// <summary>
     /// The type of configuration, for example standard, flat pattern or one of two weldment options.
     /// </summary>
-    public ConfigurationTypes Type => (ConfigurationTypes)UnsafeObject.Type;
+    public ConfigurationTypes Type => (ConfigurationTypes) UnsafeObject.Type;
 
     #endregion
 
@@ -83,7 +83,6 @@ public class ModelConfiguration : SolidDnaObject<Configuration>, IModelConfigura
     /// </summary>
     public ModelConfiguration(Configuration model) : base(model)
     {
-
     }
 
     #endregion
@@ -94,10 +93,7 @@ public class ModelConfiguration : SolidDnaObject<Configuration>, IModelConfigura
     /// Returns a user-friendly string with configuration properties.
     /// </summary>
     /// <returns></returns>
-    public override string ToString()
-    {
-        return $"Configuration name: {Name}. Type: {Type}. Is derived: {IsDerived}";
-    }
+    public override string ToString() => $"Configuration name: {Name}. Type: {Type}. Is derived: {IsDerived}";
 
     #endregion
 }

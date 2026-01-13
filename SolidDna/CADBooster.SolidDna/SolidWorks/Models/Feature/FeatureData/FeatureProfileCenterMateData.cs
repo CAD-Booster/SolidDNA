@@ -14,7 +14,6 @@ public class FeatureProfileCenterMateData : SolidDnaObject<IProfileCenterMateFea
     /// </summary>
     public FeatureProfileCenterMateData(IProfileCenterMateFeatureData model) : base(model)
     {
-
     }
 
     #endregion

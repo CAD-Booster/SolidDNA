@@ -74,6 +74,4 @@ public enum BalloonTextContent
     /// View letter
     /// </summary>
     ViewLetter = 12,
-
-
 }

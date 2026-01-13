@@ -14,7 +14,6 @@ public class FeatureSurfaceMid : SolidDnaObject<IMidSurface3>
     /// </summary>
     public FeatureSurfaceMid(IMidSurface3 model) : base(model)
     {
-
     }
 
     #endregion

@@ -40,5 +40,5 @@ public enum SolidWorksMessageBoxResult
     /// <summary>
     /// Cancel was clicked
     /// </summary>
-    Cancel = 7
+    Cancel = 7,
 }

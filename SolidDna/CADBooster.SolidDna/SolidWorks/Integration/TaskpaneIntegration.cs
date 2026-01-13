@@ -11,7 +11,7 @@ namespace CADBooster.SolidDna;
 /// IMPORTANT: It is required that the class overriding this only uses a parameterless constructor
 /// as it is created via Com so cannot have a parameter-based construction otherwise it won't load
 /// </summary>
-public class TaskpaneIntegration<THost, TParentAddIn> 
+public class TaskpaneIntegration<THost, TParentAddIn>
     where THost : ITaskpaneControl, new()
     where TParentAddIn : SolidAddIn, new()
 {
@@ -113,7 +113,7 @@ public class TaskpaneIntegration<THost, TParentAddIn>
         mHostControl = await mTaskpaneView.AddControlAsync<ITaskpaneControl>(mHostProgId, string.Empty);
 
         // Set UI thread
-        ThreadHelpers.Enable((Control)mHostControl);
+        ThreadHelpers.Enable((Control) mHostControl);
 
         // Hook into disconnect event of SolidWorks to unload ourselves automatically
         if (mParentAddin != null)
@@ -129,7 +129,7 @@ public class TaskpaneIntegration<THost, TParentAddIn>
                 // Add given WPF control
                 Child = WpfControl,
                 // Dock fill it
-                Dock = DockStyle.Fill
+                Dock = DockStyle.Fill,
             };
 
             // IMPORTANT: 
@@ -156,7 +156,6 @@ public class TaskpaneIntegration<THost, TParentAddIn>
                 // Add WPF host
                 control.Controls.Add(mElementHost);
             }
-
         }
     }
 

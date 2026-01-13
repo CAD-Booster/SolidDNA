@@ -297,7 +297,7 @@ public class ModelFeature : SharedSolidDnaObject<Feature>, IModelFeature
     /// Checks if this feature's specific type is Cam Follower Mate data
     /// </summary>
     public bool IsCamFollowerMateData => FeatureType == ModelFeatureType.CamFollowerMateData;
-        
+
     /// <summary>
     /// Checks if this feature's specific type is Cavity data
     /// </summary>
@@ -969,7 +969,7 @@ public class ModelFeature : SharedSolidDnaObject<Feature>, IModelFeature
     public List<ModelFeature> GetParents()
     {
         // Get an array of parent objects
-        var parents = (object[])UnsafeObject.GetParents();
+        var parents = (object[]) UnsafeObject.GetParents();
 
         // Return an empty list if there are no parents
         // Convert the objects to features, then to ModelFeatures
@@ -983,7 +983,7 @@ public class ModelFeature : SharedSolidDnaObject<Feature>, IModelFeature
     public List<ModelFeature> GetChildren()
     {
         // Get an array of child objects
-        var children = (object[])UnsafeObject.GetChildren();
+        var children = (object[]) UnsafeObject.GetChildren();
 
         // Return an empty list if there are no children
         // Convert the objects to features, then to ModelFeatures
@@ -998,10 +998,8 @@ public class ModelFeature : SharedSolidDnaObject<Feature>, IModelFeature
     /// <param name="configurationOption">Configuration option as defined in <see cref="ModelConfigurationOptions"/></param>
     /// <param name="configurationNames">Array of configuration names; valid only if configurationOption set to <see cref="ModelConfigurationOptions.SpecificConfiguration"/></param>
     /// <returns>True if operation was successful</returns>
-    public bool SetSuppressionState(ModelFeatureSuppressionState state, ModelConfigurationOptions configurationOption, string[] configurationNames = null)
-    {
-        return BaseObject.SetSuppression2((int)state, (int)configurationOption, configurationNames);
-    }
+    public bool SetSuppressionState(ModelFeatureSuppressionState state, ModelConfigurationOptions configurationOption, string[] configurationNames = null) =>
+        BaseObject.SetSuppression2((int) state, (int) configurationOption, configurationNames);
 
     /// <summary>
     /// Gets whether the feature in the specified configurations is suppressed
@@ -1009,10 +1007,7 @@ public class ModelFeature : SharedSolidDnaObject<Feature>, IModelFeature
     /// <param name="configurationOption">Configuration option as defined in <see cref="ModelConfigurationOptions"/></param>
     /// <param name="configurationNames">Array of configuration names</param>
     /// <returns>Array of Booleans indicating the suppression states for the feature in the specified configurations</returns>
-    public bool[] IsSuppressed(ModelConfigurationOptions configurationOption, string[] configurationNames = null)
-    {
-        return (bool[])BaseObject.IsSuppressed2((int)configurationOption, configurationNames);
-    }
+    public bool[] IsSuppressed(ModelConfigurationOptions configurationOption, string[] configurationNames = null) => (bool[]) BaseObject.IsSuppressed2((int) configurationOption, configurationNames);
 
     #region Custom Properties
 
@@ -1075,7 +1070,7 @@ public class ModelFeature : SharedSolidDnaObject<Feature>, IModelFeature
         // Get the custom property editor
         using var editor = GetCustomPropertyEditor();
         // Get the property
-        return editor.GetCustomProperty(name, resolve: resolved);
+        return editor.GetCustomProperty(name, resolved);
     }
 
     /// <summary>
@@ -1116,10 +1111,7 @@ public class ModelFeature : SharedSolidDnaObject<Feature>, IModelFeature
     /// Returns a user-friendly string with feature properties.
     /// </summary>
     /// <returns></returns>
-    public override string ToString()
-    {
-        return $"Name: {FeatureName}. Type: {FeatureTypeName}";
-    }
+    public override string ToString() => $"Name: {FeatureName}. Type: {FeatureTypeName}";
 
     #endregion
 

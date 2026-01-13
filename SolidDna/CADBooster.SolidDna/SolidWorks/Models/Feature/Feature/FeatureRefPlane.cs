@@ -14,7 +14,6 @@ public class FeatureRefPlane : SolidDnaObject<IRefPlane>
     /// </summary>
     public FeatureRefPlane(IRefPlane model) : base(model)
     {
-
     }
 
     #endregion

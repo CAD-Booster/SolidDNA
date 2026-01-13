@@ -21,6 +21,7 @@ public interface ILogger
     // Returns:
     //     An IDisposable that ends the logical operation scope on dispose.
     IDisposable BeginScope<TState>(TState state);
+
     //
     // Summary:
     //     Checks if the given logLevel is enabled.
@@ -32,6 +33,7 @@ public interface ILogger
     // Returns:
     //     true if enabled.
     bool IsEnabled(LogLevel logLevel);
+
     //
     // Summary:
     //     Writes a log entry.

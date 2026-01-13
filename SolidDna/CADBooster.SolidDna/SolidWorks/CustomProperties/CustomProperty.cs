@@ -35,7 +35,7 @@ public class CustomProperty
     /// The resolved value of the custom property
     /// If this custom property contains the model mass, the resolved value is the actual mass.
     /// </summary>
-    public string ResolvedValue => mEditor.GetCustomProperty(Name, resolve: true);
+    public string ResolvedValue => mEditor.GetCustomProperty(Name, true);
 
     #endregion
 
@@ -60,19 +60,13 @@ public class CustomProperty
     /// <summary>
     /// Deletes this custom property
     /// </summary>
-    public void Delete()
-    {
-        mEditor.DeleteCustomProperty(Name);
-    }
+    public void Delete() => mEditor.DeleteCustomProperty(Name);
 
     /// <summary>
     /// Returns a user-friendly string with the name, value and resolved value.
     /// </summary>
     /// <returns></returns>
-    public override string ToString()
-    {
-        return $"Name: {Name}, value: {Value}, resolved value: {ResolvedValue}";
-    }
+    public override string ToString() => $"Name: {Name}, value: {Value}, resolved value: {ResolvedValue}";
 
     #endregion
 }

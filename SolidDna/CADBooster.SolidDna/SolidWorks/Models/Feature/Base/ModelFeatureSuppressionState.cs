@@ -22,5 +22,4 @@ public enum ModelFeatureSuppressionState
     /// Unsuppress the children of the feature
     /// </summary>
     UnSuppressDependent = 2,
-
 }

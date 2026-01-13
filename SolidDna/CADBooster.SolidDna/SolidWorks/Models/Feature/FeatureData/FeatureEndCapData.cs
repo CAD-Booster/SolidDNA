@@ -14,7 +14,6 @@ public class FeatureEndCapData : SolidDnaObject<IEndCapFeatureData>
     /// </summary>
     public FeatureEndCapData(IEndCapFeatureData model) : base(model)
     {
-
     }
 
     #endregion

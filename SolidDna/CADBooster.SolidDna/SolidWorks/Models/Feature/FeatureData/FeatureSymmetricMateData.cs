@@ -14,7 +14,6 @@ public class FeatureSymmetricMateData : SolidDnaObject<ISymmetricMateFeatureData
     /// </summary>
     public FeatureSymmetricMateData(ISymmetricMateFeatureData model) : base(model)
     {
-
     }
 
     #endregion

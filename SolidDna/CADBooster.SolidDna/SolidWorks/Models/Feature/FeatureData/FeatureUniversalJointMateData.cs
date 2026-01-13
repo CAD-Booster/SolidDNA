@@ -14,7 +14,6 @@ public class FeatureUniversalJointMateData : SolidDnaObject<IUniversalJointMateF
     /// </summary>
     public FeatureUniversalJointMateData(IUniversalJointMateFeatureData model) : base(model)
     {
-
     }
 
     #endregion

@@ -14,7 +14,6 @@ public class FeatureThickenData : SolidDnaObject<IThickenFeatureData>
     /// </summary>
     public FeatureThickenData(IThickenFeatureData model) : base(model)
     {
-
     }
 
     #endregion

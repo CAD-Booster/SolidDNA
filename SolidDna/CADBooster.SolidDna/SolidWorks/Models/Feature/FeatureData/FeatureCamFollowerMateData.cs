@@ -14,7 +14,6 @@ public class FeatureCamFollowerMateData : SolidDnaObject<ICamFollowerMateFeature
     /// </summary>
     public FeatureCamFollowerMateData(ICamFollowerMateFeatureData model) : base(model)
     {
-
     }
 
     #endregion

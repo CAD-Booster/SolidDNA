@@ -45,8 +45,10 @@ public class PersistentId
     {
         // Check if the byte array is long enough
         if (byteArray.Length < MinimumArrayLength)
+        {
             throw new SolidDnaException(SolidDnaErrors.CreateError(SolidDnaErrorTypeCode.Identification,
                 SolidDnaErrorCode.IdentificationArrayTooShortForPersistentId, $"Byte array needs to be at least {MinimumArrayLength} bytes long"));
+        }
 
         ByteArray = byteArray;
     }
@@ -63,8 +65,10 @@ public class PersistentId
 
         // Check if the byte array is long enough
         if (byteArray.Length < MinimumArrayLength)
+        {
             throw new SolidDnaException(SolidDnaErrors.CreateError(SolidDnaErrorTypeCode.Identification,
                 SolidDnaErrorCode.IdentificationArrayTooShortForPersistentId, $"Byte array needs to be at least {MinimumArrayLength} bytes long"));
+        }
 
         ByteArray = byteArray;
     }
@@ -194,10 +198,10 @@ public class PersistentId
 
         // If there is no error, return the object
         if (errorCode == 0)
-            return (T)obj;
+            return (T) obj;
 
         // Convert the integer error code to an enum
-        var errorCodeEnum = (swPersistReferencedObjectStates_e)errorCode;
+        var errorCodeEnum = (swPersistReferencedObjectStates_e) errorCode;
 
         // Get the useful part of the error code
         var errorText = errorCodeEnum.ToString().Substring(26);
@@ -210,10 +214,7 @@ public class PersistentId
     /// Find an object (sheet, view etc.) by its persistent ID or return null when it fails.
     /// </summary>
     /// <returns></returns>
-    public T GetObjectOrNull<T>() where T : class
-    {
-        return (T)SolidWorksEnvironment.IApplication.ActiveModel?.Extension?.UnsafeObject.GetObjectByPersistReference3(ByteArray, out var errorCode);
-    }
+    public T GetObjectOrNull<T>() where T : class => (T) SolidWorksEnvironment.IApplication.ActiveModel?.Extension?.UnsafeObject.GetObjectByPersistReference3(ByteArray, out var errorCode);
 
     #endregion
 
@@ -224,17 +225,14 @@ public class PersistentId
     /// </summary>
     /// <param name="otherId"></param>
     /// <returns></returns>
-    public bool Equals(PersistentId otherId)
-    {
-        return otherId != null && ByteArray.SequenceEqual(otherId.ByteArray);
-    }
+    public bool Equals(PersistentId otherId) => otherId != null && ByteArray.SequenceEqual(otherId.ByteArray);
 
     /// <inheritdoc />
     public override bool Equals(object obj)
     {
         if (obj == null || obj.GetType() != typeof(PersistentId))
             return false;
-        return Equals((PersistentId)obj);
+        return Equals((PersistentId) obj);
     }
 
     /// <inheritdoc />
@@ -287,10 +285,7 @@ public class PersistentId
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    private static byte[] CastToByteArray(object id)
-    {
-        return ((IEnumerable)id).Cast<byte>().ToArray();
-    }
+    private static byte[] CastToByteArray(object id) => ((IEnumerable) id).Cast<byte>().ToArray();
 
     #endregion
 }

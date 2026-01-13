@@ -14,7 +14,6 @@ public class FeatureBendsData : SolidDnaObject<IBendsFeatureData>
     /// </summary>
     public FeatureBendsData(IBendsFeatureData model) : base(model)
     {
-
     }
 
     #endregion

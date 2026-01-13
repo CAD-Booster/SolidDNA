@@ -38,7 +38,7 @@ public static class AddInIntegration
         try
         {
             // Try and get the active SolidWorks instance
-            SolidWorks = new SolidWorksApplication((SldWorks)Marshal.GetActiveObject("SldWorks.Application"), 0);
+            SolidWorks = new SolidWorksApplication((SldWorks) Marshal.GetActiveObject("SldWorks.Application"), 0);
 
             // Log it
             Logger.LogDebugSource($"Acquired active instance SolidWorks in Stand-Alone mode");
@@ -78,9 +78,9 @@ public static class AddInIntegration
         {
             // Get the ProgId, the name of the application including the version number
             var progId = GetProgId(version);
-                
+
             // Initialize SolidWorks (SolidDNA class)
-            SolidWorks = new SolidWorksApplication((SldWorks)Activator.CreateInstance(Type.GetTypeFromProgID(progId)), cookie);
+            SolidWorks = new SolidWorksApplication((SldWorks) Activator.CreateInstance(Type.GetTypeFromProgID(progId)), cookie);
 
             // Log it
             Logger.LogDebugSource($"SolidWorks Instance Created? {SolidWorks != null}");
@@ -117,10 +117,7 @@ public static class AddInIntegration
     /// Add a newly loaded add-in to the list of active ones.
     /// </summary>
     /// <param name="addIn"></param>
-    public static void AddAddIn(SolidAddIn addIn)
-    {
-        ActiveAddIns.Add(addIn);
-    }
+    public static void AddAddIn(SolidAddIn addIn) => ActiveAddIns.Add(addIn);
 
     /// <summary>
     /// Remove an unloaded add-in from the list of active ones.

@@ -12,7 +12,6 @@ public class BlankSolidAddIn : SolidAddIn
     /// </summary>
     public BlankSolidAddIn() : base()
     {
-
     }
 
     #endregion
@@ -21,17 +20,14 @@ public class BlankSolidAddIn : SolidAddIn
 
     public override void ApplicationStartup()
     {
-
     }
 
     public override void PreConnectToSolidWorks()
     {
-
     }
 
     public override void PreLoadPlugIns()
     {
-
     }
 
     #endregion

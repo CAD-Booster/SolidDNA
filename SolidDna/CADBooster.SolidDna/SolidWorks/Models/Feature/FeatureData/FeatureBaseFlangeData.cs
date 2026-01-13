@@ -14,7 +14,6 @@ public class FeatureBaseFlangeData : SolidDnaObject<IBaseFlangeFeatureData>
     /// </summary>
     public FeatureBaseFlangeData(IBaseFlangeFeatureData model) : base(model)
     {
-
     }
 
     #endregion

@@ -21,5 +21,5 @@ public enum BalloonItemNumberOrder
     /// <summary>
     /// Order sequentially
     /// </summary>
-    OrderSequentially = 4
+    OrderSequentially = 4,
 }

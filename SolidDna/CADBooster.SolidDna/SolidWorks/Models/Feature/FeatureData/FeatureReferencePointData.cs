@@ -14,7 +14,6 @@ public class FeatureReferencePointData : SolidDnaObject<IRefPointFeatureData>
     /// </summary>
     public FeatureReferencePointData(IRefPointFeatureData model) : base(model)
     {
-
     }
 
     #endregion

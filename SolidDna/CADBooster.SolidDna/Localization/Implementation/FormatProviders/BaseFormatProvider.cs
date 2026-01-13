@@ -58,7 +58,7 @@ public class BaseFormatProvider
 
             // If we have a document already, return that
             if (mCache.TryGetValue(resourcePath, out var value))
-                return (T)value;
+                return (T) value;
 
             // Otherwise try and get it
             var resourceDocument = default(T);

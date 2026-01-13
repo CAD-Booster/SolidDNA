@@ -24,7 +24,6 @@ public class ModelDisplayDimension : SolidDnaObject<IDisplayDimension>, IModelDi
     /// </summary>
     public ModelDisplayDimension(IDisplayDimension model) : base(model)
     {
-            
     }
 
     #endregion

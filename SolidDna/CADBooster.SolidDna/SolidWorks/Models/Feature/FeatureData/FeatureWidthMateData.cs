@@ -14,7 +14,6 @@ public class FeatureWidthMateData : SolidDnaObject<IWidthMateFeatureData>
     /// </summary>
     public FeatureWidthMateData(IWidthMateFeatureData model) : base(model)
     {
-
     }
 
     #endregion

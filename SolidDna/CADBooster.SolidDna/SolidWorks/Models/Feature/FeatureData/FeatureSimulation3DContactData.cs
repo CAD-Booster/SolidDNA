@@ -14,7 +14,6 @@ public class FeatureSimulation3DContactData : SolidDnaObject<ISimulation3DContac
     /// </summary>
     public FeatureSimulation3DContactData(ISimulation3DContactFeatureData model) : base(model)
     {
-
     }
 
     #endregion

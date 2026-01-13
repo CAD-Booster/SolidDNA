@@ -177,7 +177,7 @@ public abstract class SolidAddIn : ISwAddin
             Logger.LogDebugSource($"Storing the SOLIDWORKS instance...");
 
             // Set up the current SolidWorks instance as a SolidDNA class.
-            AddInIntegration.ConnectToActiveSolidWorks(((SldWorks)thisSw).RevisionNumber(), cookie);
+            AddInIntegration.ConnectToActiveSolidWorks(((SldWorks) thisSw).RevisionNumber(), cookie);
 
             // Tell solidworks which method to call when it receives a button click on a command manager item or flyout.
             SetUpCallbacks(thisSw, cookie);
@@ -284,7 +284,7 @@ public abstract class SolidAddIn : ISwAddin
         // Log it
         Logger.LogDebugSource($"Setting AddinCallbackInfo...");
 
-        var ok = ((SldWorks)thisSw).SetAddinCallbackInfo2(0, this, cookie);
+        var ok = ((SldWorks) thisSw).SetAddinCallbackInfo2(0, this, cookie);
     }
 
     #endregion
@@ -380,7 +380,7 @@ public abstract class SolidAddIn : ISwAddin
 
             // Log an error to a new or existing text file 
             File.AppendAllText(changeExtension, $"\r\nUnexpected error: {ex}");
-                
+
             Logger.LogCriticalSource($"COM Registration error. {ex}");
             throw;
         }
@@ -398,7 +398,6 @@ public abstract class SolidAddIn : ISwAddin
 
         // Remove our registry entry
         Microsoft.Win32.Registry.LocalMachine.DeleteSubKeyTree(keyPath);
-
     }
 
     #endregion

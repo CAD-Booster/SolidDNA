@@ -14,7 +14,7 @@ public readonly struct TabItemData
     public TabItemData(CommandManagerItem item)
     {
         Id = item.CommandId;
-        Style = (CommandManagerFlyoutStyle)item.TabView;
+        Style = (CommandManagerFlyoutStyle) item.TabView;
     }
 
     /// <summary>
@@ -24,7 +24,7 @@ public readonly struct TabItemData
     public TabItemData(CommandManagerFlyout flyout)
     {
         Id = flyout.CommandId;
-        Style = (CommandManagerFlyoutStyle)flyout.TabView | CommandManagerFlyoutStyle.ActionFlyout;
+        Style = (CommandManagerFlyoutStyle) flyout.TabView | CommandManagerFlyoutStyle.ActionFlyout;
     }
 
     /// <summary>

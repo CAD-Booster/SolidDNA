@@ -14,7 +14,6 @@ public class FeatureLoftedBendsData : SolidDnaObject<ILoftedBendsFeatureData>
     /// </summary>
     public FeatureLoftedBendsData(ILoftedBendsFeatureData model) : base(model)
     {
-
     }
 
     #endregion

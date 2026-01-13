@@ -14,7 +14,6 @@ public class CommandManagerSeparator : ICommandManagerItem
     /// </summary>
     public CommandManagerSeparator()
     {
-            
     }
 
     /// <summary>
@@ -46,13 +45,13 @@ public class CommandManagerSeparator : ICommandManagerItem
     /// The position of the item in the list. Not used for separators.
     /// </summary>
     public int Position { get; set; }
-        
+
     /// <summary>
     /// The tab view style (whether and how to show in the large icon tab bar view).
     /// Separator is added when the value is anything but <see cref="CommandManagerItemTabView.None"/>.
     /// </summary>
     public CommandManagerItemTabView TabView { get; set; } = CommandManagerItemTabView.IconOnly;
-        
+
     /// <summary>
     /// True to show this item in the command tab when an assembly is open
     /// </summary>

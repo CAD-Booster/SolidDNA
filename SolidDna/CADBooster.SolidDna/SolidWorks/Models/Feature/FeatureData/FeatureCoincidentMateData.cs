@@ -14,7 +14,6 @@ public class FeatureCoincidentMateData : SolidDnaObject<ICoincidentMateFeatureDa
     /// </summary>
     public FeatureCoincidentMateData(ICoincidentMateFeatureData model) : base(model)
     {
-
     }
 
     #endregion

@@ -24,12 +24,7 @@ public static class SolidDnaErrors
         var errorMessage = errorDetails.IsNullOrWhiteSpace() ? translatedErrorCode : $"{translatedErrorCode}. {errorDetails}";
 
         // Create the error
-        var error = new SolidDnaError
-        {
-            ErrorCodeValue = errorCode,
-            ErrorMessage = errorMessage,
-            ErrorTypeCodeValue = errorTypeCode,
-        };
+        var error = new SolidDnaError { ErrorCodeValue = errorCode, ErrorMessage = errorMessage, ErrorTypeCodeValue = errorTypeCode };
 
         // Set inner details
         if (innerException != null)
@@ -63,7 +58,7 @@ public static class SolidDnaErrors
                 // Log the error
                 Logger.LogCriticalSource($"SolidDNA Exception created. {error.SolidDnaError}");
                 if (error.InnerException != null)
-                    Logger.LogCriticalSource($"Inner Exception: { error.InnerException.GetErrorMessage()}");
+                    Logger.LogCriticalSource($"Inner Exception: {error.InnerException.GetErrorMessage()}");
             }
             // Otherwise, throw 
             else
@@ -96,10 +91,11 @@ public static class SolidDnaErrors
                 // Log the error
                 Logger.LogCriticalSource($"SolidDNA Exception created. {error.SolidDnaError}");
                 if (error.InnerException != null)
-                    Logger.LogCriticalSource($"Inner Exception: { error.InnerException.GetErrorMessage()}");
+                    Logger.LogCriticalSource($"Inner Exception: {error.InnerException.GetErrorMessage()}");
 
                 return default;
             }
+
             // Otherwise, throw 
             throw error;
         }
@@ -130,7 +126,7 @@ public static class SolidDnaErrors
                 // Log the error
                 Logger.LogCriticalSource($"SolidDNA Exception created. {error.SolidDnaError}");
                 if (error.InnerException != null)
-                    Logger.LogCriticalSource($"Inner Exception: { error.InnerException.GetErrorMessage()}");
+                    Logger.LogCriticalSource($"Inner Exception: {error.InnerException.GetErrorMessage()}");
             }
             // Otherwise, throw 
             else
@@ -165,16 +161,16 @@ public static class SolidDnaErrors
                 // Log the error
                 Logger.LogCriticalSource($"SolidDNA Exception created. {error.SolidDnaError}");
                 if (error.InnerException != null)
-                    Logger.LogCriticalSource($"Inner Exception: { error.InnerException.GetErrorMessage()}");
+                    Logger.LogCriticalSource($"Inner Exception: {error.InnerException.GetErrorMessage()}");
 
                 // Return a default object
                 return default;
             }
+
             // Otherwise, throw it up
             throw error;
         }
     }
-
 
     #endregion
 }

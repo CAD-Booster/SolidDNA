@@ -14,7 +14,6 @@ public class FeatureFlatPatternFolder : SolidDnaObject<IFlatPatternFolder>
     /// </summary>
     public FeatureFlatPatternFolder(IFlatPatternFolder model) : base(model)
     {
-
     }
 
     #endregion

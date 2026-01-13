@@ -95,7 +95,7 @@ public static class Logger
         [CallerMemberName] string origin = "",
         [CallerFilePath] string filePath = "",
         [CallerLineNumber] int lineNumber = 0,
-        params object[] args)=>
+        params object[] args) =>
         LogToAllLoggers(LogLevel.Trace, message, eventId, exception, origin, filePath, lineNumber, args);
 
     /// <summary>
@@ -115,7 +115,7 @@ public static class Logger
         [CallerMemberName] string origin = "",
         [CallerFilePath] string filePath = "",
         [CallerLineNumber] int lineNumber = 0,
-        params object[] args)=>
+        params object[] args) =>
         LogToAllLoggers(LogLevel.Debug, message, eventId, exception, origin, filePath, lineNumber, args);
 
     /// <summary>
@@ -135,7 +135,7 @@ public static class Logger
         [CallerMemberName] string origin = "",
         [CallerFilePath] string filePath = "",
         [CallerLineNumber] int lineNumber = 0,
-        params object[] args)=>
+        params object[] args) =>
         LogToAllLoggers(LogLevel.Error, message, eventId, exception, origin, filePath, lineNumber, args);
 
     /// <summary>
@@ -155,7 +155,7 @@ public static class Logger
         [CallerMemberName] string origin = "",
         [CallerFilePath] string filePath = "",
         [CallerLineNumber] int lineNumber = 0,
-        params object[] args)=>
+        params object[] args) =>
         LogToAllLoggers(LogLevel.Information, message, eventId, exception, origin, filePath, lineNumber, args);
 
     /// <summary>
@@ -175,7 +175,7 @@ public static class Logger
         [CallerMemberName] string origin = "",
         [CallerFilePath] string filePath = "",
         [CallerLineNumber] int lineNumber = 0,
-        params object[] args)=>
+        params object[] args) =>
         LogToAllLoggers(LogLevel.Warning, message, eventId, exception, origin, filePath, lineNumber, args);
 
     /// <summary>
@@ -199,11 +199,7 @@ public static class Logger
 
         // Write to all other loggers
         foreach (var loggers in Loggers.Values)
-        {
-            foreach (var logger in loggers)
-            {
-                logger.Log(logLevel, eventId, args.Prepend(origin, filePath, lineNumber, message), exception, LoggerSourceFormatter.Format);
-            }
-        }
+        foreach (var logger in loggers)
+            logger.Log(logLevel, eventId, args.Prepend(origin, filePath, lineNumber, message), exception, LoggerSourceFormatter.Format);
     }
 }

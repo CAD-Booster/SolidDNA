@@ -14,7 +14,6 @@ public class FeatureSimulationDamperData : SolidDnaObject<ISimulationDamperFeatu
     /// </summary>
     public FeatureSimulationDamperData(ISimulationDamperFeatureData model) : base(model)
     {
-
     }
 
     #endregion

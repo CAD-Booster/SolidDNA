@@ -14,7 +14,6 @@ public class FeatureHelixData : SolidDnaObject<IHelixFeatureData>
     /// </summary>
     public FeatureHelixData(IHelixFeatureData model) : base(model)
     {
-
     }
 
     #endregion

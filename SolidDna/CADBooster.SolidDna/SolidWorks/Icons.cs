@@ -66,7 +66,7 @@ public static class Icons
         {
             // Replace "{0}" in the string with the icon size
             var path = FormatPath(pathFormat, iconSize);
-                
+
             // Don't check if the path exists because SolidWorks does that for us. If all files don't exist and we return an empty array, the task pane is not created.
             iconPaths.Add(iconSize, path);
         }
@@ -87,9 +87,11 @@ public static class Icons
     {
         // Make sure the path format contains "{0}"
         if (pathFormat == null || !pathFormat.Contains("{0}"))
+        {
             throw new SolidDnaException(SolidDnaErrors.CreateError(
                 SolidDnaErrorTypeCode.SolidWorksCommandManager,
                 SolidDnaErrorCode.SolidWorksCommandGroupInvalidPathFormatError));
+        }
 
         // Replace {0} with the icon size
         return string.Format(pathFormat, iconSize);

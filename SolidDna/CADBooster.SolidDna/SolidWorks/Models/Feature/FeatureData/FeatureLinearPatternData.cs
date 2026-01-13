@@ -14,7 +14,6 @@ public class FeatureLinearPatternData : SolidDnaObject<ILinearPatternFeatureData
     /// </summary>
     public FeatureLinearPatternData(ILinearPatternFeatureData model) : base(model)
     {
-
     }
 
     #endregion

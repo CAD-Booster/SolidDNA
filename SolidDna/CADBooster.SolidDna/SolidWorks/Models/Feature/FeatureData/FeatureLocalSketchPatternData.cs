@@ -14,7 +14,6 @@ public class FeatureLocalSketchPatternData : SolidDnaObject<ILocalSketchPatternF
     /// </summary>
     public FeatureLocalSketchPatternData(ILocalSketchPatternFeatureData model) : base(model)
     {
-
     }
 
     #endregion

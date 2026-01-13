@@ -14,7 +14,6 @@ public class FeatureGearMateData : SolidDnaObject<IGearMateFeatureData>
     /// </summary>
     public FeatureGearMateData(IGearMateFeatureData model) : base(model)
     {
-
     }
 
     #endregion

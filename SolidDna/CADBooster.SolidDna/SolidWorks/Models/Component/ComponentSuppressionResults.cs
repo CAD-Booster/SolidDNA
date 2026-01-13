@@ -26,5 +26,5 @@ public enum ComponentSuppressionResults
     /// <summary>
     /// The component state failed to change even though the arguments were ok
     /// </summary>
-    Failed = 3
+    Failed = 3,
 }

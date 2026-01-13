@@ -130,7 +130,8 @@ public interface ISelectionManager : IDisposable
     /// <param name="selectionMode">Whether to start a new selection or append an existing one</param>
     /// <param name="selectionMark">Whether to mark this selected object with a number</param>
     /// <param name="rayRadius">The radius of the ray</param>
-    void SelectByRay(SelectionType selectionType, Point3D startPosition, Vector3D direction, SelectionMode selectionMode = SelectionMode.Create, SelectionMark selectionMark = SelectionMark.Any, RayRadius rayRadius = RayRadius.Standard);
+    void SelectByRay(SelectionType selectionType, Point3D startPosition, Vector3D direction, SelectionMode selectionMode = SelectionMode.Create, SelectionMark selectionMark = SelectionMark.Any,
+        RayRadius rayRadius = RayRadius.Standard);
 
     #endregion
 }

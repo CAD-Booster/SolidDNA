@@ -14,7 +14,6 @@ public class FeatureBoundaryBossData : SolidDnaObject<IBoundaryBossFeatureData>
     /// </summary>
     public FeatureBoundaryBossData(IBoundaryBossFeatureData model) : base(model)
     {
-
     }
 
     #endregion

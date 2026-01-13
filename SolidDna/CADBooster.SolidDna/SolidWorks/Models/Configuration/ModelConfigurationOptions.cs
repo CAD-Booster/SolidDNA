@@ -41,5 +41,5 @@ public enum ModelConfigurationOptions
     /// <summary>
     /// Speedpak Configuration
     /// </summary>
-    SpeedpakConfiguration = 5
+    SpeedpakConfiguration = 5,
 }

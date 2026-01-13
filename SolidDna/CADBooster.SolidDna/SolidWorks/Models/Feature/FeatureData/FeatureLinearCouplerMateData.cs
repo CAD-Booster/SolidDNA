@@ -14,7 +14,6 @@ public class FeatureLinearCouplerMateData : SolidDnaObject<ILinearCouplerMateFea
     /// </summary>
     public FeatureLinearCouplerMateData(ILinearCouplerMateFeatureData model) : base(model)
     {
-
     }
 
     #endregion

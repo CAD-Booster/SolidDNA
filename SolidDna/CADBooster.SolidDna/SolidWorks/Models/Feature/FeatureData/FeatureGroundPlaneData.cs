@@ -14,7 +14,6 @@ public class FeatureGroundPlaneData : SolidDnaObject<IGroundPlaneFeatureData>
     /// </summary>
     public FeatureGroundPlaneData(IGroundPlaneFeatureData model) : base(model)
     {
-
     }
 
     #endregion

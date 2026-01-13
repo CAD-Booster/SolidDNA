@@ -14,7 +14,6 @@ public class FeatureLibraryFeatureData : SolidDnaObject<ILibraryFeatureData>
     /// </summary>
     public FeatureLibraryFeatureData(ILibraryFeatureData model) : base(model)
     {
-
     }
 
     #endregion

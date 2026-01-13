@@ -14,7 +14,6 @@ public class FeatureAttribute : SolidDnaObject<IAttribute>
     /// </summary>
     public FeatureAttribute(IAttribute model) : base(model)
     {
-
     }
 
     #endregion

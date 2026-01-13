@@ -39,5 +39,5 @@ public enum BalloonLayoutType
     /// <summary>
     /// Along the left edge of the drawing view
     /// </summary>
-    Left = 6
+    Left = 6,
 }

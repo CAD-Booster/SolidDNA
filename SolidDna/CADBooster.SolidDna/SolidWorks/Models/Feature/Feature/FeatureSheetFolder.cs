@@ -5,7 +5,7 @@ namespace CADBooster.SolidDna;
 /// <summary>
 /// Represents a SolidWorks Sheet Metal folder
 /// </summary>
-public class FeatureSheetMetalFolder: SolidDnaObject<ISheetMetalFolder>
+public class FeatureSheetMetalFolder : SolidDnaObject<ISheetMetalFolder>
 {
     #region Constructor
 
@@ -14,7 +14,6 @@ public class FeatureSheetMetalFolder: SolidDnaObject<ISheetMetalFolder>
     /// </summary>
     public FeatureSheetMetalFolder(ISheetMetalFolder model) : base(model)
     {
-
     }
 
     #endregion

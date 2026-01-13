@@ -35,5 +35,5 @@ public enum SolidWorksMessageBoxButtons
     /// <summary>
     /// A Yes, No and Cancel button
     /// </summary>
-    YesNoCancel = 6
+    YesNoCancel = 6,
 }

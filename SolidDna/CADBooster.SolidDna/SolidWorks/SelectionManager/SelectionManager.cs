@@ -33,7 +33,6 @@ public class SelectionManager : SolidDnaObject<SelectionMgr>, ISelectionManager
     [Obsolete("Use the full constructor that takes a model and model extension. This enables selecting and deselecting methods.")]
     public SelectionManager(SelectionMgr selectionMgr) : base(selectionMgr)
     {
-
     }
 
     /// <summary>
@@ -67,7 +66,7 @@ public class SelectionManager : SolidDnaObject<SelectionMgr>, ISelectionManager
     public bool DeselectAtIndex(int index, SelectionMark selectionMark = SelectionMark.Any)
     {
         // Deselect the object
-        var result = BaseObject.DeSelect2(index, (int)selectionMark);
+        var result = BaseObject.DeSelect2(index, (int) selectionMark);
 
         // Return whether it was successful: 1 means successful, 0 means not successful.
         return result == 1;
@@ -83,7 +82,7 @@ public class SelectionManager : SolidDnaObject<SelectionMgr>, ISelectionManager
     public bool DeselectAtIndexes(List<int> indexes, SelectionMark selectionMark = SelectionMark.Any)
     {
         // Deselect the objects
-        var result = BaseObject.DeSelect2(indexes.ToArray(), (int)selectionMark);
+        var result = BaseObject.DeSelect2(indexes.ToArray(), (int) selectionMark);
 
         // Return whether it was successful: 1 means successful, 0 means not successful.
         return result == 1;
@@ -126,14 +125,14 @@ public class SelectionManager : SolidDnaObject<SelectionMgr>, ISelectionManager
     /// <param name="selectionMark">Only include objects with this selection mark</param>
     /// <returns></returns>
     public SelectedObject GetSelectedObjectAtIndex(int index, SelectionMark selectionMark = SelectionMark.Any) =>
-        new SelectedObject(BaseObject.GetSelectedObject6(index, (int)selectionMark), (swSelectType_e)BaseObject.GetSelectedObjectType3(index, (int)selectionMark));
+        new SelectedObject(BaseObject.GetSelectedObject6(index, (int) selectionMark), (swSelectType_e) BaseObject.GetSelectedObjectType3(index, (int) selectionMark));
 
     /// <summary>
     /// Get the number of selected objects in the current model with a certain selection mark.
     /// </summary>
     /// <param name="mark">Only include objects with this selection mark</param>
     /// <returns>The count of selected objects</returns>
-    public int GetSelectedObjectCount(SelectionMark mark = SelectionMark.Any) => BaseObject.GetSelectedObjectCount2((int)mark);
+    public int GetSelectedObjectCount(SelectionMark mark = SelectionMark.Any) => BaseObject.GetSelectedObjectCount2((int) mark);
 
     /// <summary>
     /// Get all selected objects in the current model with a certain selection mark.
@@ -150,10 +149,8 @@ public class SelectionManager : SolidDnaObject<SelectionMgr>, ISelectionManager
 
         // Get all selected objects
         for (var i = 1; i <= count; i++)
-        {
             // Get the object and its type. Add it to the list.
             list.Add(GetSelectedObjectAtIndex(i, selectionMark));
-        }
 
         // Return the list
         return list;
@@ -191,10 +188,8 @@ public class SelectionManager : SolidDnaObject<SelectionMgr>, ISelectionManager
 
             // Get all selected objects
             for (var i = 1; i <= count; i++)
-            {
                 // Get the object and its type. Add it to the list.
                 list.Add(GetSelectedObjectAtIndex(i, selectionMark));
-            }
 
             // Call the action
             action(list);
@@ -245,7 +240,8 @@ public class SelectionManager : SolidDnaObject<SelectionMgr>, ISelectionManager
     /// <param name="rayRadius">The radius of the ray</param>
     /// <param name="selectionMode">Whether to start a new selection or append an existing one</param>
     /// <param name="selectionMark">Whether to mark this selected object with a number</param>
-    public void SelectByRay(SelectionType selectionType, Point3D startPosition, Vector3D direction, SelectionMode selectionMode = SelectionMode.Create, SelectionMark selectionMark = SelectionMark.Any, RayRadius rayRadius = RayRadius.Standard)
+    public void SelectByRay(SelectionType selectionType, Point3D startPosition, Vector3D direction, SelectionMode selectionMode = SelectionMode.Create, SelectionMark selectionMark = SelectionMark.Any,
+        RayRadius rayRadius = RayRadius.Standard)
     {
         SolidDnaErrors.Wrap(() =>
         {
@@ -260,12 +256,12 @@ public class SelectionManager : SolidDnaObject<SelectionMgr>, ISelectionManager
             var radius = GetRayRadius(rayRadius);
 
             // Select the object
-            var selected = mModelExtension.UnsafeObject.SelectByRay(startPosition.X, startPosition.Y, startPosition.Z, direction.X, direction.Y, direction.Z, radius, (int)selectionType, append, (int)selectionMark, 0);
+            var selected = mModelExtension.UnsafeObject.SelectByRay(startPosition.X, startPosition.Y, startPosition.Z, direction.X, direction.Y, direction.Z, radius, (int) selectionType, append,
+                (int) selectionMark, 0);
 
             // Check if it was successful
             if (!selected)
                 throw new Exception("Object not selected");
-
         }, SolidDnaErrorTypeCode.SolidWorksModel, SolidDnaErrorCode.SolidWorksModelObjectNotSelectedError);
     }
 
@@ -285,12 +281,11 @@ public class SelectionManager : SolidDnaObject<SelectionMgr>, ISelectionManager
             var append = selectionMode == SelectionMode.Append;
 
             // Select the object
-            var success = mModelExtension.UnsafeObject.SelectByID2(name, selectionType.StringValue, position.X, position.Y, position.Z, append, (int)selectionMark, null, 0);
+            var success = mModelExtension.UnsafeObject.SelectByID2(name, selectionType.StringValue, position.X, position.Y, position.Z, append, (int) selectionMark, null, 0);
 
             // Check if it was successful
             if (!success)
                 throw new Exception("Object not selected");
-
         }, SolidDnaErrorTypeCode.SolidWorksModel, SolidDnaErrorCode.SolidWorksModelObjectNotSelectedError);
     }
 
@@ -309,7 +304,7 @@ public class SelectionManager : SolidDnaObject<SelectionMgr>, ISelectionManager
             RayRadius.Large => 0.0016,
             RayRadius.ExtraLarge => 0.0032,
             RayRadius.Standard => 0.0008,
-            _ => 0.0008
+            _ => 0.0008,
         };
     }
 

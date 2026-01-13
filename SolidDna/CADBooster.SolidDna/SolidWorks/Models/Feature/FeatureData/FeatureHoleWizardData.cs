@@ -14,7 +14,6 @@ public class FeatureHoleWizardData : SolidDnaObject<IWizardHoleFeatureData2>
     /// </summary>
     public FeatureHoleWizardData(IWizardHoleFeatureData2 model) : base(model)
     {
-
     }
 
     #endregion

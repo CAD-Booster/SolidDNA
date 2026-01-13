@@ -14,7 +14,6 @@ public class FeatureReferenceAxisData : SolidDnaObject<IRefAxisFeatureData>
     /// </summary>
     public FeatureReferenceAxisData(IRefAxisFeatureData model) : base(model)
     {
-
     }
 
     #endregion

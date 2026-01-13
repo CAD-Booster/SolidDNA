@@ -14,7 +14,6 @@ public class FeatureOneBendData : SolidDnaObject<IOneBendFeatureData>
     /// </summary>
     public FeatureOneBendData(IOneBendFeatureData model) : base(model)
     {
-
     }
 
     #endregion

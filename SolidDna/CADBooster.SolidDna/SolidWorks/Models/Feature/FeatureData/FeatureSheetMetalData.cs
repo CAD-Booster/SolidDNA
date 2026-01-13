@@ -14,7 +14,6 @@ public class FeatureSheetMetalData : SolidDnaObject<ISheetMetalFeatureData>
     /// </summary>
     public FeatureSheetMetalData(ISheetMetalFeatureData model) : base(model)
     {
-
     }
 
     #endregion

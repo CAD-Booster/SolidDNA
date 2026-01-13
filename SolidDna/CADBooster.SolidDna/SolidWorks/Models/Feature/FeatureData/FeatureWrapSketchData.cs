@@ -14,7 +14,6 @@ public class FeatureWrapSketchData : SolidDnaObject<IWrapSketchFeatureData>
     /// </summary>
     public FeatureWrapSketchData(IWrapSketchFeatureData model) : base(model)
     {
-
     }
 
     #endregion

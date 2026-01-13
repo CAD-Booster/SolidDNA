@@ -14,7 +14,6 @@ public class FeatureSurfaceFlattenData : SolidDnaObject<ISurfaceFlattenFeatureDa
     /// </summary>
     public FeatureSurfaceFlattenData(ISurfaceFlattenFeatureData model) : base(model)
     {
-
     }
 
     #endregion

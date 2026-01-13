@@ -14,7 +14,6 @@ public class FeatureCoreData : SolidDnaObject<ICoreFeatureData>
     /// </summary>
     public FeatureCoreData(ICoreFeatureData model) : base(model)
     {
-
     }
 
     #endregion

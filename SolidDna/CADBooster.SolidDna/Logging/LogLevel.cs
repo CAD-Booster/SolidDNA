@@ -42,5 +42,5 @@ public enum LogLevel
     // Summary:
     //     Not used for writing log messages. Specifies that a logging category should not
     //     write any messages.
-    None = 6
+    None = 6,
 }

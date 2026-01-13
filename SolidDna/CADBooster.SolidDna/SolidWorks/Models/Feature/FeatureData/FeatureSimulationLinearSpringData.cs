@@ -14,7 +14,6 @@ public class FeatureSimulationLinearSpringData : SolidDnaObject<ISimulationLinea
     /// </summary>
     public FeatureSimulationLinearSpringData(ISimulationLinearSpringFeatureData model) : base(model)
     {
-
     }
 
     #endregion

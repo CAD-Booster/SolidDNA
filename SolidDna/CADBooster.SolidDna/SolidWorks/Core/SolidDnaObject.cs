@@ -41,7 +41,7 @@ public class SolidDnaObject<T> : SolidDnaObject, ISolidDnaObject<T>
     /// </summary>
     protected T BaseObject
     {
-        get => (T)mBaseObject;
+        get => (T) mBaseObject;
         set => mBaseObject = value;
     }
 

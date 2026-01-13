@@ -14,7 +14,6 @@ public class FeatureShutOffSurfaceData : SolidDnaObject<IShutOffSurfaceFeatureDa
     /// </summary>
     public FeatureShutOffSurfaceData(IShutOffSurfaceFeatureData model) : base(model)
     {
-
     }
 
     #endregion

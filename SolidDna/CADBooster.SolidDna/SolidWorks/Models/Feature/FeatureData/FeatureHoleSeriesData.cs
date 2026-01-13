@@ -14,7 +14,6 @@ public class FeatureHoleSeriesData : SolidDnaObject<IHoleSeriesFeatureData2>
     /// </summary>
     public FeatureHoleSeriesData(IHoleSeriesFeatureData2 model) : base(model)
     {
-
     }
 
     #endregion

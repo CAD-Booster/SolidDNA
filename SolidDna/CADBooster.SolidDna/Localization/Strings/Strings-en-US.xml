@@ -1,8 +1,9 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
 <Strings>
-  
+
   <!-- General -->
-  
+
   <!-- ####################################### -->
   <!-- #                Errors               # -->
   <!-- ####################################### -->
@@ -59,5 +60,5 @@
   <String Name="SolidWorksExportDataError">An unknown error occurred in the Export Data class</String>
   <String Name="SolidWorksExportDataGetPdfExportDataError">An error occurred calling SldWorks.GetExportFileData(1) to get PDF Export data</String>
   <String Name="SolidWorksExportDataPdfSetSheetsError">An error occurred calling SetSheets on the PDF Export Data object</String>
-  
+
 </Strings>

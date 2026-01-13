@@ -14,7 +14,6 @@ public class FeatureMotionStudyResults : SolidDnaObject<IMotionStudyResults>
     /// </summary>
     public FeatureMotionStudyResults(IMotionStudyResults model) : base(model)
     {
-
     }
 
     #endregion

@@ -14,7 +14,6 @@ public class FeatureSlotMateData : SolidDnaObject<ISlotMateFeatureData>
     /// </summary>
     public FeatureSlotMateData(ISlotMateFeatureData model) : base(model)
     {
-
     }
 
     #endregion

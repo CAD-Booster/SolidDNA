@@ -38,5 +38,5 @@ public enum BalloonFitSize
     /// <summary>
     /// Size defined by <see cref="AutoBalloonOptions.CustomSize"/>
     /// </summary>
-    UserDefined = 6
+    UserDefined = 6,
 }

@@ -113,7 +113,7 @@ public class CommandManagerFlyout : SolidDnaObject<IFlyoutGroup>, ICommandManage
     /// <param name="tooltip">The tool tip</param>
     /// <param name="tabView"> </param>
     /// <param name="type"> </param>
-    public CommandManagerFlyout(IFlyoutGroup flyoutGroup, int userId, string callbackId, List<CommandManagerItem> items, string title, string hint, string tooltip, 
+    public CommandManagerFlyout(IFlyoutGroup flyoutGroup, int userId, string callbackId, List<CommandManagerItem> items, string title, string hint, string tooltip,
         CommandManagerItemTabView tabView, CommandManagerFlyoutType type) : base(flyoutGroup)
     {
         // Set user ID
@@ -171,7 +171,7 @@ public class CommandManagerFlyout : SolidDnaObject<IFlyoutGroup>, ICommandManage
         Items?.ForEach(AddCommandItem);
 
         // Set the flyout type
-        BaseObject.FlyoutType = (int)Type;
+        BaseObject.FlyoutType = (int) Type;
 
         // Set flag
         _addedItemsAfterFirstClick = true;
@@ -184,14 +184,16 @@ public class CommandManagerFlyout : SolidDnaObject<IFlyoutGroup>, ICommandManage
     private void AddCommandItem(CommandManagerItem item)
     {
         // Add the item and receive the actual position.
-        var position = BaseObject.AddCommandItem(item.Name, item.Hint, item.ImageIndex, 
-            $"{nameof(SolidAddIn.Callback)}({item.CallbackId})", 
+        var position = BaseObject.AddCommandItem(item.Name, item.Hint, item.ImageIndex,
+            $"{nameof(SolidAddIn.Callback)}({item.CallbackId})",
             $"{nameof(SolidAddIn.ItemStateCheck)}({item.CallbackId})");
 
         // If the returned position is -1, the item was not added.
         if (position == -1)
+        {
             throw new SolidDnaException(SolidDnaErrors.CreateError(SolidDnaErrorTypeCode.SolidWorksCommandManager,
                 SolidDnaErrorCode.SolidWorksCommandFlyoutPositionError, "Can be caused by setting the image indexes wrong."));
+        }
     }
 
     /// <summary>

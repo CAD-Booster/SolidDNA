@@ -15,7 +15,6 @@ public class Taskpane : SolidDnaObject<ITaskpaneView>
     /// </summary>
     public Taskpane(ITaskpaneView taskpane) : base(taskpane)
     {
-
     }
 
     #endregion
@@ -38,12 +37,11 @@ public class Taskpane : SolidDnaObject<ITaskpaneView>
         return SolidDnaErrors.Wrap(() =>
             {
                 // Attempt to create the taskpane
-                return (T)BaseObject.AddControl(progId, licenseKey);
+                return (T) BaseObject.AddControl(progId, licenseKey);
             },
             SolidDnaErrorTypeCode.SolidWorksTaskpane,
             SolidDnaErrorCode.SolidWorksTaskpaneAddControlError);
     }
-
 
     #endregion
 }

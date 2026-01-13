@@ -14,7 +14,6 @@ public class FeatureConcentricMateData : SolidDnaObject<IConcentricMateFeatureDa
     /// </summary>
     public FeatureConcentricMateData(IConcentricMateFeatureData model) : base(model)
     {
-
     }
 
     #endregion

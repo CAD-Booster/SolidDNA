@@ -24,10 +24,7 @@ public class ModelSaveResult
     /// Nice output to string
     /// </summary>
     /// <returns></returns>
-    public override string ToString()
-    {
-        return Successful ? "Success" : $"Failed. Errors ({Errors}). Warnings ({Warnings})";
-    }
+    public override string ToString() => Successful ? "Success" : $"Failed. Errors ({Errors}). Warnings ({Warnings})";
 
     /// <summary>
     /// Convert the integers that SolidWorks returns while saving a file to enum values and set them.
@@ -36,7 +33,7 @@ public class ModelSaveResult
     /// <param name="warnings"></param>
     public void AddErrorsAndWarnings(int errors, int warnings)
     {
-        Errors = (SaveAsErrors)errors;
-        Warnings = (SaveAsWarnings)warnings;
+        Errors = (SaveAsErrors) errors;
+        Warnings = (SaveAsWarnings) warnings;
     }
 }

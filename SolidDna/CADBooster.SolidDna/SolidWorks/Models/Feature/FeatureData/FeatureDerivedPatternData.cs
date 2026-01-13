@@ -14,7 +14,6 @@ public class FeatureDerivedPatternData : SolidDnaObject<IDerivedPatternFeatureDa
     /// </summary>
     public FeatureDerivedPatternData(IDerivedPatternFeatureData model) : base(model)
     {
-
     }
 
     #endregion

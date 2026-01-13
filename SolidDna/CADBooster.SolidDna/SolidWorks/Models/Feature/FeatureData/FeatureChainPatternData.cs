@@ -14,7 +14,6 @@ public class FeatureChainPatternData : SolidDnaObject<IChainPatternFeatureData>
     /// </summary>
     public FeatureChainPatternData(IChainPatternFeatureData model) : base(model)
     {
-
     }
 
     #endregion

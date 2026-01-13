@@ -47,7 +47,7 @@ public class CommandManager : SolidDnaObject<ICommandManager>
     /// <param name="documentTypes">The document types where this menu is visible.</param>
     /// <returns></returns>
     public CommandManagerGroup CreateCommandMenu(string title, int id, List<CommandManagerItem> commandManagerItems, string iconListsPathFormat = "",
-        int position = -1, bool ignorePreviousVersion = true, 
+        int position = -1, bool ignorePreviousVersion = true,
         ModelTemplateType documentTypes = ModelTemplateType.None | ModelTemplateType.Part | ModelTemplateType.Assembly | ModelTemplateType.Drawing)
     {
 #pragma warning disable CS0618
@@ -70,7 +70,8 @@ public class CommandManager : SolidDnaObject<ICommandManager>
     /// Call CommandManager.GetGroupDataFromRegistry before calling this method to determine how to set IgnorePreviousVersion.
     /// Set IgnorePreviousVersion to true to prevent SOLIDWORKS from saving the current toolbar setting to the registry, even if there is no previous version.</param>
     /// <returns></returns>
-    public CommandManagerGroup CreateCommandTab(string title, int id, List<ICommandManagerItem> commandManagerItems, string mainIconPathFormat = "", string iconListsPathFormat = "", bool ignorePreviousVersion = true)
+    public CommandManagerGroup CreateCommandTab(string title, int id, List<ICommandManagerItem> commandManagerItems, string mainIconPathFormat = "", string iconListsPathFormat = "",
+        bool ignorePreviousVersion = true)
     {
         return CreateCommandGroupAndTabs(title, id, commandManagerItems, mainIconPathFormat, iconListsPathFormat, -1, ignorePreviousVersion, false, true);
 #pragma warning restore CS0618
@@ -100,8 +101,8 @@ public class CommandManager : SolidDnaObject<ICommandManager>
     /// To set toolbar button visibilities, set the three VisibleForX properties in <see cref="CommandManagerItem"/>. To hide flyouts items, use the item's UpdateCallback function.</param>
     /// <returns></returns>
     [Obsolete("Use CreateCommandMenu to create a Tools menu item or use CreateCommandTab to create a tab/toolbar")]
-    public CommandManagerGroup CreateCommandGroupAndTabs(string title, int id, List<ICommandManagerItem> commandManagerItems, string mainIconPathFormat = "", string iconListsPathFormat = "", 
-        int position = -1, bool ignorePreviousVersion = true, bool hasMenu = true, bool hasToolbar = true, 
+    public CommandManagerGroup CreateCommandGroupAndTabs(string title, int id, List<ICommandManagerItem> commandManagerItems, string mainIconPathFormat = "", string iconListsPathFormat = "",
+        int position = -1, bool ignorePreviousVersion = true, bool hasMenu = true, bool hasToolbar = true,
         ModelTemplateType documentTypes = ModelTemplateType.None | ModelTemplateType.Part | ModelTemplateType.Assembly | ModelTemplateType.Drawing)
     {
         // Wrap any error creating the taskpane in a SolidDna exception
@@ -207,8 +208,8 @@ public class CommandManager : SolidDnaObject<ICommandManager>
     /// The main icon is visible in the Customize window. If you don't set a main icon, SolidWorks uses the first icon in <paramref name="iconListsPathFormat"/>.</param>
     /// <returns></returns>
     private CommandManagerGroup CreateCommandGroup(string title, int id, List<ICommandManagerItem> items, int position = -1, bool ignorePreviousVersion = true,
-        bool hasMenu = true, bool hasToolbar = true, 
-        ModelTemplateType documentTypes = ModelTemplateType.None | ModelTemplateType.Part | ModelTemplateType.Assembly | ModelTemplateType.Drawing, 
+        bool hasMenu = true, bool hasToolbar = true,
+        ModelTemplateType documentTypes = ModelTemplateType.None | ModelTemplateType.Part | ModelTemplateType.Assembly | ModelTemplateType.Drawing,
         string iconListsPathFormat = "", string mainIconPathFormat = "")
     {
         // NOTE: from the SolidWorks API documentation:
@@ -228,10 +229,10 @@ public class CommandManager : SolidDnaObject<ICommandManager>
         var unsafeCommandGroup = BaseObject.CreateCommandGroup2(id, title, "", "", position, ignorePreviousVersion, ref errors);
 
         // Check for errors
-        if (errors != (int)swCreateCommandGroupErrors.swCreateCommandGroup_Success)
+        if (errors != (int) swCreateCommandGroupErrors.swCreateCommandGroup_Success)
         {
             // Get enum name
-            var errorEnumString = ((swCreateCommandGroupErrors)errors).ToString();
+            var errorEnumString = ((swCreateCommandGroupErrors) errors).ToString();
             throw new SolidDnaException(SolidDnaErrors.CreateError(SolidDnaErrorTypeCode.SolidWorksCommandManager, SolidDnaErrorCode.SolidWorksCommandGroupCreateError, errorEnumString));
         }
 
@@ -274,7 +275,7 @@ public class CommandManager : SolidDnaObject<ICommandManager>
     public CommandManagerTab GetCommandTab(ModelType type, string title, bool createIfNotExist = true, bool clearExistingItems = true)
     {
         // Try and get the tab
-        var unsafeTab = BaseObject.GetCommandTab((int)type, title);
+        var unsafeTab = BaseObject.GetCommandTab((int) type, title);
 
         // If we did not get it, just ignore
         if (unsafeTab == null && !createIfNotExist)
@@ -290,7 +291,7 @@ public class CommandManager : SolidDnaObject<ICommandManager>
             Marshal.ReleaseComObject(unsafeTab);
 
             // Try and get another
-            unsafeTab = BaseObject.GetCommandTab((int)type, title);
+            unsafeTab = BaseObject.GetCommandTab((int) type, title);
         }
 
         // Create it if it doesn't exist

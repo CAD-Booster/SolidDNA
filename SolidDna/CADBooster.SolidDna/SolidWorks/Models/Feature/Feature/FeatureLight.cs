@@ -14,7 +14,6 @@ public class FeatureLight : SolidDnaObject<ILight>
     /// </summary>
     public FeatureLight(ILight model) : base(model)
     {
-
     }
 
     #endregion

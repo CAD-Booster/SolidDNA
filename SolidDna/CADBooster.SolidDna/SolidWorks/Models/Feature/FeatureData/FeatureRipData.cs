@@ -14,7 +14,6 @@ public class FeatureRipData : SolidDnaObject<IRipFeatureData>
     /// </summary>
     public FeatureRipData(IRipFeatureData model) : base(model)
     {
-
     }
 
     #endregion

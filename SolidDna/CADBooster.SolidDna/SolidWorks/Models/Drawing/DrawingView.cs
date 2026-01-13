@@ -12,7 +12,7 @@ public class DrawingView : SolidDnaObject<View>, IDrawingView
     /// <summary>
     /// The drawing view type.
     /// </summary>
-    public DrawingViewType ViewType => (DrawingViewType)BaseObject.Type;
+    public DrawingViewType ViewType => (DrawingViewType) BaseObject.Type;
 
     /// <summary>
     /// The name of the view.
@@ -22,12 +22,12 @@ public class DrawingView : SolidDnaObject<View>, IDrawingView
     /// <summary>
     /// The X position of the view origin with respect to the drawing sheet origin.
     /// </summary>
-    public double PositionX => ((double[])BaseObject.Position)[0];
+    public double PositionX => ((double[]) BaseObject.Position)[0];
 
     /// <summary>
     /// The Y position of the view origin with respect to the drawing sheet origin.
     /// </summary>
-    public double PositionY => ((double[])BaseObject.Position)[1];
+    public double PositionY => ((double[]) BaseObject.Position)[1];
 
     /// <summary>
     /// The bounding box of the view.
@@ -36,7 +36,7 @@ public class DrawingView : SolidDnaObject<View>, IDrawingView
     {
         get
         {
-            var box = (double[])BaseObject.GetOutline();
+            var box = (double[]) BaseObject.GetOutline();
             return new BoundingBox(box[0], box[1], box[2], box[3]);
         }
     }

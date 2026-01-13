@@ -10,9 +10,6 @@ public static class SolidDnaObjectDisposal
     public static void Dispose<T>(object comObject)
     {
         // Taskpane View
-        if (typeof(T).IsInterfaceOrHasInterface<ITaskpaneView>())
-        {
-            ((ITaskpaneView)comObject).DeleteView();
-        }  
+        if (typeof(T).IsInterfaceOrHasInterface<ITaskpaneView>()) ((ITaskpaneView) comObject).DeleteView();
     }
 }

@@ -14,7 +14,6 @@ public class FeaturePartingLineData : SolidDnaObject<IPartingLineFeatureData>
     /// </summary>
     public FeaturePartingLineData(IPartingLineFeatureData model) : base(model)
     {
-
     }
 
     #endregion

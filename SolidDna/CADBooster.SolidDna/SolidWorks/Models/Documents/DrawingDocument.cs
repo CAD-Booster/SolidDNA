@@ -129,7 +129,7 @@ public class DrawingDocument : IDrawingDocument
     /// <returns></returns>
     public string CurrentActiveSheet()
     {
-        using var sheet = new DrawingSheet((Sheet)mBaseObject.GetCurrentSheet(), this);
+        using var sheet = new DrawingSheet((Sheet) mBaseObject.GetCurrentSheet(), this);
         return sheet.SheetName;
     }
 
@@ -137,7 +137,7 @@ public class DrawingDocument : IDrawingDocument
     /// Get the sheet names of the drawing.
     /// </summary>
     /// <returns>An array of sheet names</returns>
-    public string[] SheetNames() => (string[])mBaseObject.GetSheetNames();
+    public string[] SheetNames() => (string[]) mBaseObject.GetSheetNames();
 
     /// <summary>
     /// Perform an action on each sheet in the drawing.
@@ -189,7 +189,7 @@ public class DrawingDocument : IDrawingDocument
         var views = new List<DrawingView>();
 
         // Get all views as an array of arrays
-        var sheetArray = (object[])mBaseObject.GetViews();
+        var sheetArray = (object[]) mBaseObject.GetViews();
 
         // Get all views
         foreach (object[] viewArray in sheetArray)
@@ -234,33 +234,33 @@ public class DrawingDocument : IDrawingDocument
 
         // Fill options
         nativeOptions.CustomSize = options.CustomSize;
-        nativeOptions.EditBalloonOption = (int)options.EditBalloonOptions;
+        nativeOptions.EditBalloonOption = (int) options.EditBalloonOptions;
         nativeOptions.EditBalloons = options.EditBalloons;
         nativeOptions.FirstItem = options.FirstItem;
         nativeOptions.IgnoreMultiple = options.IgnoreMultiple;
         nativeOptions.InsertMagneticLine = options.InsertMagneticLine;
         nativeOptions.ItemNumberIncrement = options.ItemNumberIncrement;
         nativeOptions.ItemNumberStart = options.ItemNumberStart;
-        nativeOptions.ItemOrder = (int)options.ItemOrder;
+        nativeOptions.ItemOrder = (int) options.ItemOrder;
         nativeOptions.Layername = options.LayerName;
-        nativeOptions.Layout = (int)options.Layout;
+        nativeOptions.Layout = (int) options.Layout;
         nativeOptions.LeaderAttachmentToFaces = options.LeaderAttachmentToFaces;
         nativeOptions.LowerText = options.LowerText;
-        nativeOptions.LowerTextContent = (int)options.LowerTextContent;
+        nativeOptions.LowerTextContent = (int) options.LowerTextContent;
         nativeOptions.ReverseDirection = options.ReverseDirection;
-        nativeOptions.Size = (int)options.Size;
-        nativeOptions.Style = (int)options.Style;
+        nativeOptions.Size = (int) options.Size;
+        nativeOptions.Style = (int) options.Style;
         nativeOptions.UpperText = options.UpperText;
-        nativeOptions.UpperTextContent = (int)options.UpperTextContent;
+        nativeOptions.UpperTextContent = (int) options.UpperTextContent;
 
         // Create the notes
-        var nativeNotes = (object[])mBaseObject.AutoBalloon5(nativeOptions);
+        var nativeNotes = (object[]) mBaseObject.AutoBalloon5(nativeOptions);
 
         // If we have a callback, and have notes...
         if (onSuccess != null && nativeNotes?.Length > 0)
         {
             // Create all note classes
-            var notes = nativeNotes.Select(f => new Note((INote)f)).ToArray();
+            var notes = nativeNotes.Select(f => new Note((INote) f)).ToArray();
 
             // Inform listeners
             onSuccess.Invoke(notes);
@@ -284,7 +284,7 @@ public class DrawingDocument : IDrawingDocument
     /// <returns>The chamfer <see cref="ModelDisplayDimension"/> if successful. Null if not.</returns>
     /// <remarks>Make sure to select the 2 edges of the chamfer before running this command</remarks>
     public ModelDisplayDimension AddChamferDimension(double x, double y, double z)
-        => new ModelDisplayDimension((IDisplayDimension)mBaseObject.AddChamferDim(x, y, z)).CreateOrNull();
+        => new ModelDisplayDimension((IDisplayDimension) mBaseObject.AddChamferDim(x, y, z)).CreateOrNull();
 
     /// <summary>
     /// Add a hole callout to the selected hole.
@@ -295,7 +295,7 @@ public class DrawingDocument : IDrawingDocument
     /// <returns>The hole cutout <see cref="ModelDisplayDimension"/> if successful. Null if not.</returns>
     /// <remarks>Make sure to select the hole sketch circle before running this command</remarks>
     public ModelDisplayDimension AddHoleCutout(double x, double y, double z)
-        => new ModelDisplayDimension((IDisplayDimension)mBaseObject.AddHoleCallout2(x, y, z)).CreateOrNull();
+        => new ModelDisplayDimension((IDisplayDimension) mBaseObject.AddHoleCallout2(x, y, z)).CreateOrNull();
 
     /// <summary>
     /// Re-align the selected ordinate dimension if it was previously broken.
@@ -315,7 +315,7 @@ public class DrawingDocument : IDrawingDocument
     ///     Remember to select the annotation and if attaching to a view select an
     ///     element on the view also before running this command
     /// </remarks>
-    public bool AttachAnnotation(AttachAnnotationOption option) => mBaseObject.AttachAnnotation((int)option);
+    public bool AttachAnnotation(AttachAnnotationOption option) => mBaseObject.AttachAnnotation((int) option);
 
     /// <summary>
     /// Attempt to attach unattached dimensions, for example in an imported DXF file.

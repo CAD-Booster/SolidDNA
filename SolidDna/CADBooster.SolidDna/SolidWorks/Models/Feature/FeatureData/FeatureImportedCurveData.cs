@@ -14,7 +14,6 @@ public class FeatureImportedCurveData : SolidDnaObject<IImportedCurveFeatureData
     /// </summary>
     public FeatureImportedCurveData(IImportedCurveFeatureData model) : base(model)
     {
-
     }
 
     #endregion

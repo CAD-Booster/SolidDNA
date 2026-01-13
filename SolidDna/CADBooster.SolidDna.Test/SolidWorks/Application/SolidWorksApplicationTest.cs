@@ -19,7 +19,7 @@ public class SolidWorksApplicationTest
     public void ActiveModel_WhenMocked_ReturnsNull()
     {
         // Arrange
-        _mockApplication.Setup(x => x.ActiveModel).Returns((Model)null);
+        _mockApplication.Setup(x => x.ActiveModel).Returns((Model) null);
 
         // Act
         var model = SolidWorksEnvironment.IApplication.ActiveModel;

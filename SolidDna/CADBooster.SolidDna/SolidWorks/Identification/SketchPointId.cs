@@ -46,7 +46,7 @@ public class SketchPointId
         Id1 = ids[1];
 
         // Get the sketch name by casting the sketch to a Feature first
-        SketchName = ((Feature)sketchPoint.GetSketch()).Name;
+        SketchName = ((Feature) sketchPoint.GetSketch()).Name;
     }
 
     #endregion
@@ -61,10 +61,7 @@ public class SketchPointId
     /// </summary>
     /// <param name="otherId"></param>
     /// <returns></returns>
-    public bool Equals(SketchPointId otherId)
-    {
-        return SketchName.Equals(otherId.SketchName, StringComparison.InvariantCultureIgnoreCase) && Id0 == otherId.Id0 && Id1 == otherId.Id1;
-    }
+    public bool Equals(SketchPointId otherId) => SketchName.Equals(otherId.SketchName, StringComparison.InvariantCultureIgnoreCase) && Id0 == otherId.Id0 && Id1 == otherId.Id1;
 
     // Inheritdoc
     public override bool Equals(object obj)
@@ -72,7 +69,7 @@ public class SketchPointId
         if (obj == null || obj.GetType() != typeof(SketchPointId))
             return false;
 
-        return Equals((SketchPointId)obj);
+        return Equals((SketchPointId) obj);
     }
 
     // Inheritdoc
@@ -102,12 +99,12 @@ public class SketchPointId
         try
         {
             // Try getting the IDs as integers first, the convert them to longs
-            return ((int[])sketchPoint.GetID()).Select(Convert.ToInt64).ToList();
+            return ((int[]) sketchPoint.GetID()).Select(Convert.ToInt64).ToList();
         }
         catch (Exception)
         {
             // If that fails, try getting them as longs directly
-            return ((long[])sketchPoint.GetID()).ToList();
+            return ((long[]) sketchPoint.GetID()).ToList();
         }
     }
 

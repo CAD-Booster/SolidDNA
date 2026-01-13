@@ -39,5 +39,5 @@ public enum CommandManagerItemState
     /// <summary>
     /// Hide the item. Valid for flyout items.
     /// </summary>
-    Hidden = 4
+    Hidden = 4,
 }

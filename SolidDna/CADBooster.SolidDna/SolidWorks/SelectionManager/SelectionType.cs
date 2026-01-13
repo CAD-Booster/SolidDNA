@@ -839,7 +839,7 @@ public class SelectionType
     /// </remarks>
     public static implicit operator int(SelectionType selectionType)
     {
-        return (int)selectionType.EnumValue;
+        return (int) selectionType.EnumValue;
     }
 
     /// <summary>
@@ -869,7 +869,7 @@ public class SelectionType
             return false;
 
         // Delegate to the strongly-typed Equals method
-        return Equals((SelectionType)obj);
+        return Equals((SelectionType) obj);
     }
 
     /// <summary>
@@ -914,12 +914,12 @@ public class SelectionType
             // Checking the string value is not necessary.
 
             // Handle only the enum value if there are no custom features. 
-            if (CustomFeatureNames == null) 
+            if (CustomFeatureNames == null)
                 return EnumValue.GetHashCode();
 
             // Handle the enum value and custom features
             var hashCode = 0;
-            foreach (var featureName in CustomFeatureNames) 
+            foreach (var featureName in CustomFeatureNames)
                 hashCode += featureName.GetHashCode() * 17;
 
             hashCode += EnumValue.GetHashCode();
