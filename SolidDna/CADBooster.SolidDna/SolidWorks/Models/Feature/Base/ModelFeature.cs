@@ -1097,11 +1097,7 @@ public class ModelFeature : SharedSolidDnaObject<Feature>, IModelFeature
     /// Gets the SolidWorks feature type name, such as RefSurface, CosmeticWeldBead, FeatSurfaceBodyFolder etc...
     /// </summary>
     /// <returns></returns>
-    protected string GetFeatureTypeName()
-    {
-        // TODO: Handle Intant3D feature, then call GetTypeName instead of 2
-        return BaseObject.GetTypeName2();
-    }
+    protected string GetFeatureTypeName() => BaseObject.GetTypeName2(); // TODO: Handle Intant3D feature, then call GetTypeName instead of 2
 
     #endregion
 

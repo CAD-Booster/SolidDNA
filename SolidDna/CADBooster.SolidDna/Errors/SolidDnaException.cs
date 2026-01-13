@@ -35,7 +35,7 @@ public class SolidDnaException : Exception
     #endregion
 
     /// <inheritdoc />
-    public override string ToString() => $"SolidDnaException ({SolidDnaError}){(InnerException == null ? "" : $" Inner exception: {InnerException.ToString()}")}";
+    public override string ToString() => $"SolidDnaException ({SolidDnaError}){(InnerException == null ? "" : $" Inner exception: {InnerException}")}";
 
     /// <summary>
     /// Combines the SolidDnaError and InnerException, adding the InnerException message to the SolidDnaError.ErrorDescription

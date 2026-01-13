@@ -82,11 +82,7 @@ public class FileLogger : ILogger
     /// </summary>
     /// <param name="logLevel">The log level to check against</param>
     /// <returns></returns>
-    public bool IsEnabled(LogLevel logLevel)
-    {
-        // Enabled if the log level is greater or equal to what we want to log
-        return logLevel >= mConfiguration.LogLevel;
-    }
+    public bool IsEnabled(LogLevel logLevel) => logLevel >= mConfiguration.LogLevel; // Enabled if the log level is greater or equal to what we want to log
 
     /// <summary>
     /// Logs the message to file

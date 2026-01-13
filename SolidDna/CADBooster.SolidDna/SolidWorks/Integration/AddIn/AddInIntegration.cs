@@ -140,11 +140,7 @@ public static class AddInIntegration
     /// </summary>
     /// <param name="type">The type of the add-in that contains the new taskpane</param>
     /// <returns>Returns the first add-in with the requested name or null.</returns>
-    public static SolidAddIn GetAddInWithType(Type type)
-    {
-        // Get the first add-in of this type. Is null when not found.
-        return ActiveAddIns.FirstOrDefault(x => x.GetType() == type);
-    }
+    public static SolidAddIn GetAddInWithType(Type type) => ActiveAddIns.FirstOrDefault(x => x.GetType() == type); // Get the first add-in of this type. Is null when not found.
 
     #endregion
 

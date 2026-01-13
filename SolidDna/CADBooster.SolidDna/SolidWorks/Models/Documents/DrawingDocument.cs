@@ -193,8 +193,10 @@ public class DrawingDocument : IDrawingDocument
 
         // Get all views
         foreach (object[] viewArray in sheetArray)
-        foreach (View view in viewArray)
-            views.Add(new DrawingView(view));
+        {
+            foreach (View view in viewArray)
+                views.Add(new DrawingView(view));
+        }
 
         try
         {
