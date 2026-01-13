@@ -719,13 +719,13 @@ public class Model : SharedSolidDnaObject<ModelDoc2>, IModel
         //       is less intensive and works fine so far
         if (wasNewFile)
         {
-            void refreshEvent()
+            static void RefreshEvent()
             {
                 SolidWorksEnvironment.IApplication.RequestActiveModelChanged();
-                SolidWorksEnvironment.IApplication.Idle -= refreshEvent;
+                SolidWorksEnvironment.IApplication.Idle -= RefreshEvent;
             }
 
-            SolidWorksEnvironment.IApplication.Idle += refreshEvent;
+            SolidWorksEnvironment.IApplication.Idle += RefreshEvent;
         }
 
         // NOTE: 0 is success, anything else is an error
