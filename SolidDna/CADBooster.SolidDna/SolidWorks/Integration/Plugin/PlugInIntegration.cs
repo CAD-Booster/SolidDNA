@@ -105,7 +105,7 @@ public class PlugInIntegration
     public void AddPlugIn<T>()
     {
         // Get the full path to the assembly
-        var fullPath = typeof(T).Assembly.CodeBase.Replace(@"file:\", "").Replace(@"file:///", "");
+        var fullPath = typeof(T).AssemblyBaseNormalized();
 
         // Add the path to list if it isn't in there yet
         if (!PlugInAssemblyPaths.ContainsIgnoreCase(fullPath))
