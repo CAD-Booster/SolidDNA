@@ -1,4 +1,6 @@
-﻿namespace CADBooster.SolidDna;
+using System;
+
+namespace CADBooster.SolidDna;
 
 /// <summary>
 /// A base class to implement to become a SolidDna plug-in. 
@@ -50,6 +52,7 @@ public abstract class SolidPlugIn
 /// The compiled dll of SolidDna must be in the same location as 
 /// the plug-in dll to be discovered
 /// </summary>
+[Obsolete("SolidPlugin<T> does not work as spected, so use SolidPlugIn.")]
 public abstract class SolidPlugIn<T> : SolidPlugIn
 {
     private SolidAddIn mParentAddIn;
@@ -57,6 +60,7 @@ public abstract class SolidPlugIn<T> : SolidPlugIn
     /// <summary>
     /// The add-in that contains this plugin.
     /// We override the default add-in property so we can call <see cref="PlugInIntegration"/> methods and include the generic T.
+    /// Unfortunately, setting the add-in must happen before we create the plugin, so this doesn't work.
     /// </summary>
     public new SolidAddIn ParentAddIn
     {
