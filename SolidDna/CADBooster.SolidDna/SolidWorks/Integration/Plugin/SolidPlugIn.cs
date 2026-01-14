@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace CADBooster.SolidDna;
 
@@ -33,13 +33,15 @@ public abstract class SolidPlugIn
     #region Public Methods
 
     /// <summary>
-    /// Called when the add-in is loaded into SolidWorks and connected
+    /// Called when the add-in is loaded into SolidWorks and connected.
+    /// This method is called after the add-in's ConnectedToSolidWorks method.
     /// </summary>
     /// <returns></returns>
     public abstract void ConnectedToSolidWorks();
 
     /// <summary>
-    /// Called when the add-in is unloaded from SolidWorks and disconnected
+    /// Called when the add-in is unloaded from SolidWorks and disconnected.
+    /// This method is called after the add-in's DisconnectedFromSolidWorks method.
     /// </summary>
     /// <returns></returns>
     public abstract void DisconnectedFromSolidWorks();

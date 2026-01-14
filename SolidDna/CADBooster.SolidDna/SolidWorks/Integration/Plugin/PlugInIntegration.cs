@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -61,7 +61,8 @@ public class PlugInIntegration
     #region Connected to SolidWorks
 
     /// <summary>
-    /// Called when the add-in has connected to SolidWorks
+    /// Called when the add-in has connected to SolidWorks.
+    /// Calls the add-in first, then all its plug-ins.
     /// </summary>
     public void ConnectedToSolidWorks(SolidAddIn solidAddIn)
     {
@@ -78,7 +79,8 @@ public class PlugInIntegration
     }
 
     /// <summary>
-    /// Called when the add-in has disconnected from SolidWorks
+    /// Called when the add-in has disconnected from SolidWorks.
+    /// Calls the add-in first, then all its plug-ins.
     /// </summary>
     public void DisconnectedFromSolidWorks(SolidAddIn solidAddIn)
     {
