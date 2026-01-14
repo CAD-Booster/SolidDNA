@@ -8,7 +8,14 @@ using System.Reflection;
 namespace CADBooster.SolidDna;
 
 /// <summary>
-/// Provides functions related to SolidDna plug-ins
+/// Provides functions related to SolidDna plug-ins.
+/// Every <see cref="SolidAddIn"/> has one of these to manage the plug-ins that are inside that add-in dll.
+/// <para>
+/// <b>Warning:</b> If SolidWorks loads multiple add-ins that use SolidDna, .NET will reuse the first loaded CADBooster.SolidDna.dll
+/// and share its static values (such as static events and fields) across all add-ins in the same process. This is default .NET behavior:
+/// only one version of a DLL is loaded per AppDomain, even with strong-name signing. As a result, static state in SolidDna is shared
+/// between all add-ins, and only one version of SolidDna can be used per SolidWorks instance.
+/// </para>
 /// </summary>
 public class PlugInIntegration
 {
@@ -28,7 +35,7 @@ public class PlugInIntegration
     /// <summary>
     /// Default true. If true, searches in the directory of the application (where CADBooster.SolidDna.dll is) for any dll that
     /// contains any <see cref="SolidPlugIn"/> implementations and adds them to the <see cref="PlugInAssemblyPaths"/>
-    /// during the <see cref="ConfigurePlugIns(string, SolidAddIn)"/> stage.
+    /// during the <see cref="ConfigurePlugIns(SolidAddIn)"/> stage.
     /// If false, the user should add paths to all DLLs that contain <see cref="SolidPlugIn"/> types to the list
     /// <see cref="PlugInAssemblyPaths"/> during the <see cref="SolidAddIn.PreLoadPlugIns"/> method.
     /// Setting this to false will make starting up your add-in faster because we don't have the check each DLL.
@@ -169,164 +176,167 @@ public class PlugInIntegration
     /// Runs any initialization code required on plug-ins.
     /// This is run for the ComRegister function and on startup.
     /// </summary>
-    /// <param name="addinPath">The path to the add-in that is calling this setup (typically acquired using GetType().Assembly.Location)</param>
-    /// <param name="solidAddIn"></param>
-    public void ConfigurePlugIns(string addinPath, SolidAddIn solidAddIn)
+    /// <param name="parentSolidAddIn">The add-in that owns this integration and the plugins inside its dll.</param>
+    public void ConfigurePlugIns(SolidAddIn parentSolidAddIn)
     {
-        // *********************************************************************************
-        //
-        // WARNING: 
-        // 
-        //   If SolidWorks is loading our add-ins and we have multiple that use SolidDna
-        //   it loads and makes use of the existing CADBooster.SolidDna.dll file from
-        //   the first add-in loaded and shares it for all future add-ins
-        //
-        //   This results in any static instances being shared and only one version 
-        //   of SolidDna being usable on an individual SolidWorks instance 
-        //
-        //   This is default .NET behavior because .NET reuses DLLs with the same filename and
-        //   ignores the version. Only when the DLL is strong-signed will it take the
-        //   DLL version into account.
-        //
-        //   Keep in mind that any static values inside the CADBooster.SolidDna class
-        //   are be shared between add-ins.
-        //          
-        //
-        // *********************************************************************************
+        // Load all plug-ins, either by going through all DLLs in the SolidDNA folder (called auto-discovery) or from specified assembly paths
+        parentSolidAddIn.PlugIns = AutoDiscoverPlugins
+            ? LoadAutoDiscoveredPlugins(parentSolidAddIn)
+            : LoadPluginsFromAssemblyPaths();
 
-        // Load all plug-ins at this stage for faster lookup
-        solidAddIn.PlugIns = GetSolidPlugIns(addinPath);
+        // Log the results
+        Logger.LogDebugSource($"{parentSolidAddIn.PlugIns.Count} plug-ins found");
 
-        // Log it
-        Logger.LogDebugSource($"{solidAddIn.PlugIns.Count} plug-ins found");
-
-        // Find first plug-in in the list and use that as the title and description (for COM register)
-        var firstPlugInWithTitle = solidAddIn.PlugIns.FirstOrDefault(f => !string.IsNullOrEmpty(f.AddInTitle));
-
-        // If we have a title...
-        if (firstPlugInWithTitle != null)
-        {
-            // Log it
-            Logger.LogDebugSource($"Setting Add-In Title:       {firstPlugInWithTitle.AddInTitle}");
-            Logger.LogDebugSource($"Setting Add-In Description: {firstPlugInWithTitle.AddInDescription}");
-
-            // Set title and description details
-            solidAddIn.SolidWorksAddInTitle = firstPlugInWithTitle.AddInTitle;
-            solidAddIn.SolidWorksAddInDescription = firstPlugInWithTitle.AddInDescription;
-        }
-        // Otherwise
-        else
-            // Log it
-            Logger.LogDebugSource($"No PlugIn's found with a title.");
+        // Find the first plug-in that has a title and use it as the add-in title and description.
+        SetAddInTitleToFirstPluginTitle(parentSolidAddIn);
     }
 
     /// <summary>
-    /// Discovers all SolidDna plug-ins
+    /// Find the first plug-in in the list that has a title and use that as the add-in title and description.
     /// </summary>
-    /// <param name="addinPath">The path to the add-in that is calling this setup (typically acquired using GetType().Assembly.Location)</param>
-    /// <returns></returns>
-    private List<SolidPlugIn> GetSolidPlugIns(string addinPath)
+    /// <param name="parentSolidAddIn"></param>
+    private static void SetAddInTitleToFirstPluginTitle(SolidAddIn parentSolidAddIn)
     {
+        // Find first plug-in in the list and use that as the title and description (for COM register)
+        var firstPlugInWithTitle = parentSolidAddIn.PlugIns.FirstOrDefault(f => !f.AddInTitle.IsNullOrEmpty());
+
+        // If we don't have a title
+        if (firstPlugInWithTitle == null)
+        {
+            Logger.LogDebugSource("No Plugins found with a title.");
+            return;
+        }
+
+        // If we do have a title, log it
+        Logger.LogDebugSource($"Setting Add-In Title:       {firstPlugInWithTitle.AddInTitle}");
+        Logger.LogDebugSource($"Setting Add-In Description: {firstPlugInWithTitle.AddInDescription}");
+
+        // Set title and description details
+        parentSolidAddIn.SolidWorksAddInTitle = firstPlugInWithTitle.AddInTitle;
+        parentSolidAddIn.SolidWorksAddInDescription = firstPlugInWithTitle.AddInDescription;
+    }
+
+    /// <summary>
+    /// Discover and load all plugins from all DLL files in the add-in directory path.
+    /// </summary>
+    /// <param name="parentSolidAddIn"></param>
+    /// <returns></returns>
+    private List<SolidPlugIn> LoadAutoDiscoveredPlugins(SolidAddIn parentSolidAddIn)
+    {
+        // Get the directory path to the add-in dll
+        var addInDirectoryPath = parentSolidAddIn.AssemblyDirectoryPath();
+
+        // Log it
+        Logger.LogDebugSource($"Loading auto-discovered plugins from {addInDirectoryPath}...");
+
         // Create new empty list
         var plugIns = new List<SolidPlugIn>();
 
-        // Find all DLLs in the same directory
-        if (AutoDiscoverPlugins)
-        {
-            // Log it
-            Logger.LogDebugSource($"Loading all PlugIns...");
-
-            // Add new based on if found
-            foreach (var path in Directory.GetFiles(addinPath, "*.dll", SearchOption.TopDirectoryOnly))
-            {
-                GetPlugIns(path, (plugin) =>
-                {
-                    // Log it
-                    Logger.LogDebugSource($"Found plugin {plugin.AddInTitle} in {path}");
-
-                    plugIns.Add(plugin);
-                });
-            }
-        }
-        // Or load explicit ones
-        else
-        {
-            // Log it
-            Logger.LogDebugSource($"Explicitly loading {PlugInAssemblyPaths.Count} PlugIns...");
-
-            // For each assembly path
-            foreach (var path in PlugInAssemblyPaths)
-            {
-                try
-                {
-                    // Try and find the SolidPlugIn implementation...
-                    GetPlugIns(path, (plugin) =>
-                    {
-                        // Log it
-                        Logger.LogDebugSource($"Found plugin {plugin.AddInTitle} in {path}");
-
-                        // Add it to the list
-                        plugIns.Add(plugin);
-                    });
-                }
-                catch (Exception ex)
-                {
-                    // Log error
-                    Logger.LogCriticalSource($"Unexpected error: {ex}");
-                }
-            }
-        }
-
-        // Log it
-        Logger.LogDebugSource($"Loaded {plugIns.Count} plug-ins from {addinPath}");
+        // Find every DLL assembly in the add-in directory
+        foreach (var path in Directory.GetFiles(addInDirectoryPath, "*.dll", SearchOption.TopDirectoryOnly))
+            FindAndLoadPluginsInDll(path, plugIns);
 
         return plugIns;
     }
 
     /// <summary>
-    /// Loads the dll into the current app domain, and finds any <see cref="SolidPlugIn"/> implementations, calling onFound when it finds them
+    /// Find all plugins inside every DLL in the <see cref="PlugInAssemblyPaths"/> list and load them.
     /// </summary>
-    /// <param name="pluginFullPath">The full path to the plug-in dll to load</param>
-    /// <param name="onFound">Called when a <see cref="SolidPlugIn"/> is found</param>
-    private void GetPlugIns(string pluginFullPath, Action<SolidPlugIn> onFound)
+    /// <returns></returns>
+    private List<SolidPlugIn> LoadPluginsFromAssemblyPaths()
     {
-        // Load the assembly
-        // NOTE: Calling LoadFrom instead of LoadFile will auto-resolve references in that folder
-        //       otherwise they won't resolve.
-        //       For this reason its important that plug-ins are in the same folder as the 
-        //       CADBooster.SolidDna.dll and all other used references
-        var assembly = Assembly.LoadFrom(pluginFullPath);
+        Logger.LogDebugSource($"Loading plugins from {PlugInAssemblyPaths.Count} assembly paths...");
 
-        // If we didn't succeed, ignore
-        if (assembly == null)
-            return;
+        // Create new empty list
+        var plugIns = new List<SolidPlugIn>();
 
-        // Find all types in an assembly. Catch assemblies that don't allow this.
-        Type[] types;
+        // For each assembly path
+        foreach (var assemblyPath in PlugInAssemblyPaths)
+        {
+            // Try and find the SolidPlugIn implementation...
+            FindAndLoadPluginsInDll(assemblyPath, plugIns);
+        }
+
+        return plugIns;
+    }
+
+    /// <summary>
+    /// Loads the dll into the current app domain, and finds any <see cref="SolidPlugIn"/> implementations.
+    /// </summary>
+    /// <param name="assemblyPath">The full path to the plug-in dll to load</param>
+    /// <param name="plugins"></param>
+    private void FindAndLoadPluginsInDll(string assemblyPath, List<SolidPlugIn> plugins)
+    {
         try
         {
-            types = assembly.GetTypes();
+            // Get all types in the assembly
+            var types = GetTypesInAssembly(assemblyPath);
+
+            // Find all types that implement SolidPlugIn
+            var pluginTypes = types.Where(p => typeof(SolidPlugIn).IsAssignableFrom(p) && p.IsClass && !p.IsAbstract);
+
+            // For each plugin type found
+            foreach (var pluginType in pluginTypes)
+                TryToInstantiatePlugin(pluginType, plugins);
+        }
+        catch (Exception e)
+        {
+            // Log error
+            Logger.LogCriticalSource($"Error loading plugins from assembly path {assemblyPath}: {e}");
+        }
+    }
+
+    /// <summary>
+    /// Get all types that are in an assembly DLL.
+    /// </summary>
+    /// <param name="assemblyPath">The full path to an assembly (.dll) file</param>
+    /// <returns></returns>
+    private static Type[] GetTypesInAssembly(string assemblyPath)
+    {
+        try
+        {
+            // Load the assembly. NOTE: Calling LoadFrom instead of LoadFile will auto-resolve references in that folder, otherwise they won't resolve.
+            // For this reason, its important that plug-ins are in the same folder as the CADBooster.SolidDna.dll and all other used references
+            var assembly = Assembly.LoadFrom(assemblyPath);
+
+            // If we get to here, we have succeeded at loading the assembly. Find all types in an assembly. 
+            return assembly.GetTypes();
         }
         catch (ReflectionTypeLoadException)
         {
-            return;
+            // Catch assemblies that don't allow this.
+            return [];
         }
+    }
 
-        var type = typeof(SolidPlugIn);
-
-        // See if any of the type are of SolidPlugIn
-        types.Where(p => type.IsAssignableFrom(p) && p.IsClass && !p.IsAbstract).ToList().ForEach(p =>
+    /// <summary>
+    /// Try to load a plug-in type by instantiating it. Logs success and failure and catches exceptions.
+    /// </summary>
+    /// <param name="pluginType"></param>
+    /// <param name="plugIns"></param>
+    private void TryToInstantiatePlugin(Type pluginType, List<SolidPlugIn> plugIns)
+    {
+        try
         {
-            // Create SolidDna plugin class instance
-            if (Activator.CreateInstance(p) is SolidPlugIn plugIn)
+            // Create a SolidDna plugin class instance
+            if (Activator.CreateInstance(pluginType) is SolidPlugIn plugIn)
             {
                 // Store the add-in that owns this plugin
                 plugIn.ParentAddIn = ParentAddIn;
 
-                // Call the action that further sets up the plugin
-                onFound(plugIn);
+                // Log it
+                Logger.LogDebugSource($"Loaded plugin {plugIn.AddInTitle}");
+
+                // Add it to the list
+                plugIns.Add(plugIn);
             }
-        });
+            else
+                Logger.LogCriticalSource($"Failed to load plugin");
+        }
+        catch (Exception e)
+        {
+            Logger.LogCriticalSource($"Error loading plugin: {e}");
+        }
     }
 
     #endregion

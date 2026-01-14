@@ -1,4 +1,4 @@
-using SolidWorks.Interop.sldworks;
+﻿using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swpublished;
 using System;
 using System.Collections.Generic;
@@ -165,7 +165,6 @@ public abstract class SolidAddIn : ISwAddin
             // Log it
             Logger.LogDebugSource($"{SolidWorksAddInTitle} Connected to SolidWorks...");
 
-            //
             //   NOTE: Do not need to create it here, as we now create it inside PlugInIntegration.Setup in its own AppDomain
             //         If we change back to loading directly (not in an app domain) then uncomment this 
             //
@@ -194,11 +193,8 @@ public abstract class SolidAddIn : ISwAddin
                 // Log it
                 Logger.LogDebugSource($"Configuring PlugIns...");
 
-                // Get the directory path to this actual add-in dll
-                var assemblyPath = this.AssemblyPath();
-
                 // Perform any plug-in configuration
-                PlugInIntegration.ConfigurePlugIns(assemblyPath, this);
+                PlugInIntegration.ConfigurePlugIns(this);
 
                 // Now loaded so don't do it again
                 mLoaded = true;
@@ -330,30 +326,17 @@ public abstract class SolidAddIn : ISwAddin
             // Create new instance of a blank add-in
             var addIn = new BlankSolidAddIn();
 
-            // Get assembly name
-            var assemblyName = t.Assembly.Location;
-
-            // Log it
-            Logger.LogInformationSource($"Registering {assemblyName}");
+            // Log the assembly name 
+            Logger.LogInformationSource($"Registering {t.Assembly.Location}");
 
             // Get registry key path
             var keyPath = $@"SOFTWARE\SolidWorks\AddIns\{t.GUID:b}";
 
             // Create our registry folder for the add-in
             using var registryKey = Microsoft.Win32.Registry.LocalMachine.CreateSubKey(keyPath);
+
             // Load add-in when SolidWorks opens
             registryKey.SetValue(null, 1);
-
-            //
-            // IMPORTANT: 
-            //
-            //   In this special case, COM register won't load the wrong CADBooster.SolidDna.dll file 
-            //   as it isn't loading multiple instances and keeping them in memory
-            //            
-            //   So loading the path of the CADBooster.SolidDna.dll file that should be in the same
-            //   folder as the add-in dll right now will work fine to get the add-in path
-            //
-            var pluginPath = typeof(PlugInIntegration).CodeBaseNormalized();
 
             // Force auto-discovering plug-in during COM registration
             addIn.PlugInIntegration.AutoDiscoverPlugins = true;
@@ -361,7 +344,7 @@ public abstract class SolidAddIn : ISwAddin
             Logger.LogInformationSource("Configuring plugins...");
 
             // Let plug-ins configure title and descriptions
-            addIn.PlugInIntegration.ConfigurePlugIns(pluginPath, addIn);
+            addIn.PlugInIntegration.ConfigurePlugIns(addIn);
 
             // Set SolidWorks add-in title and description
             registryKey.SetValue("Title", addIn.SolidWorksAddInTitle);
@@ -395,7 +378,7 @@ public abstract class SolidAddIn : ISwAddin
     protected static void ComUnregister(Type t)
     {
         // Get registry key path
-        var keyPath = string.Format(@"SOFTWARE\SolidWorks\AddIns\{0:b}", t.GUID);
+        var keyPath = $@"SOFTWARE\SolidWorks\AddIns\{t.GUID:b}";
 
         // Remove our registry entry
         Microsoft.Win32.Registry.LocalMachine.DeleteSubKeyTree(keyPath);
