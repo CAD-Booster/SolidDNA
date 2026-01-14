@@ -1,4 +1,4 @@
-using SolidWorks.Interop.sldworks;
+﻿using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swpublished;
 using System;
 using System.Collections.Generic;
@@ -102,7 +102,8 @@ public abstract class SolidAddIn : ISwAddin
 
     /// <summary>
     /// Run before loading plug-ins.
-    /// This call should be used to add plug-ins to be loaded, via <see cref="PlugInIntegration.AddPlugIn{T}"/>.
+    /// Make your add-in start up faster by setting <see cref="PlugInIntegration.AutoDiscoverPlugins"/> to false and adding the DLL path(s) that contain your plug-ins,
+    /// either by calling <see cref="PlugInIntegration.AddPlugIn2{T}"/> or by adding the assembly path to <see cref="PlugInIntegration.PlugInAssemblyPaths"/>
     /// Runs after <see cref="PreConnectToSolidWorks"/> and before <see cref="ApplicationStartup"/>.
     /// </summary>
     /// <returns></returns>

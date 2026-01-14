@@ -139,9 +139,10 @@ public class MyAddIn : SolidAddIn
 ```
 
 6. Create a class that implements SolidPlugIn:
-    1. Follow the same steps as for the add-in class. I'm not 100% sure this class also needs to be public, but I make it public, add a GUID and a ComVisible(true) attribute anyway.
-    2. Add " : SolidPlugIn" after your class name to make your class implement the SolidPlugIn class. Visual Studio will tell you that you need to implement two methods and two properties to implement SolidPlugIn, so do that.
-    3. The result should be something like this:
+    1. Plugins are a SolidDNA concept that does not exist in SOLIDWORKS. An SolidAddIn can have multiple SolidPlugIns, but you generally need only one.
+    2. Follow the same steps as for the add-in class. I'm not 100% sure this class also needs to be public, but I make it public, add a GUID and a ComVisible(true) attribute anyway.
+    3. Add " : SolidPlugIn" after your class name to make your class implement the SolidPlugIn class. Visual Studio will tell you that you need to implement two methods and two properties to implement SolidPlugIn, so do that.
+    4. The result should be something like this:
 
 ```csharp
 using System.Runtime.InteropServices;

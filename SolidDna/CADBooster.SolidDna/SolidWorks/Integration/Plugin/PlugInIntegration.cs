@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -103,11 +103,26 @@ public class PlugInIntegration
     /// <summary>
     /// Adds a plug-in based on its <see cref="SolidPlugIn"/> implementation
     /// </summary>
-    /// <typeparam name="T">The class that implements the <see cref="SolidPlugIn"/></typeparam>
-    public void AddPlugIn<T>()
+    /// <typeparam name="TPlugIn">Your class that implements <see cref="SolidPlugIn"/></typeparam>
+    [Obsolete("Use AddPlugIn2<TPlugIn>() instead.")]
+    public void AddPlugIn<TPlugIn>()
     {
         // Get the full path to the assembly
-        var fullPath = typeof(T).AssemblyBaseNormalized();
+        var fullPath = typeof(TPlugIn).AssemblyBaseNormalized();
+
+        // Add the path to list if it isn't in there yet
+        if (!PlugInAssemblyPaths.ContainsIgnoreCase(fullPath))
+            PlugInAssemblyPaths.Add(fullPath);
+    }
+
+    /// <summary>
+    /// Adds a plug-in based on its <see cref="SolidPlugIn"/> implementation
+    /// </summary>
+    /// <typeparam name="TPlugIn">Your class that implements <see cref="SolidPlugIn"/></typeparam>
+    public void AddPlugIn2<TPlugIn>() where TPlugIn : SolidPlugIn
+    {
+        // Get the full path to the assembly
+        var fullPath = typeof(TPlugIn).AssemblyBaseNormalized();
 
         // Add the path to list if it isn't in there yet
         if (!PlugInAssemblyPaths.ContainsIgnoreCase(fullPath))
