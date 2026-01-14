@@ -118,8 +118,10 @@ public class MyAddIn : SolidAddIn
     /// </summary>
     public override void PreLoadPlugIns()
     {
-        // Is called second. You normally don't need to do anything here. We will discover all plugins inside your add-in DLL file.
-		// You can disable autodiscovery to make starting up faster:
+        // Is called second. 
+		// You normally don't need to do anything here. We will discover all plugins inside your add-in DLL file by looking through 
+		// all DLLs in folder that contains the SolidDNA dll.
+		// But you make starting up a lot faster by disabling autodiscovery and setting a path to your DLL file:
 		var assemblyPath = new MyPlugin().AssemblyFilePath();
 		PlugInIntegration.PlugInAssemblyPaths.Add(assemblyPath);
 		PlugInIntegration.AutoDiscoverPlugins = false;
