@@ -1,4 +1,4 @@
-﻿using SolidWorks.Interop.sldworks;
+using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swpublished;
 using System;
 using System.Collections.Generic;
@@ -30,7 +30,7 @@ public abstract class SolidAddIn : ISwAddin
     /// <summary>
     /// Provides functions related to SolidDna plug-ins
     /// </summary>
-    public PlugInIntegration PlugInIntegration { get; private set; } = new PlugInIntegration();
+    public PlugInIntegration PlugInIntegration { get; private set; } = new();
 
     /// <summary>
     /// A list of available plug-ins loaded once SolidWorks has connected

@@ -235,7 +235,10 @@ public class PlugInIntegration
         var plugIns = new List<SolidPlugIn>();
 
         // Find every DLL assembly in the add-in directory
-        foreach (var path in Directory.GetFiles(addInDirectoryPath, "*.dll", SearchOption.TopDirectoryOnly))
+        var dllPaths = Directory.GetFiles(addInDirectoryPath, "*.dll", SearchOption.TopDirectoryOnly);
+
+        // Look inside each DLL for plugins
+        foreach (var path in dllPaths)
             FindAndLoadPluginsInDll(path, plugIns);
 
         return plugIns;
