@@ -32,7 +32,7 @@ public class XmlFormatProvider : BaseFormatProvider, IResourceFormatProvider
     public bool SupportsFormat(string format)
     {
         // Supports XML extensions
-        if (string.IsNullOrEmpty(format))
+        if (format.IsNullOrEmpty())
             return false;
 
         return string.Equals("xml", format, StringComparison.CurrentCultureIgnoreCase);

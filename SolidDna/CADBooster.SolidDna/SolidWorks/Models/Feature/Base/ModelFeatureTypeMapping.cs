@@ -18,7 +18,7 @@ public static class ModelFeatureTypeMapping
         var type = feature?.FeatureTypeName;
 
         // Make sure we have one
-        if (feature == null || string.IsNullOrEmpty(type))
+        if (feature == null || type.IsNullOrEmpty())
             return ModelFeatureType.None;
 
         // Map to feature types based on this list

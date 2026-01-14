@@ -64,7 +64,7 @@ public class SolidWorksVersion
         Hotfix = hotfix;
 
         const int versionUnknown = -1;
-        if (string.IsNullOrEmpty(revisionNumber) || !revisionNumber.Contains("."))
+        if (revisionNumber.IsNullOrEmpty() || !revisionNumber.Contains("."))
         {
             Version = ServicePackMajor = ServicePackMinor = versionUnknown;
             return;

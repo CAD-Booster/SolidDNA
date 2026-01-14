@@ -40,7 +40,7 @@ public class Model : SharedSolidDnaObject<ModelDoc2>, IModel
     /// Indicates if this file has been saved (so exists on disk).
     /// If not, it's a new model currently only in-memory and will not have a file path.
     /// </summary>
-    public bool HasBeenSaved => !string.IsNullOrEmpty(FilePath);
+    public bool HasBeenSaved => !FilePath.IsNullOrEmpty();
 
     /// <summary>
     /// True if this model is a part
@@ -234,7 +234,7 @@ public class Model : SharedSolidDnaObject<ModelDoc2>, IModel
         return SolidDnaErrors.Wrap(() =>
             {
                 // If no output path specified...
-                if (string.IsNullOrEmpty(outputFolder))
+                if (outputFolder.IsNullOrEmpty())
                     // Set it to app data folder
                 {
                     outputFolder = Path.Combine(

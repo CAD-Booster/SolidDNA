@@ -83,7 +83,7 @@ public static class ResourceFormatProviderHelpers
         var extension = resourceDefinition.ExplicitFormat;
 
         // If not, get it from the file extension
-        if (string.IsNullOrEmpty(resourceDefinition.ExplicitFormat))
+        if (resourceDefinition.ExplicitFormat.IsNullOrEmpty())
         {
             extension = Path.GetExtension(resourceDefinition.Location);
             if (extension != null && extension.StartsWith("."))
