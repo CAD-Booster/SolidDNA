@@ -4,31 +4,36 @@ using System.IO;
 namespace CADBooster.SolidDna;
 
 /// <summary>
-/// Extension methods for objects related to assembly information
+/// Extension methods for objects related to assembly (the .DLL and .exe types) information.
 /// </summary>
 public static class AssemblyObjectExtensions
 {
     /// <summary>
-    /// Gets the full path directory of the physical file (typically .exe or .dll)
-    /// for where the callers type is located
+    /// Get the full directory path of the physical file (typically .exe or .dll) for where the callers type is located.
     /// </summary>
     /// <param name="self">An instance of the calling type</param>
-    /// <returns></returns>
-    public static string AssemblyPath(this object self) => Path.GetDirectoryName(self.AssemblyFilePath());
+    /// <returns>The directory path that contains this file</returns>
+    [Obsolete("Use AssemblyDirectoryPath instead")]
+    public static string AssemblyPath(this object self) => AssemblyDirectoryPath(self);
 
     /// <summary>
-    /// Gets the full path (including filename) of the physical file (typically .exe or .dll)
-    /// for where the callers type is located 
+    /// Get the full directory path of the physical file (typically .exe or .dll) for where the callers type is located.
     /// </summary>
     /// <param name="self">An instance of the calling type</param>
-    /// <returns></returns>
+    /// <returns>The directory path that contains this file</returns>
+    public static string AssemblyDirectoryPath(this object self) => Path.GetDirectoryName(self.AssemblyFilePath());
+
+    /// <summary>
+    /// Get the full path (including filename) of the physical file (typically .exe or .dll) for where the callers type is located.
+    /// </summary>
+    /// <param name="self">An instance of the calling type</param>
+    /// <returns>The full path of this file that contains this type.</returns>
     public static string AssemblyFilePath(this object self) => self.GetType().Assembly.Location;
 
     /// <summary>
-    /// Gets the full path (including filename) of the physical file (typically .exe or .dll)
-    /// for where the callers type is located 
+    /// Get the full path (including filename) of the physical file (typically .exe or .dll) for where the callers type is located.
     /// </summary>
     /// <param name="type">A calling type</param>
-    /// <returns></returns>
+    /// <returns>The full path of this file that contains this type.</returns>
     public static string AssemblyFilePath(this Type type) => type.Assembly.Location;
 }
