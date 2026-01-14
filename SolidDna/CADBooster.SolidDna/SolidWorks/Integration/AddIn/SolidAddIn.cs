@@ -1,4 +1,4 @@
-﻿using SolidWorks.Interop.sldworks;
+using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swpublished;
 using System;
 using System.Collections.Generic;
@@ -337,12 +337,12 @@ public abstract class SolidAddIn : ISwAddin
             Logger.LogInformationSource($"Registering {assemblyName}");
 
             // Get registry key path
-            var keyPath = string.Format(@"SOFTWARE\SolidWorks\AddIns\{0:b}", t.GUID);
+            var keyPath = $@"SOFTWARE\SolidWorks\AddIns\{t.GUID:b}";
 
             // Create our registry folder for the add-in
-            using var rk = Microsoft.Win32.Registry.LocalMachine.CreateSubKey(keyPath);
+            using var registryKey = Microsoft.Win32.Registry.LocalMachine.CreateSubKey(keyPath);
             // Load add-in when SolidWorks opens
-            rk.SetValue(null, 1);
+            registryKey.SetValue(null, 1);
 
             //
             // IMPORTANT: 
@@ -364,8 +364,8 @@ public abstract class SolidAddIn : ISwAddin
             addIn.PlugInIntegration.ConfigurePlugIns(pluginPath, addIn);
 
             // Set SolidWorks add-in title and description
-            rk.SetValue("Title", addIn.SolidWorksAddInTitle);
-            rk.SetValue("Description", addIn.SolidWorksAddInDescription);
+            registryKey.SetValue("Title", addIn.SolidWorksAddInTitle);
+            registryKey.SetValue("Description", addIn.SolidWorksAddInDescription);
 
             Logger.LogInformationSource($"COM Registration successful. '{addIn.SolidWorksAddInTitle}' : '{addIn.SolidWorksAddInDescription}'");
         }
