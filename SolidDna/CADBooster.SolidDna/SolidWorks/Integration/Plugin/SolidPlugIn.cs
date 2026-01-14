@@ -76,15 +76,4 @@ public abstract class SolidPlugIn<T> : SolidPlugIn
             ParentAddIn.PlugInIntegration.AddPlugIn<T>();
         }
     }
-
-    #region Constructor
-
-    /// <summary>
-    /// Default constructor
-    /// </summary>
-    public SolidPlugIn() : base()
-    {
-    }
-
-    #endregion
 }
