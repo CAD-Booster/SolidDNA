@@ -147,40 +147,33 @@ public abstract class SolidAddIn : ISwAddin
     /// <summary>
     /// Called when SolidWorks has loaded our add-in and wants us to do our connection logic
     /// </summary>
-    /// <param name="thisSw">The current SolidWorks instance</param>
+    /// <param name="solidWorksApplication">The current SolidWorks instance</param>
     /// <param name="cookie">The current SolidWorks cookie ID</param>
     /// <returns></returns>
-    public bool ConnectToSW(object thisSw, int cookie)
+    public bool ConnectToSW(object solidWorksApplication, int cookie)
     {
         try
         {
+            // Get the current SolidWorks instance
+            var solidworks = (SldWorks) solidWorksApplication;
+
             // Add this add-in to the list of currently active add-ins.
             AddInIntegration.AddAddIn(this);
+
+            // Log it
+            Logger.LogTraceSource($"Firing PreConnectToSolidWorks...");
 
             // Fire event
             PreConnectToSolidWorks();
 
-            // Log it
-            Logger.LogTraceSource($"Fired PreConnectToSolidWorks...");
-
-            // Log it
+            // Log it. Todo: add-in title is not yet extracted from a plugin here, so it will always be the default title.
             Logger.LogDebugSource($"{SolidWorksAddInTitle} Connected to SolidWorks...");
 
-            //   NOTE: Do not need to create it here, as we now create it inside PlugInIntegration.Setup in its own AppDomain
-            //         If we change back to loading directly (not in an app domain) then uncomment this 
-            //
-            // Store a reference to the current SolidWorks instance
-            // Initialize SolidWorks (SolidDNA class)
-            //SolidWorks = new SolidWorksApplication((SldWorks)ThisSW, Cookie);
-
-            // Log it
-            Logger.LogDebugSource($"Storing the SOLIDWORKS instance...");
-
             // Set up the current SolidWorks instance as a SolidDNA class.
-            AddInIntegration.ConnectToActiveSolidWorks(((SldWorks) thisSw).RevisionNumber(), cookie);
+            AddInIntegration.ConnectToActiveSolidWorksForAddIn(solidworks, cookie);
 
             // Tell solidworks which method to call when it receives a button click on a command manager item or flyout.
-            SetUpCallbacks(thisSw, cookie);
+            SetUpCallbacks(solidworks, cookie);
 
             // Log it
             Logger.LogDebugSource($"Firing PreLoadPlugIns...");
@@ -274,15 +267,15 @@ public abstract class SolidAddIn : ISwAddin
     /// SolidWorks also calls the <see cref="ItemStateCheck"/> method in this class whenever it asks to know the disabled/enabled state of a command manager item.
     /// This happens after the SolidWorks window becomes active or the active model changes.
     /// </summary>
-    /// <param name="thisSw"></param>
+    /// <param name="solidworks"></param>
     /// <param name="cookie"></param>
-    private void SetUpCallbacks(object thisSw, int cookie)
+    private void SetUpCallbacks(SldWorks solidworks, int cookie)
     {
         // Log it
-        Logger.LogDebugSource($"Setting AddinCallbackInfo...");
+        Logger.LogDebugSource($"Setting add-in callbacks...");
 
         // ReSharper disable once UnusedVariable
-        var ok = ((SldWorks) thisSw).SetAddinCallbackInfo2(0, this, cookie);
+        var ok = solidworks.SetAddinCallbackInfo2(0, this, cookie);
     }
 
     #endregion
