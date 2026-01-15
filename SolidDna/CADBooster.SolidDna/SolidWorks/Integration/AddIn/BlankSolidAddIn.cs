@@ -1,7 +1,7 @@
 ﻿namespace CADBooster.SolidDna;
 
 /// <summary>
-/// Creates a blank AddIn integration class
+/// A blank AddIn class that is used when registering our add-in with COM.
 /// </summary>
 public class BlankSolidAddIn : SolidAddIn
 {

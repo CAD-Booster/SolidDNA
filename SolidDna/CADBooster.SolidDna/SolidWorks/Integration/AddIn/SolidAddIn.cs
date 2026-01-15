@@ -335,14 +335,17 @@ public abstract class SolidAddIn : ISwAddin
 
             Logger.LogInformationSource("Configuring plugins...");
 
-            // Let plug-ins configure title and descriptions
+            // Let plug-ins configure the add-in title and descriptions
             addIn.PlugInIntegration.ConfigurePlugIns(addIn);
 
+            // Format our guid
+            var guid = $"{t.GUID:b}";
+
             // Register our add-in as a COM object
-            AddRegistryKeyLocalMachine(t, addIn);
+            AddRegistryKeyLocalMachine(guid, addIn);
 
             // Make our add-in start up when SOLIDWORKS starts
-            AddRegistryKeyCurrentUser(t);
+            AddRegistryKeyCurrentUser(guid);
 
             Logger.LogInformationSource($"COM Registration successful. '{addIn.SolidWorksAddInTitle}' : '{addIn.SolidWorksAddInDescription}'");
         }
@@ -369,12 +372,12 @@ public abstract class SolidAddIn : ISwAddin
     /// We need to write to Local Machine, so you need to be an admin to perform this.
     /// There is no way around this for SOLIDWORKS add-ins.
     /// </summary>
-    /// <param name="t"></param>
     /// <param name="addIn"></param>
-    private static void AddRegistryKeyLocalMachine(Type t, BlankSolidAddIn addIn)
+    /// <param name="guid"></param>
+    private static void AddRegistryKeyLocalMachine(string guid, BlankSolidAddIn addIn)
     {
         // Get registry key path in local machine to register the add-in COM object
-        var keyPath = $@"SOFTWARE\SolidWorks\AddIns\{t.GUID:b}";
+        var keyPath = $@"SOFTWARE\SolidWorks\AddIns\{guid}";
 
         // Create our registry folder for the add-in
         using var registryKey = Microsoft.Win32.Registry.LocalMachine.CreateSubKey(keyPath);
@@ -387,11 +390,11 @@ public abstract class SolidAddIn : ISwAddin
     /// <summary>
     /// Add a Registry key so our add-in starts up when SOLIDWORKS starts.
     /// </summary>
-    /// <param name="t"></param>
-    private static void AddRegistryKeyCurrentUser(Type t)
+    /// <param name="guid"></param>
+    private static void AddRegistryKeyCurrentUser(string guid)
     {
         // Get registry key path in current user so the add-in starts when SolidWorks opens
-        var keyPathCurrentUser = $@"SOFTWARE\SolidWorks\AddInsStartup\{t.GUID:b}";
+        var keyPathCurrentUser = $@"SOFTWARE\SolidWorks\AddInsStartup\{guid}";
 
         // Create our registry folder for the add-in
         using var registryKeyCurrentUser = Microsoft.Win32.Registry.CurrentUser.CreateSubKey(keyPathCurrentUser);
