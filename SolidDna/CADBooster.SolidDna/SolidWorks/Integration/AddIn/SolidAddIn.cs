@@ -324,20 +324,11 @@ public abstract class SolidAddIn : ISwAddin
     {
         try
         {
-            // Create new instance of a blank add-in
-            var addIn = new BlankSolidAddIn();
-
             // Log the assembly name 
             Logger.LogInformationSource($"Registering {t.AssemblyFilePath()}");
 
-            // Get registry key path
-            var keyPath = $@"SOFTWARE\SolidWorks\AddIns\{t.GUID:b}";
-
-            // Create our registry folder for the add-in
-            using var registryKey = Microsoft.Win32.Registry.LocalMachine.CreateSubKey(keyPath);
-
-            // Load add-in when SolidWorks opens
-            registryKey.SetValue(null, 1);
+            // Create new instance of a blank add-in
+            var addIn = new BlankSolidAddIn();
 
             // Force auto-discovering plug-in during COM registration
             addIn.PlugInIntegration.AutoDiscoverPlugins = true;
@@ -347,9 +338,11 @@ public abstract class SolidAddIn : ISwAddin
             // Let plug-ins configure title and descriptions
             addIn.PlugInIntegration.ConfigurePlugIns(addIn);
 
-            // Set SolidWorks add-in title and description
-            registryKey.SetValue("Title", addIn.SolidWorksAddInTitle);
-            registryKey.SetValue("Description", addIn.SolidWorksAddInDescription);
+            // Register our add-in as a COM object
+            AddRegistryKeyLocalMachine(t, addIn);
+
+            // Make our add-in start up when SOLIDWORKS starts
+            AddRegistryKeyCurrentUser(t);
 
             Logger.LogInformationSource($"COM Registration successful. '{addIn.SolidWorksAddInTitle}' : '{addIn.SolidWorksAddInDescription}'");
         }
@@ -369,6 +362,42 @@ public abstract class SolidAddIn : ISwAddin
             Logger.LogCriticalSource($"COM Registration error. {e}");
             throw;
         }
+    }
+
+    /// <summary>
+    /// Add a Registry to register our add-in COM object.
+    /// We need to write to Local Machine, so you need to be an admin to perform this.
+    /// There is no way around this for SOLIDWORKS add-ins.
+    /// </summary>
+    /// <param name="t"></param>
+    /// <param name="addIn"></param>
+    private static void AddRegistryKeyLocalMachine(Type t, BlankSolidAddIn addIn)
+    {
+        // Get registry key path in local machine to register the add-in COM object
+        var keyPath = $@"SOFTWARE\SolidWorks\AddIns\{t.GUID:b}";
+
+        // Create our registry folder for the add-in
+        using var registryKey = Microsoft.Win32.Registry.LocalMachine.CreateSubKey(keyPath);
+
+        // Set SolidWorks add-in title and description
+        registryKey.SetValue("Title", addIn.SolidWorksAddInTitle);
+        registryKey.SetValue("Description", addIn.SolidWorksAddInDescription);
+    }
+
+    /// <summary>
+    /// Add a Registry key so our add-in starts up when SOLIDWORKS starts.
+    /// </summary>
+    /// <param name="t"></param>
+    private static void AddRegistryKeyCurrentUser(Type t)
+    {
+        // Get registry key path in current user so the add-in starts when SolidWorks opens
+        var keyPathCurrentUser = $@"SOFTWARE\SolidWorks\AddInsStartup\{t.GUID:b}";
+
+        // Create our registry folder for the add-in
+        using var registryKeyCurrentUser = Microsoft.Win32.Registry.CurrentUser.CreateSubKey(keyPathCurrentUser);
+
+        // Load add-in when SolidWorks opens
+        registryKeyCurrentUser.SetValue(null, 1);
     }
 
     /// <summary>
