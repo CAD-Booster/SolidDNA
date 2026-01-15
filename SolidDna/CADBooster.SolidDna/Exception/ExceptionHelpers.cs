@@ -61,9 +61,9 @@ public static class ExceptionHelpers
             // Log the error
             Logger.LogCriticalSource($"Unexpected error at {source}. {ex.GetErrorMessage()}");
         }
-        catch (Exception iex)
+        catch (Exception e)
         {
-            Logger.LogCriticalSource("GLOBAL EXCEPTION CRASHED ITSELF WITH " + iex.GetErrorMessage());
+            Logger.LogCriticalSource("GLOBAL EXCEPTION CRASHED ITSELF WITH " + e.GetErrorMessage());
         }
     }
 }

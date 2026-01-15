@@ -47,10 +47,10 @@ public static class SolidDnaErrors
         {
             action();
         }
-        catch (Exception ex)
+        catch (Exception e)
         {
             // Create the SolidDNA exception
-            var error = new SolidDnaException(CreateError(errorTypeCode, errorCode, errorDescription), ex);
+            var error = new SolidDnaException(CreateError(errorTypeCode, errorCode, errorDescription), e);
 
             // If it should just be logged and ignored, log it
             if (Logger.LogAndIgnoreUncaughtExceptions)
@@ -80,10 +80,10 @@ public static class SolidDnaErrors
         {
             return func();
         }
-        catch (Exception ex)
+        catch (Exception e)
         {
             // Create the SolidDNA exception
-            var error = new SolidDnaException(CreateError(errorTypeCode, errorCode, errorDescription), ex);
+            var error = new SolidDnaException(CreateError(errorTypeCode, errorCode, errorDescription), e);
 
             // If it should just be logged and ignored, log it
             if (Logger.LogAndIgnoreUncaughtExceptions)
@@ -115,10 +115,10 @@ public static class SolidDnaErrors
         {
             await task();
         }
-        catch (Exception ex)
+        catch (Exception e)
         {
             // Create the SolidDNA exception
-            var error = new SolidDnaException(CreateError(errorTypeCode, errorCode, errorDescription), ex);
+            var error = new SolidDnaException(CreateError(errorTypeCode, errorCode, errorDescription), e);
 
             // If it should just be logged and ignored, log it
             if (Logger.LogAndIgnoreUncaughtExceptions)
@@ -150,10 +150,10 @@ public static class SolidDnaErrors
         {
             return await task();
         }
-        catch (Exception ex)
+        catch (Exception e)
         {
             // Create the SolidDNA exception
-            var error = new SolidDnaException(CreateError(errorTypeCode, errorCode, errorDescription), ex);
+            var error = new SolidDnaException(CreateError(errorTypeCode, errorCode, errorDescription), e);
 
             // If it should just be logged and ignored, log it
             if (Logger.LogAndIgnoreUncaughtExceptions)

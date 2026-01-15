@@ -781,7 +781,7 @@ public partial class SolidWorksApplication : SharedSolidDnaObject<SldWorks>, ISo
             if (materials.Count > 0)
                 list.AddRange(materials);
         }
-        catch (Exception ex)
+        catch (Exception e)
         {
             // If we crashed for any reason during parsing, wrap in SolidDna exception
             if (!File.Exists(databasePath))
@@ -790,7 +790,7 @@ public partial class SolidWorksApplication : SharedSolidDnaObject<SldWorks>, ISo
                     SolidDnaErrors.CreateError(
                         SolidDnaErrorTypeCode.SolidWorksApplication,
                         SolidDnaErrorCode.SolidWorksApplicationGetMaterialsFileFormatError),
-                    ex);
+                    e);
             }
         }
     }

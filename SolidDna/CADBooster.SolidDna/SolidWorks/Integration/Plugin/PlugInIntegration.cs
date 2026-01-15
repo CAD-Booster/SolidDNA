@@ -144,12 +144,12 @@ public class PlugInIntegration
             // Inform listeners
             CallbackFired(callbackId);
         }
-        catch (Exception ex)
+        catch (Exception e)
         {
             Debugger.Break();
 
             // Log it
-            Logger.LogCriticalSource($"{nameof(OnCallback)} failed. {ex.GetErrorMessage()}");
+            Logger.LogCriticalSource($"{nameof(OnCallback)} failed. {e.GetErrorMessage()}");
         }
     }
 
@@ -175,12 +175,12 @@ public class PlugInIntegration
             // Pass the result on to SolidWorks
             return (int) args.Result;
         }
-        catch (Exception ex)
+        catch (Exception e)
         {
             Debugger.Break();
 
             // Log it
-            Logger.LogCriticalSource($"{nameof(OnItemStateCheck)} failed. {ex.GetErrorMessage()}");
+            Logger.LogCriticalSource($"{nameof(OnItemStateCheck)} failed. {e.GetErrorMessage()}");
             return (int) CommandManagerItemState.DeselectedEnabled;
         }
     }

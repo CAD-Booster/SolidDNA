@@ -222,10 +222,10 @@ public abstract class SolidAddIn : ISwAddin
             // Return ok
             return true;
         }
-        catch (Exception ex)
+        catch (Exception e)
         {
             // Log it
-            Logger.LogCriticalSource($"Unexpected error: {ex}");
+            Logger.LogCriticalSource($"Unexpected error: {e}");
 
             return false;
         }
@@ -353,7 +353,7 @@ public abstract class SolidAddIn : ISwAddin
 
             Logger.LogInformationSource($"COM Registration successful. '{addIn.SolidWorksAddInTitle}' : '{addIn.SolidWorksAddInDescription}'");
         }
-        catch (Exception ex)
+        catch (Exception e)
         {
             Debugger.Break();
 
@@ -364,9 +364,9 @@ public abstract class SolidAddIn : ISwAddin
             var changeExtension = assemblyLocation.Replace(".dll", ".fatal.log.txt");
 
             // Log an error to a new or existing text file 
-            File.AppendAllText(changeExtension, $"\r\nUnexpected error: {ex}");
+            File.AppendAllText(changeExtension, $"\r\nUnexpected error: {e}");
 
-            Logger.LogCriticalSource($"COM Registration error. {ex}");
+            Logger.LogCriticalSource($"COM Registration error. {e}");
             throw;
         }
     }
