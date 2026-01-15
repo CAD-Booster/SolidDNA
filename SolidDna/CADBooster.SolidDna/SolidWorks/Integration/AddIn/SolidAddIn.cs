@@ -328,7 +328,7 @@ public abstract class SolidAddIn : ISwAddin
             var addIn = new BlankSolidAddIn();
 
             // Log the assembly name 
-            Logger.LogInformationSource($"Registering {t.Assembly.Location}");
+            Logger.LogInformationSource($"Registering {t.AssemblyFilePath()}");
 
             // Get registry key path
             var keyPath = $@"SOFTWARE\SolidWorks\AddIns\{t.GUID:b}";

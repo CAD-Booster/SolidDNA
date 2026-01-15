@@ -108,7 +108,7 @@ public class PlugInIntegration
     public void AddPlugIn<TPlugIn>()
     {
         // Get the full path to the assembly
-        var fullPath = typeof(TPlugIn).AssemblyBaseNormalized();
+        var fullPath = typeof(TPlugIn).AssemblyFilePath();
 
         // Add the path to list if it isn't in there yet
         if (!PlugInAssemblyPaths.ContainsIgnoreCase(fullPath))
@@ -122,7 +122,7 @@ public class PlugInIntegration
     public void AddPlugIn2<TPlugIn>() where TPlugIn : SolidPlugIn
     {
         // Get the full path to the assembly
-        var fullPath = typeof(TPlugIn).AssemblyBaseNormalized();
+        var fullPath = typeof(TPlugIn).AssemblyFilePath();
 
         // Add the path to list if it isn't in there yet
         if (!PlugInAssemblyPaths.ContainsIgnoreCase(fullPath))
