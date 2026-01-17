@@ -958,4 +958,9 @@ public enum ModelFeatureType
     /// Is visible in the FeatureManager tree as a normal feature, so not as the official "Graphical Body" folder at the top of the tree.
     /// </summary>
     GraphicalBodyFeature,
+
+    /// <summary>
+    /// The feature is <see cref="FeatureInPlaceMate"/>, a special mate that is created when virtual components are mated in-context.
+    /// </summary>
+    MateInPlace,
 }

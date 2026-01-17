@@ -65,7 +65,7 @@ public static class ModelFeatureTypeMapping
                 return ModelFeatureType.HingeMateData;
 
             case "MateInPlace":
-                return ModelFeatureType.Mate;
+                return ModelFeatureType.MateInPlace;
 
             case "MateLinearCoupler":
                 return ModelFeatureType.LinearCouplerMateData;
