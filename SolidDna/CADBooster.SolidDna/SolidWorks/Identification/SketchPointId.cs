@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using SolidWorks.Interop.sldworks;
@@ -57,7 +57,7 @@ public class SketchPointId
     #region Equals, GetHashCode and ToString
 
     /// <Inheritdoc />
-    public override string ToString() => $"Sketch Point ID {SketchName}-{Id0}-{Id1}";
+    public override string ToString() => $"Sketch point ID {SketchName}-{Id0}-{Id1}";
 
     /// <summary>
     /// Get if this sketch point ID is equal to another sketch point ID.
