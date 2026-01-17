@@ -124,11 +124,8 @@ public class PersistentId
         // Get the underlying feature object, which is the base type for a Configuration. Throws when it fails.
         var feature = GetObject<Feature>();
 
-        // If we get here, we have an object. Convert it to a Configuration object.
-        var configuration = feature.GetSpecificFeature2() as Configuration;
-
-        // Now wrap it.
-        return new ModelConfiguration(configuration);
+        // If we get here, we have an object. Convert it to a Configuration object and wrap it.
+        return new ModelFeature(feature).AsConfiguration();
     }
 
     /// <summary>
@@ -179,11 +176,8 @@ public class PersistentId
         // Get the underlying feature object, which is the base type for a Sketch. Throws when it fails.
         var feature = GetObject<Feature>();
 
-        // If we get here, we have an object. Convert it to a Sketch object.
-        var sketch = feature.GetSpecificFeature2() as Sketch;
-
-        // Now wrap it.
-        return new FeatureSketch(sketch);
+        // If we get here, we have an object. Convert it to a Sketch object and wrap it.
+        return new ModelFeature(feature).AsSketch();
     }
 
     /// <summary>

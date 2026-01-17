@@ -17,4 +17,18 @@ public class FeatureSketch : SolidDnaObject<ISketch>
     }
 
     #endregion
+
+    #region Features
+
+    /// <summary>
+    /// Cast a sketch to a feature.
+    /// </summary>
+    /// <returns></returns>
+    public ModelFeature AsFeature()
+    {
+        // ReSharper disable once SuspiciousTypeConversion.Global
+        return new ModelFeature((Feature) UnsafeObject);
+    }
+
+    #endregion
 }
