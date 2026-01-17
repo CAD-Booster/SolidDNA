@@ -59,8 +59,9 @@ internal class ComponentTest
         var mates = component.GetMates();
 
         Assert.That(mates.Count(), Is.EqualTo(1));
-        Assert.That(mates, Has.Exactly(1).InstanceOf<IMate2>());
-        Assert.That(mates, Has.Exactly(0).InstanceOf<IMateInPlace>());
+        Assert.That(mates, Has.Exactly(1).InstanceOf<FeatureMate>());
+        Assert.That(mates, Has.Exactly(0).InstanceOf<FeatureInPlaceMate>());
+        Assert.That(mates.First().UnsafeObject, Is.InstanceOf<IMate2>());
     }
 
     [Test]
@@ -75,7 +76,8 @@ internal class ComponentTest
         var mates = component.GetInPlaceMates();
         
         Assert.That(mates.Count(), Is.EqualTo(1));
-        Assert.That(mates, Has.Exactly(0).InstanceOf<IMate2>());
-        Assert.That(mates, Has.Exactly(1).InstanceOf<IMateInPlace>());
+        Assert.That(mates, Has.Exactly(0).InstanceOf<FeatureMate>());
+        Assert.That(mates, Has.Exactly(1).InstanceOf<FeatureInPlaceMate>());
+        Assert.That(mates.First().UnsafeObject, Is.InstanceOf<IMateInPlace>());
     }
 }

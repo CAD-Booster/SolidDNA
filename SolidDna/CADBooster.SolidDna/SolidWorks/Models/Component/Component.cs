@@ -323,7 +323,7 @@ public class Component : SolidDnaObject<Component2>, IComponent
     /// Skips <see cref="MateInPlace"/> mates. If you need those, call <see cref="GetInPlaceMates"/>.
     /// </summary>
     /// <returns></returns>
-    public IEnumerable<IMate2> GetMates()
+    public IEnumerable<FeatureMate> GetMates()
     {
         var matesObject = (object[]) UnsafeObject.GetMates();
         if (matesObject == null)
@@ -334,7 +334,7 @@ public class Component : SolidDnaObject<Component2>, IComponent
             // The objects are usually of type mate, but they can be MateInPlace as well.
             // These mates are only used for virtual components and are not useful in most situations.
             if (mateObject is IMate2 mate)
-                yield return mate;
+                yield return new FeatureMate(mate);
         }
     }
 
@@ -343,7 +343,7 @@ public class Component : SolidDnaObject<Component2>, IComponent
     /// In-place mates are only used for virtual components. 
     /// </summary>
     /// <returns></returns>
-    public IEnumerable<IMateInPlace> GetInPlaceMates()
+    public IEnumerable<FeatureInPlaceMate> GetInPlaceMates()
     {
         var matesObject = (object[]) UnsafeObject.GetMates();
         if (matesObject == null)
@@ -353,7 +353,7 @@ public class Component : SolidDnaObject<Component2>, IComponent
         {
             // The objects are usually of type mate, but they can be MateInPlace as well.
             if (mateObject is IMateInPlace mate)
-                yield return mate;
+                yield return new FeatureInPlaceMate(mate);
         }
     }
 
