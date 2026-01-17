@@ -52,8 +52,11 @@ public class SketchSegmentId
         Id0 = ids[0];
         Id1 = ids[1];
 
-        // Get the sketch name by casting the sketch to a Feature first
-        SketchName = ((Feature) sketchSegment.GetSketch()).Name;
+        // Get the sketch 
+        var featureSketch = new FeatureSketch(sketchSegment.GetSketch());
+
+        // Get the sketch name by casting the sketch to a feature
+        SketchName = featureSketch.AsFeature().FeatureName;
 
         // Get the sketch segment type
         Type = (SketchSegmentType) sketchSegment.GetType();

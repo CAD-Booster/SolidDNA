@@ -45,8 +45,11 @@ public class SketchPointId
         Id0 = ids[0];
         Id1 = ids[1];
 
-        // Get the sketch name by casting the sketch to a Feature first
-        SketchName = ((Feature) sketchPoint.GetSketch()).Name;
+        // Get the sketch 
+        var featureSketch = new FeatureSketch(sketchPoint.GetSketch());
+
+        // Get the sketch name by casting the sketch to a feature
+        SketchName = featureSketch.AsFeature().FeatureName;
     }
 
     #endregion
