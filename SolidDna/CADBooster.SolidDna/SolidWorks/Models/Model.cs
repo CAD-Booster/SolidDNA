@@ -1030,7 +1030,7 @@ public class Model : SharedSolidDnaObject<ModelDoc2>, IModel
     /// </summary>
     /// <param name="name">The name of the custom property</param>
     /// <param name="configuration">The configuration to get the properties from, otherwise get custom property</param>
-    ///<param name="resolved">True to get the resolved value of the property, false to get the actual text</param>
+    /// <param name="resolved">True to get the resolved value of the property, false to get the actual text</param>
     /// <returns></returns>
     public string GetCustomProperty(string name, string configuration = null, bool resolved = false)
     {
@@ -1573,6 +1573,11 @@ public class Model : SharedSolidDnaObject<ModelDoc2>, IModel
         // Release the active configuration
         ActiveConfiguration?.Dispose();
         ActiveConfiguration = null;
+
+        // Clean up document wrappers to prevent memory leaks (even though they don't own COM objects)
+        Drawing = null;
+        Part = null;
+        Assembly = null;
 
         // Unhook all events
         ClearModelEventHandlers();

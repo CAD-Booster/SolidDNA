@@ -7,6 +7,7 @@ namespace CADBooster.SolidDna;
 
 /// <summary>
 /// Exposes all Drawing Document calls from a <see cref="Model"/>
+/// Is not a SolidDna{T} object because the lifecycle is handled by the parent Model.
 /// </summary>
 public class DrawingDocument : IDrawingDocument
 {
