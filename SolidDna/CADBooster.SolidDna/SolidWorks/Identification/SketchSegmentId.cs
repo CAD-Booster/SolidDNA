@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using SolidWorks.Interop.sldworks;
@@ -6,7 +6,7 @@ using SolidWorks.Interop.sldworks;
 namespace CADBooster.SolidDna;
 
 /// <summary>
-/// The unique ID for a sketch segment. Consists of two longs, but is only unique in combination with the sketch (name) and sketch segment type.
+/// The unique ID for a sketch segment. Consists of two longs, but is only unique in combination with the sketch (persistent ID) and sketch segment type.
 /// This means that the same two long values can be used in different sketches and the same sketch can have segments with the same two long values but different types.
 /// See <see href="https://help.solidworks.com/2026/english/api/sldworksapi/solidworks.interop.sldworks~solidworks.interop.sldworks.isketchsegment~getid.html"/>.
 /// Sketch points are not sketch segments and cannot be cast to <see cref="SketchSegment"/>.
@@ -29,7 +29,13 @@ public class SketchSegmentId
     /// <summary>
     /// Name of the containing sketch
     /// </summary>
+    [Obsolete("Use PersistentId instead. The sketch name can change, making it unreliable for identification.")]
     public string SketchName { get; }
+
+    /// <summary>
+    /// Persistent ID sketch that contains this sketch segment. This ID does not change when the sketch is renamed.
+    /// </summary>
+    public PersistentId SketchPersistentId { get; }
 
     /// <summary>
     /// Sketch segment type. 
@@ -42,7 +48,7 @@ public class SketchSegmentId
 
     /// <summary>
     /// The unique identifier for a sketch segment.
-    /// Is determined by its sketch name, two long/int values and the type.
+    /// Is determined by its sketch persistent ID, two long/int values and the type.
     /// </summary>
     /// <param name="sketchSegment"></param>
     public SketchSegmentId(ISketchSegment sketchSegment)
@@ -54,9 +60,15 @@ public class SketchSegmentId
 
         // Get the sketch 
         var featureSketch = new FeatureSketch(sketchSegment.GetSketch());
+        var feature = featureSketch.AsFeature();
 
-        // Get the sketch name by casting the sketch to a feature
-        SketchName = featureSketch.AsFeature().FeatureName;
+        // Get the sketch name by casting the sketch to a feature (kept for backward compatibility)
+#pragma warning disable CS0618 // Type or member is obsolete
+        SketchName = feature.FeatureName;
+#pragma warning restore CS0618 // Type or member is obsolete
+
+        // Get the sketch persistent ID
+        SketchPersistentId = PersistentId.GetFromObject(feature.UnsafeObject);
 
         // Get the sketch segment type
         Type = (SketchSegmentType) sketchSegment.GetType();
@@ -67,15 +79,14 @@ public class SketchSegmentId
     #region Equals, GetHashCode and ToString
 
     /// <Inheritdoc />
-    public override string ToString() => $"Sketch segment ID {SketchName}-{Type}-{Id0}-{Id1}";
+    public override string ToString() => $"Sketch segment ID {Type}-{Id0}-{Id1}";
 
     /// <summary>
     /// Get if this sketch segment ID is equal to another sketch segment ID.
     /// </summary>
     /// <param name="otherId"></param>
     /// <returns></returns>
-    public bool Equals(SketchSegmentId otherId) =>
-        SketchName.Equals(otherId.SketchName, StringComparison.InvariantCultureIgnoreCase) && Id0 == otherId.Id0 && Id1 == otherId.Id1 && Type == otherId.Type;
+    public bool Equals(SketchSegmentId otherId) => Id0 == otherId.Id0 && Id1 == otherId.Id1 && Type == otherId.Type && SketchPersistentId.Equals(otherId.SketchPersistentId);
 
     /// <Inheritdoc />
     public override bool Equals(object obj)
@@ -91,9 +102,10 @@ public class SketchSegmentId
     {
         unchecked
         {
-            var hashCode = SketchName != null ? SketchName.GetHashCode() : 0;
+            var hashCode = SketchPersistentId.GetHashCode();
             hashCode = (hashCode * 397) ^ Id0.GetHashCode();
             hashCode = (hashCode * 397) ^ Id1.GetHashCode();
+            hashCode = (hashCode * 397) ^ SketchPersistentId.GetHashCode();
             hashCode = (hashCode * 397) ^ (int) Type;
             return hashCode;
         }
