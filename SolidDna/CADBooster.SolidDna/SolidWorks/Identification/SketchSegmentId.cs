@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using SolidWorks.Interop.sldworks;
@@ -29,7 +29,7 @@ public class SketchSegmentId
     /// <summary>
     /// Name of the containing sketch
     /// </summary>
-    [Obsolete("Use PersistentId instead. The sketch name can change, making it unreliable for identification.")]
+    [Obsolete("Use SketchPersistentId instead. The sketch name can change, making it unreliable for identification.")]
     public string SketchName { get; }
 
     /// <summary>
@@ -72,6 +72,33 @@ public class SketchSegmentId
 
         // Get the sketch segment type
         Type = (SketchSegmentType) sketchSegment.GetType();
+    }
+
+    #endregion
+
+    #region Get a sketch segment by its id
+
+    /// <summary>
+    /// Get a sketch segment by its ID. Throws when it cannot find the sketch or the sketch segment.
+    /// </summary>
+    /// <returns>A sketch segment when found.</returns>
+    public SketchSegment GetSketchSegment()
+    {
+        // Get the sketch. Throws when it fails.
+        var featureSketch = SketchPersistentId.GetSketch();
+
+        // Get all sketch segments
+        var sketchSegments = featureSketch.GetSketchSegments();
+
+        // Find a sketch segment with the matching ID
+        var firstOrDefault = sketchSegments.FirstOrDefault(sketchSegment => new SketchSegmentId(sketchSegment).Equals(this));
+
+        // Throw when we cannot find a sketch segment with this ID
+        if (firstOrDefault == null)
+            throw new SolidDnaException(SolidDnaErrors.CreateError(SolidDnaErrorTypeCode.Identification, SolidDnaErrorCode.IdentificationObjectNotFoundFromSketchSegmentId));
+
+        // Return the found sketch segment
+        return firstOrDefault;
     }
 
     #endregion

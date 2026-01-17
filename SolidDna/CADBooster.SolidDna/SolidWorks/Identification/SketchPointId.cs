@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using SolidWorks.Interop.sldworks;
@@ -27,7 +27,7 @@ public class SketchPointId
     /// <summary>
     /// Name of the containing sketch
     /// </summary>
-    [Obsolete("Use PersistentId instead. The sketch name can change, making it unreliable for identification.")]
+    [Obsolete("Use SketchPersistentId instead. The sketch name can change, making it unreliable for identification.")]
     public string SketchName { get; }
 
     /// <summary>
@@ -62,6 +62,33 @@ public class SketchPointId
         
         // Get the sketch persistent ID
         SketchPersistentId = PersistentId.GetFromObject(feature.UnsafeObject);
+    }
+
+    #endregion
+
+    #region Get a sketch point by its id
+
+    /// <summary>
+    /// Get a sketch point by its ID. Throws when it cannot find the sketch or the sketch point.
+    /// </summary>
+    /// <returns>A sketch point when found</returns>
+    public SketchPoint GetSketchPoint()
+    {
+        // Get the sketch. Throws when it fails.
+        var featureSketch = SketchPersistentId.GetSketch();
+
+        // Get all sketch points
+        var sketchPoints = featureSketch.GetSketchPoints();
+
+        // Find a sketch point with the matching ID
+        var firstOrDefault = sketchPoints.FirstOrDefault(sketchPoint => new SketchPointId(sketchPoint).Equals(this));
+
+        // Throw when we cannot find a sketch point with this ID
+        if (firstOrDefault == null)
+            throw new SolidDnaException(SolidDnaErrors.CreateError(SolidDnaErrorTypeCode.Identification, SolidDnaErrorCode.IdentificationObjectNotFoundFromSketchPointId));
+
+        // Return the found sketch point
+        return firstOrDefault;
     }
 
     #endregion
