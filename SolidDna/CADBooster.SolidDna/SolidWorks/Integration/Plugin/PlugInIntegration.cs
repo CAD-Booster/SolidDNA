@@ -135,7 +135,7 @@ public class PlugInIntegration
     #region SolidWorks Callbacks
 
     /// <summary>
-    /// Called by the SolidWorks domain (<see cref="SolidAddIn"/>) when a callback is fired when a user clicks a command manager item or flyout.
+    /// Called by SolidWorks (<see cref="SolidAddIn"/>) when a callback is fired when a user clicks a command manager item or flyout.
     /// </summary>
     /// <param name="callbackId">The parameter passed into the generic callback</param>
     public void OnCallback(string callbackId)
@@ -155,7 +155,7 @@ public class PlugInIntegration
     }
 
     /// <summary>
-    /// Called by the SolidWorks domain (<see cref="SolidAddIn"/>) before displaying a command manager item or flyout.
+    /// Called by SolidWorks (<see cref="SolidAddIn"/>) before displaying a command manager item or flyout.
     /// </summary>
     /// <param name="callbackId">The parameter passed into the generic callback</param>
     /// <returns>State of the item</returns>

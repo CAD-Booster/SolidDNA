@@ -148,17 +148,13 @@ public class TaskpaneIntegration<THost, TParentAddIn>
 
             // IMPORTANT: 
             //
-            //   This little f*cking beauty right here took me 18 hours to figure out
-            //   Whenever you add a WPF control to SolidWorks, Win 10 is nice enough
-            //   if your machine has a pen or stylus to start up a
-            //   System.Windows.Input.PenThreadWorker.ThreadProc
-            //   thread that NEVER ends, even after closing SolidWorks or unloading 
-            //   the domain. This causes the AppDomain.Unload to fail, or SolidWorks
-            //   to never close.
+            //   This little f*cking beauty right here took me 18 hours to figure out.
+            //   Whenever you add a WPF control to SolidWorks, Win 10 is nice enough if your machine has a
+            //   pen or stylus to start up a System.Windows.Input.PenThreadWorker.ThreadProc thread that NEVER
+            //   ends, even after closing SolidWorks or unloading the domain. This causes the AppDomain.Unload
+            //   to fail, or SolidWorks to never close.
             //   
-            //   I found a way to disable the thread using this AppContext switch
-            //   Now life is good again.
-            //
+            //   I found a way to disable the thread using this AppContext switch. Now life is good again.
             AppContext.SetSwitch("Switch.System.Windows.Input.Stylus.DisableStylusAndTouchSupport", true);
 
             // Add and dock it to the parent control
