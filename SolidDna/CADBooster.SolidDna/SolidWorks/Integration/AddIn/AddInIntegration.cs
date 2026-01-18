@@ -33,7 +33,7 @@ public static class AddInIntegration
     #region Stand Alone Methods
 
     /// <summary>
-    /// Attempts to set the SolidWorks property to the active SolidWorks instance
+    /// Attempt to set the SolidWorks property to the active SolidWorks instance
     /// </summary>
     /// <returns></returns>
     public static bool ConnectToActiveSolidWorksForStandAlone()
@@ -65,51 +65,31 @@ public static class AddInIntegration
     #region Add-in methods
 
     /// <summary>
-    /// Attempts to set the SolidWorks property to the active SolidWorks instance.
+    /// Store the active SolidWorks instance and its cookie.
     /// Remember to call <see cref="TearDown"/> once done.
     /// </summary>
     /// <returns></returns>
-    public static void ConnectToActiveSolidWorks(string version, int cookie)
+    public static void ConnectToActiveSolidWorksForAddIn(SldWorks solidworks, int cookie)
     {
         if (SolidWorks != null)
         {
-            Logger.LogDebugSource("SolidWorks instance was already created");
+            Logger.LogDebugSource("SolidWorks instance was already set");
             return;
         }
 
         try
         {
-            // Get the ProgId, the name of the application including the version number
-            var progId = GetProgId(version);
+            Logger.LogDebugSource($"Storing the SOLIDWORKS instance...");
 
-            // Initialize SolidWorks (SolidDNA class)
-            SolidWorks = new SolidWorksApplication((SldWorks) Activator.CreateInstance(Type.GetTypeFromProgID(progId)), cookie);
+            // Initialize the SolidDNA wrapper for the SolidWorks application
+            SolidWorks = new SolidWorksApplication(solidworks, cookie);
 
-            // Log it
-            Logger.LogDebugSource($"SolidWorks Instance Created? {SolidWorks != null}");
+            Logger.LogDebugSource($"SolidWorks instance set");
         }
         catch (Exception e)
         {
-            Logger.LogDebugSource("Failed to get active instance of SolidWorks in add-in mode", exception: e);
+            Logger.LogDebugSource("Failed to set active instance of SolidWorks in add-in mode", exception: e);
         }
-    }
-
-    /// <summary>
-    /// Get the ProgId for the SolidWorks application based on the version number.
-    /// </summary>
-    /// <param name="version"></param>
-    /// <returns></returns>
-    private static string GetProgId(string version)
-    {
-        if (version != null && version.Contains("."))
-        {
-            // Get the version number (such as 32 for 2024)
-            var versionNumber = version.Substring(0, version.IndexOf('.'));
-            return "SldWorks.Application." + versionNumber;
-        }
-
-        // Should not happen 
-        return "SldWorks.Application";
     }
 
     #endregion
@@ -147,7 +127,7 @@ public static class AddInIntegration
     #region Tear Down
 
     /// <summary>
-    /// Cleans up the SolidWorks instance
+    /// Clean up the SolidWorks instance
     /// </summary>
     public static void TearDown()
     {

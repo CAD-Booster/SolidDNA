@@ -87,23 +87,31 @@ public abstract class SolidAddIn : ISwAddin
     /// Specific application startup code when SolidWorks is connected 
     /// and before any plug-ins or listeners are informed.
     /// Runs after <see cref="PreConnectToSolidWorks"/> and after <see cref="PreLoadPlugIns"/>.
-    /// 
-    /// NOTE: This call will not be in the same AppDomain as the SolidDna plug-ins
     /// </summary>
     /// <returns></returns>
     public abstract void ApplicationStartup();
 
     /// <summary>
-    /// Run immediately when <see cref="ConnectToSW(object, int)"/> is called to do any pre-setup.
+    /// Runs immediately when <see cref="ConnectToSW(object, int)"/> is called to do any pre-setup.
     /// For example, call <see cref="Logger.AddFileLogger{TAddIn}"/> to add a file logger for SolidDna messages.
     /// Runs before <see cref="PreLoadPlugIns"/> and before <see cref="ApplicationStartup"/>.
     /// </summary>
     public abstract void PreConnectToSolidWorks();
 
     /// <summary>
-    /// Run before loading plug-ins.
-    /// Make your add-in start up faster by setting <see cref="PlugInIntegration.AutoDiscoverPlugins"/> to false and adding the DLL path(s) that contain your plug-ins,
-    /// either by calling <see cref="PlugInIntegration.AddPlugIn2{T}"/> or by adding the assembly path to <see cref="PlugInIntegration.PlugInAssemblyPaths"/>
+    /// Runs before loading plug-ins.
+    /// To make your add-in start up faster, choose one of three options:
+    /// <list type="number">
+    /// <item>
+    /// <description>Fastest: Call <see cref="PlugInIntegration.AddPlugInToLoad{TPlugIn}"/> and pass your plugin type to tell SolidDna to load that plug-in.</description>
+    /// </item>
+    /// <item>
+    /// <description>Set <see cref="PlugInIntegration.AutoDiscoverPlugins"/> to false and add the paths of all DLLs that contain plugins to <see cref="PlugInIntegration.PlugInAssemblyPaths"/>.</description>
+    /// </item>
+    /// <item>
+    /// <description>Default: Do nothing and let SolidDna auto-discover all plug-ins in all DLLs in the SolidDNA DLL folder. This is the slowest.</description>
+    /// </item>
+    /// </list>
     /// Runs after <see cref="PreConnectToSolidWorks"/> and before <see cref="ApplicationStartup"/>.
     /// </summary>
     /// <returns></returns>
@@ -147,40 +155,33 @@ public abstract class SolidAddIn : ISwAddin
     /// <summary>
     /// Called when SolidWorks has loaded our add-in and wants us to do our connection logic
     /// </summary>
-    /// <param name="thisSw">The current SolidWorks instance</param>
+    /// <param name="solidWorksApplication">The current SolidWorks instance</param>
     /// <param name="cookie">The current SolidWorks cookie ID</param>
     /// <returns></returns>
-    public bool ConnectToSW(object thisSw, int cookie)
+    public bool ConnectToSW(object solidWorksApplication, int cookie)
     {
         try
         {
+            // Get the current SolidWorks instance
+            var solidworks = (SldWorks) solidWorksApplication;
+
             // Add this add-in to the list of currently active add-ins.
             AddInIntegration.AddAddIn(this);
+
+            // Log it
+            Logger.LogTraceSource($"Firing PreConnectToSolidWorks...");
 
             // Fire event
             PreConnectToSolidWorks();
 
-            // Log it
-            Logger.LogTraceSource($"Fired PreConnectToSolidWorks...");
-
-            // Log it
+            // Log it. Todo: add-in title is not yet extracted from a plugin here, so it will always be the default title.
             Logger.LogDebugSource($"{SolidWorksAddInTitle} Connected to SolidWorks...");
 
-            //   NOTE: Do not need to create it here, as we now create it inside PlugInIntegration.Setup in its own AppDomain
-            //         If we change back to loading directly (not in an app domain) then uncomment this 
-            //
-            // Store a reference to the current SolidWorks instance
-            // Initialize SolidWorks (SolidDNA class)
-            //SolidWorks = new SolidWorksApplication((SldWorks)ThisSW, Cookie);
-
-            // Log it
-            Logger.LogDebugSource($"Storing the SOLIDWORKS instance...");
-
             // Set up the current SolidWorks instance as a SolidDNA class.
-            AddInIntegration.ConnectToActiveSolidWorks(((SldWorks) thisSw).RevisionNumber(), cookie);
+            AddInIntegration.ConnectToActiveSolidWorksForAddIn(solidworks, cookie);
 
             // Tell solidworks which method to call when it receives a button click on a command manager item or flyout.
-            SetUpCallbacks(thisSw, cookie);
+            SetUpCallbacks(solidworks, cookie);
 
             // Log it
             Logger.LogDebugSource($"Firing PreLoadPlugIns...");
@@ -274,15 +275,15 @@ public abstract class SolidAddIn : ISwAddin
     /// SolidWorks also calls the <see cref="ItemStateCheck"/> method in this class whenever it asks to know the disabled/enabled state of a command manager item.
     /// This happens after the SolidWorks window becomes active or the active model changes.
     /// </summary>
-    /// <param name="thisSw"></param>
+    /// <param name="solidworks"></param>
     /// <param name="cookie"></param>
-    private void SetUpCallbacks(object thisSw, int cookie)
+    private void SetUpCallbacks(SldWorks solidworks, int cookie)
     {
         // Log it
-        Logger.LogDebugSource($"Setting AddinCallbackInfo...");
+        Logger.LogDebugSource($"Setting add-in callbacks...");
 
         // ReSharper disable once UnusedVariable
-        var ok = ((SldWorks) thisSw).SetAddinCallbackInfo2(0, this, cookie);
+        var ok = solidworks.SetAddinCallbackInfo2(0, this, cookie);
     }
 
     #endregion
@@ -335,14 +336,17 @@ public abstract class SolidAddIn : ISwAddin
 
             Logger.LogInformationSource("Configuring plugins...");
 
-            // Let plug-ins configure title and descriptions
+            // Let plug-ins configure the add-in title and descriptions
             addIn.PlugInIntegration.ConfigurePlugIns(addIn);
 
+            // Format our guid
+            var guid = $"{t.GUID:b}";
+
             // Register our add-in as a COM object
-            AddRegistryKeyLocalMachine(t, addIn);
+            AddRegistryKeyLocalMachine(guid, addIn);
 
             // Make our add-in start up when SOLIDWORKS starts
-            AddRegistryKeyCurrentUser(t);
+            AddRegistryKeyCurrentUser(guid);
 
             Logger.LogInformationSource($"COM Registration successful. '{addIn.SolidWorksAddInTitle}' : '{addIn.SolidWorksAddInDescription}'");
         }
@@ -369,12 +373,12 @@ public abstract class SolidAddIn : ISwAddin
     /// We need to write to Local Machine, so you need to be an admin to perform this.
     /// There is no way around this for SOLIDWORKS add-ins.
     /// </summary>
-    /// <param name="t"></param>
     /// <param name="addIn"></param>
-    private static void AddRegistryKeyLocalMachine(Type t, BlankSolidAddIn addIn)
+    /// <param name="guid"></param>
+    private static void AddRegistryKeyLocalMachine(string guid, BlankSolidAddIn addIn)
     {
         // Get registry key path in local machine to register the add-in COM object
-        var keyPath = $@"SOFTWARE\SolidWorks\AddIns\{t.GUID:b}";
+        var keyPath = $@"SOFTWARE\SolidWorks\AddIns\{guid}";
 
         // Create our registry folder for the add-in
         using var registryKey = Microsoft.Win32.Registry.LocalMachine.CreateSubKey(keyPath);
@@ -387,11 +391,11 @@ public abstract class SolidAddIn : ISwAddin
     /// <summary>
     /// Add a Registry key so our add-in starts up when SOLIDWORKS starts.
     /// </summary>
-    /// <param name="t"></param>
-    private static void AddRegistryKeyCurrentUser(Type t)
+    /// <param name="guid"></param>
+    private static void AddRegistryKeyCurrentUser(string guid)
     {
         // Get registry key path in current user so the add-in starts when SolidWorks opens
-        var keyPathCurrentUser = $@"SOFTWARE\SolidWorks\AddInsStartup\{t.GUID:b}";
+        var keyPathCurrentUser = $@"SOFTWARE\SolidWorks\AddInsStartup\{guid}";
 
         // Create our registry folder for the add-in
         using var registryKeyCurrentUser = Microsoft.Win32.Registry.CurrentUser.CreateSubKey(keyPathCurrentUser);
