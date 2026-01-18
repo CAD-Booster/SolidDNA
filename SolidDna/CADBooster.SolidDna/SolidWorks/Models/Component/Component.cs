@@ -316,6 +316,49 @@ public class Component : SolidDnaObject<Component2>, IComponent
 
     #endregion
 
+    #region Mates
+
+    /// <summary>
+    /// Get all real mates for this component.
+    /// Skips <see cref="MateInPlace"/> mates. If you need those, call <see cref="GetInPlaceMates"/>.
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerable<IMate2> GetMates()
+    {
+        var matesObject = (object[]) UnsafeObject.GetMates();
+        if (matesObject == null)
+            yield break;
+
+        foreach (var mateObject in matesObject)
+        {
+            // The objects are usually of type mate, but they can be MateInPlace as well.
+            // These mates are only used for virtual components and are not useful in most situations.
+            if (mateObject is IMate2 mate)
+                yield return mate;
+        }
+    }
+
+    /// <summary>
+    /// Get all in-place mates for this component. To get all real mates, call <see cref="GetMates"/>.
+    /// In-place mates are only used for virtual components. 
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerable<IMateInPlace> GetInPlaceMates()
+    {
+        var matesObject = (object[]) UnsafeObject.GetMates();
+        if (matesObject == null)
+            yield break;
+
+        foreach (var mateObject in matesObject)
+        {
+            // The objects are usually of type mate, but they can be MateInPlace as well.
+            if (mateObject is IMateInPlace mate)
+                yield return mate;
+        }
+    }
+
+    #endregion
+
     #region Suppress / unsuppress component
 
     /// <summary>

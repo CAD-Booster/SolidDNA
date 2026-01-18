@@ -6,7 +6,7 @@ using SolidWorks.Interop.sldworks;
 namespace CADBooster.SolidDna;
 
 /// <summary>
-/// The unique ID for a sketch segment. Consists of two longs, but is only unique in combination with the sketch (name) and sketch segment type.
+/// The unique ID for a sketch segment. Consists of two longs, but is only unique in combination with the sketch (persistent ID) and sketch segment type.
 /// This means that the same two long values can be used in different sketches and the same sketch can have segments with the same two long values but different types.
 /// See <see href="https://help.solidworks.com/2026/english/api/sldworksapi/solidworks.interop.sldworks~solidworks.interop.sldworks.isketchsegment~getid.html"/>.
 /// Sketch points are not sketch segments and cannot be cast to <see cref="SketchSegment"/>.
@@ -29,7 +29,13 @@ public class SketchSegmentId
     /// <summary>
     /// Name of the containing sketch
     /// </summary>
+    [Obsolete("Use SketchPersistentId instead. The sketch name can change, making it unreliable for identification.")]
     public string SketchName { get; }
+
+    /// <summary>
+    /// Persistent ID sketch that contains this sketch segment. This ID does not change when the sketch is renamed.
+    /// </summary>
+    public PersistentId SketchPersistentId { get; }
 
     /// <summary>
     /// Sketch segment type. 
@@ -42,7 +48,7 @@ public class SketchSegmentId
 
     /// <summary>
     /// The unique identifier for a sketch segment.
-    /// Is determined by its sketch name, two long/int values and the type.
+    /// Is determined by its sketch persistent ID, two long/int values and the type.
     /// </summary>
     /// <param name="sketchSegment"></param>
     public SketchSegmentId(ISketchSegment sketchSegment)
@@ -52,8 +58,17 @@ public class SketchSegmentId
         Id0 = ids[0];
         Id1 = ids[1];
 
-        // Get the sketch name by casting the sketch to a Feature first
-        SketchName = ((Feature) sketchSegment.GetSketch()).Name;
+        // Get the sketch 
+        var featureSketch = new FeatureSketch(sketchSegment.GetSketch());
+        var feature = featureSketch.AsFeature();
+
+        // Get the sketch name by casting the sketch to a feature (kept for backward compatibility)
+#pragma warning disable CS0618 // Type or member is obsolete
+        SketchName = feature.FeatureName;
+#pragma warning restore CS0618 // Type or member is obsolete
+
+        // Get the sketch persistent ID
+        SketchPersistentId = PersistentId.GetFromObject(feature.UnsafeObject);
 
         // Get the sketch segment type
         Type = (SketchSegmentType) sketchSegment.GetType();
@@ -61,18 +76,44 @@ public class SketchSegmentId
 
     #endregion
 
+    #region Get a sketch segment by its id
+
+    /// <summary>
+    /// Get a sketch segment by its ID. Throws when it cannot find the sketch or the sketch segment.
+    /// </summary>
+    /// <returns>A sketch segment when found.</returns>
+    public SketchSegment GetSketchSegment()
+    {
+        // Get the sketch. Throws when it fails.
+        var featureSketch = SketchPersistentId.GetSketch();
+
+        // Get all sketch segments
+        var sketchSegments = featureSketch.GetSketchSegments();
+
+        // Find a sketch segment with the matching ID
+        var firstOrDefault = sketchSegments.FirstOrDefault(sketchSegment => new SketchSegmentId(sketchSegment).Equals(this));
+
+        // Throw when we cannot find a sketch segment with this ID
+        if (firstOrDefault == null)
+            throw new SolidDnaException(SolidDnaErrors.CreateError(SolidDnaErrorTypeCode.Identification, SolidDnaErrorCode.IdentificationObjectNotFoundFromSketchSegmentId));
+
+        // Return the found sketch segment
+        return firstOrDefault;
+    }
+
+    #endregion
+
     #region Equals, GetHashCode and ToString
 
     /// <Inheritdoc />
-    public override string ToString() => $"Sketch segment ID {SketchName}-{Type}-{Id0}-{Id1}";
+    public override string ToString() => $"Sketch segment ID {Type}-{Id0}-{Id1}";
 
     /// <summary>
     /// Get if this sketch segment ID is equal to another sketch segment ID.
     /// </summary>
     /// <param name="otherId"></param>
     /// <returns></returns>
-    public bool Equals(SketchSegmentId otherId) =>
-        SketchName.Equals(otherId.SketchName, StringComparison.InvariantCultureIgnoreCase) && Id0 == otherId.Id0 && Id1 == otherId.Id1 && Type == otherId.Type;
+    public bool Equals(SketchSegmentId otherId) => Id0 == otherId.Id0 && Id1 == otherId.Id1 && Type == otherId.Type && SketchPersistentId.Equals(otherId.SketchPersistentId);
 
     /// <Inheritdoc />
     public override bool Equals(object obj)
@@ -88,9 +129,10 @@ public class SketchSegmentId
     {
         unchecked
         {
-            var hashCode = SketchName != null ? SketchName.GetHashCode() : 0;
+            var hashCode = SketchPersistentId.GetHashCode();
             hashCode = (hashCode * 397) ^ Id0.GetHashCode();
             hashCode = (hashCode * 397) ^ Id1.GetHashCode();
+            hashCode = (hashCode * 397) ^ SketchPersistentId.GetHashCode();
             hashCode = (hashCode * 397) ^ (int) Type;
             return hashCode;
         }

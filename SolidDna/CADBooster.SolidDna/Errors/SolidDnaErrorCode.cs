@@ -281,5 +281,15 @@ public enum SolidDnaErrorCode
     /// </summary>
     IdentificationObjectNotFoundFromPersistentId = 14003,
 
+    /// <summary>
+    /// Could not find the object with the given sketch point ID.
+    /// </summary>
+    IdentificationObjectNotFoundFromSketchPointId = 14004,
+
+    /// <summary>
+    /// Could not find the object with the given sketch segment ID.
+    /// </summary>
+    IdentificationObjectNotFoundFromSketchSegmentId = 14005,
+
     #endregion
 }

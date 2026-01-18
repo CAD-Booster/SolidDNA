@@ -1,6 +1,7 @@
 ﻿using Moq;
 using NUnit.Framework;
 using SolidWorks.Interop.sldworks;
+using System.Linq;
 
 namespace CADBooster.SolidDna.Test;
 
@@ -44,5 +45,37 @@ internal class ComponentTest
         Assert.That(component.UnsafeObject, Is.Not.Null);
         Assert.That(component.Name, Is.EqualTo(fullName));
         Assert.That(component.CleanName, Is.EqualTo("Part1"));
+    }
+
+    [Test]
+    public void GetMates()
+    {
+        var mate0 = new Mock<IMate2>();
+        var mate1 = new Mock<IMateInPlace>();
+        var component2 = new Mock<Component2>();
+        component2.Setup(x => x.GetMates()).Returns(new object[] { mate0.Object, mate1.Object });
+        var component = new Component(component2.Object);
+
+        var mates = component.GetMates();
+
+        Assert.That(mates.Count(), Is.EqualTo(1));
+        Assert.That(mates, Has.Exactly(1).InstanceOf<IMate2>());
+        Assert.That(mates, Has.Exactly(0).InstanceOf<IMateInPlace>());
+    }
+
+    [Test]
+    public void GetInPlaceMates()
+    {
+        var mate0 = new Mock<IMate2>();
+        var mate1 = new Mock<IMateInPlace>();
+        var component2 = new Mock<Component2>();
+        component2.Setup(x => x.GetMates()).Returns(new object[] { mate0.Object, mate1.Object });
+        var component = new Component(component2.Object);
+
+        var mates = component.GetInPlaceMates();
+        
+        Assert.That(mates.Count(), Is.EqualTo(1));
+        Assert.That(mates, Has.Exactly(0).InstanceOf<IMate2>());
+        Assert.That(mates, Has.Exactly(1).InstanceOf<IMateInPlace>());
     }
 }

@@ -4,37 +4,10 @@ using System.Linq;
 using SolidWorks.Interop.sldworks;
 
 namespace CADBooster.SolidDna;
-/*
- *  NOTE: Outstanding question to SolidWorks...
- *
-
-    From the feature, I then need to get the specific feature. This is where the fun begins.
-
-    I call feature. GetTypeName2 to get the type. Then from this list http://help.solidworks.com/2026/english/api/sldworksapi/SOLIDWORKS.Interop.sldworks~SOLIDWORKS.Interop.sldworks.IFeature~GetTypeName2.html I figure out what type of feature I should expect from GetSpecificFeature2.
-
-    I’ve mapped everything then I come to check out the document for GetSpecificFeature2 http://help.solidworks.com/2026/english/api/sldworksapi/SOLIDWORKS.Interop.sldworks~SOLIDWORKS.Interop.sldworks.IFeature~GetSpecificFeature2.html
-
-    It states it returns IAttribute, IBodyFolder etc... Now this list doesn't match up.
-
-    GetTypeName2 never returns any possible name that would result in it being any of the following types:
-
-    IComponent2, IConfiguration, IDimXpertAnnotation, IDimXpertFeature, IFlatPatternFolder, IHoleTable, IMateEntity2, IMateInPlace, IPunchTable, ISheet, ISheetMetalFolder and IView
-
-    And on the opposite side, we have specific feature names that map to the following interfaces that are not mentioned in the GetSpecificFeature2 list
-
-    IMotionStudyResults, ISketchBlockInstance,  apparently doesn't return from the GetSpecificFeature2 call
-
-    So my questions are:
-
-    1. If I call GetSpecificFeature2 on a selected motion study result or sketch block instance, will it work or fail? If it fails, how do we get those 2 specific instances?
-    2. What are the expected results for GetTypeName2 on the missing types that can be selected, like a Mate entity, hole table, flat pattern folder etc... in order to identify them as specific types?
-
-*/
 
 /// <summary>
 /// Represents a SolidWorks feature of any type.
-/// NOTE: This is a SharedSolidDnaObject so the passed 
-/// in COM object should be disposed by the <see cref="SelectedObject"/> parent
+/// NOTE: This is a SharedSolidDnaObject so the passed in COM object should be disposed by the <see cref="SelectedObject"/> parent.
 /// 
 /// TODO: See if we can add support for non-interface types
 ///        

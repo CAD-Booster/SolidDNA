@@ -6,7 +6,7 @@ using SolidWorks.Interop.sldworks;
 namespace CADBooster.SolidDna;
 
 /// <summary>
-/// The unique ID for a sketch point. Consists of two longs, but is only unique in combination with the sketch (name).
+/// The unique ID for a sketch point. Consists of two longs, but is only unique in combination with the sketch.
 /// This means that the same two long values can be used in different sketches. Use <see cref="SketchSegmentId"/> for sketch segments.
 /// See <see href="https://help.solidworks.com/2026/english/api/sldworksapi/solidworks.interop.sldworks~solidworks.interop.sldworks.isketchpoint~getid.html"/>.
 /// </summary>
@@ -27,7 +27,13 @@ public class SketchPointId
     /// <summary>
     /// Name of the containing sketch
     /// </summary>
+    [Obsolete("Use SketchPersistentId instead. The sketch name can change, making it unreliable for identification.")]
     public string SketchName { get; }
+
+    /// <summary>
+    /// Persistent ID of the containing sketch feature. This ID does not change when the sketch is renamed.
+    /// </summary>
+    public PersistentId SketchPersistentId { get; }
 
     #endregion
 
@@ -35,7 +41,7 @@ public class SketchPointId
 
     /// <summary>
     /// The unique identifier for a point in a sketch.
-    /// Is determined by its sketch name, two long/int values.
+    /// Is determined by its sketch persistent ID and two long/int values.
     /// </summary>
     /// <param name="sketchPoint"></param>
     public SketchPointId(ISketchPoint sketchPoint)
@@ -45,8 +51,44 @@ public class SketchPointId
         Id0 = ids[0];
         Id1 = ids[1];
 
-        // Get the sketch name by casting the sketch to a Feature first
-        SketchName = ((Feature) sketchPoint.GetSketch()).Name;
+        // Get the sketch 
+        var featureSketch = new FeatureSketch(sketchPoint.GetSketch());
+        var feature = featureSketch.AsFeature();
+
+        // Get the sketch name by casting the sketch to a feature (kept for backward compatibility)
+#pragma warning disable CS0618 // Type or member is obsolete
+        SketchName = feature.FeatureName;
+#pragma warning restore CS0618 // Type or member is obsolete
+        
+        // Get the sketch persistent ID
+        SketchPersistentId = PersistentId.GetFromObject(feature.UnsafeObject);
+    }
+
+    #endregion
+
+    #region Get a sketch point by its id
+
+    /// <summary>
+    /// Get a sketch point by its ID. Throws when it cannot find the sketch or the sketch point.
+    /// </summary>
+    /// <returns>A sketch point when found</returns>
+    public SketchPoint GetSketchPoint()
+    {
+        // Get the sketch. Throws when it fails.
+        var featureSketch = SketchPersistentId.GetSketch();
+
+        // Get all sketch points
+        var sketchPoints = featureSketch.GetSketchPoints();
+
+        // Find a sketch point with the matching ID
+        var firstOrDefault = sketchPoints.FirstOrDefault(sketchPoint => new SketchPointId(sketchPoint).Equals(this));
+
+        // Throw when we cannot find a sketch point with this ID
+        if (firstOrDefault == null)
+            throw new SolidDnaException(SolidDnaErrors.CreateError(SolidDnaErrorTypeCode.Identification, SolidDnaErrorCode.IdentificationObjectNotFoundFromSketchPointId));
+
+        // Return the found sketch point
+        return firstOrDefault;
     }
 
     #endregion
@@ -54,14 +96,14 @@ public class SketchPointId
     #region Equals, GetHashCode and ToString
 
     /// <Inheritdoc />
-    public override string ToString() => $"Sketch Point ID {SketchName}-{Id0}-{Id1}";
+    public override string ToString() => $"Sketch point ID {Id0}-{Id1}";
 
     /// <summary>
     /// Get if this sketch point ID is equal to another sketch point ID.
     /// </summary>
     /// <param name="otherId"></param>
     /// <returns></returns>
-    public bool Equals(SketchPointId otherId) => SketchName.Equals(otherId.SketchName, StringComparison.InvariantCultureIgnoreCase) && Id0 == otherId.Id0 && Id1 == otherId.Id1;
+    public bool Equals(SketchPointId otherId) => Id0 == otherId.Id0 && Id1 == otherId.Id1 && SketchPersistentId.Equals(otherId.SketchPersistentId);
 
     /// <Inheritdoc />
     public override bool Equals(object obj)
@@ -77,9 +119,10 @@ public class SketchPointId
     {
         unchecked
         {
-            var hashCode = SketchName != null ? SketchName.GetHashCode() : 0;
+            var hashCode = SketchPersistentId.GetHashCode();
             hashCode = (hashCode * 397) ^ Id0.GetHashCode();
             hashCode = (hashCode * 397) ^ Id1.GetHashCode();
+            hashCode = (hashCode * 397) ^ SketchPersistentId.GetHashCode();
             return hashCode;
         }
     }
