@@ -28,6 +28,11 @@ public abstract class SolidAddIn : ISwAddin
     #region Public Properties
 
     /// <summary>
+    /// The command manager
+    /// </summary>
+    public CommandManager CommandManager { get; private set; }
+
+    /// <summary>
     /// Provides functions related to SolidDna plug-ins
     /// </summary>
     public PlugInIntegration PlugInIntegration { get; private set; } = new();
@@ -177,8 +182,12 @@ public abstract class SolidAddIn : ISwAddin
             // Log it. Todo: add-in title is not yet extracted from a plugin here, so it will always be the default title.
             Logger.LogDebugSource($"{SolidWorksAddInTitle} Connected to SolidWorks...");
 
-            // Set up the current SolidWorks instance as a SolidDNA class.
+            // Set up the current SolidWorks instance as a SolidDNA class. 
+            // Also sets up the obsolete command manager static class.
             AddInIntegration.ConnectToActiveSolidWorksForAddIn(solidworks, cookie);
+
+            // Create the command manager for this add-in. SolidWorks uses the cookie to link an add-in to its menus.
+            CommandManager = new CommandManager(solidworks.GetCommandManager(cookie));
 
             // Tell solidworks which method to call when it receives a button click on a command manager item or flyout.
             SetUpCallbacks(solidworks, cookie);
@@ -260,6 +269,8 @@ public abstract class SolidAddIn : ISwAddin
         Logger.RemoveLoggers(this);
 
         // Clear our references
+        CommandManager?.Dispose();
+        CommandManager = null;
         PlugInIntegration = null;
 
         // Reset mLoaded so we can restart this add-in

@@ -9,6 +9,7 @@ namespace CADBooster.SolidDna;
 
 /// <summary>
 /// The class that manages command groups, tabs, toolbars and menus in SolidWorks.
+/// Every add-in has its own command manager. This is how SOLIDWORKS knows which menus and toolbars belong to which add-in.
 /// </summary>
 public class CommandManager : SolidDnaObject<ICommandManager>
 {
@@ -29,7 +30,7 @@ public class CommandManager : SolidDnaObject<ICommandManager>
 
     /// <summary>
     /// Creates a command manager which let us create and access custom toolbars/tabs/ribbons and menus.
-    /// There is only one command manager per SolidWorks instance.
+    /// Every add-in has its own command manager. This is how SOLIDWORKS knows which menus and toolbars belong to which add-in.
     /// </summary>
     public CommandManager(ICommandManager commandManager) : base(commandManager) { }
 

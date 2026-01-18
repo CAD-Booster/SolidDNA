@@ -28,6 +28,7 @@ public interface ISolidWorksApplication : IDisposable
     /// <summary>
     /// The command manager
     /// </summary>
+    [Obsolete("Use <YourAddIn>.CommandManager, which fixes menus and toolbars being linked to the wrong add-in.")]
     CommandManager CommandManager { get; }
 
     /// <summary>

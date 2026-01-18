@@ -58,8 +58,9 @@ public partial class SolidWorksApplication : SharedSolidDnaObject<SldWorks>, ISo
     public SolidWorksApplicationType ApplicationType { get; }
 
     /// <summary>
-    /// The command manager
+    /// The static command manager instance. Is not used anymore because each add-in now has its own command manager.
     /// </summary>
+    [Obsolete("Use <YourAddIn>.CommandManager, which fixes menus and toolbars being linked to the wrong add-in.")]
     public CommandManager CommandManager { get; }
 
     /// <summary>
