@@ -87,23 +87,31 @@ public abstract class SolidAddIn : ISwAddin
     /// Specific application startup code when SolidWorks is connected 
     /// and before any plug-ins or listeners are informed.
     /// Runs after <see cref="PreConnectToSolidWorks"/> and after <see cref="PreLoadPlugIns"/>.
-    /// 
-    /// NOTE: This call will not be in the same AppDomain as the SolidDna plug-ins
     /// </summary>
     /// <returns></returns>
     public abstract void ApplicationStartup();
 
     /// <summary>
-    /// Run immediately when <see cref="ConnectToSW(object, int)"/> is called to do any pre-setup.
+    /// Runs immediately when <see cref="ConnectToSW(object, int)"/> is called to do any pre-setup.
     /// For example, call <see cref="Logger.AddFileLogger{TAddIn}"/> to add a file logger for SolidDna messages.
     /// Runs before <see cref="PreLoadPlugIns"/> and before <see cref="ApplicationStartup"/>.
     /// </summary>
     public abstract void PreConnectToSolidWorks();
 
     /// <summary>
-    /// Run before loading plug-ins.
-    /// Make your add-in start up faster by setting <see cref="PlugInIntegration.AutoDiscoverPlugins"/> to false and adding the DLL path(s) that contain your plug-ins,
-    /// either by calling <see cref="PlugInIntegration.AddPlugIn2{T}"/> or by adding the assembly path to <see cref="PlugInIntegration.PlugInAssemblyPaths"/>
+    /// Runs before loading plug-ins.
+    /// To make your add-in start up faster, choose one of three options:
+    /// <list type="number">
+    /// <item>
+    /// <description>Fastest: Call <see cref="PlugInIntegration.AddPlugInToLoad{TPlugIn}"/> and pass your plugin type to tell SolidDna to load that plug-in.</description>
+    /// </item>
+    /// <item>
+    /// <description>Set <see cref="PlugInIntegration.AutoDiscoverPlugins"/> to false and add the paths of all DLLs that contain plugins to <see cref="PlugInIntegration.PlugInAssemblyPaths"/>.</description>
+    /// </item>
+    /// <item>
+    /// <description>Default: Do nothing and let SolidDna auto-discover all plug-ins in all DLLs in the SolidDNA DLL folder. This is the slowest.</description>
+    /// </item>
+    /// </list>
     /// Runs after <see cref="PreConnectToSolidWorks"/> and before <see cref="ApplicationStartup"/>.
     /// </summary>
     /// <returns></returns>
