@@ -50,8 +50,8 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Localization\Strings\Strings-en-US.xml" />
-    <None Include="..\..\Images\logo.png" Pack="True" PackagePath="\" />
-    <None Include="..\..\README.md" Pack="True" PackagePath="\" />
+    <None Include="..\..\Images\logo.png" Pack="True" PackagePath="\" Link="_NuGet\logo.png" />
+    <None Include="..\..\README.md" Pack="True" PackagePath="\" Link="_NuGet\README.md" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Localization\Strings\Strings-en-US.xml" />
@@ -80,14 +80,17 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\References\$(SolidWorksDllVersion)\SolidWorks.Interop.sldworks.dll" Pack="True" PackagePath="lib\net48" />
-    <None Include="..\..\References\$(SolidWorksDllVersion)\SolidWorks.Interop.sw3dprinter.dll" Pack="True" PackagePath="lib\net48" />
-    <None Include="..\..\References\$(SolidWorksDllVersion)\SolidWorks.Interop.swcommands.dll" Pack="True" PackagePath="lib\net48" />
-    <None Include="..\..\References\$(SolidWorksDllVersion)\SolidWorks.Interop.swconst.dll" Pack="True" PackagePath="lib\net48" />
-    <None Include="..\..\References\$(SolidWorksDllVersion)\SolidWorks.Interop.swdimxpert.dll" Pack="True" PackagePath="lib\net48" />
-    <None Include="..\..\References\$(SolidWorksDllVersion)\SolidWorks.Interop.swdocumentmgr.dll" Pack="True" PackagePath="lib\net48" />
-    <None Include="..\..\References\$(SolidWorksDllVersion)\SolidWorks.Interop.swmotionstudy.dll" Pack="True" PackagePath="lib\net48" />
-    <None Include="..\..\References\$(SolidWorksDllVersion)\SolidWorks.Interop.swpublished.dll" Pack="True" PackagePath="lib\net48" />
-    <None Include="..\..\References\$(SolidWorksDllVersion)\SolidWorks.Interop.SWRoutingLib.dll" Pack="True" PackagePath="lib\net48" />
+    <None Include="..\..\References\$(SolidWorksDllVersion)\SolidWorks.Interop.sldworks.dll" Pack="True" PackagePath="lib\net48" Link="_NuGet\SolidWorks.Interop.sldworks.dll" />
+    <None Include="..\..\References\$(SolidWorksDllVersion)\SolidWorks.Interop.sw3dprinter.dll" Pack="True" PackagePath="lib\net48" Link="_NuGet\SolidWorks.Interop.sw3dprinter.dll" />
+    <None Include="..\..\References\$(SolidWorksDllVersion)\SolidWorks.Interop.swcommands.dll" Pack="True" PackagePath="lib\net48" Link="_NuGet\SolidWorks.Interop.swcommands.dll" />
+    <None Include="..\..\References\$(SolidWorksDllVersion)\SolidWorks.Interop.swconst.dll" Pack="True" PackagePath="lib\net48" Link="_NuGet\SolidWorks.Interop.swconst.dll" />
+    <None Include="..\..\References\$(SolidWorksDllVersion)\SolidWorks.Interop.swdimxpert.dll" Pack="True" PackagePath="lib\net48" Link="_NuGet\SolidWorks.Interop.swdimxpert.dll" />
+    <None Include="..\..\References\$(SolidWorksDllVersion)\SolidWorks.Interop.swdocumentmgr.dll" Pack="True" PackagePath="lib\net48" Link="_NuGet\SolidWorks.Interop.swdocumentmgr.dll" />
+    <None Include="..\..\References\$(SolidWorksDllVersion)\SolidWorks.Interop.swmotionstudy.dll" Pack="True" PackagePath="lib\net48" Link="_NuGet\SolidWorks.Interop.swmotionstudy.dll" />
+    <None Include="..\..\References\$(SolidWorksDllVersion)\SolidWorks.Interop.swpublished.dll" Pack="True" PackagePath="lib\net48" Link="_NuGet\SolidWorks.Interop.swpublished.dll" />
+    <None Include="..\..\References\$(SolidWorksDllVersion)\SolidWorks.Interop.SWRoutingLib.dll" Pack="True" PackagePath="lib\net48" Link="_NuGet\SolidWorks.Interop.SWRoutingLib.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="_NuGet\" />
   </ItemGroup>
 </Project>
