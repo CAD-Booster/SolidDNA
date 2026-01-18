@@ -101,7 +101,7 @@ public class FileLogger : ILogger
             return;
 
         // Get current time
-        var currentTime = DateTimeOffset.Now.ToString("yyyy-MM-dd hh:mm:ss");
+        var currentTime = DateTimeOffset.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
         // Prepend log level
         var logLevelString = mConfiguration.OutputLogLevel ? $"{logLevel.ToString().ToUpper()}: " : "";
