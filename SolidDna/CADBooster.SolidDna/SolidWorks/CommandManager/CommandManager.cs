@@ -265,7 +265,13 @@ public class CommandManager : SolidDnaObject<ICommandManager>
     private void RemoveCommandGroup(CommandManagerGroup group, bool runtimeOnly = false)
     {
         lock (mCommandGroups)
+        {
+            // Tell SOLIDWORKS to remove the command group
             BaseObject.RemoveCommandGroup2(group.UserId, runtimeOnly);
+
+            // Dispose our references to it and dispose its tabs. If we don't do this, menus stay lingering with grayed out items.
+            group.Dispose();
+        }
     }
 
     /// <summary>
