@@ -72,12 +72,10 @@ public class PlugInIntegration
 
     /// <summary>
     /// Called when the add-in has connected to SolidWorks.
-    /// Calls the add-in first, then all its plug-ins.
+    /// Calls all its plug-ins.
     /// </summary>
     public void ConnectedToSolidWorks(SolidAddIn solidAddIn)
     {
-        solidAddIn.OnConnectedToSolidWorks();
-
         // Inform plug-ins
         solidAddIn.PlugIns.ForEach(plugin =>
         {
@@ -90,12 +88,10 @@ public class PlugInIntegration
 
     /// <summary>
     /// Called when the add-in has disconnected from SolidWorks.
-    /// Calls the add-in first, then all its plug-ins.
+    /// Calls all its plug-ins.
     /// </summary>
     public void DisconnectedFromSolidWorks(SolidAddIn solidAddIn)
     {
-        solidAddIn.OnDisconnectedFromSolidWorks();
-
         // Inform plug-ins
         solidAddIn.PlugIns.ForEach(plugin =>
         {

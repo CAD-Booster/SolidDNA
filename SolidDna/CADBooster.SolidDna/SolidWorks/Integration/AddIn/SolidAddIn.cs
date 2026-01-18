@@ -59,16 +59,12 @@ public abstract class SolidAddIn : ISwAddin
     /// <summary>
     /// Called once SolidWorks has loaded our add-in and is ready.
     /// Now is a good time to create task panes, menu bars or anything else.
-    ///  
-    /// NOTE: This call will be made twice, one in the default domain and one in the AppDomain as the SolidDna plug-ins
     /// </summary>
     public event Action ConnectedToSolidWorks = () => { };
 
     /// <summary>
     /// Called once SolidWorks has unloaded our add-in.
     /// Now is a good time to clean up task panes, menu bars or anything else.
-    /// 
-    /// NOTE: This call will be made twice, one in the default domain and one in the AppDomain as the SolidDna plug-ins
     /// </summary>
     public event Action DisconnectedFromSolidWorks = () => { };
 
@@ -223,10 +219,7 @@ public abstract class SolidAddIn : ISwAddin
             // Inform listeners
             ConnectedToSolidWorks();
 
-            // Log it
-            Logger.LogDebugSource($"PlugInIntegration ConnectedToSolidWorks...");
-
-            // And plug-in domain listeners
+            // And plug-in listeners
             PlugInIntegration.ConnectedToSolidWorks(this);
 
             // Return ok
@@ -256,7 +249,7 @@ public abstract class SolidAddIn : ISwAddin
         // Inform listeners
         DisconnectedFromSolidWorks();
 
-        // And plug-in domain listeners
+        // And plug-in listeners
         PlugInIntegration.DisconnectedFromSolidWorks(this);
 
         // Log it
