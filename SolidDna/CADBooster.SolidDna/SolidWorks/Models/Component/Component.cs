@@ -397,7 +397,35 @@ public class Component : SolidDnaObject<Component2>, IComponent
 
     #endregion
 
-    #region ToString
+    #region Equals, GetHashCode and ToString
+
+    /// <summary>
+    /// Get if this component is equal to another component.
+    /// </summary>
+    /// <param name="other"></param>
+    /// <returns></returns>
+    public bool Equals(Component other) => Name.Equals(other.Name) && FilePath.Equals(other.FilePath) && ConfigurationName.Equals(other.ConfigurationName);
+
+    /// <Inheritdoc />
+    public override bool Equals(object obj)
+    {
+        if (obj == null || obj.GetType() != typeof(Component))
+            return false;
+
+        return Equals((Component) obj);
+    }
+
+    /// <Inheritdoc />
+    public override int GetHashCode()
+    {
+        unchecked
+        {
+            var hashCode = Name.GetHashCode();
+            hashCode = (hashCode * 397) ^ FilePath.GetHashCode();
+            hashCode = (hashCode * 397) ^ ConfigurationName.GetHashCode();
+            return hashCode;
+        }
+    }
 
     /// <summary>
     /// Returns a user-friendly string with component properties.
