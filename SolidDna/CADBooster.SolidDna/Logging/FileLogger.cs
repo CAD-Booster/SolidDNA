@@ -129,7 +129,7 @@ public class FileLogger : ILogger
         // Lock the file
         lock (fileLock)
         {
-            // Ensure folder
+            // Ensure folder exists
             if (!Directory.Exists(mDirectory))
                 Directory.CreateDirectory(mDirectory);
 

@@ -1,4 +1,6 @@
-﻿namespace CADBooster.SolidDna;
+﻿using System;
+
+namespace CADBooster.SolidDna;
 
 /// <summary>
 /// The configuration for a <see cref="CADBooster.SolidDna.FileLogger"/>
@@ -19,7 +21,9 @@ public class FileLoggerConfiguration
 
     /// <summary>
     /// Whether to display latest logs at the top of the file
+    /// Is not used.
     /// </summary>
+    [Obsolete("Is not used because writing logs at the top of the file is not efficient for file systems.")]
     public bool LogAtTop { get; set; } = true;
 
     /// <summary>
