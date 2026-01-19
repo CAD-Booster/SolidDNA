@@ -47,6 +47,7 @@ public class AssemblyDocument : IAssemblyDocument
     /// <summary>
     /// Enter Edit Part/Assembly mode for the selected assembly component.
     /// Is silent and allows read-only components.
+    /// To exit, call <see cref="ExitEditComponent"/>.
     /// </summary>
     /// <returns></returns>
     public EditComponentResult EnterEditSelectedComponent()
@@ -57,7 +58,7 @@ public class AssemblyDocument : IAssemblyDocument
     }
 
     /// <summary>
-    /// Close Edit Part/Assembly mode.
+    /// Close Edit Part/Assembly mode. To enter this mode, select a component, then call <see cref="EnterEditSelectedComponent"/>.
     /// </summary>
     public void ExitEditComponent() => UnsafeObject.EditAssembly();
 
