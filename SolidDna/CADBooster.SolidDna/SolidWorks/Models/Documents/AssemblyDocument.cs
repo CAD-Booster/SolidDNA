@@ -45,6 +45,41 @@ public class AssemblyDocument : IAssemblyDocument
     #region Component methods
 
     /// <summary>
+    /// Get all components from an assembly, either top-level only or including all subcomponents.
+    /// Ordered by name.
+    /// </summary>
+    /// <param name="includeSubComponents"></param>
+    /// <returns></returns>
+    public List<Component> GetComponents(bool includeSubComponents)
+    {
+        // Invert the unclear standard SolidWorks parameter
+        var topLevelOnly = !includeSubComponents;
+
+        // Get the raw components, with or without subcomponents. Order is random.
+        var components = mBaseObject.GetComponents(topLevelOnly);
+
+        // Return the wrapped components
+        // Order by name to make it deterministic. The exact order is not very useful since it doesn't show the assembly structure.
+        return components == null ? [] : ((object[]) components).Cast<Component2>().Select(x => new Component(x)).OrderBy(x => x.Name).ToList();
+    }
+
+    /// <summary>
+    /// Get the root <see cref="Component"/>, the assembly itself.
+    /// </summary>
+    /// <returns></returns>
+    public Component GetRootComponent()
+    {
+        // Convert the assembly document back to a model document
+        var parentModel = (ModelDoc2) mBaseObject;
+
+        // Get the active configuration
+        var configuration = parentModel.IGetActiveConfiguration();
+
+        // Return the root component for this configuration
+        return new Component(configuration.GetRootComponent3(false));
+    }
+
+    /// <summary>
     /// Set the suppression state for a list of components in a certain configuration.
     /// You cannot set components as Lightweight with this method.
     /// </summary>
