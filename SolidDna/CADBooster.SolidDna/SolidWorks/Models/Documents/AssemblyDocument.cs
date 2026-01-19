@@ -45,6 +45,23 @@ public class AssemblyDocument : IAssemblyDocument
     #region Component methods
 
     /// <summary>
+    /// Enter Edit Part/Assembly mode for the selected assembly component.
+    /// Is silent and allows read-only components.
+    /// </summary>
+    /// <returns></returns>
+    public EditComponentResult EnterEditSelectedComponent()
+    {
+        var result = 0;
+        UnsafeObject.EditPart2(true, true, ref result);
+        return (EditComponentResult) result;
+    }
+
+    /// <summary>
+    /// Close Edit Part/Assembly mode.
+    /// </summary>
+    public void ExitEditComponent() => UnsafeObject.EditAssembly();
+
+    /// <summary>
     /// Get all components from an assembly, either top-level only or including all subcomponents.
     /// Ordered by name.
     /// </summary>
@@ -59,8 +76,8 @@ public class AssemblyDocument : IAssemblyDocument
         var components = mBaseObject.GetComponents(topLevelOnly);
 
         // Return the wrapped components
-        // Order by name to make it deterministic. The exact order is not very useful since it doesn't show the assembly structure.
-        return components == null ? [] : ((object[]) components).Cast<Component2>().Select(x => new Component(x)).OrderBy(x => x.Name).ToList();
+        // Order by name to make it deterministic. The exact order does not show the assembly structure, but a parent does come before its children.
+        return ((object[]) components)?.Cast<Component2>().Select(x => new Component(x)).OrderBy(x => x.Name).ToList() ?? [];
     }
 
     /// <summary>
