@@ -14,7 +14,19 @@ public static class ArrayExtensions
     /// <param name="source">The original array of values</param>
     /// <param name="toAdd">The values to append to the source</param>
     /// <returns></returns>
-    public static T[] Append<T>(this T[] source, params T[] toAdd) => source.Concat(toAdd).ToArray(); // Append and return the new items
+    public static T[] Append<T>(this T[] source, params T[] toAdd)
+    {
+        // If the original array is null, only return the items to add
+        if (source == null)
+            return toAdd;
+
+        // If there is nothing to add, return the source
+        if (toAdd == null)
+            return source;
+
+        // Append and return the new items
+        return source.Concat(toAdd).ToArray();
+    }
 
     /// <summary>
     /// Prepend the given objects to the original source array
