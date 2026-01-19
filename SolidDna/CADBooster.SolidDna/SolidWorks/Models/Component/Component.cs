@@ -194,6 +194,42 @@ public class Component : SolidDnaObject<Component2>, IComponent
 
     #endregion
 
+    #region Assembly and model context
+
+    /// <summary>
+    /// Convert any object (that has a persistent ID) from a Model to the component instance/assembly context.
+    /// </summary>
+    /// <param name="modelContextObject"></param>
+    /// <returns></returns>
+    public T GetObjectInAssemblyContext<T>(object modelContextObject)
+    {
+        if (modelContextObject == null)
+            return default;
+
+        var corresponding = UnsafeObject.GetCorresponding(modelContextObject);
+        if (corresponding == null)
+            return default;
+
+        if (typeof(T) == typeof(ModelConfiguration))
+            return (T) (object) new ModelConfiguration((Configuration) corresponding);
+
+        if (typeof(T) == typeof(FeatureSketch))
+            return (T) (object) new FeatureSketch((ISketch) corresponding);
+
+        if (typeof(T) == typeof(ModelDisplayDimension))
+            return (T) (object) new ModelDisplayDimension((DisplayDimension) corresponding);
+
+        if (typeof(T) == typeof(ModelFeature))
+            return (T) (object) new ModelFeature((Feature) corresponding);
+
+        if (typeof(T) == typeof(Note))
+            return (T) (object) new Note((INote) corresponding);
+
+        return (T) corresponding;
+    }
+
+    #endregion
+
     #region Feature Methods
 
     /// <summary>
