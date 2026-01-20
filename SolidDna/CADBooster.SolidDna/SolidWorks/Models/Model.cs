@@ -1068,6 +1068,56 @@ public class Model : SharedSolidDnaObject<ModelDoc2>, IModel
 
     #endregion
 
+    #region Convert entity context
+
+    /// <summary>
+    /// Convert an entity that you got from a Component instance or a drawing view to Model context.
+    /// According to the docs, this works for every type that has a persistent ID, but it does not seem to work for configurations and display dimensions.
+    /// Works for entities: geometry, features and sketches.
+    /// </summary>
+    /// <typeparam name="TObjectType">Input and output type of the object.</typeparam>
+    /// <param name="modelContextObject">The object from component or view context that must be converted to model context.</param>
+    /// <returns>The object converted to the model context, or null when it fails.</returns>
+    public TObjectType GetObjectInModelContext<TObjectType>(TObjectType modelContextObject) where TObjectType : class
+    {
+        if (modelContextObject == null)
+            return null;
+
+        // If we wrap a type, we should use the underlying object to get the corresponding object, then wrap it again.
+        // Types that we wrap but where GetCorresponding does not work: ModelConfiguration, ModelDisplayDimension
+        if (typeof(TObjectType) == typeof(ModelFeature))
+        {
+            // Cast it to an object first or it doesn't compile.
+            // Then cast it to a ModelFeature.
+            var feature = (ModelFeature) (object) modelContextObject;
+
+            // Get the feature in the component context
+            var featureInComponent = (Feature) Extension.UnsafeObject.GetCorresponding(feature.UnsafeObject);
+
+            // Wrap it again
+            return (TObjectType) (object) new ModelFeature(featureInComponent).CreateOrNull();
+        }
+
+        if (typeof(TObjectType) == typeof(FeatureSketch))
+        {
+            // Cast it to a FeatureSketch
+            var featureSketch = (FeatureSketch) (object) modelContextObject;
+
+            // Get the sketch in the component context. Returns a Feature, not a sketch
+            var corresponding = (Feature) Extension.UnsafeObject.GetCorresponding(featureSketch.UnsafeObject);
+
+            // Get the sketch from the feature
+            var sketch = (Sketch) corresponding.GetSpecificFeature2();
+
+            // Wrap it again
+            return (TObjectType) (object) new FeatureSketch(sketch).CreateOrNull();
+        }
+
+        return (TObjectType) Extension.UnsafeObject.GetCorresponding(modelContextObject);
+    }
+
+    #endregion
+
     #region Material
 
     /// <summary>
