@@ -198,13 +198,12 @@ public class Component : SolidDnaObject<Component2>, IComponent
 
     /// <summary>
     /// Convert any object that you got from a Model to the Component instance/assembly context.
-    /// The type of <typeparamref name="TObjectType"/> should match the type of the <paramref name="modelContextObject" /> parameter.
     /// According to the docs, this works for every type that has a persistent ID, but it does not seem to work for configurations and display dimensions.
-    /// Works for entities like geometry, features and sketches.
+    /// Works for entities: geometry, features and sketches.
     /// </summary>
-    /// <typeparam name="TObjectType">Type that should be returned when the conversion succeeds.</typeparam>
+    /// <typeparam name="TObjectType">Input and output type of the object.</typeparam>
     /// <param name="modelContextObject">The object from model context that must be converted to component context.</param>
-    /// <returns>The object converted to the component context, or default when the conversion fails.</returns>
+    /// <returns>The object converted to the component context, or null when it fails.</returns>
     public TObjectType GetObjectInAssemblyContext<TObjectType>(TObjectType modelContextObject) where TObjectType : class
     {
         if (modelContextObject == null)
