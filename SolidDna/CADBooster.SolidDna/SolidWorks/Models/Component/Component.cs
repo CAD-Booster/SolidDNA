@@ -194,10 +194,10 @@ public class Component : SolidDnaObject<Component2>, IComponent
 
     #endregion
 
-    #region Assembly and model context
+    #region Convert entity context
 
     /// <summary>
-    /// Convert any object that you got from a Model to the Component instance/assembly context.
+    /// Convert an entity that you got from a Model to the Component instance/assembly context.
     /// According to the docs, this works for every type that has a persistent ID, but it does not seem to work for configurations and display dimensions.
     /// Works for entities: geometry, features and sketches.
     /// </summary>

@@ -1068,10 +1068,10 @@ public class Model : SharedSolidDnaObject<ModelDoc2>, IModel
 
     #endregion
 
-    #region Assembly and model context
+    #region Convert entity context
 
     /// <summary>
-    /// Convert any object that you got from a Component instance or a drawing view to Model context.
+    /// Convert an entity that you got from a Component instance or a drawing view to Model context.
     /// According to the docs, this works for every type that has a persistent ID, but it does not seem to work for configurations and display dimensions.
     /// Works for entities: geometry, features and sketches.
     /// </summary>
