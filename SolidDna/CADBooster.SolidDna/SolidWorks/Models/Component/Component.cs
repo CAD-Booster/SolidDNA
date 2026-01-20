@@ -197,35 +197,50 @@ public class Component : SolidDnaObject<Component2>, IComponent
     #region Assembly and model context
 
     /// <summary>
-    /// Convert any object (that has a persistent ID) from a Model to the component instance/assembly context.
+    /// Convert any object that you got from a Model to the Component instance/assembly context.
+    /// The type of <typeparamref name="TObjectType"/> should match the type of the <paramref name="modelContextObject" /> parameter.
+    /// According to the docs, this works for every type that has a persistent ID, but it does not seem to work for configurations and display dimensions.
+    /// Works for entities like geometry, features and sketches.
     /// </summary>
-    /// <param name="modelContextObject"></param>
-    /// <returns></returns>
-    public T GetObjectInAssemblyContext<T>(object modelContextObject)
+    /// <typeparam name="TObjectType">Type that should be returned when the conversion succeeds.</typeparam>
+    /// <param name="modelContextObject">The object from model context that must be converted to component context.</param>
+    /// <returns>The object converted to the component context, or default when the conversion fails.</returns>
+    public TObjectType GetObjectInAssemblyContext<TObjectType>(TObjectType modelContextObject) where TObjectType : class
     {
         if (modelContextObject == null)
-            return default;
+            return null;
 
-        var corresponding = UnsafeObject.GetCorresponding(modelContextObject);
-        if (corresponding == null)
-            return default;
+        // If we wrap a type, we should use the underlying object to get the corresponding object, then wrap it again.
+        // Types that we wrap but where GetCorresponding does not work: ModelConfiguration, ModelDisplayDimension
+        if (typeof(TObjectType) == typeof(ModelFeature))
+        {
+            // Cast it to an object first or it doesn't compile.
+            // Then cast it to a ModelFeature.
+            var feature = (ModelFeature) (object) modelContextObject;
 
-        if (typeof(T) == typeof(ModelConfiguration))
-            return (T) (object) new ModelConfiguration((Configuration) corresponding);
+            // Get the feature in the component context
+            var featureInComponent = (Feature) UnsafeObject.GetCorresponding(feature.UnsafeObject);
 
-        if (typeof(T) == typeof(FeatureSketch))
-            return (T) (object) new FeatureSketch((ISketch) corresponding);
+            // Wrap it again
+            return (TObjectType) (object) new ModelFeature(featureInComponent).CreateOrNull();
+        }
 
-        if (typeof(T) == typeof(ModelDisplayDimension))
-            return (T) (object) new ModelDisplayDimension((DisplayDimension) corresponding);
+        if (typeof(TObjectType) == typeof(FeatureSketch))
+        {
+            // Cast it to a FeatureSketch
+            var featureSketch = (FeatureSketch) (object) modelContextObject;
 
-        if (typeof(T) == typeof(ModelFeature))
-            return (T) (object) new ModelFeature((Feature) corresponding);
+            // Get the sketch in the component context. Returns a Feature, not a sketch
+            var corresponding = (Feature) UnsafeObject.GetCorresponding(featureSketch.UnsafeObject);
 
-        if (typeof(T) == typeof(Note))
-            return (T) (object) new Note((INote) corresponding);
+            // Get the sketch from the feature
+            var sketch = (Sketch) corresponding.GetSpecificFeature2();
 
-        return (T) corresponding;
+            // Wrap it again
+            return (TObjectType) (object) new FeatureSketch(sketch).CreateOrNull();
+        }
+
+        return (TObjectType) UnsafeObject.GetCorresponding(modelContextObject);
     }
 
     #endregion
@@ -242,8 +257,8 @@ public class Component : SolidDnaObject<Component2>, IComponent
     {
         // Wrap any error
         return SolidDnaErrors.Wrap(() => GetModelFeatureByNameOrNull(featureName),
-            SolidDnaErrorTypeCode.SolidWorksModel,
-            SolidDnaErrorCode.SolidWorksModelAssemblyGetFeatureByNameError);
+                                   SolidDnaErrorTypeCode.SolidWorksModel,
+                                   SolidDnaErrorCode.SolidWorksModelAssemblyGetFeatureByNameError);
     }
 
     /// <summary>
@@ -256,14 +271,14 @@ public class Component : SolidDnaObject<Component2>, IComponent
     {
         // Wrap any error
         return SolidDnaErrors.Wrap(() =>
-            {
-                // Create feature
-                using var modelFeature = GetModelFeatureByNameOrNull(featureName);
-                // Run function
-                return function.Invoke(modelFeature);
-            },
-            SolidDnaErrorTypeCode.SolidWorksModel,
-            SolidDnaErrorCode.SolidWorksModelAssemblyGetFeatureByNameError);
+                                   {
+                                       // Create feature
+                                       using var modelFeature = GetModelFeatureByNameOrNull(featureName);
+                                       // Run function
+                                       return function.Invoke(modelFeature);
+                                   },
+                                   SolidDnaErrorTypeCode.SolidWorksModel,
+                                   SolidDnaErrorCode.SolidWorksModelAssemblyGetFeatureByNameError);
     }
 
     /// <summary>
@@ -276,14 +291,14 @@ public class Component : SolidDnaObject<Component2>, IComponent
     {
         // Wrap any error
         SolidDnaErrors.Wrap(() =>
-            {
-                // Create feature
-                using var modelFeature = GetModelFeatureByNameOrNull(featureName);
-                // Run action
-                action(modelFeature);
-            },
-            SolidDnaErrorTypeCode.SolidWorksModel,
-            SolidDnaErrorCode.SolidWorksModelAssemblyGetFeatureByNameError);
+                            {
+                                // Create feature
+                                using var modelFeature = GetModelFeatureByNameOrNull(featureName);
+                                // Run action
+                                action(modelFeature);
+                            },
+                            SolidDnaErrorTypeCode.SolidWorksModel,
+                            SolidDnaErrorCode.SolidWorksModelAssemblyGetFeatureByNameError);
     }
 
     /// <summary>
@@ -346,7 +361,7 @@ public class Component : SolidDnaObject<Component2>, IComponent
             // Call the assembly to mark the selected component as rigid/flexible.
             // Use as many existing properties and methods as possible so we only change the rigid/flexible setting
             return assemblyModel.AsAssembly().CompConfigProperties5((int) suppressionState, (int) solving,
-                IsVisible, false, ConfigurationName, BaseObject.ExcludeFromBOM, BaseObject.IsEnvelope());
+                                                                    IsVisible, false, ConfigurationName, BaseObject.ExcludeFromBOM, BaseObject.IsEnvelope());
         }, SolidDnaErrorTypeCode.SolidWorksModel, SolidDnaErrorCode.SolidWorksModelAssemblyComponentRigidFlexibleError);
     }
 
