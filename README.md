@@ -27,6 +27,7 @@ If you want to add a feature to SolidDNA or want to request a change, a Pull Req
 A few tips:
 
 - Ask us if your feature is a good idea before starting a big PR.
+- Make small, focused commits so that we can follow along.
 - Use the same code style as the existing code. We don't have a proper guide yet, so please look at the rest of the code.
 - Don't commit any styling changes, only code changes.
 - Don't make any changes to the C# language version or .NET version.
