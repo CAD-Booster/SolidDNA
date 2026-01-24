@@ -11,6 +11,9 @@ SolidDNA is a great framework to build SOLIDWORKS add-ins because it acts as a w
 
 We'd love your help to keep expanding and improving this project. Before starting a big pull request, please create an issue and ask if it's something that would fit this project.
 
+## Release notes
+You can find all releases and their release notes on the [Release](https://github.com/CAD-Booster/SolidDNA/releases) page and on [NuGet](https://www.nuget.org/packages/CADBooster.SolidDna).
+
 ## About this fork
 This repository is a fork of [SolidDNA](https://github.com/angelsix/solidworks-api) by AngelSix. Because that project wasn't being maintained, we forked it in 2021, applied our improvements and published the results. 
 
