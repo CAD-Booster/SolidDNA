@@ -1,11 +1,6 @@
-﻿using System;
+﻿namespace CADBooster.SolidDna;
 
-namespace CADBooster.SolidDna;
-
-/// <summary>
-/// A menu item that can be added to a toolbar or Tools menu using the command manager.
-/// </summary>
-public interface ICommandManagerItem
+public interface ICommandManagerItem : ICommandItem
 {
     /// <summary>
     /// True if the command should be added to the tab
@@ -13,24 +8,9 @@ public interface ICommandManagerItem
     bool AddToTab { get; set; }
 
     /// <summary>
-    /// The unique Callback ID (set by creator)
-    /// </summary>
-    string CallbackId { get; }
-
-    /// <summary>
     /// The command ID for this flyout item
     /// </summary>
     int CommandId { get; }
-
-    /// <summary>
-    /// The action to call when the item is clicked
-    /// </summary>
-    Action OnClick { get; set; }
-
-    /// <summary>
-    /// The action to call when the item state is requested
-    /// </summary>
-    Action<CommandManagerItemStateCheckArgs> OnStateCheck { get; set; }
 
     /// <summary>
     /// The position of the item in the list. Specify 0 to add the item to the beginning of the toolbar or menu, or specify -1 to add it to the end.

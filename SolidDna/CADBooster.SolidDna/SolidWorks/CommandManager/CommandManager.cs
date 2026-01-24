@@ -24,6 +24,11 @@ public class CommandManager : SolidDnaObject<ICommandManager>
     private readonly List<CommandManagerFlyout> mCommandFlyouts = [];
 
     /// <summary>
+    /// A list of all created command context menu items
+    /// </summary>
+    private readonly List<ICommandCreated> mCommandContextItems = [];
+
+    /// <summary>
     /// Unique ID for flyouts (just increment every time we add one)
     /// </summary>
     private int mFlyoutIdCount = 1000;
@@ -82,6 +87,16 @@ public class CommandManager : SolidDnaObject<ICommandManager>
     }
 
     /// <summary>
+    /// Creates context menu items from the provided collection of <see cref="ICommandCreatable"/> objects
+    /// </summary>
+    /// <param name="commandItems">The collection of command items to create</param>
+    public void CreateContextMenuItems(IEnumerable<ICommandCreatable> commandItems)
+    {
+        foreach (var item in commandItems)
+            mCommandContextItems.AddRange(item.Create());
+    }
+
+    /// <summary>
     /// Create a command group from a list of <see cref="CommandManagerItem"/> items. Uses a single list of items, separators and flyouts.
     /// NOTE: If you set <paramref name="ignorePreviousVersion"/> to false, you should pick a new ID every time you change your tab.
     /// </summary>
@@ -123,7 +138,7 @@ public class CommandManager : SolidDnaObject<ICommandManager>
 
                     // Track all flyouts for all add-ins that use SolidDNA
                     mCommandFlyouts.AddRange(commandManagerItems.OfType<CommandManagerFlyout>());
-
+                    
                     // Create the group
                     group.Create(this, title);
 
@@ -326,6 +341,9 @@ public class CommandManager : SolidDnaObject<ICommandManager>
         // Remove all command flyouts
         mCommandFlyouts?.ForEach(RemoveCommandFlyout);
 
+        // Dispose all command context menu items
+        mCommandContextItems?.ForEach(x => x.Dispose());
+        mCommandContextItems.Clear();
         base.Dispose();
     }
 }
