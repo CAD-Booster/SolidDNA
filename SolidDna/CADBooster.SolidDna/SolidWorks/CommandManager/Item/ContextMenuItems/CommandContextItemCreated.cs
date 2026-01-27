@@ -87,6 +87,11 @@ internal class CommandContextItemCreated : CommandContextCreatedBase
             SelectionType.GetCustomFeatureNames()
         );
 
+        // If the returned position is -1, the item was not added.
+        if (CommandId == -1)
+            throw new SolidDnaException(SolidDnaErrors.CreateError(SolidDnaErrorTypeCode.SolidWorksCommandManager,
+                SolidDnaErrorCode.SolidWorksCommandCreateContextItemError));
+
         Logger.LogDebugSource($"Context menu item created Name: {Name} CallbackId: {CallbackId})");
     }
 

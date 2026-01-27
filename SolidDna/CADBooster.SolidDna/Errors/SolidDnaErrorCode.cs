@@ -1,4 +1,4 @@
-﻿namespace CADBooster.SolidDna;
+namespace CADBooster.SolidDna;
 
 /// <summary>
 /// A list of all known types of error codes in SolidDNA
@@ -242,6 +242,16 @@ public enum SolidDnaErrorCode
     /// There was an error while trying to activate a Context Menu Item that was already activated
     /// </summary>
     SolidWorksCommandContextMenuItemReActivateError = 12011,
+
+    /// <summary>
+    /// There was an unknown error while trying to add a context menu icon.
+    /// </summary>
+    SolidWorksCommandCreateContextIconError = 12012,
+
+    /// <summary>
+    /// There was an unknown error while trying to add a context menu item.
+    /// </summary>
+    SolidWorksCommandCreateContextItemError = 12013,
 
     #endregion
 

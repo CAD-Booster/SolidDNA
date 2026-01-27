@@ -32,14 +32,14 @@ internal class CommandContextIconCreated : CommandContextCreatedBase
         var icons = Icons.GetArrayFromDictionary(Icons.GetFormattedPathDictionary(commandContextIcon.IconPathFormat));
 
         // Get the SolidWorks frame and add the menu icon
-        var frame = (IFrame)AddInIntegration.SolidWorks.UnsafeObject.Frame();
+        using var frame = new SolidDnaObject<IFrame>((IFrame)AddInIntegration.SolidWorks.UnsafeObject.Frame());
 
         // AddMenuPopupIcon3 documentation:
         // https://help.solidworks.com/2025/english/api/sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.ISldWorks~AddItemToThirdPartyPopupMenu2.html
 
         // Adds an icon to a context-sensitive menu of a SOLIDWORKS UI.
         // Returns: True if the context-sensitive menu icon is added, false if not
-        var iconAdded = frame.AddMenuPopupIcon3(
+        var iconAdded = frame.UnsafeObject.AddMenuPopupIcon3(
             // Document type whose context-sensitive menus display the icon
             (int)DocumentType,
             // Selection type whose context-sensitive menus display the icon
@@ -70,7 +70,11 @@ internal class CommandContextIconCreated : CommandContextCreatedBase
             // Images should use 256-color palette
             icons);
 
-        Marshal.ReleaseComObject(frame);
+        // If the icon was not added, throw an exception.
+        if (!iconAdded)
+            throw new SolidDnaException(SolidDnaErrors.CreateError(SolidDnaErrorTypeCode.SolidWorksCommandManager,
+                SolidDnaErrorCode.SolidWorksCommandCreateContextIconError));
+
 
         Logger.LogDebugSource($"Context menu icon created Name: {Name} CallbackId: {CallbackId})");
     }
