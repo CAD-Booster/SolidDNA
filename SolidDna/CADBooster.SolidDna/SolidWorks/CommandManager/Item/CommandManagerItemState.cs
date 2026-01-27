@@ -1,4 +1,4 @@
-﻿namespace CADBooster.SolidDna;
+namespace CADBooster.SolidDna;
 
 /// <summary>
 /// States for command manager items, flyout items and flyout groups.
@@ -10,13 +10,13 @@ public enum CommandManagerItemState
 {
     /// <summary>
     /// Deselect and disable the item. 
-    /// Valid for items, flyout items and flyout groups.
+    /// Valid for items, flyout items, flyout groups, context icons, and context items.
     /// </summary>
     DeselectedDisabled = 0,
 
     /// <summary>
     /// Deselect and enable the item. This is the default state if no update function is specified.
-    /// Valid for items, flyout items and flyout groups.
+    /// Valid for items, flyout items, flyout groups, context icons, and context items.
     /// </summary>
     DeselectedEnabled = 1,
 
@@ -24,7 +24,7 @@ public enum CommandManagerItemState
     /// Select and disable the item. 
     /// The default behavior of SolidWorks is to select a (flyout) item if the property manager page for that item is active, like while creating a sketch or drawing a rectangle.
     /// Also used in the Tools menu to show a selected option with a check mark.
-    /// Valid for items and flyout items.
+    /// Valid for items, flyout items, and context items.
     /// </summary>
     SelectedDisabled = 2,
 
@@ -32,12 +32,12 @@ public enum CommandManagerItemState
     /// Select and enable the item. 
     /// The default behavior of SolidWorks is to select a (flyout) item if the property manager page for that item is active, like while creating a sketch or drawing a rectangle.
     /// Also used in the Tools menu to show a selected option with a check mark.
-    /// Valid for items and flyout items.
+    /// Valid for items, flyout items, and context items.
     /// </summary>
     SelectedEnabled = 3,
 
     /// <summary>
-    /// Hide the item. Valid for flyout items.
+    /// Hide the item. Valid for flyout items, context icons, and context items.
     /// </summary>
     Hidden = 4,
 }

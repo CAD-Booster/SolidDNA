@@ -13,14 +13,14 @@ public class CommandContextGroup : ICommandCreatable
     #region Public Properties
 
     /// <summary>
-    /// The name of this command group
+    /// The name of this command group that is displayed in the context menu
     /// </summary>
     public string Name { get; set; }
 
     /// <summary>
     /// Context menu items in this group
     /// </summary>
-    public List<ICommandCreatable> Items { get; set; }
+    public IEnumerable<ICommandCreatable> Items { get; set; }
 
     #endregion
 
@@ -42,5 +42,5 @@ public class CommandContextGroup : ICommandCreatable
         return Enumerable.Repeat(new CommandContextGroupCreated(Name, path, Items), 1);
     }
 
-    public override string ToString() => $"ContextGroup with name: {Name}. Count of sub items: {Items.Count}";
+    public override string ToString() => $"ContextGroup with name: {Name}. Count of sub items: {Items.Count()}";
 }

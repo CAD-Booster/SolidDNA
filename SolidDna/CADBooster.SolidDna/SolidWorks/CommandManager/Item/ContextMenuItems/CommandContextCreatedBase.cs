@@ -10,14 +10,9 @@ internal abstract class CommandContextCreatedBase : ICommandCreated, ICommandIte
     public string CallbackId { get; } = Guid.NewGuid().ToString("N");
 
     /// <summary>
-    /// Gets the name of this command context item
+    /// Gets the name for identification of this command context item
     /// </summary>
     public abstract string Name { get; }
-
-    /// <summary>
-    /// Gets the hint text for this command context item
-    /// </summary>
-    public string Hint { get; }
 
     /// <summary>
     /// Gets the selection type that determines where this item is shown
@@ -47,7 +42,6 @@ internal abstract class CommandContextCreatedBase : ICommandCreated, ICommandIte
     /// <param name="documentType">The document type (Assembly, Part, or Drawing) for which this item is created</param>
     public CommandContextCreatedBase(CommandContextBase commandContextBase, DocumentType documentType)
     {
-        Hint = commandContextBase.Hint;
         OnClick = commandContextBase.OnClick;
         OnStateCheck = commandContextBase.OnStateCheck;
         SelectionType = commandContextBase.SelectionType;
@@ -58,8 +52,6 @@ internal abstract class CommandContextCreatedBase : ICommandCreated, ICommandIte
 
         // Listen out for EnableMethod
         PlugInIntegration.ItemStateCheckFired += PlugInIntegration_EnableMethodFired;
-
-        Logger.LogDebugSource("Context menu item created");
     }
 
     /// <summary>
@@ -91,32 +83,8 @@ internal abstract class CommandContextCreatedBase : ICommandCreated, ICommandIte
     /// <summary>
     /// Disposing
     /// </summary>
-    public void Dispose()
+    public virtual void Dispose()
     {
-        /// I can't find the way to remove the item
-
-        /// It always returns false, and the item isn't removed.
-        //var removeMenuPopupItemResult = AddInIntegration.SolidWorks.UnsafeObject.RemoveMenuPopupItem2(
-        //    (int)DocumentType,
-        //    SolidWorksEnvironment.Application.SolidWorksCookie,
-        //    (int)SelectionType,
-        //    FullName,
-        //    $"{nameof(SolidAddIn.Callback)}({CallbackId})",
-        //    $"{nameof(SolidAddIn.ItemStateCheck)}({CallbackId})",
-        //    Hint,
-        //    string.Empty
-        //);
-
-        /// It always returns true, but the item isn't removed.
-        //var removeFromPopupMenuResult = AddInIntegration.SolidWorks.UnsafeObject.RemoveFromPopupMenu(
-        //    CommandId,
-        //    (int)DocumentType,
-        //    (int)SelectionType,
-        //    true
-        //);
-
-        /// Besides, the user can hide it using <see cref="ICommandItem.OnStateCheck"/>.
-
         // Stop listening out for callbacks
         PlugInIntegration.CallbackFired -= PlugInIntegration_CallbackFired;
         PlugInIntegration.ItemStateCheckFired -= PlugInIntegration_EnableMethodFired;

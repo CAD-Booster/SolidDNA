@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace CADBooster.SolidDna;
 
@@ -8,7 +8,12 @@ namespace CADBooster.SolidDna;
 public class CommandContextItem : CommandContextBase, ICommandCreatable
 {
     /// <summary>
-    /// The name of this command
+    /// Text displayed in the SolidWorks status bar when the user moves the pointer over the item
+    /// </summary>
+    public string Hint { get; set; }
+
+    /// <summary>
+    /// The name of this command that is displayed in the context menu
     /// </summary>
     public string Name { get; set; }
 

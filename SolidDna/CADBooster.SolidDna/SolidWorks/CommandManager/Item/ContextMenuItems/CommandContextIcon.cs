@@ -15,22 +15,29 @@ public class CommandContextIcon : CommandContextBase, ICommandCreatable
     public string IconPathFormat { get; set; }
 
     /// <summary>
-    /// The text that displays on mouse hover. In other words, it is the tooltip for the icon button
+    /// Text displayed in the SolidWorks status bar and as a tooltip when the user moves the pointer over the icon
+    /// </summary>
+    public string Hint { get; set; }
+
+    /// <summary>
+    /// The name to identify the command. For icons, Hint is used as the name since it's the only text that the icon has.
     /// </summary>
     string ICommandCreatable.Name => Hint;
 
     /// <summary>
-    /// Creates the command context icon for the specified document types
+    /// Creates the command context icon
     /// </summary>
     /// <param name="path">Not used for icon</param>
     /// <returns>A list of created command context icons</returns>
     /// <exception cref="SolidDnaException">Thrown if the item has already been created</exception>
     public sealed override IEnumerable<ICommandCreated> Create(string path = "")
     {
+        // Call base class method to ensure that object isnt created and move object to created state if not
         _ = base.Create();
 
-        var created = new List<CommandContextIconCreated>();
+        var created = new List<CommandContextIconCreated>(3);
 
+        // Create commands for each SW document type
         if (VisibleForAssemblies)
             created.Add(new CommandContextIconCreated(this, DocumentType.Assembly));
         if (VisibleForDrawings)
