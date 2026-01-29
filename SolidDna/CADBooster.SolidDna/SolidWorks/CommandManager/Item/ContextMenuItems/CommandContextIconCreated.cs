@@ -1,5 +1,5 @@
 using SolidWorks.Interop.sldworks;
-using System.Runtime.InteropServices;
+using System.Linq;
 
 namespace CADBooster.SolidDna;
 
@@ -22,14 +22,35 @@ internal class CommandContextIconCreated : CommandContextCreatedBase
     /// Initializes a new command context icon in the SolidWorks UI
     /// </summary>
     /// <param name="commandContextIcon">The icon configuration</param>
+    /// <param name="solidWorksCookie">The SolidWorks add-in cookie</param>
     /// <param name="documentType">The document type this icon applies to</param>
     public CommandContextIconCreated(CommandContextIcon commandContextIcon,
+                                     int solidWorksCookie,
                                      DocumentType documentType) : base(commandContextIcon, documentType)
     {
+        if (solidWorksCookie <= 0)
+            throw new SolidDnaException(
+                SolidDnaErrors.CreateError(SolidDnaErrorTypeCode.SolidWorksCommandManager,
+                    SolidDnaErrorCode.SolidWorksCommandManagerError,
+                    $"Invalid SolidWorks cookie value: {solidWorksCookie}. Cookie must be positive"));
+
         Hint = commandContextIcon.Hint;
 
         // The list of icons. There should be a one multi sized icon.
         var icons = Icons.GetArrayFromDictionary(Icons.GetFormattedPathDictionary(commandContextIcon.IconPathFormat));
+
+        // Validate that we have at least one icon and all paths are valid
+        if (icons is null || icons.Length == 0)
+            throw new SolidDnaException(
+                SolidDnaErrors.CreateError(SolidDnaErrorTypeCode.SolidWorksCommandManager,
+                    SolidDnaErrorCode.SolidWorksCommandManagerError,
+                    "Context menu icon must have at least one icon"));
+
+        if (icons.Any(string.IsNullOrWhiteSpace))
+            throw new SolidDnaException(
+                SolidDnaErrors.CreateError(SolidDnaErrorTypeCode.SolidWorksCommandManager,
+                    SolidDnaErrorCode.SolidWorksCommandManagerError,
+                    "Context menu icon contains invalid (null or empty) icon paths"));
 
         // Get the SolidWorks frame and add the menu icon
         using var frame = new SolidDnaObject<IFrame>((IFrame)AddInIntegration.SolidWorks.UnsafeObject.Frame());
@@ -47,7 +68,7 @@ internal class CommandContextIconCreated : CommandContextCreatedBase
             // Text displayed in the SOLIDWORKS status bar and as a tooltip when the user moves the pointer over the icon
             Hint,
             // ID of the add-in; value of the Cookie argument passed by ISwAddin::ConnectToSW
-            SolidWorksEnvironment.Application.SolidWorksCookie,
+            solidWorksCookie,
             // Function called when user clicks the context-sensitive menu icon.
             // See Add-in Callback and Enable Methods to learn how to specify CallbackFunction and CallbackUpdateFunction.
             // When the icon is clicked, the function specified in CallbackFunction can perform actions such as displaying a third-party pop-up menu*.

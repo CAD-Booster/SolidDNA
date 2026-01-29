@@ -25,13 +25,28 @@ internal class CommandContextItemCreated : CommandContextCreatedBase
     /// <summary>
     /// Creates the command context item for the specified document types
     /// </summary>
-    /// <param name="path">The path to use for hierarchical naming. If empty, the item's name is used</param>
-    /// <returns>A list of created command context items</returns>
+    /// <param name="commandContextItem">The command context item configuration</param>
+    /// <param name="solidWorksCookie">The SolidWorks add-in cookie</param>
+    /// <param name="fullName">The full name with hierarchical path</param>
+    /// <param name="documentType">The document type</param>
     /// <exception cref="SolidDnaException">Thrown if the item has already been created</exception>
     public CommandContextItemCreated(CommandContextItem commandContextItem,
+                                     int solidWorksCookie,
                                      string fullName,
                                      DocumentType documentType) : base(commandContextItem, documentType)
     {
+        if (solidWorksCookie <= 0)
+            throw new SolidDnaException(
+                SolidDnaErrors.CreateError(SolidDnaErrorTypeCode.SolidWorksCommandManager,
+                    SolidDnaErrorCode.SolidWorksCommandManagerError,
+                    $"Invalid SolidWorks cookie value: {solidWorksCookie}. Cookie must be positive"));
+
+        if (string.IsNullOrEmpty(fullName))
+            throw new SolidDnaException(
+                SolidDnaErrors.CreateError(SolidDnaErrorTypeCode.SolidWorksCommandManager,
+                    SolidDnaErrorCode.SolidWorksCommandManagerError,
+                    "Context menu item name cannot be null or empty"));
+
         Hint = commandContextItem.Hint;
 
         _name = commandContextItem.Name;
@@ -55,7 +70,7 @@ internal class CommandContextItemCreated : CommandContextCreatedBase
             // Document type as defined by swDocumentTypes_e
             (int)DocumentType,
             // ID of the add-in; value of the Cookie argument passed by <see cref="ISwAddin.ConnectToSW"/>
-            SolidWorksEnvironment.Application.SolidWorksCookie,
+            solidWorksCookie,
             // Selection type whose context-sensitive menus display the item
             SelectionType,
             // Description displayed on the shortcut menu.

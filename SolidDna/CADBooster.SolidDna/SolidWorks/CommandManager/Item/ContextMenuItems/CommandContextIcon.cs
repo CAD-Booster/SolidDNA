@@ -27,23 +27,23 @@ public class CommandContextIcon : CommandContextBase, ICommandCreatable
     /// <summary>
     /// Creates the command context icon
     /// </summary>
-    /// <param name="path">Not used for icon</param>
+    /// <param name="info">Create information containing cookie</param>
     /// <returns>A list of created command context icons</returns>
     /// <exception cref="SolidDnaException">Thrown if the item has already been created</exception>
-    public sealed override IEnumerable<ICommandCreated> Create(string path = "")
+    public sealed override IEnumerable<ICommandCreated> Create(ICommandContextCreateInfo info)
     {
         // Call base class method to ensure that object isnt created and move object to created state if not
-        _ = base.Create();
+        _ = base.Create(info);
 
-        var created = new List<CommandContextIconCreated>(3);
+        List<CommandContextIconCreated> created = [];
 
         // Create commands for each SW document type
         if (VisibleForAssemblies)
-            created.Add(new CommandContextIconCreated(this, DocumentType.Assembly));
+            created.Add(new CommandContextIconCreated(this, info.SolidWorksCookie, DocumentType.Assembly));
         if (VisibleForDrawings)
-            created.Add(new CommandContextIconCreated(this, DocumentType.Drawing));
+            created.Add(new CommandContextIconCreated(this, info.SolidWorksCookie, DocumentType.Drawing));
         if (VisibleForParts)
-            created.Add(new CommandContextIconCreated(this, DocumentType.Part));
+            created.Add(new CommandContextIconCreated(this, info.SolidWorksCookie, DocumentType.Part));
 
         return created;
     }

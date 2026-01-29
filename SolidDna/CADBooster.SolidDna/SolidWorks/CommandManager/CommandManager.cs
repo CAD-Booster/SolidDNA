@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Windows.Input;
 
 namespace CADBooster.SolidDna;
 
@@ -34,10 +35,28 @@ public class CommandManager : SolidDnaObject<ICommandManager>
     private int mFlyoutIdCount = 1000;
 
     /// <summary>
+    /// The current SolidWorks Add-in cookie ID
+    /// </summary>
+    private readonly int mCookie;
+
+    /// <summary>
     /// Creates a command manager which let us create and access custom toolbars/tabs/ribbons and menus.
     /// Every add-in has its own command manager. This is how SOLIDWORKS knows which menus and toolbars belong to which add-in.
     /// </summary>
-    public CommandManager(ICommandManager commandManager) : base(commandManager) { }
+    [Obsolete("Use overload with Add-in Cookie argument")]
+    public CommandManager(ICommandManager commandManager) : base(commandManager) 
+    {
+        mCookie = SolidWorksEnvironment.Application.SolidWorksCookie;
+    }
+
+    /// <summary>
+    /// Creates a command manager which let us create and access custom toolbars/tabs/ribbons and menus.
+    /// Every add-in has its own command manager. This is how SOLIDWORKS knows which menus and toolbars belong to which add-in.
+    /// </summary>
+    public CommandManager(ICommandManager commandManager, int cookie) : base(commandManager)
+    {
+        mCookie = cookie;
+    }
 
     /// <summary>
     /// Create an item in the Tools menu with a list of <see cref="CommandManagerItem"/> items. Only uses items, so no separators or flyouts.
@@ -92,8 +111,12 @@ public class CommandManager : SolidDnaObject<ICommandManager>
     /// <param name="commandItems">The collection of command items to create</param>
     public void CreateContextMenuItems(IEnumerable<ICommandCreatable> commandItems)
     {
+        // Create base info with the add-in cookie
+        // Items and groups will create CommandContextItemCreateInfo if needed (with empty path for root level)
+        var createInfo = new CommandContextCreateInfoBase(mCookie);
+        
         foreach (var item in commandItems)
-            mCommandContextItems.AddRange(item.Create());
+            mCommandContextItems.AddRange(item.Create(createInfo));
     }
 
     /// <summary>

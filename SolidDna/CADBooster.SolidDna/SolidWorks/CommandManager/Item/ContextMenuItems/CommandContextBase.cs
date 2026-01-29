@@ -49,10 +49,10 @@ public abstract class CommandContextBase
     /// Creates the command context item for the specified document types in derived classes.
     /// The base class only implements restriction of multiple creation; it does not create anything.
     /// </summary>
-    /// <param name="path">The path to use for hierarchical naming. If empty, the item's name is used. Not used in the base class; it's only for the signature.</param>
+    /// <param name="info">Create information containing cookie and other context</param>
     /// <returns>Base class method returns empty enumerable</returns>
     /// <exception cref="SolidDnaException">Thrown if the item has already been created</exception>
-    public virtual IEnumerable<ICommandCreated> Create(string path = "")
+    public virtual IEnumerable<ICommandCreated> Create(ICommandContextCreateInfo info)
     {
         if (_isCreated)
             throw new SolidDnaException(

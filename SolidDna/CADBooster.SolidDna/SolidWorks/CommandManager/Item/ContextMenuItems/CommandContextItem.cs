@@ -20,23 +20,27 @@ public class CommandContextItem : CommandContextBase, ICommandCreatable
     /// <summary>
     /// Creates the command context item for the specified document types
     /// </summary>
-    /// <param name="path">The path to use for hierarchical naming. If empty, the item's name is used</param>
+    /// <param name="info">Create information. Should be <see cref="CommandContextItemCreateInfo"/> to create nested items with proper path hierarchy</param>
     /// <returns>A list of created command context items</returns>
     /// <exception cref="SolidDnaException">Thrown if the item has already been created</exception>
-    public sealed override IEnumerable<ICommandCreated> Create(string path = "")
+    public sealed override IEnumerable<ICommandCreated> Create(ICommandContextCreateInfo info)
     {
-        _ = base.Create(path);
+        _ = base.Create(info);
 
-        var fullName = string.IsNullOrEmpty(path) ? $"{Name}" : $"{path}@{Name}";
+        // Ensure we have CommandContextItemCreateInfo with path, create one if needed
+        var itemInfo = info as CommandContextItemCreateInfo 
+            ?? new CommandContextItemCreateInfo(info.SolidWorksCookie, string.Empty);
 
-        var created = new List<CommandContextItemCreated>();
+        var fullName = string.IsNullOrEmpty(itemInfo.Path) ? $"{Name}" : $"{itemInfo.Path}@{Name}";
+
+        List<CommandContextItemCreated> created = [];
 
         if (VisibleForAssemblies)
-            created.Add(new CommandContextItemCreated(this, fullName, DocumentType.Assembly));
+            created.Add(new CommandContextItemCreated(this, itemInfo.SolidWorksCookie, fullName, DocumentType.Assembly));
         if (VisibleForDrawings)
-            created.Add(new CommandContextItemCreated(this, fullName, DocumentType.Drawing));
+            created.Add(new CommandContextItemCreated(this, itemInfo.SolidWorksCookie, fullName, DocumentType.Drawing));
         if (VisibleForParts)
-            created.Add(new CommandContextItemCreated(this, fullName, DocumentType.Part));
+            created.Add(new CommandContextItemCreated(this, itemInfo.SolidWorksCookie, fullName, DocumentType.Part));
 
         return created;
     }

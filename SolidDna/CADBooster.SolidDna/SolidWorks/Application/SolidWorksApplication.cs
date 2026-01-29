@@ -151,7 +151,7 @@ public partial class SolidWorksApplication : SharedSolidDnaObject<SldWorks>, ISo
         // If we have a cookie...
         if (cookie > 0)
             // Get command manager
-            CommandManager = new CommandManager(UnsafeObject.GetCommandManager(mSwCookie));
+            CommandManager = new CommandManager(UnsafeObject.GetCommandManager(mSwCookie), mSwCookie);
 
         // Get whatever the current model is on load
         ReloadActiveModelInformation();
