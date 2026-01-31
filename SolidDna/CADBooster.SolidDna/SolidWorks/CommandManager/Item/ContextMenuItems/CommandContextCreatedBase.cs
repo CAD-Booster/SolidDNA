@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace CADBooster.SolidDna;
 
@@ -42,6 +42,12 @@ internal abstract class CommandContextCreatedBase : ICommandCreated, ICommandIte
     /// <param name="documentType">The document type (Assembly, Part, or Drawing) for which this item is created</param>
     public CommandContextCreatedBase(CommandContextBase commandContextBase, DocumentType documentType)
     {
+        if (commandContextBase is null)
+            throw new SolidDnaException(
+                SolidDnaErrors.CreateError(SolidDnaErrorTypeCode.SolidWorksCommandManager,
+                    SolidDnaErrorCode.SolidWorksCommandManagerError,
+                    "Command context base cannot be null"));
+
         OnClick = commandContextBase.OnClick;
         OnStateCheck = commandContextBase.OnStateCheck;
         SelectionType = commandContextBase.SelectionType;

@@ -34,6 +34,18 @@ internal class CommandContextIconCreated : CommandContextCreatedBase
                     SolidDnaErrorCode.SolidWorksCommandManagerError,
                     $"Invalid SolidWorks cookie value: {solidWorksCookie}. Cookie must be positive"));
 
+        if (commandContextIcon is null)
+            throw new SolidDnaException(
+                SolidDnaErrors.CreateError(SolidDnaErrorTypeCode.SolidWorksCommandManager,
+                    SolidDnaErrorCode.SolidWorksCommandManagerError,
+                    "Command context icon cannot be null"));
+
+        if (string.IsNullOrWhiteSpace(commandContextIcon.IconPathFormat))
+            throw new SolidDnaException(
+                SolidDnaErrors.CreateError(SolidDnaErrorTypeCode.SolidWorksCommandManager,
+                    SolidDnaErrorCode.SolidWorksCommandManagerError,
+                    "Context menu icon path format cannot be null or empty"));
+
         Hint = commandContextIcon.Hint;
 
         // The list of icons. There should be a one multi sized icon.
@@ -52,11 +64,11 @@ internal class CommandContextIconCreated : CommandContextCreatedBase
                     SolidDnaErrorCode.SolidWorksCommandManagerError,
                     "Context menu icon contains invalid (null or empty) icon paths"));
 
-        // Get the SolidWorks frame and add the menu icon
+        // Get the SolidWorks frame to add the menu icon
         using var frame = new SolidDnaObject<IFrame>((IFrame)AddInIntegration.SolidWorks.UnsafeObject.Frame());
 
         // AddMenuPopupIcon3 documentation:
-        // https://help.solidworks.com/2025/english/api/sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.ISldWorks~AddItemToThirdPartyPopupMenu2.html
+        // https://help.solidworks.com/2025/english/api/sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFrame~AddMenuPopupIcon3.html
 
         // Adds an icon to a context-sensitive menu of a SOLIDWORKS UI.
         // Returns: True if the context-sensitive menu icon is added, false if not
@@ -72,7 +84,7 @@ internal class CommandContextIconCreated : CommandContextCreatedBase
             // Function called when user clicks the context-sensitive menu icon.
             // See Add-in Callback and Enable Methods to learn how to specify CallbackFunction and CallbackUpdateFunction.
             // When the icon is clicked, the function specified in CallbackFunction can perform actions such as displaying a third-party pop-up menu*.
-            // *Third-party pop-up: https://help.solidworks.com/2025/english/api/sldworksapi/SOLIDWORKS.Interop.sldworks~SOLIDWORKS.Interop.sldworks.ISldWorks~ShowThirdPartyPopupMenu.html
+            // *Third-party pop-up: https://help.solidworks.com/2025/english/api/sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.ISldWorks~ShowThirdPartyPopupMenu.html
             $"{nameof(SolidAddIn.Callback)}({CallbackId})",
             // Optional function that controls the state of the icon; if specified, then SOLIDWORKS calls this function before displaying the icon.
             // If CallbackUpdateFunction returns: 
@@ -109,6 +121,7 @@ internal class CommandContextIconCreated : CommandContextCreatedBase
         /// There is no way to remove the icon
 
         // This method is supported in C++ applications only.
+        // Docs: https://help.solidworks.com/2025/english/api/sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFrame~RemoveMenuPopupIcon.html
         // Method works fine. 
         // But we can't count the index since other add-ins can add icons too (different SolidDna or raw add-in)
         // frame.UnsafeObject.RemoveMenuPopupIcon(1, (int) DocumentType, SelectionType);

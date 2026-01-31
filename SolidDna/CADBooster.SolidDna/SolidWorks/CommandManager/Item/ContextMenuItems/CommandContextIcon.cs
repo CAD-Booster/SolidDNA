@@ -44,6 +44,24 @@ public class CommandContextIcon : CommandContextBase, ICommandCreatable
     /// <exception cref="SolidDnaException">Thrown if the item has already been created</exception>
     public sealed override IEnumerable<ICommandCreated> Create(ICommandContextCreateInfo info)
     {
+        if (info is null)
+            throw new SolidDnaException(
+                SolidDnaErrors.CreateError(SolidDnaErrorTypeCode.SolidWorksCommandManager,
+                    SolidDnaErrorCode.SolidWorksCommandManagerError,
+                    "Context menu create info cannot be null"));
+
+        if (string.IsNullOrWhiteSpace(Hint))
+            throw new SolidDnaException(
+                SolidDnaErrors.CreateError(SolidDnaErrorTypeCode.SolidWorksCommandManager,
+                    SolidDnaErrorCode.SolidWorksCommandManagerError,
+                    "Context menu icon hint cannot be null or empty"));
+
+        if (string.IsNullOrWhiteSpace(IconPathFormat))
+            throw new SolidDnaException(
+                SolidDnaErrors.CreateError(SolidDnaErrorTypeCode.SolidWorksCommandManager,
+                    SolidDnaErrorCode.SolidWorksCommandManagerError,
+                    "Context menu icon path format cannot be null or empty"));
+
         // Call base class method to ensure that object isnt created and move object to created state if not
         _ = base.Create(info);
 

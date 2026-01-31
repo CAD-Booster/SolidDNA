@@ -32,10 +32,34 @@ public class CommandContextGroup : ICommandCreatable
     /// <exception cref="SolidDnaException">Thrown if the group has already been created</exception>
     public IEnumerable<ICommandCreated> Create(ICommandContextCreateInfo info)
     {
+        if (info is null)
+            throw new SolidDnaException(
+                SolidDnaErrors.CreateError(SolidDnaErrorTypeCode.SolidWorksCommandManager,
+                    SolidDnaErrorCode.SolidWorksCommandManagerError,
+                    "Context menu create info cannot be null"));
+
         if (_isCreated)
             throw new SolidDnaException(
                 SolidDnaErrors.CreateError(SolidDnaErrorTypeCode.SolidWorksCommandManager,
                 SolidDnaErrorCode.SolidWorksCommandContextMenuItemReActivateError));
+
+        if (string.IsNullOrWhiteSpace(Name))
+            throw new SolidDnaException(
+                SolidDnaErrors.CreateError(SolidDnaErrorTypeCode.SolidWorksCommandManager,
+                    SolidDnaErrorCode.SolidWorksCommandManagerError,
+                    "Context menu group name cannot be null or empty"));
+
+        if (Items is null)
+            throw new SolidDnaException(
+                SolidDnaErrors.CreateError(SolidDnaErrorTypeCode.SolidWorksCommandManager,
+                    SolidDnaErrorCode.SolidWorksCommandManagerError,
+                    "Context menu group items cannot be null"));
+
+        if (!Items.Any())
+            throw new SolidDnaException(
+                SolidDnaErrors.CreateError(SolidDnaErrorTypeCode.SolidWorksCommandManager,
+                    SolidDnaErrorCode.SolidWorksCommandManagerError,
+                    "Context menu group items cannot be empty"));
 
         // Ensure we have CommandContextItemCreateInfo with path, create one if needed
         // Empty path means this is a root-level group (not nested under another group)
@@ -47,5 +71,5 @@ public class CommandContextGroup : ICommandCreatable
         return Enumerable.Repeat(new CommandContextGroupCreated(Name, itemInfo, Items), 1);
     }
 
-    public override string ToString() => $"ContextGroup with name: {Name}. Count of sub items: {Items.Count()}";
+    public override string ToString() => $"ContextGroup with name: {Name}. Count of sub items: {Items?.Count() ?? 0}";
 }

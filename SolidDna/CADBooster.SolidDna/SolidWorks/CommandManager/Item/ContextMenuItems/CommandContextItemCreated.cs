@@ -61,7 +61,7 @@ internal class CommandContextItemCreated : CommandContextCreatedBase
 
 
         // AddMenuPopupItem3 documentation:
-        // https://help.solidworks.com/2023/English/api/sldworksapi/SOLIDWORKS.Interop.sldworks~SOLIDWORKS.Interop.sldworks.ISldWorks~AddMenuPopupItem3.html
+        // https://help.solidworks.com/2025/english/api/sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.ISldWorks~AddMenuPopupItem3.html
 
         // Adds a menu item and zero or more submenus to shortcut menus of entities of the specified type in documents of the specified type.
         // This method should be called for each unique combination of DocumentType and SelectType in whose menus you want this menu item to display.
@@ -120,6 +120,7 @@ internal class CommandContextItemCreated : CommandContextCreatedBase
         /// There is no way to remove the item
 
         /// It always returns false, and the item isn't removed.
+        /// Docs: https://help.solidworks.com/2025/english/api/sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.ISldWorks~RemoveMenuPopupItem2.html
         //var removeMenuPopupItemResult = AddInIntegration.SolidWorks.UnsafeObject.RemoveMenuPopupItem2(
         //    (int)DocumentType,
         //    SolidWorksEnvironment.Application.SolidWorksCookie,
@@ -132,6 +133,7 @@ internal class CommandContextItemCreated : CommandContextCreatedBase
         //);
 
         /// It always returns true, but the item isn't removed.
+        /// Docs: https://help.solidworks.com/2025/english/api/sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.ISldWorks~RemoveFromPopupMenu.html
         //var removeFromPopupMenuResult = AddInIntegration.SolidWorks.UnsafeObject.RemoveFromPopupMenu(
         //    CommandId,
         //    (int)DocumentType,
@@ -140,6 +142,9 @@ internal class CommandContextItemCreated : CommandContextCreatedBase
         //);
 
         /// This one isn't possible since AddMenuPopupItem2 callback is only for C++
+        /// Docs: https://help.solidworks.com/2025/english/api/sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IFrame~AddMenuPopupItem2.html
+        /// Frame docs: https://help.solidworks.com/2025/english/api/sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.ISldWorks~Frame.html
+        /// RemoveMenu docs: https://help.solidworks.com/2025/english/api/sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.ISldWorks~RemoveMenu.html
         //var frame = (IFrame) AddInIntegration.SolidWorks.UnsafeObject.Frame();
         //frame.AddMenuPopupItem2(..., fullName, ...);
         //frame.RemoveMenu(fullName);

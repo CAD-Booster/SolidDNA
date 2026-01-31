@@ -33,6 +33,18 @@ public class CommandContextItem : CommandContextBase, ICommandCreatable
     /// <exception cref="SolidDnaException">Thrown if the item has already been created</exception>
     public sealed override IEnumerable<ICommandCreated> Create(ICommandContextCreateInfo info)
     {
+        if (info is null)
+            throw new SolidDnaException(
+                SolidDnaErrors.CreateError(SolidDnaErrorTypeCode.SolidWorksCommandManager,
+                    SolidDnaErrorCode.SolidWorksCommandManagerError,
+                    "Context menu create info cannot be null"));
+
+        if (string.IsNullOrWhiteSpace(Name))
+            throw new SolidDnaException(
+                SolidDnaErrors.CreateError(SolidDnaErrorTypeCode.SolidWorksCommandManager,
+                    SolidDnaErrorCode.SolidWorksCommandManagerError,
+                    "Context menu item name cannot be null or empty"));
+
         _ = base.Create(info);
 
         // Ensure we have CommandContextItemCreateInfo with path, create one if needed
