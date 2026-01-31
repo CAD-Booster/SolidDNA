@@ -96,7 +96,23 @@ internal class CommandContextIconCreated : CommandContextCreatedBase
             throw new SolidDnaException(SolidDnaErrors.CreateError(SolidDnaErrorTypeCode.SolidWorksCommandManager,
                 SolidDnaErrorCode.SolidWorksCommandCreateContextIconError));
 
-
         Logger.LogDebugSource($"Context menu icon created Name: {Name} CallbackId: {CallbackId})");
+    }
+
+    /// <summary>
+    /// Disposing
+    /// </summary>
+    public override void Dispose()
+    {
+        base.Dispose();
+
+        /// There is no way to remove the icon
+
+        // This method is supported in C++ applications only.
+        // Method works fine. 
+        // But we can't count the index since other add-ins can add icons too (different SolidDna or raw add-in)
+        // frame.UnsafeObject.RemoveMenuPopupIcon(1, (int) DocumentType, SelectionType);
+
+        /// No alternative methods found to remove
     }
 }
