@@ -106,7 +106,13 @@ public class CommandManager : SolidDnaObject<ICommandManager>
     }
 
     /// <summary>
-    /// Creates context menu items from the provided collection of <see cref="ICommandCreatable"/> objects
+    /// Creates context menu items from the provided collection of <see cref="ICommandCreatable"/> objects.
+    /// <para>
+    /// Pass here <see cref="CommandContextIcon"/>, <see cref="CommandContextItem"/> or <see cref="CommandContextGroup"/>.
+    /// </para>
+    /// <para>
+    /// You can also implement <see cref="ICommandCreatable"/> and pass your command related object that will be disposed with <see cref="CommandManager"/>
+    /// </para>
     /// </summary>
     /// <param name="commandItems">The collection of command items to create</param>
     public void CreateContextMenuItems(IEnumerable<ICommandCreatable> commandItems)

@@ -1,9 +1,14 @@
+using System;
 using System.Collections.Generic;
 
 namespace CADBooster.SolidDna;
 
 /// <summary>
-/// Represents a context icon in SolidWorks
+/// Represents a context icon in SolidWorks.
+/// <para>
+/// It shows in the SolidWorks context popup. 
+/// If no popup for <see cref="SelectionType"/> shows, this means the icon will not add a new popup and will be inaccessible, so make sure that a popup shows for the selection.
+/// </para>
 /// </summary>
 public class CommandContextIcon : CommandContextBase, ICommandCreatable
 {
@@ -23,6 +28,13 @@ public class CommandContextIcon : CommandContextBase, ICommandCreatable
     /// The name to identify the command. For icons, Hint is used as the name since it's the only text that the icon has.
     /// </summary>
     string ICommandCreatable.Name => Hint;
+
+    /// <summary>
+    /// The action to call when the item state requested
+    /// SolidWorks calls it each time when a context popup in the specified selection context shows
+    /// Try to avoid long operations on this callback 
+    /// </summary>
+    public override Action<CommandManagerItemStateCheckArgs> OnStateCheck { get; set; }
 
     /// <summary>
     /// Creates the command context icon

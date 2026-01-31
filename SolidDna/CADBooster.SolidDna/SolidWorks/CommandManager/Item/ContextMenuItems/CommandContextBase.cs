@@ -36,7 +36,7 @@ public abstract class CommandContextBase
     /// <summary>
     /// The action to call when the item state requested
     /// </summary>
-    public Action<CommandManagerItemStateCheckArgs> OnStateCheck { get; set; }
+    public abstract Action<CommandManagerItemStateCheckArgs> OnStateCheck { get; set; }
 
     /// <summary>
     /// The selection type that determines with which selection context the item will be shown

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace CADBooster.SolidDna;
@@ -16,6 +17,13 @@ public class CommandContextItem : CommandContextBase, ICommandCreatable
     /// The name of this command that is displayed in the context menu
     /// </summary>
     public string Name { get; set; }
+
+    /// <summary>
+    /// The action to call when the item state requested
+    /// SolidWorks calls it each time when a context menu in the specified selection context shows, and some duplicated calls are performed after this
+    /// Try to avoid long operations on this callback 
+    /// </summary>
+    public override Action<CommandManagerItemStateCheckArgs> OnStateCheck { get; set; }
 
     /// <summary>
     /// Creates the command context item for the specified document types
