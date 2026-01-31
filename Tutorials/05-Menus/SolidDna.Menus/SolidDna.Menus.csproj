@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
     <LangVersion>13.0</LangVersion>
@@ -6,7 +6,12 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CADBooster.SolidDna" Version="3.4.1" />
+	<!--In your solution use package reference -->
+	<!--<PackageReference Include="CADBooster.SolidDna" Version="3.4.1" />-->
+	  
+    <Reference Include="CADBooster.SolidDna">
+      <HintPath>..\..\..\SolidDna\CADBooster.SolidDna\bin\Debug\net48\CADBooster.SolidDna.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="SolidWorks.Interop.sldworks" HintPath="..\..\..\References\2026\SolidWorks.Interop.sldworks.dll" EmbedInteropTypes="False" />
@@ -20,11 +25,8 @@
 	  <Reference Include="SolidWorks.Interop.SWRoutingLib" HintPath="..\..\..\References\2026\SolidWorks.Interop.SWRoutingLib.dll" EmbedInteropTypes="False" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="icons128.png" CopyToOutputDirectory="PreserveNewest" />
-    <None Update="icons20.png" CopyToOutputDirectory="PreserveNewest" />
-    <None Update="icons32.png" CopyToOutputDirectory="PreserveNewest" />
-    <None Update="icons40.png" CopyToOutputDirectory="PreserveNewest" />
-    <None Update="icons64.png" CopyToOutputDirectory="PreserveNewest" />
-    <None Update="icons96.png" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Icons\icon*.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>
