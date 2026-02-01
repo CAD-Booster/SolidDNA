@@ -41,7 +41,7 @@ public abstract class CommandContextBase
     /// <summary>
     /// The selection type that determines with which selection context the item will be shown
     /// </summary>
-    public SelectionType SelectionType { get; set; } = SelectionType.Everything;
+    public abstract SelectionType SelectionType { get; set; }
 
     #endregion
 

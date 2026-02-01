@@ -423,7 +423,7 @@ public class MySolidDnaPlugin : SolidPlugIn
     /// <returns>A collection of command context items and groups for various selection types</returns>
     private IEnumerable<ICommandCreatable> CreateCommandContextItems()
         => [
-            // Select Component in feature tree
+            // Select Component in FeatureManager
             new CommandContextItem
             {
                 Name = "RootItem",
@@ -478,6 +478,68 @@ public class MySolidDnaPlugin : SolidPlugIn
                         ]
                     }
                 ]
+            },
+
+
+            // Specific feature selection 
+
+            // Select Extrusion (not Boss or BossThin, has same icon) in FeatureManager
+            new CommandContextItem
+            {
+                Name = "Test \"Extrusion\"",
+                Hint = "\"Extrusion\" Hint",
+                OnClick  = () => ShowMessage("Extrusion"),
+                OnStateCheck = args => args.Result = CommandManagerItemState.SelectedEnabled,
+                SelectionType = SpecificFeatureSelectionType.Extrusion,
+            },
+
+            // Select Sketch in FeatureManager
+            new CommandContextItem
+            {
+                Name = "Test \"Sketch\"",
+                Hint = "\"Sketch\" Hint",
+                OnClick  = () => ShowMessage("Sketch"),
+                OnStateCheck = args => args.Result = CommandManagerItemState.SelectedEnabled,
+                SelectionType = SpecificFeatureSelectionType.Sketch, // Sketch
+            },
+
+            // Select Sketch3D in FeatureManager
+            new CommandContextItem
+            {
+                Name = "Test \"Sketch3D\"",
+                Hint = "\"Sketch3D\" Hint",
+                OnClick  = () => ShowMessage("Sketch3D"),
+                OnStateCheck = args => args.Result = CommandManagerItemState.SelectedEnabled,
+                SelectionType = SpecificFeatureSelectionType.Sketch3D,
+            },
+
+            // Use this to know desired feature name in UI (item apears in context menu)
+            new CommandContextItem
+            {
+                Name = "FeatureTypeName",
+                Hint = "FeatureTypeName",
+                OnClick = () =>
+                {
+                    var selectedObjects =
+                        SolidWorksEnvironment.Application.ActiveModel?.SelectionManager.GetSelectedObjects();
+
+                    if (selectedObjects is null || selectedObjects.Count == 0)
+                    {
+                        SolidWorksEnvironment.Application.ShowMessageBox("No object selected!");
+                        return;
+                    }
+
+                    var selectedObject = selectedObjects.First();
+                    
+                    // Try to get feature name if it's a feature
+                    if (selectedObject.IsFeature)
+                        selectedObject.AsFeature(feature
+                            => SolidWorksEnvironment.Application.ShowMessageBox($"Feature Name: {feature.FeatureTypeName}"));
+                    else
+                        SolidWorksEnvironment.Application.ShowMessageBox($"Not a specific feature.");
+                },
+                OnStateCheck = args => args.Result = CommandManagerItemState.DeselectedEnabled,
+                SelectionType = SelectionType.Everything,
             }
         ];
     #endregion

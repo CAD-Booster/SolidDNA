@@ -26,6 +26,24 @@ public class CommandContextItem : CommandContextBase, ICommandCreatable
     public override Action<CommandManagerItemStateCheckArgs> OnStateCheck { get; set; }
 
     /// <summary>
+    /// The selection type that determines with which selection context the item will be shown.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// For general selection types (edges, faces, vertices, etc.), use predefined constants from <see cref="SelectionType"/> class.
+    /// </para>
+    /// <para>
+    /// For specific feature types (e.g., "Boss", "SketchHole", "ChamferFeature"), you can either:
+    /// <list type="bullet">
+    /// <item>Use predefined feature types from <see cref="SpecificFeatureSelectionType"/> class</item>
+    /// <item>Create custom feature selection types using <see cref="SpecificFeatureSelectionType.CreateSpecificFeatureType(string)"/></item>
+    /// </list>
+    /// Feature type names correspond to values from <see cref="IModelFeature.FeatureTypeName"/>.
+    /// </para>
+    /// </remarks>
+    public override SelectionType SelectionType { get; set; } = SelectionType.Everything;
+
+    /// <summary>
     /// Creates the command context item for the specified document types
     /// </summary>
     /// <param name="info">Create information. Should be <see cref="CommandContextItemCreateInfo"/> to create nested items with proper path hierarchy</param>

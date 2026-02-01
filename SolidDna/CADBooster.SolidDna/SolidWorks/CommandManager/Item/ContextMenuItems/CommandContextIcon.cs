@@ -37,6 +37,16 @@ public class CommandContextIcon : CommandContextBase, ICommandCreatable
     public override Action<CommandManagerItemStateCheckArgs> OnStateCheck { get; set; }
 
     /// <summary>
+    /// The selection type that determines with which selection context the icon will be shown.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// Use predefined selection type constants from the <see cref="SelectionType"/> class (e.g., <see cref="SelectionType.Face"/>, <see cref="SelectionType.Edge"/>).
+    /// </para>
+    /// </remarks>
+    public override SelectionType SelectionType { get; set; } = SelectionType.Everything;
+
+    /// <summary>
     /// Creates the command context icon
     /// </summary>
     /// <param name="info">Create information containing cookie</param>

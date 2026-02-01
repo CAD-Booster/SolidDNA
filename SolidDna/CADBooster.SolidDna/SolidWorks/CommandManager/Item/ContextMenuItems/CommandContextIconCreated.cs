@@ -46,6 +46,14 @@ internal class CommandContextIconCreated : CommandContextCreatedBase
                     SolidDnaErrorCode.SolidWorksCommandManagerError,
                     "Context menu icon path format cannot be null or empty"));
 
+        if (SelectionType.IsSpecificFeatureType)
+            throw new SolidDnaException(
+                SolidDnaErrors.CreateError(SolidDnaErrorTypeCode.SolidWorksCommandManager,
+                    SolidDnaErrorCode.SolidWorksCommandManagerError,
+                    $"Context icons do not support specific feature selection types. " +
+                    $"Selection type '{SelectionType.EnumValue}_{SelectionType.StringValue}' is a specific feature type. " +
+                    $"Only {nameof(CommandContextItem)} supports specific feature types from {nameof(SpecificFeatureSelectionType)}"));
+
         Hint = commandContextIcon.Hint;
 
         // The list of icons. There should be a one multi sized icon.
