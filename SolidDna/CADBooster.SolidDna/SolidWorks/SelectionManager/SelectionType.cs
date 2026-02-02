@@ -1,4 +1,4 @@
-﻿using SolidWorks.Interop.sldworks;
+using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
 using System;
 using System.Collections.Generic;
@@ -752,6 +752,17 @@ public class SelectionType
     /// </summary>
     public string StringValue { get; }
 
+    /// <summary>
+    /// Indicates whether this selection type represents a specific feature type (e.g., "SketchHole", "Boss").
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// When <c>true</c>, this <see cref="SelectionType"/> targets a specific SolidWorks feature type 
+    /// identified by <see cref="SolidWorks.Interop.sldworks.IFeature.GetTypeName2"/>.
+    /// </para>
+    /// </remarks>
+    public bool IsSpecificFeatureType { get; }
+
     #endregion
 
     #region Constructor
@@ -763,11 +774,12 @@ public class SelectionType
     /// <param name="enumValue">The numeric identifier for the selection type.</param>
     /// <param name="stringValue">The string representation used in the SOLIDWORKS API.</param>
     /// <remarks> Custom feature types should use <see cref="CreateCustomFeatureType(SelectionType, string)"/> instead.</remarks>
-    internal SelectionType(swSelectType_e enumValue, string stringValue)
+    internal SelectionType(swSelectType_e enumValue, string stringValue, bool isFeatureSpecific = false)
     {
         EnumValue = enumValue;
         StringValue = stringValue;
         CustomFeatureNames = null;
+        IsSpecificFeatureType = isFeatureSpecific;
     }
 
     /// <summary>

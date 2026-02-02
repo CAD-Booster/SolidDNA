@@ -183,7 +183,7 @@ public abstract class SolidAddIn : ISwAddin
             AddInIntegration.ConnectToActiveSolidWorksForAddIn(solidworks, cookie);
 
             // Create the command manager for this add-in. SolidWorks uses the cookie to link an add-in to its menus.
-            CommandManager = new CommandManager(solidworks.GetCommandManager(cookie));
+            CommandManager = new CommandManager(solidworks.GetCommandManager(cookie), cookie);
 
             // Tell solidworks which method to call when it receives a button click on a command manager item or flyout.
             SetUpCallbacks(solidworks, cookie);
