@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Windows.Input;
 
 namespace CADBooster.SolidDna;
 
@@ -24,15 +25,38 @@ public class CommandManager : SolidDnaObject<ICommandManager>
     private readonly List<CommandManagerFlyout> mCommandFlyouts = [];
 
     /// <summary>
+    /// A list of all created command context menu items
+    /// </summary>
+    private readonly List<ICommandCreated> mCommandContextItems = [];
+
+    /// <summary>
     /// Unique ID for flyouts (just increment every time we add one)
     /// </summary>
     private int mFlyoutIdCount = 1000;
 
     /// <summary>
+    /// The current SolidWorks Add-in cookie ID
+    /// </summary>
+    private readonly int mCookie;
+
+    /// <summary>
     /// Creates a command manager which let us create and access custom toolbars/tabs/ribbons and menus.
     /// Every add-in has its own command manager. This is how SOLIDWORKS knows which menus and toolbars belong to which add-in.
     /// </summary>
-    public CommandManager(ICommandManager commandManager) : base(commandManager) { }
+    [Obsolete("Use overload with Add-in Cookie argument")]
+    public CommandManager(ICommandManager commandManager) : base(commandManager) 
+    {
+        mCookie = SolidWorksEnvironment.Application.SolidWorksCookie;
+    }
+
+    /// <summary>
+    /// Creates a command manager which let us create and access custom toolbars/tabs/ribbons and menus.
+    /// Every add-in has its own command manager. This is how SOLIDWORKS knows which menus and toolbars belong to which add-in.
+    /// </summary>
+    public CommandManager(ICommandManager commandManager, int cookie) : base(commandManager)
+    {
+        mCookie = cookie;
+    }
 
     /// <summary>
     /// Create an item in the Tools menu with a list of <see cref="CommandManagerItem"/> items. Only uses items, so no separators or flyouts.
@@ -82,6 +106,26 @@ public class CommandManager : SolidDnaObject<ICommandManager>
     }
 
     /// <summary>
+    /// Creates context menu items from the provided collection of <see cref="ICommandCreatable"/> objects.
+    /// <para>
+    /// Pass here <see cref="CommandContextIcon"/>, <see cref="CommandContextItem"/> or <see cref="CommandContextGroup"/>.
+    /// </para>
+    /// <para>
+    /// You can also implement <see cref="ICommandCreatable"/> and pass your command related object that will be disposed with <see cref="CommandManager"/>
+    /// </para>
+    /// </summary>
+    /// <param name="commandItems">The collection of command items to create</param>
+    public void CreateContextMenuItems(IEnumerable<ICommandCreatable> commandItems)
+    {
+        // Create base info with the add-in cookie
+        // Items and groups will create CommandContextItemCreateInfo if needed (with empty path for root level)
+        var createInfo = new CommandContextCreateInfoBase(mCookie);
+        
+        foreach (var item in commandItems)
+            mCommandContextItems.AddRange(item.Create(createInfo));
+    }
+
+    /// <summary>
     /// Create a command group from a list of <see cref="CommandManagerItem"/> items. Uses a single list of items, separators and flyouts.
     /// NOTE: If you set <paramref name="ignorePreviousVersion"/> to false, you should pick a new ID every time you change your tab.
     /// </summary>
@@ -123,7 +167,7 @@ public class CommandManager : SolidDnaObject<ICommandManager>
 
                     // Track all flyouts for all add-ins that use SolidDNA
                     mCommandFlyouts.AddRange(commandManagerItems.OfType<CommandManagerFlyout>());
-
+                    
                     // Create the group
                     group.Create(this, title);
 
@@ -326,6 +370,9 @@ public class CommandManager : SolidDnaObject<ICommandManager>
         // Remove all command flyouts
         mCommandFlyouts?.ForEach(RemoveCommandFlyout);
 
+        // Dispose all command context menu items
+        mCommandContextItems?.ForEach(x => x.Dispose());
+        mCommandContextItems.Clear();
         base.Dispose();
     }
 }
