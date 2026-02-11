@@ -19,6 +19,11 @@ public abstract class SolidAddIn : ISwAddin
     #region Protected Members
 
     /// <summary>
+    /// The cookie that belongs to the current add-in.
+    /// </summary>
+    protected int mSwCookie;
+
+    /// <summary>
     /// Flag if we have loaded into memory (as ConnectedToSolidWorks can happen multiple times if unloaded/reloaded)
     /// </summary>
     protected bool mLoaded;
@@ -51,6 +56,12 @@ public abstract class SolidAddIn : ISwAddin
     /// The description displayed for this SolidWorks Add-in
     /// </summary>
     public string SolidWorksAddInDescription { get; set; } = "All your pixels are belong to us!";
+
+    /// <summary>
+    /// The SolidWorks instance cookie for this add-in.
+    /// This is used by SolidWorks to link an add-in to its command manager and menus.
+    /// </summary>
+    public int SolidWorksCookie => mSwCookie;
 
     #endregion
 
@@ -157,14 +168,17 @@ public abstract class SolidAddIn : ISwAddin
     /// Called when SolidWorks has loaded our add-in and wants us to do our connection logic
     /// </summary>
     /// <param name="solidWorksApplication">The current SolidWorks instance</param>
-    /// <param name="cookie">The current SolidWorks cookie ID</param>
+    /// <param name="cookieId">The SolidWorks cookie ID for this add-in. Is usually a low number like 8.</param>
     /// <returns></returns>
-    public bool ConnectToSW(object solidWorksApplication, int cookie)
+    public bool ConnectToSW(object solidWorksApplication, int cookieId)
     {
         try
         {
             // Get the current SolidWorks instance
             var solidworks = (SldWorks) solidWorksApplication;
+
+            // Store the cookie ID that belongs to this add-in.
+            mSwCookie = cookieId;
 
             // Add this add-in to the list of currently active add-ins.
             AddInIntegration.AddAddIn(this);
@@ -180,13 +194,13 @@ public abstract class SolidAddIn : ISwAddin
 
             // Set up the current SolidWorks instance as a SolidDNA class. 
             // Also sets up the obsolete command manager static class.
-            AddInIntegration.ConnectToActiveSolidWorksForAddIn(solidworks, cookie);
+            AddInIntegration.ConnectToActiveSolidWorksForAddIn(solidworks, cookieId);
 
             // Create the command manager for this add-in. SolidWorks uses the cookie to link an add-in to its menus.
-            CommandManager = new CommandManager(solidworks.GetCommandManager(cookie));
+            CommandManager = new CommandManager(solidworks.GetCommandManager(cookieId));
 
             // Tell solidworks which method to call when it receives a button click on a command manager item or flyout.
-            SetUpCallbacks(solidworks, cookie);
+            SetUpCallbacks(solidworks, cookieId);
 
             // Log it
             Logger.LogDebugSource($"Firing PreLoadPlugIns...");

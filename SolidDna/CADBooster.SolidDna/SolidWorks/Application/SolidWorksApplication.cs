@@ -86,8 +86,9 @@ public partial class SolidWorksApplication : SharedSolidDnaObject<SldWorks>, ISo
     public SolidWorksVersion SolidWorksVersion { get; }
 
     /// <summary>
-    /// The SolidWorks instance cookie
+    /// The static SolidWorks instance cookie. Is not used anymore because each add-in now has its own cookie.
     /// </summary>
+    [Obsolete("Use <YourAddIn>.SolidWorksCookie because the cookie is unique for every add-in.")]
     public int SolidWorksCookie => mSwCookie;
 
     #endregion
@@ -138,7 +139,7 @@ public partial class SolidWorksApplication : SharedSolidDnaObject<SldWorks>, ISo
         SolidWorksVersion = GetSolidWorksVersion();
         ApplicationType = GetApplicationType(); // do this after setting the SolidWorks version.
 
-        // Store cookie ID
+        // Store cookie ID that belongs to the add-in that is loaded first. Should no longer be used.
         mSwCookie = cookie;
 
         // Hook into main events
