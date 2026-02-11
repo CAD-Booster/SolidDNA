@@ -37,11 +37,21 @@ public static class SolidWorksEnvironment
     #region Public methods
 
     /// <summary>
-    /// Set a mock or test application instance.
+    /// Set a mock or test application instance. Should not be called when SolidWorks is running and throws when you do so.
     /// When set, <see cref="IApplication"/> returns the mock and <see cref="Application"/> returns null.
     /// </summary>
     /// <param name="application">The mock application instance</param>
-    public static void SetApplicationForTesting(ISolidWorksApplication application) => _testApplication = application;
+    public static void SetApplicationForTesting(ISolidWorksApplication application)
+    {
+        if (AddInIntegration.SolidWorks != null)
+        {
+            const string message = "Cannot set a test application when SolidWorks is running.";
+            Logger.LogDebugSource(message);
+            throw new InvalidOperationException(message);
+        }
+
+        _testApplication = application;
+    }
 
     #endregion
 }
