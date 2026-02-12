@@ -50,7 +50,11 @@ We're writing a series of articles about getting started with the SOLIDWORKS API
 - SolidDNA: a better framework for SOLIDWORKS add-ins (coming soon)
 
 ## About CAD Booster
-We build intuitive add-ins for SOLIDWORKS to automate the boring bits of engineering. Our main products are [Drew](https://cadbooster.com/solidworks-add-in/drew/) (create 2D drawings twice as fast), [Lightning](https://cadbooster.com/solidworks-add-in/lightning-fastener-filter/) (makes working with fasteners fun again) and [Fastener Models](https://cadbooster.com/fastener-models/) (a great Toolbox alternative).
+We build intuitive add-ins for SOLIDWORKS to automate the boring bits of engineering. Our main products are:
+
+- [Drew](https://cadbooster.com/solidworks-add-in/drew/): create 2D drawings twice as fast
+- [Lightning](https://cadbooster.com/solidworks-add-in/lightning-fastener-filter/): makes working with fasteners fun again
+- [Fastener Models](https://cadbooster.com/fastener-models/): a great Toolbox alternative
 
 We use SolidDNA in all of our add-ins. 
 
