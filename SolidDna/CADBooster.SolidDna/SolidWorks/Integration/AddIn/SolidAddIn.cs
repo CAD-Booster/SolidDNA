@@ -16,6 +16,8 @@ namespace CADBooster.SolidDna;
 /// </summary>
 public abstract class SolidAddIn : ISwAddin
 {
+    public const string DefaultAddInTitle = "CADBooster SolidDna AddIn";
+
     #region Protected Members
 
     /// <summary>
@@ -26,8 +28,6 @@ public abstract class SolidAddIn : ISwAddin
     #endregion
 
     #region Public Properties
-
-    public const string DefaultAddInTitle = "CADBooster SolidDna AddIn";
 
     /// <summary>
     /// The command manager
