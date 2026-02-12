@@ -13,6 +13,8 @@ namespace CADBooster.SolidDna;
 /// </summary>
 public class CommandManager : SolidDnaObject<ICommandManager>
 {
+    #region Private fields
+
     /// <summary>
     /// A list of all created command groups
     /// </summary>
@@ -28,11 +30,39 @@ public class CommandManager : SolidDnaObject<ICommandManager>
     /// </summary>
     private int mFlyoutIdCount = 1000;
 
+    #endregion
+
+    #region Public Properties
+
+    /// <summary>
+    /// The SolidWorks cookie for this add-in.
+    /// This is used by SolidWorks to link an add-in to its command manager and menus.
+    /// </summary>
+    public AddInCookie SolidWorksCookie { get; }
+
+    #endregion
+
+    #region Constructor
+
     /// <summary>
     /// Creates a command manager which let us create and access custom toolbars/tabs/ribbons and menus.
     /// Every add-in has its own command manager. This is how SOLIDWORKS knows which menus and toolbars belong to which add-in.
     /// </summary>
+    [Obsolete("Use the constructor that also takes a AddInCookie parameter.")]
     public CommandManager(ICommandManager commandManager) : base(commandManager) { }
+
+    /// <summary>
+    /// Creates a command manager which let us create and access custom toolbars/tabs/ribbons and menus.
+    /// Every add-in has its own command manager. This is how SOLIDWORKS knows which menus and toolbars belong to which add-in.
+    /// </summary>
+    public CommandManager(ICommandManager commandManager, AddInCookie addInCookie) : base(commandManager)
+    {
+        SolidWorksCookie = addInCookie;
+    }
+
+    #endregion
+
+    #region Public methods
 
     /// <summary>
     /// Create an item in the Tools menu with a list of <see cref="CommandManagerItem"/> items. Only uses items, so no separators or flyouts.
@@ -248,33 +278,6 @@ public class CommandManager : SolidDnaObject<ICommandManager>
     }
 
     /// <summary>
-    /// Removes the specific command flyout
-    /// </summary>
-    /// <param name="flyout">The command flyout to remove</param>
-    private void RemoveCommandFlyout(CommandManagerFlyout flyout)
-    {
-        lock (mCommandFlyouts)
-            BaseObject.RemoveFlyoutGroup(flyout.UserId);
-    }
-
-    /// <summary>
-    /// Removes the specific command group
-    /// </summary>
-    /// <param name="group">The command group to remove</param>
-    /// <param name="runtimeOnly">True to remove the CommandGroup, saving its toolbar information in the registry. False to remove both the CommandGroup and its toolbar information in the registry</param>
-    private void RemoveCommandGroup(CommandManagerGroup group, bool runtimeOnly = false)
-    {
-        lock (mCommandGroups)
-        {
-            // Tell SOLIDWORKS to remove the command group
-            BaseObject.RemoveCommandGroup2(group.UserId, runtimeOnly);
-
-            // Dispose our references to it and dispose its tabs. If we don't do this, menus stay lingering with grayed out items.
-            group.Dispose();
-        }
-    }
-
-    /// <summary>
     /// Gets the command tab for this 
     /// </summary>
     /// <param name="type">The type of document to get the tab for. Use only Part, Assembly or Drawing one at a time, otherwise the first found tab gets returned</param>
@@ -315,6 +318,41 @@ public class CommandManager : SolidDnaObject<ICommandManager>
         return new CommandManagerTab(unsafeTab);
     }
 
+    #endregion
+
+    #region Private methods
+
+    /// <summary>
+    /// Removes the specific command flyout
+    /// </summary>
+    /// <param name="flyout">The command flyout to remove</param>
+    private void RemoveCommandFlyout(CommandManagerFlyout flyout)
+    {
+        lock (mCommandFlyouts)
+            BaseObject.RemoveFlyoutGroup(flyout.UserId);
+    }
+
+    /// <summary>
+    /// Removes the specific command group
+    /// </summary>
+    /// <param name="group">The command group to remove</param>
+    /// <param name="runtimeOnly">True to remove the CommandGroup, saving its toolbar information in the registry. False to remove both the CommandGroup and its toolbar information in the registry</param>
+    private void RemoveCommandGroup(CommandManagerGroup group, bool runtimeOnly = false)
+    {
+        lock (mCommandGroups)
+        {
+            // Tell SOLIDWORKS to remove the command group
+            BaseObject.RemoveCommandGroup2(group.UserId, runtimeOnly);
+
+            // Dispose our references to it and dispose its tabs. If we don't do this, menus stay lingering with grayed out items.
+            group.Dispose();
+        }
+    }
+
+    #endregion
+
+    #region Dispose
+
     /// <summary>
     /// Dispose all <see cref="CommandGroup"/>(s) and <see cref="FlyoutGroup"/>(s) from the <see cref="mCommandGroups"/> and <see cref="mCommandFlyouts"/> lists correctly.
     /// </summary>
@@ -328,4 +366,6 @@ public class CommandManager : SolidDnaObject<ICommandManager>
 
         base.Dispose();
     }
+
+    #endregion
 }

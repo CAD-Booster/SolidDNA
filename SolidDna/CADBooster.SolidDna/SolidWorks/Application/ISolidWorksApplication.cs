@@ -52,7 +52,7 @@ public interface ISolidWorksApplication : IDisposable
     SolidWorksVersion SolidWorksVersion { get; }
 
     /// <summary>
-    /// The SolidWorks instance cookie
+    /// The SolidWorks cookie for an add-in.
     /// </summary>
     int SolidWorksCookie { get; }
 

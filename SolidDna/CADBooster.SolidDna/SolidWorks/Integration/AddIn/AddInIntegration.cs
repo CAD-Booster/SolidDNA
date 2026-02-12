@@ -69,7 +69,7 @@ public static class AddInIntegration
     /// Remember to call <see cref="TearDown"/> once done.
     /// </summary>
     /// <returns></returns>
-    public static void ConnectToActiveSolidWorksForAddIn(SldWorks solidworks, int cookie)
+    public static void ConnectToActiveSolidWorksForAddIn(SldWorks solidworks, AddInCookie cookie)
     {
         if (SolidWorks != null)
         {
@@ -82,7 +82,7 @@ public static class AddInIntegration
             Logger.LogDebugSource($"Storing the SOLIDWORKS instance...");
 
             // Initialize the SolidDNA wrapper for the SolidWorks application
-            SolidWorks = new SolidWorksApplication(solidworks, cookie);
+            SolidWorks = new SolidWorksApplication(solidworks, cookie.Value);
 
             Logger.LogDebugSource($"SolidWorks instance set");
         }

@@ -20,6 +20,7 @@ public partial class SolidWorksApplication : SharedSolidDnaObject<SldWorks>, ISo
 
     /// <summary>
     /// The cookie to the current instance of SolidWorks we are running in.
+    /// Should no longer be used.
     /// </summary>
     protected int mSwCookie;
 
@@ -152,7 +153,7 @@ public partial class SolidWorksApplication : SharedSolidDnaObject<SldWorks>, ISo
         // If we have a cookie...
         if (cookie > 0)
             // Get command manager
-            CommandManager = new CommandManager(UnsafeObject.GetCommandManager(mSwCookie));
+            CommandManager = new CommandManager(UnsafeObject.GetCommandManager(mSwCookie), new AddInCookie(cookie));
 
         // Get whatever the current model is on load
         ReloadActiveModelInformation();

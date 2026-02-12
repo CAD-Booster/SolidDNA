@@ -53,7 +53,7 @@ public abstract class SolidAddIn : ISwAddin
     public string SolidWorksAddInDescription { get; set; } = "All your pixels are belong to us!";
 
     /// <summary>
-    /// The SolidWorks instance cookie for this add-in.
+    /// The SolidWorks cookie for this add-in.
     /// This is used by SolidWorks to link an add-in to its command manager and menus.
     /// </summary>
     public AddInCookie SolidWorksCookie { get; private set; }
@@ -172,7 +172,7 @@ public abstract class SolidAddIn : ISwAddin
             // Get the current SolidWorks instance
             var solidworks = (SldWorks) solidWorksApplication;
 
-            // Store the cookie ID that belongs to this add-in.
+            // Wrap and store the cookie ID that belongs to this add-in.
             SolidWorksCookie = new AddInCookie(cookieId);
 
             // Add this add-in to the list of currently active add-ins.
@@ -189,13 +189,13 @@ public abstract class SolidAddIn : ISwAddin
 
             // Set up the current SolidWorks instance as a SolidDNA class. 
             // Also sets up the obsolete command manager static class.
-            AddInIntegration.ConnectToActiveSolidWorksForAddIn(solidworks, SolidWorksCookie.Value);
+            AddInIntegration.ConnectToActiveSolidWorksForAddIn(solidworks, SolidWorksCookie);
 
             // Create the command manager for this add-in. SolidWorks uses the cookie to link an add-in to its menus.
-            CommandManager = new CommandManager(solidworks.GetCommandManager(SolidWorksCookie.Value));
+            CommandManager = new CommandManager(solidworks.GetCommandManager(SolidWorksCookie.Value), SolidWorksCookie);
 
             // Tell solidworks which method to call when it receives a button click on a command manager item or flyout.
-            SetUpCallbacks(solidworks, SolidWorksCookie.Value);
+            SetUpCallbacks(solidworks, SolidWorksCookie);
 
             // Log it
             Logger.LogDebugSource($"Firing PreLoadPlugIns...");
@@ -290,13 +290,13 @@ public abstract class SolidAddIn : ISwAddin
     /// </summary>
     /// <param name="solidworks"></param>
     /// <param name="cookie"></param>
-    private void SetUpCallbacks(SldWorks solidworks, int cookie)
+    private void SetUpCallbacks(SldWorks solidworks, AddInCookie cookie)
     {
         // Log it
         Logger.LogDebugSource($"Setting add-in callbacks...");
 
         // ReSharper disable once UnusedVariable
-        var ok = solidworks.SetAddinCallbackInfo2(0, this, cookie);
+        var ok = solidworks.SetAddinCallbackInfo2(0, this, cookie.Value);
     }
 
     #endregion
