@@ -19,11 +19,6 @@ public abstract class SolidAddIn : ISwAddin
     #region Protected Members
 
     /// <summary>
-    /// The cookie that belongs to the current add-in.
-    /// </summary>
-    protected int mSwCookie;
-
-    /// <summary>
     /// Flag if we have loaded into memory (as ConnectedToSolidWorks can happen multiple times if unloaded/reloaded)
     /// </summary>
     protected bool mLoaded;
@@ -61,7 +56,7 @@ public abstract class SolidAddIn : ISwAddin
     /// The SolidWorks instance cookie for this add-in.
     /// This is used by SolidWorks to link an add-in to its command manager and menus.
     /// </summary>
-    public int SolidWorksCookie => mSwCookie;
+    public AddInCookie SolidWorksCookie { get; private set; }
 
     #endregion
 
@@ -178,7 +173,7 @@ public abstract class SolidAddIn : ISwAddin
             var solidworks = (SldWorks) solidWorksApplication;
 
             // Store the cookie ID that belongs to this add-in.
-            mSwCookie = cookieId;
+            SolidWorksCookie = new AddInCookie(cookieId);
 
             // Add this add-in to the list of currently active add-ins.
             AddInIntegration.AddAddIn(this);
@@ -194,13 +189,13 @@ public abstract class SolidAddIn : ISwAddin
 
             // Set up the current SolidWorks instance as a SolidDNA class. 
             // Also sets up the obsolete command manager static class.
-            AddInIntegration.ConnectToActiveSolidWorksForAddIn(solidworks, cookieId);
+            AddInIntegration.ConnectToActiveSolidWorksForAddIn(solidworks, SolidWorksCookie.Value);
 
             // Create the command manager for this add-in. SolidWorks uses the cookie to link an add-in to its menus.
-            CommandManager = new CommandManager(solidworks.GetCommandManager(cookieId));
+            CommandManager = new CommandManager(solidworks.GetCommandManager(SolidWorksCookie.Value));
 
             // Tell solidworks which method to call when it receives a button click on a command manager item or flyout.
-            SetUpCallbacks(solidworks, cookieId);
+            SetUpCallbacks(solidworks, SolidWorksCookie.Value);
 
             // Log it
             Logger.LogDebugSource($"Firing PreLoadPlugIns...");
