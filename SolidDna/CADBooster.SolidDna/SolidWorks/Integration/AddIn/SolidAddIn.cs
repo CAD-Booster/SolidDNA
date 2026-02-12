@@ -27,6 +27,8 @@ public abstract class SolidAddIn : ISwAddin
 
     #region Public Properties
 
+    public const string DefaultAddInTitle = "CADBooster SolidDna AddIn";
+
     /// <summary>
     /// The command manager
     /// </summary>
@@ -43,9 +45,10 @@ public abstract class SolidAddIn : ISwAddin
     public List<SolidPlugIn> PlugIns { get; set; } = [];
 
     /// <summary>
-    /// The title displayed for this SolidWorks Add-in
+    /// The title for this SolidWorks add-in and for its task panes.
+    /// When registering an add-in, this title is ignored and the title of the first loaded plug-in is used instead.
     /// </summary>
-    public string SolidWorksAddInTitle { get; set; } = "CADBooster SolidDna AddIn";
+    public string SolidWorksAddInTitle { get; set; } = DefaultAddInTitle;
 
     /// <summary>
     /// The description displayed for this SolidWorks Add-in
@@ -184,11 +187,11 @@ public abstract class SolidAddIn : ISwAddin
             // Fire event
             PreConnectToSolidWorks();
 
-            // Log it. Todo: add-in title is not yet extracted from a plugin here, so it will always be the default title.
+            // Log it. If the user has not set an add-in title, this will be the default add-in name.
             Logger.LogDebugSource($"{SolidWorksAddInTitle} Connected to SolidWorks...");
 
             // Set up the current SolidWorks instance as a SolidDNA class. 
-            // Also sets up the obsolete command manager static class.
+            // Also sets up the obsolete static command manager.
             AddInIntegration.ConnectToActiveSolidWorksForAddIn(solidworks, SolidWorksCookie);
 
             // Create the command manager for this add-in. SolidWorks uses the cookie to link an add-in to its menus.
@@ -349,7 +352,7 @@ public abstract class SolidAddIn : ISwAddin
 
             Logger.LogInformationSource("Configuring plugins...");
 
-            // Let plug-ins configure the add-in title and descriptions
+            // Discover plug-ins and copy the title and description of the first plugin to the add-in.
             addIn.PlugInIntegration.ConfigurePlugIns(addIn);
 
             // Format our guid

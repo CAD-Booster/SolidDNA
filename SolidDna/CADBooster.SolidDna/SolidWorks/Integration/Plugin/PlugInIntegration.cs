@@ -218,8 +218,12 @@ public class PlugInIntegration
         // Log the results
         Logger.LogDebugSource($"{parentSolidAddIn.PlugIns.Count} plug-ins found");
 
-        // Find the first plug-in that has a title and use it as the add-in title and description.
-        SetAddInTitleToFirstPluginTitle(parentSolidAddIn);
+        // If the user has not set a custom add-in title yet, copy if from the first plugin that has a title.
+        if (parentSolidAddIn.SolidWorksAddInTitle == SolidAddIn.DefaultAddInTitle)
+        {
+            // Find the first plug-in that has a title and use it as the add-in title and description.
+            SetAddInTitleToFirstPluginTitle(parentSolidAddIn);
+        }
     }
 
     /// <summary>
