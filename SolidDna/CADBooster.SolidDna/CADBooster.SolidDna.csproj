@@ -1,0 +1,104 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Version>$(ProductVersion)</Version>
+    <AssemblyVersion>$(ProductVersion)</AssemblyVersion>
+    <FileVersion>$(ProductVersion)</FileVersion>
+    <Authors>Luke Malpass, Peter Brinkhuis</Authors>
+    <Company>CAD Booster B.V.</Company>
+    <Description>Simplifies building SOLIDWORKS add-ins.</Description>
+    <Copyright>Copyright (c) CAD Booster B.V. and AngelSix 2016-$([System.DateTime]::Now.Year)</Copyright>
+    <RepositoryUrl>https://github.com/CAD-Booster/SolidDNA/</RepositoryUrl>
+    <Product>$(ProductName)</Product>
+    <AssemblyName>$(ProductName)</AssemblyName>
+    <RootNamespace>$(ProductName)</RootNamespace>
+    <PackageIcon>logo.png</PackageIcon>
+    <PackageIconUrl />
+    <PackageId>$(ProductName)</PackageId>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/CAD-Booster/SolidDNA/</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>soliddna solidworks cadbooster angelsix api</PackageTags>
+    <PackageReleaseNotes>Added SolidWorks DLLs to NuGet Package.
+Added support for mocking and unit testing the SolidWorks application.
+Added interfaces for all major objects.
+Added SketchPointId.
+Added getting mates from component.
+Added Mate Entity.
+Added a faster way to load plugins and marked SolidPlugin&lt;T&gt; as obsolete since it doesn't work.
+Added ColorRef helpers methods.
+Added getting root component and all components from an assembly.
+Added entering and existing Edit Part mode.
+Added ways to convert entities between components, views and parts.
+Added Source Link.
+Added support for SOLIDWORKS 2026 SP1.1.
+Updated C# version to C# 13.
+Converted to file-scoped namespaces.
+Expanded the readme.
+Refreshed all tutorials.
+Disabled overwriting add-in title when a custom title is set.
+Fixed creating a Command Manager per add-in instead of a static one.
+Fixed lingering Tools menus and toolbars by disposing them.
+Fixed Component.CleanName for virtual components.
+Fixed setting Registry key so the add-in starts up.
+Fixed handling MateInPlace.
+Fixed logging time in 24 hour mode.</PackageReleaseNotes>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>StrongNameKey.snk</AssemblyOriginatorKeyFile>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+    <DocumentationFile></DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <DocumentationFile>bin\Release\net48\CADBooster.SolidDna.xml</DocumentationFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Localization\Strings\Strings-en-US.xml" />
+    <None Include="..\..\Images\logo.png" Pack="True" PackagePath="\" Link="_NuGet\logo.png" />
+    <None Include="..\..\README.md" Pack="True" PackagePath="\" Link="_NuGet\README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Localization\Strings\Strings-en-US.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="System.Net.Http" Version="4.3.4" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="SolidWorks.Interop.sldworks" HintPath="..\..\References\$(SolidWorksDllVersion)\SolidWorks.Interop.sldworks.dll" EmbedInteropTypes="false" />
+    <Reference Include="SolidWorks.Interop.sw3dprinter" HintPath="..\..\References\$(SolidWorksDllVersion)\SolidWorks.Interop.sw3dprinter.dll" EmbedInteropTypes="false" />
+    <Reference Include="SolidWorks.Interop.swcommands" HintPath="..\..\References\$(SolidWorksDllVersion)\SolidWorks.Interop.swcommands.dll" EmbedInteropTypes="false" />
+    <Reference Include="SolidWorks.Interop.swconst" HintPath="..\..\References\$(SolidWorksDllVersion)\SolidWorks.Interop.swconst.dll" EmbedInteropTypes="false" />
+    <Reference Include="SolidWorks.Interop.swdimxpert" HintPath="..\..\References\$(SolidWorksDllVersion)\SolidWorks.Interop.swdimxpert.dll" EmbedInteropTypes="false" />
+    <Reference Include="SolidWorks.Interop.swdocumentmgr" HintPath="..\..\References\$(SolidWorksDllVersion)\SolidWorks.Interop.swdocumentmgr.dll" EmbedInteropTypes="false" />
+    <Reference Include="SolidWorks.Interop.swmotionstudy" HintPath="..\..\References\$(SolidWorksDllVersion)\SolidWorks.Interop.swmotionstudy.dll" EmbedInteropTypes="false" />
+    <Reference Include="SolidWorks.Interop.swpublished" HintPath="..\..\References\$(SolidWorksDllVersion)\SolidWorks.Interop.swpublished.dll" EmbedInteropTypes="false" />
+    <Reference Include="SolidWorks.Interop.SWRoutingLib" HintPath="..\..\References\$(SolidWorksDllVersion)\SolidWorks.Interop.SWRoutingLib.dll" EmbedInteropTypes="false" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\References\$(SolidWorksDllVersion)\SolidWorks.Interop.sldworks.dll" Pack="True" PackagePath="lib\net48" Link="_NuGet\SolidWorks.Interop.sldworks.dll" />
+    <None Include="..\..\References\$(SolidWorksDllVersion)\SolidWorks.Interop.sw3dprinter.dll" Pack="True" PackagePath="lib\net48" Link="_NuGet\SolidWorks.Interop.sw3dprinter.dll" />
+    <None Include="..\..\References\$(SolidWorksDllVersion)\SolidWorks.Interop.swcommands.dll" Pack="True" PackagePath="lib\net48" Link="_NuGet\SolidWorks.Interop.swcommands.dll" />
+    <None Include="..\..\References\$(SolidWorksDllVersion)\SolidWorks.Interop.swconst.dll" Pack="True" PackagePath="lib\net48" Link="_NuGet\SolidWorks.Interop.swconst.dll" />
+    <None Include="..\..\References\$(SolidWorksDllVersion)\SolidWorks.Interop.swdimxpert.dll" Pack="True" PackagePath="lib\net48" Link="_NuGet\SolidWorks.Interop.swdimxpert.dll" />
+    <None Include="..\..\References\$(SolidWorksDllVersion)\SolidWorks.Interop.swdocumentmgr.dll" Pack="True" PackagePath="lib\net48" Link="_NuGet\SolidWorks.Interop.swdocumentmgr.dll" />
+    <None Include="..\..\References\$(SolidWorksDllVersion)\SolidWorks.Interop.swmotionstudy.dll" Pack="True" PackagePath="lib\net48" Link="_NuGet\SolidWorks.Interop.swmotionstudy.dll" />
+    <None Include="..\..\References\$(SolidWorksDllVersion)\SolidWorks.Interop.swpublished.dll" Pack="True" PackagePath="lib\net48" Link="_NuGet\SolidWorks.Interop.swpublished.dll" />
+    <None Include="..\..\References\$(SolidWorksDllVersion)\SolidWorks.Interop.SWRoutingLib.dll" Pack="True" PackagePath="lib\net48" Link="_NuGet\SolidWorks.Interop.SWRoutingLib.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="_NuGet\" />
+  </ItemGroup>
+</Project>

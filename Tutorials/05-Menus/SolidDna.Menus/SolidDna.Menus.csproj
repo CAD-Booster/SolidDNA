@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <LangVersion>13.0</LangVersion>
+    <OutputType>Library</OutputType>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="CADBooster.SolidDna" Version="4.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="icons128.png" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="icons20.png" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="icons32.png" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="icons40.png" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="icons64.png" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="icons96.png" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

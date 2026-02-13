@@ -1,0 +1,189 @@
+﻿using System;
+using System.Windows.Forms;
+using System.Windows.Forms.Integration;
+
+namespace CADBooster.SolidDna;
+
+/// <summary>
+/// A <see cref="UserControl"/> with additional helper methods for loading and working as
+/// a SolidWorks Taskpane control
+/// 
+/// IMPORTANT: It is required that the class overriding this only uses a parameterless constructor
+/// as it is created via Com so cannot have a parameter-based construction otherwise it won't load
+/// </summary>
+public class TaskpaneIntegration<THost, TParentAddIn>
+    where THost : ITaskpaneControl, new()
+    where TParentAddIn : SolidAddIn, new()
+{
+    #region Protected Members
+
+    /// <summary>
+    /// The SolidWorks Taskpane object for this taskpane
+    /// </summary>
+    protected Taskpane mTaskpaneView;
+
+    /// <summary>
+    /// The host <see cref="ITaskpaneControl"/> control this taskpane will create
+    /// </summary>
+    protected ITaskpaneControl mHostControl;
+
+    /// <summary>
+    /// Cached and cast version of <see cref="mHostControl"/> to avoid repeated casts.
+    /// Added so we don't create a breaking change by changing the type of <see cref="mHostControl"/>.
+    /// </summary>
+    protected Control mHostControlCast;
+
+    /// <summary>
+    /// The host control that hosts the WPF control
+    /// </summary>
+    protected ElementHost mElementHost;
+
+    /// <summary>
+    /// The ProgId of the host control to be created
+    /// </summary>
+    protected string mHostProgId;
+
+    /// <summary>
+    /// The add-in that contains this taskpane
+    /// </summary>
+    protected SolidAddIn mParentAddin;
+
+    #endregion
+
+    #region Public Properties
+
+    /// <summary>
+    /// An absolute path to an icon to use for the taskpane.
+    /// The bitmap should be 16 colors and 16 x 18 (width x height) pixels. 
+    /// Any portions of the bitmap that are white (RGB 255,255,255) will be transparent.
+    /// Use <see cref="IconPathFormat"/> and leave <see cref="Icon"/> null to set multiple icon sizes.
+    /// </summary>
+    public string Icon { get; set; }
+
+    /// <summary>
+    /// The absolute path to a list of icons, based on a string format of the absolute path to the icon list images, replacing {0} with the size. 
+    /// For example C:\Folder\icons{0}.png
+    /// Works best with PNG files with transparency. Is supported by SolidWorks 2017 and newer.
+    /// </summary>
+    public string IconPathFormat { get; set; }
+
+    /// <summary>
+    /// The WPF user control to inject as the main control inside the <see cref="ITaskpaneControl"/> control
+    /// Leave as null to ignore
+    /// 
+    /// NOTE: If using this control, the <typeparamref name="THost"/> must be of type <see cref="IContainerControl"/>
+    /// such as a <see cref="System.Windows.Forms.UserControl"/>
+    /// </summary>
+    public System.Windows.Controls.UserControl WpfControl { get; set; }
+
+    #endregion
+
+    #region Constructor
+
+    /// <summary>
+    /// Default Constructor
+    /// </summary>
+    public TaskpaneIntegration()
+    {
+        // Find out the ProgId of the desired control type
+        mHostProgId = new THost().ProgId;
+
+        // Find out which add-in this task pane belongs to
+        mParentAddin = AddInIntegration.GetAddInWithType(typeof(TParentAddIn));
+    }
+
+    #endregion
+
+    #region Add To Taskpane
+
+    /// <summary>
+    /// Adds the specified host control to the SolidWorks Taskpane
+    /// 
+    /// NOTE: This call MUST be run on the UI thread
+    /// </summary>
+    // ReSharper disable once AsyncVoidMethod
+    public async void AddToTaskpaneAsync()
+    {
+        // Get the title for the task pane from the parent add-in. If something goes wrong and we cannot find the parent add-in, set it to a default value.
+        var taskpaneTitle = mParentAddin?.SolidWorksAddInTitle ?? "Unknown add-in";
+
+        // Create our Taskpane. Use the old version if no IconPathFormat is set or if we are running SolidWorks 2016 or older.
+        mTaskpaneView = IconPathFormat == null || SolidWorksEnvironment.IApplication.SolidWorksVersion.Version < 2017
+            ? await AddInIntegration.SolidWorks.CreateTaskpaneAsync(Icon, taskpaneTitle)
+            : await AddInIntegration.SolidWorks.CreateTaskpaneAsync2(IconPathFormat, taskpaneTitle);
+
+        // If creating the task pane failed for any reason, we don't try to continue because that forces a crash.
+        if (mTaskpaneView == null)
+            return;
+
+        // Load our UI into the taskpane
+        mHostControl = await mTaskpaneView.AddControlAsync<ITaskpaneControl>(mHostProgId, string.Empty);
+
+        // If the host control is a WinForms control, enable UI thread helpers and cache the reference
+        // ReSharper disable once SuspiciousTypeConversion.Global
+        if (mHostControl is Control hostControl) // 
+        {
+            mHostControlCast = hostControl;
+
+            // Set UI thread
+            ThreadHelpers.Enable(hostControl);
+        }
+
+        // Hook into disconnect event of SolidWorks to unload ourselves automatically
+        if (mParentAddin != null)
+            mParentAddin.DisconnectedFromSolidWorks += RemoveFromTaskpane;
+
+        // Add WPF control if we have one
+        if (WpfControl != null)
+        {
+            // NOTE: ElementHost must be created on UI thread
+            // Create a new ElementHost to host the WPF control
+            mElementHost = new ElementHost
+            {
+                // Add given WPF control
+                Child = WpfControl,
+                // Dock fill it
+                Dock = DockStyle.Fill,
+            };
+
+            // IMPORTANT: 
+            //
+            //   This little f*cking beauty right here took me 18 hours to figure out.
+            //   Whenever you add a WPF control to SolidWorks, Win 10 is nice enough if your machine has a
+            //   pen or stylus to start up a System.Windows.Input.PenThreadWorker.ThreadProc thread that NEVER
+            //   ends, even after closing SolidWorks or unloading the domain. This causes the AppDomain.Unload
+            //   to fail, or SolidWorks to never close.
+            //   
+            //   I found a way to disable the thread using this AppContext switch. Now life is good again.
+            AppContext.SetSwitch("Switch.System.Windows.Input.Stylus.DisableStylusAndTouchSupport", true);
+
+            // Add and dock it to the parent control
+            if (mHostControlCast != null)
+            {
+                // Make sure parent is docked
+                mHostControlCast.Dock = DockStyle.Fill;
+
+                // Add WPF host
+                mHostControlCast.Controls.Add(mElementHost);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Cleanup the taskpane when we disconnect/unload
+    /// </summary>
+    public void RemoveFromTaskpane()
+    {
+        if (mTaskpaneView == null)
+            return;
+
+        mHostControlCast?.Controls.Clear();
+
+        mElementHost?.Dispose();
+
+        // Remove taskpane view
+        mTaskpaneView.Dispose();
+    }
+
+    #endregion
+}
