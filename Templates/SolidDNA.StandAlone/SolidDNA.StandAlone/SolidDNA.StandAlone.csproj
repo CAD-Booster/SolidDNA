@@ -6,18 +6,7 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="SolidWorks.Interop.sldworks" HintPath="..\..\..\References\2026\SolidWorks.Interop.sldworks.dll" EmbedInteropTypes="False" />
-    <Reference Include="SolidWorks.Interop.sw3dprinter" HintPath="..\..\..\References\2026\SolidWorks.Interop.sw3dprinter.dll" EmbedInteropTypes="False" />
-    <Reference Include="SolidWorks.Interop.swcommands" HintPath="..\..\..\References\2026\SolidWorks.Interop.swcommands.dll" EmbedInteropTypes="False" />
-    <Reference Include="SolidWorks.Interop.swconst" HintPath="..\..\..\References\2026\SolidWorks.Interop.swconst.dll" EmbedInteropTypes="False" />
-    <Reference Include="SolidWorks.Interop.swdimxpert" HintPath="..\..\..\References\2026\SolidWorks.Interop.swdimxpert.dll" EmbedInteropTypes="False" />
-    <Reference Include="SolidWorks.Interop.swdocumentmgr" HintPath="..\..\..\References\2026\SolidWorks.Interop.swdocumentmgr.dll" EmbedInteropTypes="False" />
-    <Reference Include="SolidWorks.Interop.swmotionstudy" HintPath="..\..\..\References\2026\SolidWorks.Interop.swmotionstudy.dll" EmbedInteropTypes="False" />
-    <Reference Include="SolidWorks.Interop.swpublished" HintPath="..\..\..\References\2026\SolidWorks.Interop.swpublished.dll" EmbedInteropTypes="False" />
-    <Reference Include="SolidWorks.Interop.SWRoutingLib" HintPath="..\..\..\References\2026\SolidWorks.Interop.SWRoutingLib.dll" EmbedInteropTypes="False" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="CADBooster.SolidDna" Version="3.4.1" />
+    <PackageReference Include="CADBooster.SolidDna" Version="4.0.0" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

@@ -1,7 +1,6 @@
 ﻿using CADBooster.SolidDna;
 using System.IO;
 using System.Runtime.InteropServices;
-using static CADBooster.SolidDna.SolidWorksEnvironment;
 
 namespace SolidDNA.WPF.Blank;
 // 
@@ -64,7 +63,7 @@ namespace SolidDNA.WPF.Blank;
 /// <summary>
 /// Register as a SolidWorks Add-In
 /// </summary>
-[Guid("3F6838DB-A6B7-4415-BC77-47EF9A6A6160"), ComVisible(true)]  // Todo: Replace the GUID with your own.
+[Guid("3F6838DB-A6B7-4415-BC77-47EF9A6A6160"), ComVisible(true)] // Todo: Replace the GUID with your own.
 public class MyAddinIntegration : SolidAddIn
 {
     /// <summary>
@@ -72,7 +71,6 @@ public class MyAddinIntegration : SolidAddIn
     /// </summary>
     public override void ApplicationStartup()
     {
-
     }
 
     /// <summary>
@@ -81,7 +79,6 @@ public class MyAddinIntegration : SolidAddIn
     /// </summary>
     public override void PreConnectToSolidWorks()
     {
-
     }
 
     /// <summary>
@@ -89,7 +86,6 @@ public class MyAddinIntegration : SolidAddIn
     /// </summary>
     public override void PreLoadPlugIns()
     {
-
     }
 }
 
@@ -99,7 +95,7 @@ public class MyAddinIntegration : SolidAddIn
 /// 
 /// NOTE: We can have multiple plug-ins in a single add-in
 /// </summary>
-public class MySolidDnaPlugIn : SolidPlugIn<MySolidDnaPlugIn>
+public class MySolidDnaPlugIn : SolidPlugIn
 {
     #region Private Members
 
@@ -132,9 +128,8 @@ public class MySolidDnaPlugIn : SolidPlugIn<MySolidDnaPlugIn>
         mTaskpane = new TaskpaneIntegration<MyTaskpaneUI, MyAddinIntegration>
         {
             // Set taskpane icons. {0} is replaced by the actual image sizes.
-            IconPathFormat = Path.Combine(this.AssemblyPath(), "Assets\\icons{0}.png"),
-
-            WpfControl = new MyAddinControl()
+            IconPathFormat = Path.Combine(this.AssemblyDirectoryPath(), "Assets\\icons{0}.png"), 
+			WpfControl = new MyAddinControl(),
         };
 
         // Add it to taskpane
@@ -143,7 +138,6 @@ public class MySolidDnaPlugIn : SolidPlugIn<MySolidDnaPlugIn>
 
     public override void DisconnectedFromSolidWorks()
     {
-
     }
 
     #endregion

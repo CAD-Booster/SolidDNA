@@ -5,7 +5,7 @@
     <FileVersion>$(ProductVersion)</FileVersion>
     <Authors>Luke Malpass, Peter Brinkhuis</Authors>
     <Company>CAD Booster B.V.</Company>
-    <Description>The new SolidDNA SDK, making the SolidWorks API easier, well behaved and modern</Description>
+    <Description>Simplifies building SOLIDWORKS add-ins.</Description>
     <Copyright>Copyright (c) CAD Booster B.V. and AngelSix 2016-$([System.DateTime]::Now.Year)</Copyright>
     <RepositoryUrl>https://github.com/CAD-Booster/SolidDNA/</RepositoryUrl>
     <Product>$(ProductName)</Product>
@@ -18,22 +18,30 @@
     <PackageProjectUrl>https://github.com/CAD-Booster/SolidDNA/</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>soliddna solidworks cadbooster angelsix api</PackageTags>
-    <PackageReleaseNotes>
-      (For v3.4.1.0: Fixed Windows Forms and WPF references.)
-      Added support for SOLIDWORKS 2026.
-      Added methods for selecting, deselecting and getting selected objects to SelectionManager.
-      Added callbacks to command manager buttons.
-      Added PersistentID and SketchSegmentId object.
-      Added getting started to the readme.
-      Added getting and setting a note's text.
-      Added getting preview images.
-      Added dispatch wrapper.
-      Added Directory.Build.Props for variables like solidworks and product version.
-      Changed Component.AsModel to return null if the underlying object is null.
-      Cleaned up folder structure, projects, tools and license.
-      Fixed returning an emtpy list of configurations for drawings.
-      Fixed missing feature type names.
-    </PackageReleaseNotes>
+    <PackageReleaseNotes>Added SolidWorks DLLs to NuGet Package.
+Added support for mocking and unit testing the SolidWorks application.
+Added interfaces for all major objects.
+Added SketchPointId.
+Added getting mates from component.
+Added Mate Entity.
+Added a faster way to load plugins and marked SolidPlugin&lt;T&gt; as obsolete since it doesn't work.
+Added ColorRef helpers methods.
+Added getting root component and all components from an assembly.
+Added entering and existing Edit Part mode.
+Added ways to convert entities between components, views and parts.
+Added Source Link.
+Added support for SOLIDWORKS 2026 SP1.1.
+Updated C# version to C# 13.
+Converted to file-scoped namespaces.
+Expanded the readme.
+Refreshed all tutorials.
+Disabled overwriting add-in title when a custom title is set.
+Fixed creating a Command Manager per add-in instead of a static one.
+Fixed lingering Tools menus and toolbars by disposing them.
+Fixed Component.CleanName for virtual components.
+Fixed setting Registry key so the add-in starts up.
+Fixed handling MateInPlace.
+Fixed logging time in 24 hour mode.</PackageReleaseNotes>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>StrongNameKey.snk</AssemblyOriginatorKeyFile>
     <UseWPF>true</UseWPF>
