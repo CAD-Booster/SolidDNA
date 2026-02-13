@@ -13,7 +13,7 @@ public static class SolidWorksEnvironment
     /// Backing field for mock/test application.
     /// When set, overrides the real SolidWorks instance.
     /// </summary>
-    private static ISolidWorksApplication _testApplication;
+    private static ISolidWorksApplication mTestApplication;
 
     #endregion
 
@@ -24,13 +24,13 @@ public static class SolidWorksEnvironment
     /// Returns the concrete type for backward compatibility and returns null when a mock is set via <see cref="SetApplicationForTesting"/>
     /// </summary>
     [Obsolete("Use IApplication instead to support mocking. Application returns null when a test application is set.", false)]
-    public static SolidWorksApplication Application => _testApplication == null ? AddInIntegration.SolidWorks : null;
+    public static SolidWorksApplication Application => mTestApplication == null ? AddInIntegration.SolidWorks : null;
 
     /// <summary>
     /// The currently running instance of SolidWorks as an interface.
     /// Use this property when you need to support mocking in unit tests.
     /// </summary>
-    public static ISolidWorksApplication IApplication => _testApplication ?? AddInIntegration.SolidWorks;
+    public static ISolidWorksApplication IApplication => mTestApplication ?? AddInIntegration.SolidWorks;
 
     #endregion
 
@@ -50,7 +50,7 @@ public static class SolidWorksEnvironment
             throw new InvalidOperationException(message);
         }
 
-        _testApplication = application;
+        mTestApplication = application;
     }
 
     #endregion
