@@ -1,6 +1,5 @@
 ﻿using CADBooster.SolidDna;
 using System.Runtime.InteropServices;
-using static CADBooster.SolidDna.SolidWorksEnvironment;
 
 namespace SolidDna.Exporting;
 
@@ -11,6 +10,11 @@ namespace SolidDna.Exporting;
 [ComVisible(true)]
 public class SolidDnaAddInIntegration : SolidAddIn
 {
+    /// <summary>
+    /// The instance of the add-in. Used for accessing the Command Manager.
+    /// </summary>
+    public static SolidDnaAddInIntegration Instance { get; private set; }
+
     // <Inheritdoc />
     public override void PreConnectToSolidWorks()
     {
@@ -24,6 +28,7 @@ public class SolidDnaAddInIntegration : SolidAddIn
     // <Inheritdoc />
     public override void ApplicationStartup()
     {
+        Instance = this;
     }
 }
 
@@ -52,9 +57,12 @@ public class MySolidDnaPlugin : SolidPlugIn
 
     public override void ConnectedToSolidWorks()
     {
+        // Get the command manager that belongs to our add-in
+        var commandManager = SolidDnaAddInIntegration.Instance.CommandManager;
+
         // Part commands.
         // You don't need to use the return value, but it's there if you want to.
-        var partGroup = Application.CommandManager.CreateCommandTab(
+        var partGroup = commandManager.CreateCommandTab(
             "Export Part",
             120_000,
             [
@@ -86,7 +94,7 @@ public class MySolidDnaPlugin : SolidPlugIn
             "icons{0}.png");
 
         // Assembly commands
-        var assemblyGroup = Application.CommandManager.CreateCommandTab(
+        var assemblyGroup = commandManager.CreateCommandTab(
             "Export Assembly",
             120_001,
             [
@@ -106,7 +114,7 @@ public class MySolidDnaPlugin : SolidPlugIn
             "icons{0}.png");
 
         // Drawing commands
-        var drawingGroup = Application.CommandManager.CreateCommandTab(
+        var drawingGroup = commandManager.CreateCommandTab(
             "Export Drawing",
             120_002,
             [

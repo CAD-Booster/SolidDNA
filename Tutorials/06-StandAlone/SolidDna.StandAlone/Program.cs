@@ -43,7 +43,7 @@ public class Program
         Console.WriteLine("Saying hello in SolidWorks...");
 
         // Do something in SolidWorks :)
-        Application.ShowMessageBox("Hello from Stand Alone application");
+        IApplication.ShowMessageBox("Hello from Stand Alone application");
 
         Console.WriteLine("Done. Press any key to exit");
         Console.ReadLine();

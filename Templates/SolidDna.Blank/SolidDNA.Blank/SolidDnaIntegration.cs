@@ -63,7 +63,7 @@ namespace SolidDNA.Blank;
 /// <summary>
 /// Register as a SolidWorks Add-In
 /// </summary>
-[Guid("1619F0CA-7B96-406D-BD97-06FC756764F6"), ComVisible(true)]  // Todo: Replace the GUID with your own.
+[Guid("1619F0CA-7B96-406D-BD97-06FC756764F6"), ComVisible(true)] // Todo: Replace the GUID with your own.
 public class MyAddinIntegration : SolidAddIn
 {
     /// <summary>
@@ -71,7 +71,6 @@ public class MyAddinIntegration : SolidAddIn
     /// </summary>
     public override void ApplicationStartup()
     {
-
     }
 
     /// <summary>
@@ -80,7 +79,6 @@ public class MyAddinIntegration : SolidAddIn
     /// </summary>
     public override void PreConnectToSolidWorks()
     {
-
     }
 
     /// <summary>
@@ -88,7 +86,6 @@ public class MyAddinIntegration : SolidAddIn
     /// </summary>
     public override void PreLoadPlugIns()
     {
-
     }
 }
 
@@ -98,7 +95,7 @@ public class MyAddinIntegration : SolidAddIn
 /// 
 /// NOTE: We can have multiple plug-ins in a single add-in
 /// </summary>
-public class MySolidDnaPlugIn : SolidPlugIn<MySolidDnaPlugIn>
+public class MySolidDnaPlugIn : SolidPlugIn
 {
     #region Region Public Properties
 
@@ -118,7 +115,7 @@ public class MySolidDnaPlugIn : SolidPlugIn<MySolidDnaPlugIn>
 
     public override void ConnectedToSolidWorks()
     {
-        Application.ShowMessageBox("Our first SolidDNA add-in... how easy was that? :)", SolidWorksMessageBoxIcon.Information);
+        IApplication.ShowMessageBox("Our first SolidDNA add-in... how easy was that? :)", SolidWorksMessageBoxIcon.Information);
 
         // In here you could now create and add a Taskpane using TaskpaneIntegration
         // https://github.com/angelsix/solidworks-api/tree/develop/Tutorials/02-WpfAddIn
@@ -126,7 +123,6 @@ public class MySolidDnaPlugIn : SolidPlugIn<MySolidDnaPlugIn>
 
     public override void DisconnectedFromSolidWorks()
     {
-
     }
 
     #endregion

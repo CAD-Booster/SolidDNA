@@ -64,7 +64,7 @@ public partial class CustomPropertiesUI : UserControl
         MainContent.Visibility = System.Windows.Visibility.Hidden;
 
         // Listen out for the active model changing
-        Application.ActiveModelInformationChanged += Application_ActiveModelInformationChanged;
+        IApplication.ActiveModelInformationChanged += Application_ActiveModelInformationChanged;
     }
 
     #endregion
@@ -89,7 +89,7 @@ public partial class CustomPropertiesUI : UserControl
         ThreadHelpers.RunOnUIThread(() =>
         {
             // Get the active model
-            var model = Application.ActiveModel;
+            var model = IApplication.ActiveModel;
 
             // If we have no model, or the model is not a part
             // then show the No Part screen and return
@@ -235,7 +235,7 @@ public partial class CustomPropertiesUI : UserControl
             MassText.Text = model.MassProperties?.MassInMetric();
 
             // Get all materials
-            var materials = Application.GetMaterials();
+            var materials = IApplication.GetMaterials();
             materials.Insert(0, new Material { Name = "Remove Material", Classification = "Not specified", DatabaseFileFound = false });
 
             RawMaterialList.ItemsSource = materials;
@@ -262,7 +262,7 @@ public partial class CustomPropertiesUI : UserControl
     /// </summary>
     public void SetDetails()
     {
-        var model = Application.ActiveModel;
+        var model = IApplication.ActiveModel;
 
         // Check we have a part
         if (model == null || !model.IsPart)

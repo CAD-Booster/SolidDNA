@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using static CADBooster.SolidDna.SolidWorksEnvironment;
 
 namespace SolidDna.Menus;
 
@@ -14,6 +13,11 @@ namespace SolidDna.Menus;
 [ComVisible(true)]
 public class SolidDnaAddInIntegration : SolidAddIn
 {
+    /// <summary>
+    /// The Command Manager that belongs to this add-in.
+    /// </summary>
+    public static SolidDnaAddInIntegration Instance { get; private set; }
+
     // <Inheritdoc />
     public override void PreConnectToSolidWorks()
     {
@@ -27,6 +31,7 @@ public class SolidDnaAddInIntegration : SolidAddIn
     // <Inheritdoc />
     public override void ApplicationStartup()
     {
+        Instance = this;
     }
 }
 
@@ -69,10 +74,14 @@ public class MySolidDnaPlugin : SolidPlugIn
     /// </summary>
     private void CreateMenus()
     {
+        // Get the command manager for our add-in
+        var commandManager = SolidDnaAddInIntegration.Instance.CommandManager;
+
+        // Create a path to the icons. The {0} will be replaced by the image index specified in the CommandManagerItem.ImageIndex property.
         var imageFormat = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!, "icons{0}.png");
 
         // Create a flyout (group) with a list of items
-        var flyout = Application.CommandManager.CreateFlyoutGroup2(
+        var flyout = commandManager.CreateFlyoutGroup2(
             title: "CreateFlyoutGroup2 Example",
             CreateCommandItems(),
             mainIconPathFormat: imageFormat,
@@ -85,8 +94,8 @@ public class MySolidDnaPlugin : SolidPlugIn
 
         // Create a command group / command tab / toolbar 
         var commandManagerItems = CreateCommandItemsForToolbar(flyout);
-            
-        Application.CommandManager.CreateCommandTab(
+
+        commandManager.CreateCommandTab(
             title: "CreateCommandTab Example",
             id: 150_000,
             commandManagerItems: commandManagerItems,
@@ -94,7 +103,7 @@ public class MySolidDnaPlugin : SolidPlugIn
             iconListsPathFormat: imageFormat);
 
         // Create a command menu / Tools menu 
-        Application.CommandManager.CreateCommandMenu(
+        commandManager.CreateCommandMenu(
             title: "CreateCommandMenu Example",
             id: 150_001,
             commandManagerItems: CreateCommandItems());

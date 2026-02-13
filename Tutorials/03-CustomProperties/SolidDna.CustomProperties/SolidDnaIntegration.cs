@@ -62,7 +62,10 @@ public class CustomPropertiesSolidDnaPlugin : SolidPlugIn
     public override void ConnectedToSolidWorks()
     {
         // Create our taskpane
-        mTaskpane = new TaskpaneIntegration<TaskpaneUserControlHost, SolidDnaAddInIntegration> { Icon = Path.Combine(this.AssemblyPath(), "logo-small.bmp"), WpfControl = new CustomPropertiesUI() };
+        mTaskpane = new TaskpaneIntegration<TaskpaneUserControlHost, SolidDnaAddInIntegration>
+        {
+            Icon = Path.Combine(this.AssemblyDirectoryPath(), "logo-small.bmp"), WpfControl = new CustomPropertiesUI(),
+        };
 
         // Add to taskpane
         mTaskpane.AddToTaskpaneAsync();
