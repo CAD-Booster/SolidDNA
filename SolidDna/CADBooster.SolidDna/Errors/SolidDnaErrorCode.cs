@@ -76,6 +76,12 @@ public enum SolidDnaErrorCode
     /// </summary>
     SolidWorksApplicationPreviewImageError = 9010,
 
+    /// <summary>
+    /// You tried to set the SolidWorks application instance at runtime.
+    /// You can only call <see cref="SolidWorksEnvironment.SetApplicationForTesting"/> for testing purposes when SolidWorks is not running. 
+    /// </summary>
+    SolidWorksApplicationCannotSetApplicationAtRuntime = 9011,
+
     #endregion
 
     #region SolidWorks Taskpane (10,000)

@@ -20,10 +20,11 @@ public static class SolidWorksEnvironment
     #region Public Properties
 
     /// <summary>
-    /// The currently running instance of SolidWorks. Is being replaced by <see cref="IApplication"/> to support mocking.
+    /// The currently running instance of SolidWorks.
+    /// Is being replaced by <see cref="IApplication"/> to support mocking for unit testing.
     /// Returns the concrete type for backward compatibility and returns null when a mock is set via <see cref="SetApplicationForTesting"/>
     /// </summary>
-    [Obsolete("Use IApplication instead to support mocking. Application returns null when a test application is set.", false)]
+    [Obsolete("Use IApplication instead. This property will be removed in a future version.", false)]
     public static SolidWorksApplication Application => mTestApplication == null ? AddInIntegration.SolidWorks : null;
 
     /// <summary>
@@ -45,9 +46,8 @@ public static class SolidWorksEnvironment
     {
         if (AddInIntegration.SolidWorks != null)
         {
-            const string message = "Cannot set a test application when SolidWorks is running.";
-            Logger.LogDebugSource(message);
-            throw new InvalidOperationException(message);
+            Logger.LogDebugSource("Cannot set a test application when SolidWorks is running.");
+            throw new SolidDnaException(SolidDnaErrors.CreateError(SolidDnaErrorTypeCode.SolidWorksApplication, SolidDnaErrorCode.SolidWorksApplicationCannotSetApplicationAtRuntime));
         }
 
         mTestApplication = application;
