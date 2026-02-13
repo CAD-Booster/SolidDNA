@@ -86,7 +86,7 @@ Once you have Visual Studio open:
     2. Go to the Browse tab and search for CADBooster.SolidDNA.
     3. Click Install on the right.
     4. [NuGet](https://www.nuget.org/) is a package manager that lets you add functionality to your product with a few clicks.
-4. Add references to the SOLIDWORKS DLL files:
+4. **This step is no longer necessary, starting with version 4.0!** Add references to the SOLIDWORKS DLL files:
     1. Download the SOLIDWORKS DLL files from our [References](https://github.com/CAD-Booster/solidworks-api/tree/master/References) folder or get them from your SOLIDWORKS folder (C:\Program Files\SOLIDWORKS Corp\SOLIDWORKS\api\redist). Use the same version as SolidDNA does, or your code will not compile. The DLL version does not influence in which SOLIDWORKS version your add-in will run. 
     2. Copy all files into your project folder, for example to a References folder.
     3. Go to your project tree, right-click Dependencies and click Add Assembly Reference.
