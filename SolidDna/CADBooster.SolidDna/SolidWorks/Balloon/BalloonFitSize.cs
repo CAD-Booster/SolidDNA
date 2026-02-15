@@ -6,6 +6,11 @@
 public enum BalloonFitSize
 {
     /// <summary>
+    /// Use the document layout default
+    /// </summary>
+    DocumentDefault = -1,
+
+    /// <summary>
     /// Tightest fit (not available for a label location)
     /// </summary>
     Tightest = 0,
